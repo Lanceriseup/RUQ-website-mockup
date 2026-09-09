@@ -71,7 +71,13 @@ export const pages = (site, c, vids) => ([
           ${e.note ? `<span class="rounded-full bg-rose/10 px-3 py-1 font-body text-xs font-semibold uppercase tracking-wide text-rose">${esc(e.note)}</span>` : ''}
           <div>${cta('Register', site.nextEvent.ctaUrl)}</div>
         </li>`).join('')}
-      </ul>` })}`
+      </ul>` })}
+    ${section({ bg: 'bg-blush/30', eyebrow: 'Watch', heading: 'Inside the experiences',
+      lead: 'Short films from the events and programs.', body:
+      grid('sm:grid-cols-2', [
+        ...vids.vimeo.map(v => videoFacade(v, 'vimeo')),
+        ...vids.wistia.filter(v => v.page === 'events').map(v => videoFacade(v, 'wistia')),
+      ]) })}`
   },
 
   {

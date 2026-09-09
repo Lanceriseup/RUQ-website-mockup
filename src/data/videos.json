@@ -1,32 +1,143 @@
 {
-  "_note": "All embeds found on the live site, 2026-09-10. Wistia + YouTube verified public via oEmbed. Vimeo returned PRIVATE / not publicly embeddable — needs account access to migrate.",
+  "_note": "All embeds found on the live site, 2026-09-10. All 23 verified reachable. Vimeo videos are UNLISTED: they require their h= hash token, which is preserved below — without it the player returns 403.",
   "wistia": [
-    { "id": "02b33ety61", "title": "JL and JC — What is RUQ", "seconds": 1782, "page": "home" },
-    { "id": "e1u146akjy", "title": "RUQ Promo 5", "seconds": 124, "page": "home" },
-    { "id": "yc0csspter", "title": "LBD NEW Promo", "seconds": 162, "page": "home" },
-    { "id": "3o3hkzk09m", "title": "RUQ 2025 Testimonial Compilation Part 1", "seconds": 160, "page": "home" },
-    { "id": "ak49jjz1wc", "title": "RUQ 2025 Testimonial Compilation Part 2", "seconds": 203, "page": "home" },
-    { "id": "2i9nkpdat4", "title": "RUQ 2025 Testimonial 1", "seconds": 28, "page": "home" },
-    { "id": "6nnw8iosa8", "title": "RUQ 2025 Testimonial 5", "seconds": 119, "page": "home" },
-    { "id": "bz9k6c1jzw", "title": "RUQ 2025 Testimonial 6", "seconds": 152, "page": "home" },
-    { "id": "l6zw36vomg", "title": "RUQ 2025 Testimonial 8", "seconds": 47, "page": "home" },
-    { "id": "xansbpxve4", "title": "RUQ 2025 Testimonial 9", "seconds": 31, "page": "home" },
-    { "id": "t2m3f63dex", "title": "RUQ 2025 Testimonial 10", "seconds": 226, "page": "home" },
-    { "id": "o6df5uvw2n", "title": "RUQ 2025 Testimonial 13", "seconds": 152, "page": "home" },
-    { "id": "iac7316zx8", "title": "RUQ 2025 Testimonial 15", "seconds": 153, "page": "home" },
-    { "id": "6df1bl071z", "title": "RUQ 2025 Testimonial 17", "seconds": 142, "page": "about" },
-    { "id": "qf187tng00", "title": "RUKCON 9 Jocelyn RUQ Testimonial", "seconds": 115, "page": "events" }
+    {
+      "id": "02b33ety61",
+      "title": "JL and JC — What is RUQ",
+      "seconds": 1782,
+      "page": "home"
+    },
+    {
+      "id": "e1u146akjy",
+      "title": "RUQ Promo 5",
+      "seconds": 124,
+      "page": "home"
+    },
+    {
+      "id": "yc0csspter",
+      "title": "LBD NEW Promo",
+      "seconds": 162,
+      "page": "home"
+    },
+    {
+      "id": "3o3hkzk09m",
+      "title": "RUQ 2025 Testimonial Compilation Part 1",
+      "seconds": 160,
+      "page": "home"
+    },
+    {
+      "id": "ak49jjz1wc",
+      "title": "RUQ 2025 Testimonial Compilation Part 2",
+      "seconds": 203,
+      "page": "home"
+    },
+    {
+      "id": "2i9nkpdat4",
+      "title": "RUQ 2025 Testimonial 1",
+      "seconds": 28,
+      "page": "home"
+    },
+    {
+      "id": "6nnw8iosa8",
+      "title": "RUQ 2025 Testimonial 5",
+      "seconds": 119,
+      "page": "home"
+    },
+    {
+      "id": "bz9k6c1jzw",
+      "title": "RUQ 2025 Testimonial 6",
+      "seconds": 152,
+      "page": "home"
+    },
+    {
+      "id": "l6zw36vomg",
+      "title": "RUQ 2025 Testimonial 8",
+      "seconds": 47,
+      "page": "home"
+    },
+    {
+      "id": "xansbpxve4",
+      "title": "RUQ 2025 Testimonial 9",
+      "seconds": 31,
+      "page": "home"
+    },
+    {
+      "id": "t2m3f63dex",
+      "title": "RUQ 2025 Testimonial 10",
+      "seconds": 226,
+      "page": "home"
+    },
+    {
+      "id": "o6df5uvw2n",
+      "title": "RUQ 2025 Testimonial 13",
+      "seconds": 152,
+      "page": "home"
+    },
+    {
+      "id": "iac7316zx8",
+      "title": "RUQ 2025 Testimonial 15",
+      "seconds": 153,
+      "page": "home"
+    },
+    {
+      "id": "6df1bl071z",
+      "title": "RUQ 2025 Testimonial 17",
+      "seconds": 142,
+      "page": "about"
+    },
+    {
+      "id": "qf187tng00",
+      "title": "RUKCON 9 Jocelyn RUQ Testimonial",
+      "seconds": 115,
+      "page": "events"
+    }
   ],
   "youtube": [
-    { "id": "MsKV8OsY2pg", "title": "The Most Effective Way to Communicate in Your Marriage | Jessica Lewis" },
-    { "id": "i3bB3FfIKY0", "title": "Christian Marriage Tip to Let Go of Control | Jessica Lewis" },
-    { "id": "jO_JIAVVRdE", "title": "How to Get Addicted to Intimacy with Your Spouse Again | Jessica Lewis" },
-    { "id": "x7UWrpfR-8w", "title": "The Christian Marriage Advice NO ONE Wants to Hear!" }
+    {
+      "id": "MsKV8OsY2pg",
+      "title": "The Most Effective Way to Communicate in Your Marriage | Jessica Lewis"
+    },
+    {
+      "id": "i3bB3FfIKY0",
+      "title": "Christian Marriage Tip to Let Go of Control | Jessica Lewis"
+    },
+    {
+      "id": "jO_JIAVVRdE",
+      "title": "How to Get Addicted to Intimacy with Your Spouse Again | Jessica Lewis"
+    },
+    {
+      "id": "x7UWrpfR-8w",
+      "title": "The Christian Marriage Advice NO ONE Wants to Hear!"
+    }
   ],
   "vimeo": [
-    { "id": "928259217",  "title": "UNKNOWN — private", "status": "private" },
-    { "id": "1038654048", "title": "UNKNOWN — private", "status": "private" },
-    { "id": "1061346133", "title": "UNKNOWN — private", "status": "private" },
-    { "id": "1086084555", "title": "UNKNOWN — private", "status": "private" }
+    {
+      "id": "928259217",
+      "hash": "d17c7856ba",
+      "title": "Elevate International",
+      "seconds": 160,
+      "page": "events"
+    },
+    {
+      "id": "1038654048",
+      "hash": "66dbd24982",
+      "title": "Elevate Marriage",
+      "seconds": 130,
+      "page": "events"
+    },
+    {
+      "id": "1061346133",
+      "hash": "34076b029f",
+      "title": "Rise Up Queens — Deeper",
+      "seconds": 245,
+      "page": "events"
+    },
+    {
+      "id": "1086084555",
+      "hash": "0e115aa7af",
+      "title": "Rise Up Queens: Who is it for?",
+      "seconds": 122,
+      "page": "events"
+    }
   ]
 }

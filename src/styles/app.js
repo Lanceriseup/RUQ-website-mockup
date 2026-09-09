@@ -14,7 +14,7 @@
     });
   }
 
-  function iframeFor(provider, id, title) {
+  function iframeFor(provider, id, title, hash) {
     var el = document.createElement('iframe');
     el.title = title;
     el.width = '100%';
@@ -29,7 +29,9 @@
       // nocookie host: no tracking cookie until playback.
       el.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0';
     } else if (provider === 'vimeo') {
-      el.src = 'https://player.vimeo.com/video/' + id + '?autoplay=1';
+      // These are UNLISTED videos: without the h= token the player returns 403.
+      el.src = 'https://player.vimeo.com/video/' + id +
+        (hash ? '?h=' + encodeURIComponent(hash) + '&autoplay=1' : '?autoplay=1');
     }
     return el;
   }
@@ -38,7 +40,7 @@
     btn.addEventListener('click', function () {
       var wrap = document.createElement('div');
       wrap.className = 'relative aspect-video w-full';
-      wrap.appendChild(iframeFor(btn.dataset.provider, btn.dataset.id, btn.dataset.title));
+      wrap.appendChild(iframeFor(btn.dataset.provider, btn.dataset.id, btn.dataset.title, btn.dataset.hash));
       btn.replaceWith(wrap);
     });
   });

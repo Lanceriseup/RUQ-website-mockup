@@ -17,7 +17,8 @@ const fmt = s => `${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}`;
 export const videoFacade = (v, provider = 'wistia') => `
 <figure class="group relative overflow-hidden rounded-xl bg-ink/5 ring-1 ring-ink/10">
   <button type="button" class="video-facade relative flex aspect-video w-full items-center justify-center bg-ink/80"
-          data-provider="${esc(provider)}" data-id="${esc(v.id)}" data-title="${esc(v.title)}">
+          data-provider="${esc(provider)}" data-id="${esc(v.id)}" data-title="${esc(v.title)}"
+          ${v.hash ? `data-hash="${esc(v.hash)}"` : ''}>
     <span class="sr-only">Play ${esc(v.title)}</span>
     <span aria-hidden="true" class="flex h-16 w-16 items-center justify-center rounded-full bg-white/95 shadow-lg transition group-hover:scale-110">
       <svg width="26" height="26" viewBox="0 0 24 24" fill="#B76E79"><path d="M8 5v14l11-7z"/></svg>

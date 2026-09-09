@@ -54,7 +54,7 @@ Accessibility basics are built in: skip link, focus-visible rings, `aria-current
 1. **Confirm the event dates.** `site.json` says Oct 15–17 2026 in Dallas; the live site contradicts itself. Jayden should confirm.
 2. **Localise the images.** `site.json` still points at the live WordPress CDN so the mockup renders immediately. Download to `/assets` before launch — otherwise the redesign depends on the site it replaces.
 3. **Re-encode the hero video** to MP4/WebM (~2–4 MB) if a moving hero is wanted.
-4. **Recover the Vimeo videos.** Four embeds on the live events page are private and could not be carried over. Needs Vimeo account access.
+4. **Vimeo videos are unlisted, not private.** Their `h=` tokens are preserved in `videos.json` and wired through the player. If a token is ever rotated in Vimeo, the embed 403s — update it there.
 5. **Wire the forms.** Contact and the three masterclass waitlists are inert. Jayden reported the Jotform links stopped working; the plan was MOS forms → Ontraport.
 6. **Fill the gaps.** Ten team bios are empty and `/free-resource` has no resource attached on the live site either.
 7. **Replace placeholder copy.** All copy is the client's own, but FAQ answers were written for this mockup and need approval.
