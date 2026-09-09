@@ -11,7 +11,7 @@
 @layer components {
   /* Brizy exported a decorative pattern; kept as an opt-in utility. */
   .ruq-pattern {
-    background-image: url('https://riseupqueens.com/wp-content/uploads/2025/07/RUQ-Pattern.png');
+    background-image: url('https://riseupqueens.com/wp-content/uploads/2025/06/RUQ-Pattern.png');
     background-size: 480px;
     background-repeat: repeat;
   }
