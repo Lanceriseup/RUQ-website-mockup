@@ -1,0 +1,65 @@
+{
+  "_note": "SINGLE SOURCE OF TRUTH. The live site hard-codes event dates in ~30 places and they disagree (Oct 9-11 vs Oct 15-17; Dallas vs Argyle; 2025 vs 2026). Edit here once — every page updates.",
+
+  "brand": {
+    "name": "Rise Up Queens",
+    "short": "RUQ",
+    "tagline": "The most transformational Christian-based personal development event for women of faith.",
+    "parent": { "name": "Rise Up Kings", "url": "https://riseupkings.com/" },
+    "copyright": "© Copyright 2025. Dallas, TX. All Rights Reserved."
+  },
+
+  "nextEvent": {
+    "_verify": "CONFLICTING ON LIVE SITE — confirm with Jayden before launch.",
+    "dates": "October 15–17, 2026",
+    "location": "Dallas, TX",
+    "ctaText": "Register Now",
+    "ctaUrl": "https://go.riseupqueens.com/3dayevent",
+    "upcoming": [
+      { "dates": "October 15–17, 2026", "location": "Dallas, TX", "note": "LIMITED SPOTS" },
+      { "dates": "May 5–7, 2027", "location": "Dallas, TX", "note": "" }
+    ]
+  },
+
+  "nav": [
+    { "label": "Home",          "href": "/index.html" },
+    { "label": "About",         "href": "/about.html" },
+    { "label": "Events",        "href": "/events.html" },
+    { "label": "Masterclasses", "href": "/masterclasses.html" },
+    { "label": "Coaching",      "href": "/coaching.html" },
+    { "label": "Meet the Team", "href": "/team.html" },
+    { "label": "Contact",       "href": "/contact.html" }
+  ],
+
+  "assets": {
+    "_note": "Currently pointing at the live WordPress CDN so the mockup renders immediately. Replace with local /assets before launch — see README.",
+    "logoWhite": "https://riseupqueens.com/wp-content/uploads/2025/06/RUQ-Logo-White-01-1-scaled.png",
+    "logoParent": "https://riseupqueens.com/wp-content/uploads/2025/07/Rise-Up-Kings-Logo-04-scaled.png",
+    "favicon": "https://riseupqueens.com/wp-content/uploads/2025/07/cropped-RUQ-favicon-01-01-180x180.png",
+    "heroPoster": "https://riseupqueens.com/wp-content/uploads/2025/07/Queens-Waving-Photo-2-scaled.jpg",
+    "pattern": "https://riseupqueens.com/wp-content/uploads/2025/07/RUQ-Pattern.png",
+    "heroVideoLegacy": {
+      "url": "https://riseupqueens.com/wp-content/uploads/2025/06/RUQ-broll-Montage-720.mov",
+      "bytes": 127594955,
+      "_warning": "127 MB QuickTime. NOT used in this mockup — re-encode to MP4/WebM (~2-4 MB) before any launch."
+    }
+  },
+
+  "social": {
+    "instagram": "https://www.instagram.com/riseupqueens/",
+    "facebook": "https://www.facebook.com/JessicaRiseUpQueens/"
+  },
+
+  "funnels": {
+    "threeDayEvent": "https://go.riseupqueens.com/3dayevent",
+    "deeper":        "https://go.riseupkings.com/deeper",
+    "elevate":       "https://go.riseupkings.com/elevate",
+    "lifeByDesign":  "https://go.riseupkings.com/lifebydesign",
+    "coachesAcademy":"https://go.riseupkings.com/RUKCoachesAcademy"
+  },
+
+  "jotform": {
+    "_warning": "Jayden reported these stopped working (Aug 12 meeting); migration to MOS forms → Ontraport was planned. VERIFY before wiring.",
+    "forms": ["252174769947979", "252174778831971", "252175297130960", "252175505688970"]
+  }
+}
