@@ -4,6 +4,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { header, footer, esc } from '../src/partials/layout.mjs';
 import { pages as buildPages } from '../src/pages/pages.mjs';
+import { capsule } from '../src/partials/capsule.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const read = p => JSON.parse(fs.readFileSync(path.join(ROOT, p), 'utf8'));
@@ -34,6 +35,7 @@ const shell = (page) => `<!doctype html>
 <body class="bg-white font-body text-ink antialiased">
 <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-white focus:px-4 focus:py-2 focus:ring-2 focus:ring-magenta">Skip to content</a>
 ${header(site, page.href, { overHero: Boolean(page.hero) })}
+${capsule(site, page.href)}
 <main id="main">
 ${page.body}
 </main>

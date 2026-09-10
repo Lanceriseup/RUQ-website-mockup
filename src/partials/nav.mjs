@@ -51,9 +51,14 @@ export const header = (site, current, opts = {}) => {
 
   // Logo at +60% (80px / 88px). Ships as a white PNG; on light ground
   // `brightness-0` renders it solid black rather than shipping a 2nd asset.
+  //
+  // -translate-y-2 is optical, not geometric. The crown sits above the
+  // wordmark and adds mass to the top of the bounding box, so aligning the box
+  // centre to the links leaves the *word* "Rise Up Queens" reading low. Lifting
+  // it 8px puts the wordmark's visual centre on the links' baseline instead.
   const logo = `<img src="${esc(site.assets.logoWhite)}" alt="${esc(site.brand.name)}"
       width="240" height="88" loading="eager" decoding="async"
-      id="site-nav-logo" class="h-20 w-auto object-contain sm:h-[5.5rem] ${onHero ? '' : 'brightness-0'}">`;
+      id="site-nav-logo" class="h-20 w-auto -translate-y-2 object-contain sm:h-[5.5rem] ${onHero ? '' : 'brightness-0'}">`;
 
   const burgerTone = onHero ? 'text-white' : 'text-ink';
 

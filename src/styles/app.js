@@ -29,112 +29,51 @@
     }, { threshold: 0 }).observe(sentinel);
   })();
 
-  // Header collapse: past the hero the editorial header detaches into a
-  // floating frosted capsule.
+  // Scrolled-state capsule.
   //
-  // Two cases to keep straight. On the homepage the header is absolutely
-  // positioned over the video, so detaching costs nothing. On interior pages
-  // it sits in normal flow, so going fixed would yank the content up by its
-  // full height — a spacer takes its place for exactly as long as it floats.
-  (function capsuleNav() {
-    var nav = document.getElementById('site-nav');
-    if (!nav) return;
-
-    var overHero = nav.dataset.overHero === '1';
-    var panel = document.getElementById('site-nav-panel');
-    var logo = document.getElementById('site-nav-logo');
-    var rule = document.getElementById('site-nav-rule');
-    var ctaRow = document.getElementById('site-nav-cta-row');
-    var scrim = document.getElementById('site-nav-scrim');
-    var burger = document.getElementById('site-nav-burger');
-    var drawer = document.getElementById('navMain');
-    var links = [].slice.call(nav.querySelectorAll('nav a'));
+  // The tall editorial header just scrolls away on its own. The capsule is a
+  // separate, permanently-fixed element parked off-screen; crossing the
+  // threshold slides it in. Only transform and opacity animate, so this runs
+  // on the compositor and never triggers layout — which is what the previous
+  // absolute-to-fixed version could not do smoothly.
+  (function navCapsule() {
+    var cap = document.getElementById('nav-capsule');
+    if (!cap) return;
 
     var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     var supportsBlur = window.CSS && CSS.supports &&
       (CSS.supports('backdrop-filter', 'blur(1px)') || CSS.supports('-webkit-backdrop-filter', 'blur(1px)'));
 
-    var THRESHOLD = 140;
+    var bar = cap.firstElementChild;
+    if (supportsBlur && bar) {
+      bar.style.backdropFilter = 'blur(24px) saturate(1.6)';
+      bar.style.webkitBackdropFilter = 'blur(24px) saturate(1.6)';
+    } else if (bar) {
+      bar.style.background = 'rgba(22,22,22,.92)';
+    }
+
+    cap.style.transform = 'translateY(-160%)';
+    cap.style.opacity = '0';
+    cap.style.willChange = 'transform, opacity';
+    if (!reduced) cap.style.transition = 'transform .42s cubic-bezier(.22,1,.36,1), opacity .28s ease';
+
+    var THRESHOLD = 220;
+    var shown = false;
     var ticking = false;
-    var collapsed = false;
-    var spacer = null;
 
-    if (!reduced) {
-      [nav, panel, logo, ctaRow, scrim].forEach(function (el) {
-        if (el) el.style.transition = 'all .34s cubic-bezier(.4,0,.2,1)';
-      });
-    }
-
-    function blur(px) {
-      var v = px ? 'blur(' + px + 'px) saturate(1.6)' : '';
-      nav.style.backdropFilter = v;
-      nav.style.webkitBackdropFilter = v;
-    }
-
-    function setCollapsed(on) {
-      if (on === collapsed) return;
-      collapsed = on;
-
-      if (on) {
-        // Hold the layout open before detaching, interior pages only.
-        if (!overHero) {
-          spacer = document.createElement('div');
-          spacer.style.height = nav.offsetHeight + 'px';
-          nav.parentNode.insertBefore(spacer, nav);
-        }
-        nav.classList.remove('absolute', 'relative', 'border-b', 'border-ink-line', 'bg-white');
-        nav.classList.add('fixed', 'inset-x-0', 'top-0');
-
-        // Smoked glass: dark enough that the white type carries over both the
-        // video above and the white content below, so nothing has to recolour.
-        nav.style.background = supportsBlur ? 'rgba(22,22,22,.5)' : 'rgba(22,22,22,.88)';
-        blur(supportsBlur ? 24 : 0);
-        nav.style.margin = '12px auto';
-        nav.style.width = 'calc(100% - 32px)';
-        nav.style.maxWidth = '1100px';
-        nav.style.borderRadius = '9999px';
-        nav.style.border = '1px solid rgba(255,255,255,.22)';
-        nav.style.boxShadow = '0 20px 45px -20px rgba(0,0,0,.65)';
-
-        panel.style.paddingTop = '6px';
-        panel.style.paddingBottom = '6px';
-        // filter:none overrides the brightness-0 class interior pages carry,
-        // so the wordmark returns to white against the smoked glass.
-        if (logo) { logo.style.height = '36px'; logo.style.filter = 'none'; }
-        if (ctaRow) ctaRow.style.display = 'none';
-        if (rule) rule.style.display = 'none';
-        if (scrim) scrim.style.opacity = '0';
-        if (burger) burger.style.color = '#fff';
-        links.forEach(function (a) { a.style.color = '#fff'; });
-        if (drawer) { drawer.style.borderRadius = '1.5rem'; drawer.style.marginTop = '8px'; }
-      } else {
-        if (spacer) { spacer.remove(); spacer = null; }
-        nav.classList.remove('fixed', 'inset-x-0', 'top-0');
-        nav.classList.add(overHero ? 'absolute' : 'relative');
-        if (overHero) nav.classList.add('inset-x-0', 'top-0');
-        else nav.classList.add('border-b', 'border-ink-line', 'bg-white');
-
-        ['margin', 'width', 'maxWidth', 'borderRadius', 'border', 'boxShadow', 'background']
-          .forEach(function (p) { nav.style[p] = ''; });
-        blur(0);
-
-        panel.style.paddingTop = '';
-        panel.style.paddingBottom = '';
-        if (logo) { logo.style.height = ''; logo.style.filter = ''; }
-        if (ctaRow) ctaRow.style.display = '';
-        if (rule) rule.style.display = '';
-        if (scrim) scrim.style.opacity = '';
-        if (burger) burger.style.color = '';
-        links.forEach(function (a) { a.style.color = ''; });
-        if (drawer) { drawer.style.borderRadius = ''; drawer.style.marginTop = ''; }
-      }
+    function show(on) {
+      if (on === shown) return;
+      shown = on;
+      cap.style.transform = on ? 'translateY(0)' : 'translateY(-160%)';
+      cap.style.opacity = on ? '1' : '0';
+      cap.setAttribute('aria-hidden', on ? 'false' : 'true');
     }
 
     function onScroll() {
       if (ticking) return;
       ticking = true;
       requestAnimationFrame(function () {
-        setCollapsed((window.scrollY || window.pageYOffset) > THRESHOLD);
+        show((window.scrollY || window.pageYOffset) > THRESHOLD);
         ticking = false;
       });
     }
