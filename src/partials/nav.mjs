@@ -53,7 +53,7 @@ export const header = (site, current, opts = {}) => {
   // `brightness-0` renders it solid black rather than shipping a 2nd asset.
   const logo = `<img src="${esc(site.assets.logoWhite)}" alt="${esc(site.brand.name)}"
       width="240" height="88" loading="eager" decoding="async"
-      class="h-20 w-auto object-contain sm:h-[5.5rem] ${onHero ? '' : 'brightness-0'}">`;
+      id="site-nav-logo" class="h-20 w-auto object-contain sm:h-[5.5rem] ${onHero ? '' : 'brightness-0'}">`;
 
   const burgerTone = onHero ? 'text-white' : 'text-ink';
 
@@ -62,27 +62,28 @@ export const header = (site, current, opts = {}) => {
   // doing. Interior pages need none of this — ink on white is already at full
   // contrast.
   const scrim = onHero
-    ? `<div class="pointer-events-none absolute inset-x-0 top-0 h-72 bg-gradient-to-b from-ink/80 via-ink/40 to-transparent"></div>`
+    ? `<div id="site-nav-scrim" class="pointer-events-none absolute inset-x-0 top-0 h-72 bg-gradient-to-b from-ink/80 via-ink/40 to-transparent"></div>`
     : '';
 
   return `
-<header class="${onHero ? 'absolute inset-x-0 top-0' : 'relative border-b border-ink-line bg-white'} z-40">
+<header id="site-nav" data-over-hero="${onHero ? '1' : '0'}"
+        class="${onHero ? 'absolute inset-x-0 top-0' : 'relative border-b border-ink-line bg-white'} z-40">
   ${scrim}
-  <div class="relative mx-auto max-w-content px-4 ${onHero ? 'pt-7' : 'pt-5'}">
+  <div id="site-nav-panel" class="relative mx-auto max-w-content px-4 ${onHero ? 'pt-7' : 'pt-5'}">
     <nav class="flex items-center justify-between gap-4" aria-label="Primary">
       <div class="hidden ${group} md:flex">${site.nav.slice(0, half).map(link).join('')}</div>
       <a href="/index.html" class="shrink-0">${logo}</a>
       <div class="hidden ${group} md:flex">${site.nav.slice(half).map(link).join('')}</div>
-      <button type="button" class="nav-toggle grid h-11 w-11 place-items-center rounded-lg md:hidden ${burgerTone}"
+      <button type="button" id="site-nav-burger" class="nav-toggle grid h-11 w-11 place-items-center rounded-lg md:hidden ${burgerTone}"
               data-target="navMain" aria-expanded="false" aria-controls="navMain">
         <span class="sr-only">Toggle menu</span>
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
       </button>
     </nav>
 
-    <div class="mt-6 h-px w-full bg-gradient-to-r from-transparent via-cyan to-transparent"></div>
+    <div id="site-nav-rule" class="mt-6 h-px w-full bg-gradient-to-r from-transparent via-cyan to-transparent"></div>
 
-    <div class="mt-5 pb-5 text-center">
+    <div id="site-nav-cta-row" class="mt-5 pb-5 text-center">
       <a href="${esc(site.nextEvent.ctaUrl)}"
          class="inline-flex min-h-11 items-center border-b-2 border-cyan pb-1 font-body text-xs font-bold uppercase tracking-[0.3em] transition
                 ${onHero ? 'text-white hover:border-white focus-visible:outline-white [text-shadow:0_1px_10px_rgba(0,0,0,.7)]' : 'text-ink hover:border-magenta focus-visible:outline-magenta'}
