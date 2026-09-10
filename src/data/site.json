@@ -35,24 +35,12 @@
       "href": "/index.html"
     },
     {
+      "label": "Meet the team",
+      "href": "/team.html"
+    },
+    {
       "label": "About",
       "href": "/about.html"
-    },
-    {
-      "label": "Events",
-      "href": "/events.html"
-    },
-    {
-      "label": "Masterclasses",
-      "href": "/masterclasses.html"
-    },
-    {
-      "label": "Coaching",
-      "href": "/coaching.html"
-    },
-    {
-      "label": "Meet the Team",
-      "href": "/team.html"
     },
     {
       "label": "Contact",
@@ -145,5 +133,41 @@
       "252175297130960",
       "252175505688970"
     ]
-  }
+  },
+  "navVariant": "A",
+  "footerNav": [
+    {
+      "label": "Home",
+      "href": "/index.html"
+    },
+    {
+      "label": "About",
+      "href": "/about.html"
+    },
+    {
+      "label": "Meet the team",
+      "href": "/team.html"
+    },
+    {
+      "label": "Contact",
+      "href": "/contact.html"
+    },
+    {
+      "label": "Events",
+      "href": "/events.html"
+    },
+    {
+      "label": "Masterclasses",
+      "href": "/masterclasses.html"
+    },
+    {
+      "label": "1-on-1 Coaching",
+      "href": "/coaching.html"
+    },
+    {
+      "label": "Free resource",
+      "href": "/free-resource.html"
+    }
+  ],
+  "_nav_note": "nav = header (4 items, matches the live site). footerNav = every page, so the ones not in the header stay reachable and crawlable."
 }

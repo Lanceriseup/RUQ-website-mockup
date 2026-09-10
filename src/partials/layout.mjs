@@ -19,8 +19,10 @@ export const footer = (site) => `
     </div>
     <div>
       <h2 class="font-display text-sm font-semibold uppercase tracking-wider">Explore</h2>
+      <!-- footerNav, not nav: the header carries four links, so the footer is
+           what keeps Events, Masterclasses, Coaching and Free resource reachable. -->
       <ul class="mt-4 space-y-2 font-body text-sm text-white/70">
-        ${site.nav.map(n=>`<li><a href="${esc(n.href)}" class="hover:text-white">${esc(n.label)}</a></li>`).join('\n        ')}
+        ${(site.footerNav || site.nav).map(n=>`<li><a href="${esc(n.href)}" class="hover:text-white">${esc(n.label)}</a></li>`).join('\n        ')}
       </ul>
     </div>
     <div>
