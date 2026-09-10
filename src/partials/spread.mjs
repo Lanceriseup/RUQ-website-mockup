@@ -55,14 +55,16 @@ export const spread = (site, c) => `
          style="background:radial-gradient(circle,rgba(0,185,198,.10),transparent 68%)"></div>
   </div>
 
-  <!-- The problems -->
-  <section class="relative mx-auto max-w-content px-6 pb-10 pt-24">
-    <div class="border-b border-ink/10 pb-4">
-      ${dualHeading('Common struggles', 'women in marriage have', MAGENTA, 'text-ink', true, '4.5rem')}
-    </div>
-    <div class="mt-12 grid gap-14 lg:grid-cols-[7fr_5fr]">
+  <!-- The problems. The heading sits INSIDE the left column, not as a
+       full-width band above the grid — that is what lets the plate start on
+       the same line as the script rather than below the whole heading. -->
+  <section class="relative mx-auto max-w-content px-6 pb-12 pt-24">
+    <div class="grid gap-14 lg:grid-cols-[6fr_6fr]">
       <div>
-        <ul class="space-y-8">
+        <div class="border-b border-ink/10 pb-4">
+          ${dualHeading('Common struggles', 'women in marriage have', MAGENTA, 'text-ink', true, '4.5rem')}
+        </div>
+        <ul class="mt-12 space-y-8">
           ${c.home.painPoints.items.map((t, i) => `
           <li class="flex gap-6">
             <span aria-hidden="true" class="shrink-0 font-display text-xl font-bold leading-none tabular-nums"
@@ -77,13 +79,16 @@ export const spread = (site, c) => `
     </div>
   </section>
 
-  <!-- The answers. Plate lifts up across the boundary between the two. -->
+  <!-- The answers, mirrored: plate left, heading and list right. Both plates
+       are the same 6fr column at 4:5, and each sits level with its own
+       heading, so the two read as facing pages. The lift keeps the magazine
+       overlap across the section boundary. -->
   <section class="relative mx-auto max-w-content px-6 pb-24">
-    <div class="grid items-start gap-14 lg:grid-cols-[6fr_6fr]">
-      <div class="-mt-20 lg:-mt-32">
+    <div class="grid gap-14 lg:grid-cols-[6fr_6fr]">
+      <div class="-mt-20 lg:-mt-24">
         ${plate(c.home.renewal.photo, c.home.renewal.photoAlt, 'center 32%')}
       </div>
-      <div class="pt-6">
+      <div>
         ${dualHeading('healing and renewal', 'Join us to experience', CYAN, 'text-ink-soft', false, '3.75rem')}
         <div class="mt-10 divide-y divide-ink/10 border-y border-ink/10">
           ${c.home.renewal.items.map(it => `
