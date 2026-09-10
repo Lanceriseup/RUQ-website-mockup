@@ -12,17 +12,18 @@
 // single primary action until the hero scrolls away and the capsule takes over.
 import { esc } from './layout.mjs';
 
-// NLB's script gold. 5.31:1 against the dark hero, so it clears large-text
-// contrast comfortably.
-const GOLD = '#b7873e';
-
 export const hero = (site, c) => {
-  // .script carries the family AND font-weight:400 — without the explicit
-  // weight these inherit 700 from the headline and the browser fakes a bold,
-  // which is what made the script look heavy and cheap.
+  // Duotone: the word is transparent and filled by a magenta-to-cyan gradient,
+  // with a second, wider highlight gradient travelling across it. See .sheen
+  // in tailwind.css — it also carries the no-background-clip fallback and is
+  // held still under prefers-reduced-motion.
+  //
+  // clamp() rather than breakpoints: the word has to scale smoothly because
+  // "passionate" is nearly twice the width of "joyful", and a step change at a
+  // breakpoint would be visible mid-rotation.
   const words = c.home.hero.rotatingWords.map((w, i) =>
-    `<span class="hero-word script ${i === 0 ? 'is-on' : ''}"
-       style="grid-area:1/1;color:${GOLD};font-size:3.25rem;line-height:.85">${esc(w)}</span>`
+    `<span class="hero-word sheen ${i === 0 ? 'is-on' : ''} font-display font-extrabold uppercase"
+       style="grid-area:1/1;font-size:clamp(2.75rem,9vw,6rem);line-height:1;letter-spacing:-.01em">${esc(w)}</span>`
   ).join('');
 
   return `
@@ -37,20 +38,13 @@ export const hero = (site, c) => {
   <div class="relative mx-auto max-w-4xl px-4 pb-24 pt-48 text-center sm:pt-52">
 
     <h1 class="text-white">
-      <span class="block font-display text-xl font-bold uppercase tracking-[0.22em] sm:text-3xl">${esc(c.home.hero.headingBefore)}</span>
+      <span class="block font-display text-base font-bold uppercase tracking-[0.28em] text-white/70 sm:text-lg">${esc(c.home.hero.headingBefore)}</span>
 
       <span class="mt-3 block">
-        <span class="hero-rotator relative inline-grid" data-swap="fade" style="line-height:.85">
-          ${words}
-          <svg class="pointer-events-none absolute left-0 w-full" viewBox="0 0 300 20" fill="none"
-               preserveAspectRatio="none" aria-hidden="true" style="bottom:-.06em;height:.3em;overflow:visible">
-            <path d="M4 13 C 60 5, 110 4, 158 7 S 250 13, 296 8" stroke="${GOLD}" stroke-width="3.2"
-                  stroke-linecap="round" fill="none" style="vector-effect:non-scaling-stroke"/>
-          </svg>
-        </span>
+        <span class="hero-rotator relative inline-grid" data-swap="fade">${words}</span>
       </span>
 
-      <span class="mt-7 block font-display text-base font-bold uppercase leading-snug tracking-[0.18em] sm:text-2xl">${esc(c.home.hero.headingAfter)}</span>
+      <span class="mt-7 block font-display text-base font-bold uppercase leading-snug tracking-[0.2em] sm:text-2xl">${esc(c.home.hero.headingAfter)}</span>
     </h1>
     <!-- The rotator swaps text under assistive tech, so the sentence is also
          announced once, statically, for screen readers. -->

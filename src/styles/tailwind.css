@@ -29,23 +29,40 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  /* Duotone gradient word with a highlight travelling through it. The sheen is
-     a second, wider gradient layered over the brand one and animated by
-     background-position, which composites rather than repainting text. */
-  .sheen {
-    background-image:
-      linear-gradient(100deg, transparent 35%, rgba(255,255,255,.75) 50%, transparent 65%),
-      linear-gradient(92deg, #e8208f 0%, #f0569f 35%, #00b9c6 100%);
-    background-size: 220% 100%, 100% 100%;
-    background-position: 220% 0, 0 0;
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    animation: sheen-travel 5.5s ease-in-out infinite;
+  /* Duotone gradient word with a highlight travelling through it.
+     Two stacked gradients: the brand magenta-to-cyan fill, and a wider white
+     band over it moved by background-position — which composites rather than
+     repainting the glyphs.
+
+     The fallback matters. background-clip:text needs `color: transparent`, so
+     if a browser does not support it the word renders invisible, not merely
+     unstyled. White is set first and the clip only applied inside @supports. */
+  .sheen { color: #fff; }
+
+  @supports ((-webkit-background-clip: text) or (background-clip: text)) {
+    .sheen {
+      background-image:
+        linear-gradient(100deg, transparent 35%, rgba(255,255,255,.75) 50%, transparent 65%),
+        linear-gradient(92deg, #e8208f 0%, #f0569f 35%, #00b9c6 100%);
+      background-size: 220% 100%, 100% 100%;
+      background-position: 220% 0, 0 0;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: sheen-travel 5.5s ease-in-out infinite;
+    }
   }
+
   @keyframes sheen-travel {
     0%, 55% { background-position: 220% 0, 0 0; }
     100%    { background-position: -120% 0, 0 0; }
+  }
+
+  /* The global reduced-motion rule collapses durations to 0.01ms, which would
+     leave the highlight frozen mid-sweep. Park it off the glyphs instead, so
+     the gradient fill stays and only the travelling sheen stops. */
+  @media (prefers-reduced-motion: reduce) {
+    .sheen { animation: none; background-position: 220% 0, 0 0; }
   }
 
   /* Rotating headline word. All words share one grid cell so the widest sets
