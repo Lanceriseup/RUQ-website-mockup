@@ -14,18 +14,37 @@ export const pages = (site, c, vids) => ([
     ${hero(site, c)}
 
 
-    ${section({
-      bg: 'bg-white',
-      // Overlapping panel: this section lifts over the hero rather than the
-      // hero cutting a shape out of itself. The before: pseudo-element is the
-      // grabber bar on the top edge — Tailwind's preflight supplies its
-      // content, so no content-[''] utility is needed.
-      cls: '-mt-16 rounded-t-[2.5rem] relative z-10 shadow-[0_-26px_60px_-28px_rgba(0,0,0,.5)] '
-         + 'before:absolute before:left-1/2 before:top-4 before:h-1.5 before:w-16 '
-         + 'before:-translate-x-1/2 before:rounded-full before:bg-ink/15',
-      heading: c.home.painPoints.heading, body:
-      grid('sm:grid-cols-2 lg:grid-cols-3', c.home.painPoints.items.map(t =>
-        `<p class="rounded-xl bg-white/70 p-6 font-body text-ink-soft ring-1 ring-ink/10">${esc(t)}</p>`)) })}
+    <!-- Struggles, editorial layout. Also the overlapping panel: this section
+         lifts over the hero rather than the hero cutting a shape out of
+         itself, with a grabber bar on the top edge. Ground is warm #FBF7F4,
+         not #fff — pure white against the dark hero reads unstyled. -->
+    <section class="relative z-10 -mt-16 rounded-t-[2.5rem] py-24 shadow-[0_-26px_60px_-28px_rgba(0,0,0,.5)]
+                    before:absolute before:left-1/2 before:top-4 before:h-1.5 before:w-16
+                    before:-translate-x-1/2 before:rounded-full before:bg-ink/15"
+             style="background:#FBF7F4">
+      <div class="mx-auto max-w-content px-6">
+        <div class="grid gap-14 lg:grid-cols-[7fr_5fr]">
+          <div>
+            <h2 class="font-display text-3xl font-bold leading-tight text-ink sm:text-[2.75rem]">${esc(c.home.painPoints.heading)}</h2>
+            <ul class="mt-12 space-y-9">
+              ${c.home.painPoints.items.map((t, i) => `
+              <li class="flex gap-6">
+                <span aria-hidden="true" class="shrink-0 font-display text-2xl font-bold leading-none tabular-nums"
+                      style="color:rgba(232,32,143,.35)">${String(i + 1).padStart(2, '0')}</span>
+                <p class="font-body text-lg leading-relaxed text-ink">${esc(t)}</p>
+              </li>`).join('')}
+            </ul>
+          </div>
+          <!-- Sticky so the photograph holds while the six lines scroll past.
+               Hidden below lg, where there is no second column to hold it. -->
+          <div class="relative hidden lg:block">
+            <img src="/assets/photos/gallery-1-2.png" alt="Women together at a Rise Up Queens event"
+                 width="1080" height="1080" loading="lazy" decoding="async"
+                 class="sticky top-24 aspect-[4/5] w-full rounded-[2rem] object-cover shadow-[0_30px_60px_-30px_rgba(28,28,28,.45)]">
+          </div>
+        </div>
+      </div>
+    </section>
 
     ${section({ bg: 'bg-white', eyebrow: 'Watch', heading: 'Hear from the women who came',
       lead: 'Testimonies from the 2025 events.', body:
