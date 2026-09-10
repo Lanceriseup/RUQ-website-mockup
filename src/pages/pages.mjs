@@ -18,8 +18,9 @@ export const pages = (site, c, vids) => ([
              poster="${esc(site.assets.heroVideo.poster)}"
              autoplay muted loop playsinline preload="none" aria-hidden="true" tabindex="-1"
              data-src="${esc(site.assets.heroVideo.src)}"></video>
-      <!-- pt clears the overlaid editorial header (~195px incl. hairline + CTA rule) -->
-      <div class="relative mx-auto max-w-content px-4 pb-28 pt-56 sm:pb-40 sm:pt-60">
+      <!-- pt clears the overlaid editorial header: 225px at the 88px logo
+           (28 + 88 + 24 + 1 + 20 + 44 + 20). pt-64 = 256px leaves 31px. -->
+      <div class="relative mx-auto max-w-content px-4 pb-28 pt-60 sm:pb-40 sm:pt-64">
         <p class="font-body text-sm uppercase tracking-[0.25em] text-cyan">${esc(c.home.hero.eyebrow)}</p>
         <h1 class="mt-4 max-w-3xl font-display text-4xl font-bold leading-[1.1] text-white sm:text-6xl">${esc(c.home.hero.heading)}</h1>
         <p class="mt-6 max-w-xl font-body text-lg text-white/85">${esc(c.home.hero.sub)}</p>

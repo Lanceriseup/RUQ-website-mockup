@@ -34,11 +34,16 @@ export const header = (site, current, opts = {}) => {
 
   const half = Math.ceil(site.nav.length / 2);
 
-  // The wordmark ships as a white PNG. On light ground `brightness-0` renders
-  // it solid black rather than shipping a second asset.
+  // justify-evenly, not justify-center: it distributes the two links across
+  // their half so the gap between Home and Meet the team matches the gap to
+  // the logo and to the edge, rather than clumping them in the middle.
+  const group = 'flex-1 justify-evenly';
+
+  // Logo at +60% (80px / 88px). Ships as a white PNG; on light ground
+  // `brightness-0` renders it solid black rather than shipping a 2nd asset.
   const logo = `<img src="${esc(site.assets.logoWhite)}" alt="${esc(site.brand.name)}"
-      width="180" height="58" loading="eager" decoding="async"
-      class="h-12 w-auto object-contain sm:h-14 ${onHero ? '' : 'brightness-0'}">`;
+      width="240" height="88" loading="eager" decoding="async"
+      class="h-20 w-auto object-contain sm:h-[5.5rem] ${onHero ? '' : 'brightness-0'}">`;
 
   const burgerTone = onHero ? 'text-white' : 'text-ink';
 
@@ -46,9 +51,9 @@ export const header = (site, current, opts = {}) => {
 <header class="${onHero ? 'absolute inset-x-0 top-0' : 'relative border-b border-ink-line bg-white'} z-40">
   <div class="mx-auto max-w-content px-4 ${onHero ? 'pt-7' : 'pt-5'}">
     <nav class="flex items-center justify-between gap-4" aria-label="Primary">
-      <div class="hidden flex-1 justify-start md:flex">${site.nav.slice(0, half).map(link).join('')}</div>
+      <div class="hidden ${group} md:flex">${site.nav.slice(0, half).map(link).join('')}</div>
       <a href="/index.html" class="shrink-0">${logo}</a>
-      <div class="hidden flex-1 justify-end md:flex">${site.nav.slice(half).map(link).join('')}</div>
+      <div class="hidden ${group} md:flex">${site.nav.slice(half).map(link).join('')}</div>
       <button type="button" class="nav-toggle grid h-11 w-11 place-items-center rounded-lg md:hidden ${burgerTone}"
               data-target="navMain" aria-expanded="false" aria-controls="navMain">
         <span class="sr-only">Toggle menu</span>
