@@ -1,6 +1,6 @@
 // Homepage hero: rotating headline, VSL, event dates, Register CTA.
 //
-// Centred layout with Dancing Script for the rotating word.
+// Centred layout with Great Vibes for the rotating word.
 //
 // The three words share one inline-grid cell, so the widest ("passionate")
 // sets the width once and the sentence does not reflow as it cycles. The cyan
@@ -10,7 +10,7 @@
 // single primary action until the hero scrolls away and the capsule takes over.
 import { esc } from './layout.mjs';
 
-const SCRIPT = "'Dancing Script', cursive";
+const SCRIPT = "'Great Vibes', cursive";
 
 export const hero = (site, c) => {
   const words = c.home.hero.rotatingWords.map((w, i) =>

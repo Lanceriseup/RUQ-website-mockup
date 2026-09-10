@@ -15,11 +15,14 @@
     opacity: 0;
     visibility: hidden;
     white-space: nowrap;
-    /* Script faces sit small next to Montserrat at the same px size, and their
-       baseline runs high — this evens both out. */
-    font-size: 1.28em;
+    /* Great Vibes has a much smaller x-height than Montserrat and long
+       ascenders/descenders, so at a matched px size it reads shrunken. 1.5em
+       brings its lowercase up to the surrounding cap height. The extra
+       right padding stops the terminal flourish on "passionate"/"joyful"
+       colliding with the next word. */
+    font-size: 1.5em;
     line-height: 1;
-    padding-right: .06em;
+    padding-right: .12em;
     transition: opacity .42s ease, transform .42s cubic-bezier(.22,1,.36,1), clip-path .42s cubic-bezier(.22,1,.36,1);
   }
   .hero-rotator > .hero-word.is-on { opacity: 1; visibility: visible; }
