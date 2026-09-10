@@ -29,7 +29,7 @@ const shell = (page) => `<!doctype html>
 <link rel="apple-touch-icon" href="${esc(site.assets.faviconSizes['180'])}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Lato:wght@400;700&family=Great+Vibes&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Lato:wght@400;700&display=swap">
 <link rel="stylesheet" href="/styles.css">
 </head>
 <body class="bg-white font-body text-ink antialiased">

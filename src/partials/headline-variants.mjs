@@ -60,7 +60,7 @@ export const renderHeadline = (c, key, onDark = true) => {
 
   const words = (colour, sizeEm, lh) => c.home.hero.rotatingWords.map((w, i) =>
     `<span class="hero-word ${i === 0 ? 'is-on' : ''}"
-       style="grid-area:1/1;font-family:${BRUSH};color:${colour};font-size:${sizeEm};line-height:${lh};">${esc(w)}</span>`
+       style="grid-area:1/1;font-family:${BRUSH};font-weight:400;font-synthesis:none;color:${colour};font-size:${sizeEm};line-height:${lh};">${esc(w)}</span>`
   ).join('');
 
   const rotator = (colour, sizeEm, lh, swashId) => `
@@ -78,7 +78,7 @@ export const renderHeadline = (c, key, onDark = true) => {
     <span class="hero-rotator relative inline-grid" data-swap="${esc(h.swap)}" style="line-height:.85">
       ${c.home.hero.rotatingWords.map((w, i) =>
         `<span class="hero-word ${i === 0 ? 'is-on' : ''}"
-           style="grid-area:1/1;font-family:${BRUSH};color:${gold};font-size:5rem;line-height:.85;">${esc(w)}</span>`).join('')}
+           style="grid-area:1/1;font-family:${BRUSH};font-weight:400;font-synthesis:none;color:${gold};font-size:5rem;line-height:.85;">${esc(w)}</span>`).join('')}
       ${swash(gold, 'sw-stacked')}
     </span>
   </span>
