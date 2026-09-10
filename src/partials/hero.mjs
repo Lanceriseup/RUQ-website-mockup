@@ -12,6 +12,13 @@
 // single primary action until the hero scrolls away and the capsule takes over.
 import { esc } from './layout.mjs';
 
+// Both sans lines of the headline — the one above the rotating word and the
+// one below — share this. They are two halves of a single sentence, so they
+// need identical size, weight, colour and tracking; defining it once stops
+// them drifting apart again.
+const SANS_LINE =
+  'block font-display text-base font-bold uppercase leading-snug tracking-[0.2em] text-white sm:text-2xl';
+
 export const hero = (site, c) => {
   // Duotone: the word is transparent and filled by a magenta-to-cyan gradient,
   // with a second, wider highlight gradient travelling across it. See .sheen
@@ -38,13 +45,13 @@ export const hero = (site, c) => {
   <div class="relative mx-auto max-w-4xl px-4 pb-24 pt-48 text-center sm:pt-52">
 
     <h1 class="text-white">
-      <span class="block font-display text-base font-bold uppercase tracking-[0.28em] text-white/70 sm:text-lg">${esc(c.home.hero.headingBefore)}</span>
+      <span class="${SANS_LINE}">${esc(c.home.hero.headingBefore)}</span>
 
       <span class="mt-3 block">
         <span class="hero-rotator relative inline-grid" data-swap="fade">${words}</span>
       </span>
 
-      <span class="mt-7 block font-display text-base font-bold uppercase leading-snug tracking-[0.2em] sm:text-2xl">${esc(c.home.hero.headingAfter)}</span>
+      <span class="mt-7 ${SANS_LINE}">${esc(c.home.hero.headingAfter)}</span>
     </h1>
     <!-- The rotator swaps text under assistive tech, so the sentence is also
          announced once, statically, for screen readers. -->
