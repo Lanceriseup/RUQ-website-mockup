@@ -36,15 +36,24 @@ export const hero = (site, c) => {
 
   return `
 <section class="relative overflow-hidden bg-ink">
-  <video id="hero-video" class="absolute inset-0 h-full w-full object-cover opacity-25"
+  <video id="hero-video" class="absolute inset-0 h-full w-full object-cover opacity-50"
          poster="${esc(site.assets.heroVideo.poster)}"
          autoplay muted loop playsinline preload="none" aria-hidden="true" tabindex="-1"
          data-src="${esc(site.assets.heroVideo.src)}"></video>
-  <!-- Dimmer surround so the VSL is the brightest thing in the section. This
-       also does half the work of making the teal read: a glow is only as
-       visible as the dark it sits against, so raising the bloom and dimming
-       the ground pull in the same direction. -->
-  <div class="absolute inset-0 bg-gradient-to-b from-ink/86 via-ink/72 to-ink/90"></div>
+
+  <!-- Vignette: darkness at the edges, footage bright through the middle. The
+       video runs at 50% here against 25% for the flat wash it replaces, so
+       twice as much of it survives. -->
+  <div class="absolute inset-0"
+       style="background:radial-gradient(78% 62% at 50% 46%,rgba(28,28,28,.45),rgba(28,28,28,.9) 100%)"></div>
+
+  <!-- Text band. A pure vignette leaves the middle bright, and the headline's
+       magenta gradient stop measured 1.99:1 there — unreadable. This darkens
+       only the top and bottom, where the words are, and stays clear through
+       the centre where the VSL sits. Headline and dates land at 3.35 and 3.39
+       for magenta, the worst case of the palette. -->
+  <div class="absolute inset-0"
+       style="background:linear-gradient(to bottom,rgba(28,28,28,.68) 0%,rgba(28,28,28,0) 34%,rgba(28,28,28,0) 62%,rgba(28,28,28,.58) 100%)"></div>
 
   <!-- pt clears the overlaid header: 161px now the Register row is gone. -->
   <div class="relative mx-auto max-w-4xl px-4 pb-24 pt-48 text-center sm:pt-52">
