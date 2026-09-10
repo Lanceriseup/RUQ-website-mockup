@@ -9,6 +9,43 @@
 }
 
 @layer components {
+  /* Rotating headline word. All words share one grid cell so the widest sets
+     the width and the sentence never reflows as they swap. */
+  .hero-rotator > .hero-word {
+    opacity: 0;
+    visibility: hidden;
+    white-space: nowrap;
+    /* Script faces sit small next to Montserrat at the same px size, and their
+       baseline runs high — this evens both out. */
+    font-size: 1.28em;
+    line-height: 1;
+    padding-right: .06em;
+    transition: opacity .42s ease, transform .42s cubic-bezier(.22,1,.36,1), clip-path .42s cubic-bezier(.22,1,.36,1);
+  }
+  .hero-rotator > .hero-word.is-on { opacity: 1; visibility: visible; }
+  .hero-underline {
+    transform-origin: left center;
+    transition: transform .5s cubic-bezier(.22,1,.36,1);
+  }
+
+  /* rise: up from behind a mask */
+  [data-mode="rise"] .hero-word { transform: translateY(.5em); }
+  [data-mode="rise"] .hero-word.is-on { transform: translateY(0); }
+  [data-mode="rise"] .hero-word.is-out { transform: translateY(-.5em); opacity: 0; }
+
+  /* wipe: revealed left-to-right by a clip */
+  [data-mode="wipe"] .hero-word { clip-path: inset(0 100% 0 0); }
+  [data-mode="wipe"] .hero-word.is-on { clip-path: inset(0 0 0 0); }
+  [data-mode="wipe"] .hero-word.is-out { clip-path: inset(0 0 0 100%); }
+
+  /* flip: rotated on X */
+  [data-mode="flip"] .hero-word { transform: rotateX(-90deg); transform-origin: 50% 100%; }
+  [data-mode="flip"] .hero-word.is-on { transform: rotateX(0); }
+  [data-mode="flip"] .hero-word.is-out { transform: rotateX(90deg); opacity: 0; }
+
+  /* fade: plain cross-dissolve */
+  [data-mode="fade"] .hero-word.is-out { opacity: 0; }
+
   /* Brizy exported a decorative pattern; kept as an opt-in utility. */
   .ruq-pattern {
     background-image: url('/assets/brand/pattern.png');

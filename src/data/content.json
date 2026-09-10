@@ -3,7 +3,13 @@
   "home": {
     "hero": {
       "eyebrow": "Next 3-Day Transformational Event",
-      "heading": "What if this is your turning point?",
+      "headingBefore": "Become the",
+      "rotatingWords": [
+        "passionate",
+        "connected",
+        "joyful"
+      ],
+      "headingAfter": "woman that God has designed you to be.",
       "sub": "Become the passionate, connected and joyful woman that God designed you to be."
     },
     "painPoints": {
@@ -20,6 +26,13 @@
     "founder": {
       "heading": "Meet the Founder",
       "body": "Jessica Lewis is a Christian marriage coach, speaker, and founder of Rise Up Queens — a transformational movement for high-achieving women who long for freedom, connection and purpose. Today Jessica co-leads Rise Up Queens alongside her husband Skylar Lewis, founder of Rise Up Kings."
+    },
+    "vsl": {
+      "wistiaId": "e1u146akjy",
+      "title": "Rise Up Queens — the most transformational Christian-based personal development event for women of faith",
+      "seconds": 124,
+      "poster": "https://embed-ssl.wistia.com/deliveries/9eed755ee94727b4a2b1bf2a899d9e07.jpg?image_crop_resized=1280x720",
+      "_note": "Supplied by the client as the hero VSL. Poster is requested without Wistia's baked-in play button so the page can draw its own."
     }
   },
   "about": {
