@@ -54,6 +54,25 @@
           "body": "Walk away with unshakable peace, overflowing joy, and the fire to pursue your purpose with boldness."
         }
       ]
+    },
+    "cta": {
+      "_source": "Verbatim from riseupqueens.com home page.",
+      "heading": "It’s time for your breakthrough",
+      "fields": [
+        {
+          "name": "firstName",
+          "label": "First Name",
+          "type": "text"
+        },
+        {
+          "name": "email",
+          "label": "Email",
+          "type": "email"
+        }
+      ],
+      "button": "Get More Info",
+      "mission": "Rise Up Queens is a Christian movement built on the unshakable truth of the Gospel. We believe salvation through Jesus is the starting point for true freedom, and the journey doesn’t stop there. Our mission is to lead women into a life-changing relationship with God, where they receive His grace and walk boldly in their sanctification, growing in strength, identity, and purpose every day.",
+      "_formStatus": "INERT. The live form posts to a WordPress/Brizy handler; Jayden reported the Jotform routes broke and the plan was MOS forms into Ontraport. Fields are disabled in this mockup and must not be wired without that decision."
     }
   },
   "about": {
