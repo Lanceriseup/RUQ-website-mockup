@@ -67,13 +67,15 @@
 
   /* Brand-coloured halo behind the VSL. Scale and opacity only, so it
      composites; animating the blur radius would re-rasterise every frame. */
-  .vsl-bloom { animation: vsl-breathe 7s ease-in-out infinite; }
+  /* Slow and shallow. The point is that you should not be able to catch it
+     moving — a wider swing reads as a pulsing effect rather than light. */
+  .vsl-bloom { animation: vsl-breathe 11s ease-in-out infinite; }
   @keyframes vsl-breathe {
-    0%, 100% { transform: scale(1);    opacity: .55; }
-    50%      { transform: scale(1.06); opacity: .8; }
+    0%, 100% { transform: scale(1);    opacity: .45; }
+    50%      { transform: scale(1.03); opacity: .62; }
   }
   @media (prefers-reduced-motion: reduce) {
-    .vsl-bloom { animation: none; opacity: .65; }
+    .vsl-bloom { animation: none; opacity: .5; }
   }
 
   /* The sound badge fades out once sound is on rather than vanishing. */

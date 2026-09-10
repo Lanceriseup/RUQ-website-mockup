@@ -35,14 +35,14 @@ export const hero = (site, c) => {
 
   return `
 <section class="relative overflow-hidden bg-ink">
-  <video id="hero-video" class="absolute inset-0 h-full w-full object-cover opacity-25"
+  <video id="hero-video" class="absolute inset-0 h-full w-full object-cover opacity-30"
          poster="${esc(site.assets.heroVideo.poster)}"
          autoplay muted loop playsinline preload="none" aria-hidden="true" tabindex="-1"
          data-src="${esc(site.assets.heroVideo.src)}"></video>
-  <!-- Deeper than a normal scrim: the spotlight only reads if the surround is
-       genuinely dark, so the b-roll drops back and the VSL becomes the lit
-       object. Headline contrast was rechecked against this, not the old value. -->
-  <div class="absolute inset-0 bg-gradient-to-b from-ink/85 via-ink/70 to-ink/90"></div>
+  <!-- Scrim was pushed very dark to make an obvious spotlight read. With the
+       bloom dialled back it is lifted again — heavy darkening with a subtle
+       glow just looks murky, since nothing motivates the gloom. -->
+  <div class="absolute inset-0 bg-gradient-to-b from-ink/82 via-ink/62 to-ink/88"></div>
 
   <!-- pt clears the overlaid header: 161px now the Register row is gone. -->
   <div class="relative mx-auto max-w-4xl px-4 pb-24 pt-48 text-center sm:pt-52">
@@ -65,12 +65,14 @@ export const hero = (site, c) => {
          vsl.js — the Wistia player is mounted into the div below. -->
     <div class="relative mx-auto mt-16 max-w-4xl" data-vsl-id="${esc(c.home.vsl.wistiaId)}">
 
-      <!-- Cyan bloom. Sits behind, scales and fades rather than animating blur,
-           so it composites instead of re-rasterising each frame. -->
-      <div aria-hidden="true" class="vsl-bloom pointer-events-none absolute -inset-x-20 -inset-y-16 -z-10 blur-2xl"
-           style="background:radial-gradient(55% 55% at 50% 50%,rgba(0,185,198,.38),transparent 72%)"></div>
+      <!-- Cyan bloom. Deliberately restrained: wider and more diffuse than a
+           tight halo, at low alpha, so it reads as the frame sitting in light
+           rather than as a glow effect applied to it. Scales and fades rather
+           than animating blur, so it composites. -->
+      <div aria-hidden="true" class="vsl-bloom pointer-events-none absolute -inset-x-28 -inset-y-20 -z-10 blur-3xl"
+           style="background:radial-gradient(50% 50% at 50% 50%,rgba(0,185,198,.16),transparent 75%)"></div>
 
-      <div class="relative overflow-hidden ring-1 ring-cyan/40 shadow-[0_0_120px_-16px_rgba(0,185,198,.55),0_50px_100px_-40px_rgba(0,0,0,.9)]"
+      <div class="relative overflow-hidden ring-1 ring-cyan/20 shadow-[0_0_70px_-26px_rgba(0,185,198,.3),0_40px_90px_-45px_rgba(0,0,0,.85)]"
            style="aspect-ratio:2.39/1">
         <div class="absolute inset-0 [&>div]:h-full [&>div]:w-full">
           <div class="wistia_embed wistia_async_${esc(c.home.vsl.wistiaId)} videoFoam=true h-full w-full">&nbsp;</div>
