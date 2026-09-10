@@ -20,7 +20,19 @@ export const pages = (site, c, vids) => ([
     <section class="relative z-10 -mt-16 rounded-t-[2.5rem] bg-white py-24 shadow-[0_-26px_60px_-28px_rgba(0,0,0,.5)]
                     before:absolute before:left-1/2 before:top-4 before:h-1.5 before:w-16
                     before:-translate-x-1/2 before:rounded-full before:bg-ink/15">
-      <div class="mx-auto max-w-content px-6">
+
+      <!-- Brand blooms. The clipping lives on THIS wrapper, not on the section:
+           overflow-hidden on an ancestor turns it into a scroll container and
+           position:sticky silently stops working, which would kill the sticky
+           photograph below. The sticky element sits outside this subtree. -->
+      <div aria-hidden="true" class="pointer-events-none absolute inset-0 overflow-hidden rounded-t-[2.5rem]">
+        <div class="absolute -left-40 top-10 h-[34rem] w-[34rem] rounded-full blur-3xl"
+             style="background:radial-gradient(circle,rgba(232,32,143,.16),transparent 68%)"></div>
+        <div class="absolute -right-32 bottom-0 h-[30rem] w-[30rem] rounded-full blur-3xl"
+             style="background:radial-gradient(circle,rgba(0,185,198,.14),transparent 68%)"></div>
+      </div>
+
+      <div class="relative mx-auto max-w-content px-6">
         <div class="grid gap-14 lg:grid-cols-[7fr_5fr]">
           <div>
             <h2 class="font-display text-3xl font-bold leading-tight text-ink sm:text-[2.75rem]">${esc(c.home.painPoints.heading)}</h2>

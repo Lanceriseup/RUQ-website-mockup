@@ -56,9 +56,12 @@ const photo = (extra = '') => `
      width="1080" height="1080" loading="lazy" decoding="async"
      class="aspect-[4/5] w-full rounded-[2rem] object-cover shadow-[0_30px_60px_-30px_rgba(28,28,28,.45)] ${extra}">`;
 
+// overflow-hidden is on the decoration wrapper, never on the section itself:
+// an overflow-hidden ancestor becomes a scroll container and position:sticky
+// silently stops working, which would break the sticky photograph.
 const shell = (inner, deco = '') => `
-<section class="relative overflow-hidden bg-white py-24">
-  ${deco}
+<section class="relative bg-white py-24">
+  ${deco ? `<div aria-hidden="true" class="pointer-events-none absolute inset-0 overflow-hidden">${deco}</div>` : ''}
   <div class="relative mx-auto max-w-content px-6">
     <div class="grid gap-14 lg:grid-cols-[7fr_5fr]">
       ${inner}
