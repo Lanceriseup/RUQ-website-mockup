@@ -13,20 +13,30 @@
 //               text invisible. Structure, spacing and the cyan hairline are
 //               identical, so the two read as the same component.
 //
-// Type scale is deliberately small (11px) — at 0.25em tracking, uppercase,
-// it stays legible while keeping the wordmark dominant. Touch targets are
-// still 44px via min-h-11 despite the small glyphs.
+// Links are 12px uppercase at 0.25em tracking — small enough that the 88px
+// wordmark stays dominant. Touch targets are still 44px via min-h-11 despite
+// the small glyphs.
+//
+// Over the video the links use the "combined" legibility treatment: a gradient
+// scrim fading down from the top edge, plus full-opacity semibold white with a
+// soft text shadow. The scrim handles bright frames in the b-roll; the shadow
+// handles the scrim's own fade-out. Neither is applied in standard mode.
 import { esc } from './layout.mjs';
 
 export const header = (site, current, opts = {}) => {
   const onHero = Boolean(opts.overHero);
 
   const linkBase =
-    'flex min-h-11 items-center px-3 font-body text-[11px] uppercase tracking-[0.25em] transition focus-visible:outline-2 focus-visible:outline-offset-2';
+    'flex min-h-11 items-center px-3 font-body text-[12px] uppercase tracking-[0.25em] transition focus-visible:outline-2 focus-visible:outline-offset-2';
+
+  // Over the video: full-opacity white, semibold, and a soft text shadow.
+  // The shadow is the second half of the "combined" treatment — the scrim
+  // below covers bright frames, and this covers the scrim's own soft edge
+  // where it fades to transparent.
   const linkTone = onHero
-    ? 'text-white/75 hover:text-white focus-visible:outline-white'
+    ? 'text-white font-semibold hover:text-cyan focus-visible:outline-white [text-shadow:0_1px_10px_rgba(0,0,0,.7)]'
     : 'text-ink-soft hover:text-magenta-text focus-visible:outline-magenta';
-  const linkActive = onHero ? 'text-white' : 'text-magenta-text';
+  const linkActive = onHero ? 'text-cyan' : 'text-magenta-text';
 
   const link = (n) => `<a href="${esc(n.href)}"
       class="${linkBase} ${linkTone} ${current === n.href ? linkActive : ''}"
@@ -47,9 +57,18 @@ export const header = (site, current, opts = {}) => {
 
   const burgerTone = onHero ? 'text-white' : 'text-ink';
 
+  // Gradient scrim, hero mode only. Extends below the header and fades out, so
+  // the type sits on a controlled ground regardless of what the footage is
+  // doing. Interior pages need none of this — ink on white is already at full
+  // contrast.
+  const scrim = onHero
+    ? `<div class="pointer-events-none absolute inset-x-0 top-0 h-72 bg-gradient-to-b from-ink/80 via-ink/40 to-transparent"></div>`
+    : '';
+
   return `
 <header class="${onHero ? 'absolute inset-x-0 top-0' : 'relative border-b border-ink-line bg-white'} z-40">
-  <div class="mx-auto max-w-content px-4 ${onHero ? 'pt-7' : 'pt-5'}">
+  ${scrim}
+  <div class="relative mx-auto max-w-content px-4 ${onHero ? 'pt-7' : 'pt-5'}">
     <nav class="flex items-center justify-between gap-4" aria-label="Primary">
       <div class="hidden ${group} md:flex">${site.nav.slice(0, half).map(link).join('')}</div>
       <a href="/index.html" class="shrink-0">${logo}</a>
@@ -66,7 +85,7 @@ export const header = (site, current, opts = {}) => {
     <div class="mt-5 pb-5 text-center">
       <a href="${esc(site.nextEvent.ctaUrl)}"
          class="inline-flex min-h-11 items-center border-b-2 border-cyan pb-1 font-body text-xs font-bold uppercase tracking-[0.3em] transition
-                ${onHero ? 'text-white hover:border-white focus-visible:outline-white' : 'text-ink hover:border-magenta focus-visible:outline-magenta'}
+                ${onHero ? 'text-white hover:border-white focus-visible:outline-white [text-shadow:0_1px_10px_rgba(0,0,0,.7)]' : 'text-ink hover:border-magenta focus-visible:outline-magenta'}
                 focus-visible:outline-2 focus-visible:outline-offset-4">
          ${esc(site.nextEvent.ctaText)}</a>
     </div>
@@ -75,7 +94,7 @@ export const header = (site, current, opts = {}) => {
   <ul id="navMain" hidden
       class="md:hidden ${onHero ? 'bg-ink/95 backdrop-blur' : 'border-t border-ink-line bg-white'} px-6 py-4">
     ${site.nav.map(n => `<li><a href="${esc(n.href)}"
-      class="flex min-h-11 items-center font-body text-[11px] uppercase tracking-[0.25em] ${onHero ? 'text-white' : 'text-ink'}">${esc(n.label)}</a></li>`).join('')}
+      class="flex min-h-11 items-center font-body text-[12px] uppercase tracking-[0.25em] ${onHero ? 'text-white' : 'text-ink'}">${esc(n.label)}</a></li>`).join('')}
     <li class="pt-3"><a href="${esc(site.nextEvent.ctaUrl)}"
       class="inline-flex min-h-11 items-center border-b-2 border-cyan pb-1 font-body text-xs font-bold uppercase tracking-[0.3em] ${onHero ? 'text-white' : 'text-ink'}">
       ${esc(site.nextEvent.ctaText)}</a></li>
