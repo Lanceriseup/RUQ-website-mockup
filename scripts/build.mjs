@@ -41,7 +41,9 @@ ${page.body}
 </main>
 ${footer(site)}
 <script src="/app.js" defer></script>
-<script src="/hero-rotate.js" defer></script>
+<script src="/hero-rotate.js" defer></script>${page.hero ? `
+<script src="https://fast.wistia.com/assets/external/E-v1.js" async></script>
+<script src="/vsl.js" defer></script>` : ''}
 </body>
 </html>
 `;
@@ -56,6 +58,7 @@ for (const page of list) {
 }
 fs.copyFileSync(path.join(ROOT, 'src/styles/app.js'), path.join(dist, 'app.js'));
 fs.copyFileSync(path.join(ROOT, 'src/styles/hero-rotate.js'), path.join(dist, 'hero-rotate.js'));
+fs.copyFileSync(path.join(ROOT, 'src/styles/vsl.js'), path.join(dist, 'vsl.js'));
 
 // Static assets (hero video, poster) ship as-is.
 const assetsSrc = path.join(ROOT, 'src/assets');

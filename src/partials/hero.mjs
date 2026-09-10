@@ -35,11 +35,14 @@ export const hero = (site, c) => {
 
   return `
 <section class="relative overflow-hidden bg-ink">
-  <video id="hero-video" class="absolute inset-0 h-full w-full object-cover opacity-35"
+  <video id="hero-video" class="absolute inset-0 h-full w-full object-cover opacity-25"
          poster="${esc(site.assets.heroVideo.poster)}"
          autoplay muted loop playsinline preload="none" aria-hidden="true" tabindex="-1"
          data-src="${esc(site.assets.heroVideo.src)}"></video>
-  <div class="absolute inset-0 bg-gradient-to-b from-ink/80 via-ink/50 to-ink/85"></div>
+  <!-- Deeper than a normal scrim: the spotlight only reads if the surround is
+       genuinely dark, so the b-roll drops back and the VSL becomes the lit
+       object. Headline contrast was rechecked against this, not the old value. -->
+  <div class="absolute inset-0 bg-gradient-to-b from-ink/85 via-ink/70 to-ink/90"></div>
 
   <!-- pt clears the overlaid header: 161px now the Register row is gone. -->
   <div class="relative mx-auto max-w-4xl px-4 pb-24 pt-48 text-center sm:pt-52">
@@ -57,19 +60,34 @@ export const hero = (site, c) => {
          announced once, statically, for screen readers. -->
     <p class="sr-only">${esc(c.home.hero.headingBefore)} ${esc(c.home.hero.rotatingWords.join(', '))} ${esc(c.home.hero.headingAfter)}</p>
 
-    <div class="mx-auto mt-14 max-w-3xl">
-      <figure class="group relative overflow-hidden rounded-2xl shadow-[0_30px_80px_-30px_rgba(0,0,0,.7)] ring-1 ring-white/20">
-        <button type="button" class="video-facade relative block aspect-video w-full"
-                data-provider="wistia" data-id="${esc(c.home.vsl.wistiaId)}" data-title="${esc(c.home.vsl.title)}">
-          <img src="${esc(c.home.vsl.poster)}" alt="" aria-hidden="true"
-               class="absolute inset-0 h-full w-full object-cover" loading="lazy" decoding="async">
-          <span class="absolute inset-0 bg-ink/25 transition group-hover:bg-ink/10"></span>
-          <span class="sr-only">Play: ${esc(c.home.vsl.title)}</span>
-          <span aria-hidden="true" class="absolute left-1/2 top-1/2 flex h-20 w-20 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-magenta shadow-2xl transition group-hover:scale-110">
-            <svg width="30" height="30" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg>
-          </span>
+    <!-- VSL: cinema letterbox with a cyan spotlight.
+         Plays muted and looping on load; clicking unmutes and restarts. See
+         vsl.js — the Wistia player is mounted into the div below. -->
+    <div class="relative mx-auto mt-16 max-w-4xl" data-vsl-id="${esc(c.home.vsl.wistiaId)}">
+
+      <!-- Cyan bloom. Sits behind, scales and fades rather than animating blur,
+           so it composites instead of re-rasterising each frame. -->
+      <div aria-hidden="true" class="vsl-bloom pointer-events-none absolute -inset-x-20 -inset-y-16 -z-10 blur-2xl"
+           style="background:radial-gradient(55% 55% at 50% 50%,rgba(0,185,198,.38),transparent 72%)"></div>
+
+      <div class="relative overflow-hidden ring-1 ring-cyan/40 shadow-[0_0_120px_-16px_rgba(0,185,198,.55),0_50px_100px_-40px_rgba(0,0,0,.9)]"
+           style="aspect-ratio:2.39/1">
+        <div class="absolute inset-0 [&>div]:h-full [&>div]:w-full">
+          <div class="wistia_embed wistia_async_${esc(c.home.vsl.wistiaId)} videoFoam=true h-full w-full">&nbsp;</div>
+        </div>
+
+        <!-- Vignette, over the player but not catching clicks. -->
+        <div aria-hidden="true" class="pointer-events-none absolute inset-0 z-10"
+             style="box-shadow:inset 0 0 140px 40px rgba(0,0,0,.72)"></div>
+
+        <button type="button" class="vsl-sound absolute bottom-4 right-4 z-20 flex min-h-11 items-center gap-2 rounded-full bg-ink/70 px-4 font-body text-[11px] font-bold uppercase tracking-[0.15em] text-white backdrop-blur transition hover:bg-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan">
+          <svg class="vsl-icon-muted" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5zM22 9l-6 6M16 9l6 6"/></svg>
+          <svg class="vsl-icon-on hidden" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5zM15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>
+          <span class="vsl-label">Tap for sound</span>
         </button>
-      </figure>
+      </div>
+
+      <p class="mt-5 font-body text-[11px] uppercase tracking-[0.35em] text-white/55">${esc(c.home.vsl.title.split('—')[0].trim())}</p>
     </div>
 
     <div class="mt-14 flex flex-col items-center gap-8">
