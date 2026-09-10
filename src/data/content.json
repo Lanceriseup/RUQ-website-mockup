@@ -34,6 +34,26 @@
       "seconds": 124,
       "poster": "https://embed-ssl.wistia.com/deliveries/9eed755ee94727b4a2b1bf2a899d9e07.jpg?image_crop_resized=1280x720",
       "_note": "Supplied by the client as the hero VSL. Poster is requested without Wistia's baked-in play button so the page can draw its own."
+    },
+    "renewal": {
+      "_source": "Verbatim from riseupqueens.com home page.",
+      "heading": "Join us to experience healing and renewal",
+      "photo": "/assets/photos/queens-waving.jpg",
+      "photoAlt": "The full room of women at a Rise Up Queens event",
+      "items": [
+        {
+          "title": "Rediscover Your True Identity",
+          "body": "Leave behind fear, doubt, and comparison as you step firmly into your God-given worth and calling."
+        },
+        {
+          "title": "Reignite Love & Intimacy",
+          "body": "Restore deep connection with yourself, God, and the relationships that matter most."
+        },
+        {
+          "title": "Live with Lasting Freedom & Passion",
+          "body": "Walk away with unshakable peace, overflowing joy, and the fire to pursue your purpose with boldness."
+        }
+      ]
     }
   },
   "about": {
