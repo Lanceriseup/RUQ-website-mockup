@@ -5,10 +5,10 @@ export const esc = s => String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;
 // Its content (next event dates + Register CTA) now lives only in the nav CTA
 // and on the events page, so nothing was lost — see git history to restore it.
 
-import { VARIANTS } from './nav-variants.mjs';
-
-// Header design is data-driven: site.json -> navVariant picks A, B, C or D.
-export const header = (site, current) => (VARIANTS[site.navVariant] || VARIANTS.B)(site, current);
+// Live header is design G — see nav.mjs. The A–D and E–I exploration sets are
+// still in nav-variants.mjs / nav-hero-variants.mjs and are rendered only on
+// the /nav-options.html and /nav-hero.html review pages.
+export { header } from './nav.mjs';
 
 export const footer = (site) => `
 <footer class="mt-24 bg-ink text-white">

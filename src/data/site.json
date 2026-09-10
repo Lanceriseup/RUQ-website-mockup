@@ -134,7 +134,7 @@
       "252175505688970"
     ]
   },
-  "navVariant": "A",
+  "navVariant": "G",
   "footerNav": [
     {
       "label": "Home",
@@ -169,5 +169,6 @@
       "href": "/free-resource.html"
     }
   ],
-  "_nav_note": "nav = header (4 items, matches the live site). footerNav = every page, so the ones not in the header stay reachable and crawlable."
+  "_nav_note": "nav = header (4 items, matches the live site). footerNav = every page, so the ones not in the header stay reachable and crawlable.",
+  "_navVariant_note": "Live header is design G (editorial hairline), implemented in src/partials/nav.mjs. It has two modes: overHero (white type on the video, homepage) and standard (ink on white, interior pages). The A-D and E-I exploration sets remain for reference and are shown only on /nav-options.html and /nav-hero.html."
 }

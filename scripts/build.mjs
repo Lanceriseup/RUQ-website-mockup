@@ -33,7 +33,7 @@ const shell = (page) => `<!doctype html>
 </head>
 <body class="bg-white font-body text-ink antialiased">
 <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-white focus:px-4 focus:py-2 focus:ring-2 focus:ring-magenta">Skip to content</a>
-${header(site, page.href)}
+${header(site, page.href, { overHero: Boolean(page.hero) })}
 <main id="main">
 ${page.body}
 </main>

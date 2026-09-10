@@ -8,6 +8,7 @@ export const pages = (site, c, vids) => ([
     file: 'index.html', href: '/index.html',
     title: `${site.brand.name} — ${c.home.hero.eyebrow}`,
     desc: site.brand.tagline,
+    hero: true,   // header renders in overHero mode and sits on top of this section
     body: `
     <section class="relative overflow-hidden bg-ink">
       <!-- Background b-roll. Muted + playsinline so mobile browsers allow autoplay.
@@ -17,7 +18,8 @@ export const pages = (site, c, vids) => ([
              poster="${esc(site.assets.heroVideo.poster)}"
              autoplay muted loop playsinline preload="none" aria-hidden="true" tabindex="-1"
              data-src="${esc(site.assets.heroVideo.src)}"></video>
-      <div class="relative mx-auto max-w-content px-4 py-28 sm:py-40">
+      <!-- pt clears the overlaid editorial header (~195px incl. hairline + CTA rule) -->
+      <div class="relative mx-auto max-w-content px-4 pb-28 pt-56 sm:pb-40 sm:pt-60">
         <p class="font-body text-sm uppercase tracking-[0.25em] text-cyan">${esc(c.home.hero.eyebrow)}</p>
         <h1 class="mt-4 max-w-3xl font-display text-4xl font-bold leading-[1.1] text-white sm:text-6xl">${esc(c.home.hero.heading)}</h1>
         <p class="mt-6 max-w-xl font-body text-lg text-white/85">${esc(c.home.hero.sub)}</p>
