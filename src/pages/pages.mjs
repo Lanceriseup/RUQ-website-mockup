@@ -1,5 +1,5 @@
 import { esc } from '../partials/layout.mjs';
-import { section, videoFacade, card, cta, faq } from '../partials/components.mjs';
+import { section, videoFacade, card, personCard, cta, faq } from '../partials/components.mjs';
 
 const grid = (cols, items) => `<div class="mt-10 grid gap-6 ${cols}">${items.join('')}</div>`;
 
@@ -113,7 +113,7 @@ export const pages = (site, c, vids) => ([
     file: 'team.html', href: '/team.html',
     title: `Meet the Team — ${site.brand.name}`, desc: c.team.lead,
     body: section({ bg: 'bg-cream', heading: c.team.heading, lead: c.team.lead, body:
-      grid('sm:grid-cols-2 lg:grid-cols-3', c.team.members.map(m => card(m.name, m.bio || 'Bio to be supplied.', m.role))) })
+      grid('sm:grid-cols-2 lg:grid-cols-4', c.team.members.map(m => personCard(m))) })
   },
 
   {

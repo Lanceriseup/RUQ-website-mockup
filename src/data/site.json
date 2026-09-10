@@ -60,12 +60,12 @@
     }
   ],
   "assets": {
-    "_note": "Currently pointing at the live WordPress CDN so the mockup renders immediately. Replace with local /assets before launch — see README.",
-    "logoWhite": "https://riseupqueens.com/wp-content/uploads/2025/06/RUQ-Logo-White-01-1-scaled.png",
-    "logoParent": "https://riseupqueens.com/wp-content/uploads/2025/07/Rise-Up-Kings-Logo-04-scaled.png",
-    "favicon": "https://riseupqueens.com/wp-content/uploads/2025/07/cropped-RUQ-favicon-01-01-180x180.png",
-    "heroPoster": "https://riseupqueens.com/wp-content/uploads/2025/06/Queens-Waving-Photo-2-scaled.jpg",
-    "pattern": "https://riseupqueens.com/wp-content/uploads/2025/06/RUQ-Pattern.png",
+    "_note": "All local. Nothing here depends on riseupqueens.com any more. Re-fetch from the live site with: npm run fetch:assets",
+    "logoWhite": "/assets/brand/logo-ruq-white.png",
+    "logoParent": "/assets/brand/logo-ruk.png",
+    "favicon": "/assets/brand/favicon-180.png",
+    "heroPoster": "/assets/photos/queens-waving.jpg",
+    "pattern": "/assets/brand/pattern.png",
     "heroVideoLegacy": {
       "url": "https://riseupqueens.com/wp-content/uploads/2025/06/RUQ-broll-Montage-720.mov",
       "_role": "Background b-roll montage behind the homepage hero on the live site (Brizy brz-bg-video: autoplay, muted, loop, playsinline).",
@@ -108,7 +108,23 @@
         "faststart": true
       },
       "_vs_original": "127.6 MB -> 11.0 MB (11.6x smaller); moov moved to the front so playback starts immediately."
-    }
+    },
+    "logoMark": "/assets/brand/logo-ruq.png",
+    "signature": "/assets/brand/signature-jl-white.png",
+    "faviconSizes": {
+      "32": "/assets/brand/favicon-32.png",
+      "180": "/assets/brand/favicon-180.png",
+      "192": "/assets/brand/favicon-192.png",
+      "270": "/assets/brand/favicon-270.png"
+    },
+    "photos": [
+      "/assets/photos/event-8.png",
+      "/assets/photos/event-9.png",
+      "/assets/photos/gallery-1-1.png",
+      "/assets/photos/gallery-1-2.png",
+      "/assets/photos/gallery-2-1.png",
+      "/assets/photos/gallery-2-2.png"
+    ]
   },
   "social": {
     "instagram": "https://www.instagram.com/riseupqueens/",

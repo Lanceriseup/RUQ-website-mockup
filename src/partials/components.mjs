@@ -37,6 +37,17 @@ export const card = (title, body, meta) => `
   ${body?`<p class="mt-3 font-body text-sm leading-relaxed text-ink-soft">${esc(body)}</p>`:''}
 </article>`;
 
+export const personCard = (m) => `
+<article class="overflow-hidden rounded-xl bg-white shadow-sm ring-1 ring-ink/10 transition hover:shadow-md">
+  <img src="${esc(m.photo)}" alt="${esc(m.name)}" width="600" height="800" loading="lazy" decoding="async"
+       class="aspect-[3/4] w-full bg-cream-dark object-cover object-top">
+  <div class="p-5">
+    <h3 class="font-display text-lg font-semibold text-ink">${esc(m.name)}</h3>
+    ${m.role ? `<p class="mt-0.5 font-body text-xs uppercase tracking-wider text-rose">${esc(m.role)}</p>` : ''}
+    ${m.bio ? `<p class="mt-3 font-body text-sm leading-relaxed text-ink-soft">${esc(m.bio)}</p>` : ''}
+  </div>
+</article>`;
+
 export const cta = (label, href, style = 'primary') => {
   const cls = style === 'primary'
     ? 'bg-rose text-white hover:bg-rose-dark'

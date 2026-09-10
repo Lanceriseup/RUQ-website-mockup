@@ -23,7 +23,9 @@ const shell = (page) => `<!doctype html>
 <meta property="og:title" content="${esc(page.title)}">
 <meta property="og:description" content="${esc(page.desc)}">
 <meta property="og:type" content="website">
-<link rel="icon" href="${esc(site.assets.favicon)}">
+<link rel="icon" sizes="32x32" href="${esc(site.assets.faviconSizes['32'])}">
+<link rel="icon" sizes="192x192" href="${esc(site.assets.faviconSizes['192'])}">
+<link rel="apple-touch-icon" href="${esc(site.assets.faviconSizes['180'])}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Lato:wght@400;700&display=swap">

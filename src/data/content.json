@@ -1,6 +1,5 @@
 {
   "_source": "Extracted from riseupqueens.com on 2026-09-10. Copy is the CLIENT'S OWN — verify before publishing.",
-
   "home": {
     "hero": {
       "eyebrow": "Next 3-Day Transformational Event",
@@ -23,87 +22,206 @@
       "body": "Jessica Lewis is a Christian marriage coach, speaker, and founder of Rise Up Queens — a transformational movement for high-achieving women who long for freedom, connection and purpose. Today Jessica co-leads Rise Up Queens alongside her husband Skylar Lewis, founder of Rise Up Kings."
     }
   },
-
   "about": {
     "heading": "About Rise Up Queens",
     "lead": "Rise Up Queens is for the woman who knows she has untapped potential. She desires to live in freedom while maximizing her impact within her family and beyond.",
-    "pullquotes": ["This is not surface-level empowerment.", "It's spirit-led transformation."],
+    "pullquotes": [
+      "This is not surface-level empowerment.",
+      "It's spirit-led transformation."
+    ],
     "ctaHeading": "Ready to Take the First Step?",
     "faqs": [
-      { "q": "Who is Rise Up Queens for?", "a": "Women of faith who sense untapped potential and want freedom, deeper connection and greater impact — whether married, single, or somewhere in between." },
-      { "q": "What happens at the 3-day event?", "a": "Three days of teaching, guided exercises and community designed to surface what's blocking your joy and connection, then walk you into practical next steps." },
-      { "q": "Do I need to come with my spouse?", "a": "No. Rise Up Queens is for women. Rise Up Kings runs the parallel movement for men, and Elevate is the couples experience." },
-      { "q": "What if I'm not ready for a live event?", "a": "Start with a masterclass or the free resource. Both are lower-commitment ways into the same material." }
+      {
+        "q": "Who is Rise Up Queens for?",
+        "a": "Women of faith who sense untapped potential and want freedom, deeper connection and greater impact — whether married, single, or somewhere in between."
+      },
+      {
+        "q": "What happens at the 3-day event?",
+        "a": "Three days of teaching, guided exercises and community designed to surface what's blocking your joy and connection, then walk you into practical next steps."
+      },
+      {
+        "q": "Do I need to come with my spouse?",
+        "a": "No. Rise Up Queens is for women. Rise Up Kings runs the parallel movement for men, and Elevate is the couples experience."
+      },
+      {
+        "q": "What if I'm not ready for a live event?",
+        "a": "Start with a masterclass or the free resource. Both are lower-commitment ways into the same material."
+      }
     ]
   },
-
   "events": {
     "heading": "Your Path with Rise Up Queens",
     "lead": "A transformational journey with intentional steps. Improve relationships, increase confidence and break through to new levels.",
     "tiers": [
-      { "name": "FREEDOM",              "blurb": "The 3-day transformational event where the journey begins.", "cta": "threeDayEvent" },
-      { "name": "DEEPER",               "blurb": "Go further with a guided continuation of the Freedom experience.", "cta": "deeper" },
-      { "name": "Life By Design",       "blurb": "Design the life and rhythms you actually want to live.", "cta": "lifeByDesign" },
-      { "name": "Elevate",              "blurb": "Amplify your marital bond with Elevate, a 4-day seminar for couples.", "cta": "elevate" },
-      { "name": "Elevate International","blurb": "Start your next adventure — a 4-day marriage retreat abroad for couples.", "cta": "elevate" },
-      { "name": "Coaches Academy",      "blurb": "Train to coach and carry the work to others.", "cta": "coachesAcademy" },
-      { "name": "1:1 Coaching",         "blurb": "Personal coaching matched to where you are right now.", "cta": null }
+      {
+        "name": "FREEDOM",
+        "blurb": "The 3-day transformational event where the journey begins.",
+        "cta": "threeDayEvent"
+      },
+      {
+        "name": "DEEPER",
+        "blurb": "Go further with a guided continuation of the Freedom experience.",
+        "cta": "deeper"
+      },
+      {
+        "name": "Life By Design",
+        "blurb": "Design the life and rhythms you actually want to live.",
+        "cta": "lifeByDesign"
+      },
+      {
+        "name": "Elevate",
+        "blurb": "Amplify your marital bond with Elevate, a 4-day seminar for couples.",
+        "cta": "elevate"
+      },
+      {
+        "name": "Elevate International",
+        "blurb": "Start your next adventure — a 4-day marriage retreat abroad for couples.",
+        "cta": "elevate"
+      },
+      {
+        "name": "Coaches Academy",
+        "blurb": "Train to coach and carry the work to others.",
+        "cta": "coachesAcademy"
+      },
+      {
+        "name": "1:1 Coaching",
+        "blurb": "Personal coaching matched to where you are right now.",
+        "cta": null
+      }
     ]
   },
-
   "masterclasses": {
     "heading": "Available Masterclasses",
     "lead": "Each topic is designed to meet you where you're at — and walk with you into the next.",
     "items": [
-      { "name": "The Control Masterclass", "duration": "3 months (12 weeks)", "blurb": "A 12-week journey to identify and release patterns of inappropriate control, exploring what drives them and what freedom looks like instead." },
-      { "name": "The Freedom Masterclass", "duration": "3 months (12 weeks)", "blurb": "A 12-week journey to live fully in the grace and power of your identity in Christ through spiritual exploration and practice." },
-      { "name": "The Body Image Masterclass", "duration": "2 months (8 weeks)", "blurb": "An 8-week journey to rewrite the story you've believed about your body and explore the roots of how you see yourself." }
+      {
+        "name": "The Control Masterclass",
+        "duration": "3 months (12 weeks)",
+        "blurb": "A 12-week journey to identify and release patterns of inappropriate control, exploring what drives them and what freedom looks like instead."
+      },
+      {
+        "name": "The Freedom Masterclass",
+        "duration": "3 months (12 weeks)",
+        "blurb": "A 12-week journey to live fully in the grace and power of your identity in Christ through spiritual exploration and practice."
+      },
+      {
+        "name": "The Body Image Masterclass",
+        "duration": "2 months (8 weeks)",
+        "blurb": "An 8-week journey to rewrite the story you've believed about your body and explore the roots of how you see yourself."
+      }
     ],
     "waitlistLabel": "Join the waitlist."
   },
-
   "coaching": {
     "heading": "1-on-1 Coaching",
     "lead": "Personal coaching with a Rise Up Queens coach, matched to where you are right now.",
     "coaches": [
-      { "name": "Molly Rhodes",   "blurb": "Molly works with women who feel stuck, emotionally exhausted, weighed down by shame, or unsure of their purpose. She helps them expose the lies they've believed and step into truth." },
-      { "name": "Becky Hilty",    "blurb": "My ideal client is a woman who feels tired of striving, yet unsure how to stop. She's often seen as strong by others but feels unseen in her own home." },
-      { "name": "Christy Tijerina","blurb": "I love working with women who feel like they've lost themselves — especially those who've spent years caring for everyone else while silently disappearing." },
-      { "name": "Natasha Seguin-Congrove", "blurb": "My ideal client is a high-achieving woman who feels overwhelmed by carrying the weight of family and responsibilities alone. She longs for margin and connection." }
+      {
+        "name": "Molly Rhodes",
+        "blurb": "Molly works with women who feel stuck, emotionally exhausted, weighed down by shame, or unsure of their purpose. She helps them expose the lies they've believed and step into truth."
+      },
+      {
+        "name": "Becky Hilty",
+        "blurb": "My ideal client is a woman who feels tired of striving, yet unsure how to stop. She's often seen as strong by others but feels unseen in her own home."
+      },
+      {
+        "name": "Christy Tijerina",
+        "blurb": "I love working with women who feel like they've lost themselves — especially those who've spent years caring for everyone else while silently disappearing."
+      },
+      {
+        "name": "Natasha Seguin-Congrove",
+        "blurb": "My ideal client is a high-achieving woman who feels overwhelmed by carrying the weight of family and responsibilities alone. She longs for margin and connection."
+      }
     ]
   },
-
   "team": {
     "heading": "Rise Up Queens Coaches",
     "lead": "The people who guide the work.",
     "members": [
-      { "name": "Jessica Lewis", "role": "Founder", "bio": "Christian marriage coach, speaker, and founder of Rise Up Queens. Co-leads RUQ alongside her husband Skylar Lewis, founder of Rise Up Kings." },
-      { "name": "Molly Rhodes", "role": "Coach", "bio": "Coach, speaker and passionate leader with Rise Up Queens. After experiencing radical transformation through RUQ, she now guides other women through it." },
-      { "name": "Becky Hilty", "role": "Coach", "bio": "" },
-      { "name": "Christy Tijerina", "role": "Coach", "bio": "" },
-      { "name": "Natasha Seguin-Congrove", "role": "Coach", "bio": "" },
-      { "name": "Maurie Shipp", "role": "Coach", "bio": "" },
-      { "name": "Jayden Ngoi", "role": "Team", "bio": "" },
-      { "name": "Jessica Craycraft", "role": "Team", "bio": "" },
-      { "name": "Carolyn Johnson", "role": "Team", "bio": "" },
-      { "name": "Maria Hazzard", "role": "Team", "bio": "" },
-      { "name": "Justin Baker", "role": "Team", "bio": "" },
-      { "name": "Nathan Griffey", "role": "Team", "bio": "" }
+      {
+        "name": "Jessica Lewis",
+        "role": "Founder",
+        "bio": "Christian marriage coach, speaker, and founder of Rise Up Queens. Co-leads RUQ alongside her husband Skylar Lewis, founder of Rise Up Kings.",
+        "photo": "/assets/team/jessica-lewis.jpg"
+      },
+      {
+        "name": "Molly Rhodes",
+        "role": "Coach",
+        "bio": "Coach, speaker and passionate leader with Rise Up Queens. After experiencing radical transformation through RUQ, she now guides other women through it.",
+        "photo": "/assets/team/molly-rhodes.jpg"
+      },
+      {
+        "name": "Becky Hilty",
+        "role": "Coach",
+        "bio": "",
+        "photo": "/assets/team/becky-hilty.jpg"
+      },
+      {
+        "name": "Christy Tijerina",
+        "role": "Coach",
+        "bio": "",
+        "photo": "/assets/team/christy-tijerina.jpg"
+      },
+      {
+        "name": "Natasha Seguin-Congrove",
+        "role": "Coach",
+        "bio": "",
+        "photo": "/assets/team/natasha-seguin-congrove.jpg"
+      },
+      {
+        "name": "Maurie Shipp",
+        "role": "Coach",
+        "bio": "",
+        "photo": "/assets/team/maurie-shipp.jpg"
+      },
+      {
+        "name": "Jayden Ngoi",
+        "role": "Team",
+        "bio": "",
+        "photo": "/assets/team/jayden-ngoi.jpg"
+      },
+      {
+        "name": "Jessica Craycraft",
+        "role": "Team",
+        "bio": "",
+        "photo": "/assets/team/jessica-craycraft.jpg"
+      },
+      {
+        "name": "Carolyn Johnson",
+        "role": "Team",
+        "bio": "",
+        "photo": "/assets/team/carolyn-johnson.jpg"
+      },
+      {
+        "name": "Maria Hazzard",
+        "role": "Team",
+        "bio": "",
+        "photo": "/assets/team/maria-hazzard.jpg"
+      },
+      {
+        "name": "Justin Baker",
+        "role": "Team",
+        "bio": "",
+        "photo": "/assets/team/justin-baker.png"
+      },
+      {
+        "name": "Nathan Griffey",
+        "role": "Team",
+        "bio": "",
+        "photo": "/assets/team/nathan-griffey.jpg"
+      }
     ]
   },
-
   "freeResource": {
     "heading": "Free Resource",
     "lead": "A no-cost place to start.",
     "note": "PENDING — the live page has no resource attached yet. Confirm the deliverable and delivery mechanism."
   },
-
   "contact": {
     "heading": "Contact",
     "lead": "We'd love to hear from you. If you have questions, our team is here to help.",
     "socialHeading": "Find Us On Socials"
   },
-
   "thankYou": {
     "heading": "Thank You, Queen!",
     "lead": "Your message has been received — we're so glad you reached out."
