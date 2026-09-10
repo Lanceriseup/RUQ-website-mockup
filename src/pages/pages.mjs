@@ -1,6 +1,7 @@
 import { esc } from '../partials/layout.mjs';
 import { section, videoFacade, card, personCard, cta, faq } from '../partials/components.mjs';
 import { hero } from '../partials/hero.mjs';
+import { renderSpread as spread } from '../partials/spread-variants.mjs';
 
 const grid = (cols, items) => `<div class="mt-10 grid gap-6 ${cols}">${items.join('')}</div>`;
 
@@ -14,47 +15,15 @@ export const pages = (site, c, vids) => ([
     ${hero(site, c)}
 
 
-    <!-- Struggles, editorial layout. Also the overlapping panel: this section
-         lifts over the hero rather than the hero cutting a shape out of
-         itself, with a grabber bar on the top edge. -->
-    <section class="relative z-10 -mt-16 rounded-t-[2.5rem] bg-white py-24 shadow-[0_-26px_60px_-28px_rgba(0,0,0,.5)]
-                    before:absolute before:left-1/2 before:top-4 before:h-1.5 before:w-16
-                    before:-translate-x-1/2 before:rounded-full before:bg-ink/15">
-
-      <!-- Brand blooms. The clipping lives on THIS wrapper, not on the section:
-           overflow-hidden on an ancestor turns it into a scroll container and
-           position:sticky silently stops working, which would kill the sticky
-           photograph below. The sticky element sits outside this subtree. -->
-      <div aria-hidden="true" class="pointer-events-none absolute inset-0 overflow-hidden rounded-t-[2.5rem]">
-        <div class="absolute -left-40 top-10 h-[34rem] w-[34rem] rounded-full blur-3xl"
-             style="background:radial-gradient(circle,rgba(232,32,143,.16),transparent 68%)"></div>
-        <div class="absolute -right-32 bottom-0 h-[30rem] w-[30rem] rounded-full blur-3xl"
-             style="background:radial-gradient(circle,rgba(0,185,198,.14),transparent 68%)"></div>
-      </div>
-
-      <div class="relative mx-auto max-w-content px-6">
-        <div class="grid gap-14 lg:grid-cols-[7fr_5fr]">
-          <div>
-            <h2 class="font-display text-3xl font-bold leading-tight text-ink sm:text-[2.75rem]">${esc(c.home.painPoints.heading)}</h2>
-            <ul class="mt-12 space-y-9">
-              ${c.home.painPoints.items.map((t, i) => `
-              <li class="flex gap-6">
-                <span aria-hidden="true" class="shrink-0 font-display text-2xl font-bold leading-none tabular-nums"
-                      style="color:rgba(232,32,143,.35)">${String(i + 1).padStart(2, '0')}</span>
-                <p class="font-body text-lg leading-relaxed text-ink">${esc(t)}</p>
-              </li>`).join('')}
-            </ul>
-          </div>
-          <!-- Sticky so the photograph holds while the six lines scroll past.
-               Hidden below lg, where there is no second column to hold it. -->
-          <div class="relative hidden lg:block">
-            <img src="/assets/photos/gallery-1-2.png" alt="Women together at a Rise Up Queens event"
-                 width="1080" height="1080" loading="lazy" decoding="async"
-                 class="sticky top-24 aspect-[4/5] w-full rounded-[2rem] object-cover shadow-[0_30px_60px_-30px_rgba(28,28,28,.45)]">
-          </div>
-        </div>
-      </div>
-    </section>
+    <!-- Struggles + renewal as one magazine spread, and the overlapping panel
+         that lifts it over the hero. The two sections are one argument — six
+         problems, then three answers — so they are designed together, with the
+         photographic plates overlapping the boundary between them. -->
+    <div class="relative z-10 -mt-16 overflow-hidden rounded-t-[2.5rem] shadow-[0_-26px_60px_-28px_rgba(0,0,0,.5)]
+                before:absolute before:left-1/2 before:top-4 before:z-20 before:h-1.5 before:w-16
+                before:-translate-x-1/2 before:rounded-full before:bg-ink/15">
+      ${spread(site, c, 'magazine')}
+    </div>
 
     ${section({ bg: 'bg-white', eyebrow: 'Watch', heading: 'Hear from the women who came',
       lead: 'Testimonies from the 2025 events.', body:
