@@ -16,12 +16,10 @@ export const pages = (site, c, vids) => ([
 
     <!-- Struggles, editorial layout. Also the overlapping panel: this section
          lifts over the hero rather than the hero cutting a shape out of
-         itself, with a grabber bar on the top edge. Ground is warm #FBF7F4,
-         not #fff — pure white against the dark hero reads unstyled. -->
-    <section class="relative z-10 -mt-16 rounded-t-[2.5rem] py-24 shadow-[0_-26px_60px_-28px_rgba(0,0,0,.5)]
+         itself, with a grabber bar on the top edge. -->
+    <section class="relative z-10 -mt-16 rounded-t-[2.5rem] bg-white py-24 shadow-[0_-26px_60px_-28px_rgba(0,0,0,.5)]
                     before:absolute before:left-1/2 before:top-4 before:h-1.5 before:w-16
-                    before:-translate-x-1/2 before:rounded-full before:bg-ink/15"
-             style="background:#FBF7F4">
+                    before:-translate-x-1/2 before:rounded-full before:bg-ink/15">
       <div class="mx-auto max-w-content px-6">
         <div class="grid gap-14 lg:grid-cols-[7fr_5fr]">
           <div>
