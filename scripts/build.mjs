@@ -51,6 +51,12 @@ for (const page of list) {
 }
 fs.copyFileSync(path.join(ROOT, 'src/styles/app.js'), path.join(dist, 'app.js'));
 
+// Static assets (hero video, poster) ship as-is.
+const assetsSrc = path.join(ROOT, 'src/assets');
+if (fs.existsSync(assetsSrc)) {
+  fs.cpSync(assetsSrc, path.join(dist, 'assets'), { recursive: true });
+}
+
 const report = {
   builtAt: new Date().toISOString(),
   pages: list.map(p => p.file),

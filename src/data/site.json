@@ -90,7 +90,24 @@
         "webm": "ffmpeg -i RUQ-broll-Montage-720.mov -an -c:v libvpx-vp9 -crf 36 -b:v 0 hero.webm",
         "expected": "~15-20 MB, playable within the first second"
       },
-      "_status": "NOT used in this mockup - the hero uses a poster image instead."
+      "_status": "Superseded by assets.heroVideo. Kept for provenance."
+    },
+    "heroVideo": {
+      "src": "/assets/video/hero-broll.mp4",
+      "poster": "/assets/video/hero-poster.jpg",
+      "_origin": "Re-encoded from the live RUQ-broll-Montage-720.mov.",
+      "_encode": "ffmpeg -i in.mov -an -c:v libx264 -crf 30 -preset slow -pix_fmt yuv420p -g 60 -movflags +faststart out.mp4",
+      "bytes": 11501000,
+      "specs": {
+        "container": "MP4",
+        "video": "H.264",
+        "audio": "none (stripped)",
+        "resolution": "1280x720",
+        "duration": "2:20",
+        "bitrate": "659 kbps",
+        "faststart": true
+      },
+      "_vs_original": "127.6 MB -> 11.0 MB (11.6x smaller); moov moved to the front so playback starts immediately."
     }
   },
   "social": {

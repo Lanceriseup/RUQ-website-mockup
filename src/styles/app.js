@@ -14,6 +14,24 @@
     });
   }
 
+  // Hero background video.
+  // Held back behind data-src so it costs nothing for people who should not get
+  // it: reduced-motion users, and anyone on a metered/Save-Data connection.
+  // They keep the poster frame, which carries the same image.
+  (function heroVideo() {
+    var v = document.getElementById('hero-video');
+    if (!v || !v.dataset.src) return;
+
+    var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var saveData = navigator.connection && navigator.connection.saveData;
+    if (reduced || saveData) return;
+
+    v.preload = 'auto';
+    v.src = v.dataset.src;
+    var p = v.play();
+    if (p && p.catch) p.catch(function () { /* autoplay blocked: poster stands in */ });
+  })();
+
   function iframeFor(provider, id, title, hash) {
     var el = document.createElement('iframe');
     el.title = title;

@@ -10,8 +10,13 @@ export const pages = (site, c, vids) => ([
     desc: site.brand.tagline,
     body: `
     <section class="relative overflow-hidden bg-ink">
-      <img src="${esc(site.assets.heroPoster)}" alt="" aria-hidden="true"
-           class="absolute inset-0 h-full w-full object-cover opacity-40" loading="eager" decoding="async">
+      <!-- Background b-roll. Muted + playsinline so mobile browsers allow autoplay.
+           The poster shows before the first frame decodes and is the whole picture
+           for anyone on prefers-reduced-motion (app.js skips loading the video). -->
+      <video id="hero-video" class="absolute inset-0 h-full w-full object-cover opacity-40"
+             poster="${esc(site.assets.heroVideo.poster)}"
+             autoplay muted loop playsinline preload="none" aria-hidden="true" tabindex="-1"
+             data-src="${esc(site.assets.heroVideo.src)}"></video>
       <div class="relative mx-auto max-w-content px-4 py-28 sm:py-40">
         <p class="font-body text-sm uppercase tracking-[0.25em] text-blush">${esc(c.home.hero.eyebrow)}</p>
         <h1 class="mt-4 max-w-3xl font-display text-4xl font-bold leading-[1.1] text-white sm:text-6xl">${esc(c.home.hero.heading)}</h1>

@@ -42,11 +42,31 @@ createServer(async (req, res) => {
     res.writeHead(404, { 'content-type': 'text/plain; charset=utf-8', 'x-robots-tag': 'noindex' });
     return res.end(`404 Not Found: ${url.pathname}`);
   }
-  res.writeHead(200, {
-    'content-type': TYPES[extname(file).toLowerCase()] || 'application/octet-stream',
+  const type = TYPES[extname(file).toLowerCase()] || 'application/octet-stream';
+  const { size } = await stat(file);
+  const base = {
+    'content-type': type,
     'cache-control': 'no-store',
     'x-robots-tag': 'noindex, nofollow',   // keep the preview's search-exclusion safeguard
-  });
+    'accept-ranges': 'bytes',
+  };
+
+  // Range support. Safari will not play a video at all unless the server
+  // answers 206, so the local preview has to behave like a real host here.
+  const range = req.headers.range;
+  const m = range && /^bytes=(\d*)-(\d*)$/.exec(range.trim());
+  if (m) {
+    let start = m[1] === '' ? size - Number(m[2]) : Number(m[1]);
+    let end = m[1] === '' || m[2] === '' ? size - 1 : Number(m[2]);
+    if (Number.isNaN(start) || Number.isNaN(end) || start > end || start < 0 || end >= size) {
+      res.writeHead(416, { ...base, 'content-range': `bytes */${size}` });
+      return res.end();
+    }
+    res.writeHead(206, { ...base, 'content-range': `bytes ${start}-${end}/${size}`, 'content-length': end - start + 1 });
+    return createReadStream(file, { start, end }).pipe(res);
+  }
+
+  res.writeHead(200, { ...base, 'content-length': size });
   createReadStream(file).pipe(res);
 }).listen(PORT, HOST, () => {
   console.log(`RUQ preview serving ${ROOT}`);
