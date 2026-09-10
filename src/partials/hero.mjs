@@ -1,12 +1,11 @@
 // Homepage hero: rotating headline, VSL, event dates, Register CTA.
 //
-// Stacked layout, after the NLB reference: small letter-spaced sans above,
-// the rotating word oversized in brush script beneath it, then the rest of
-// the sentence in sans. The script leads rather than sitting inline.
+// Stacked layout: small letter-spaced sans above, the rotating word oversized
+// beneath it, then the rest of the sentence in sans. The word is heavy
+// Montserrat filled with a magenta-to-cyan gradient — see .sheen.
 //
 // The three words share one inline-grid cell, so the widest ("passionate")
-// sets the width once and the sentence does not reflow as it cycles. The cyan
-// rule under the word re-sweeps in step with each swap.
+// sets the width once and the sentence does not reflow as it cycles.
 //
 // The header no longer carries a Register link — this button is the page's
 // single primary action until the hero scrolls away and the capsule takes over.
@@ -35,14 +34,15 @@ export const hero = (site, c) => {
 
   return `
 <section class="relative overflow-hidden bg-ink">
-  <video id="hero-video" class="absolute inset-0 h-full w-full object-cover opacity-30"
+  <video id="hero-video" class="absolute inset-0 h-full w-full object-cover opacity-25"
          poster="${esc(site.assets.heroVideo.poster)}"
          autoplay muted loop playsinline preload="none" aria-hidden="true" tabindex="-1"
          data-src="${esc(site.assets.heroVideo.src)}"></video>
-  <!-- Scrim was pushed very dark to make an obvious spotlight read. With the
-       bloom dialled back it is lifted again — heavy darkening with a subtle
-       glow just looks murky, since nothing motivates the gloom. -->
-  <div class="absolute inset-0 bg-gradient-to-b from-ink/82 via-ink/62 to-ink/88"></div>
+  <!-- Dimmer surround so the VSL is the brightest thing in the section. This
+       also does half the work of making the teal read: a glow is only as
+       visible as the dark it sits against, so raising the bloom and dimming
+       the ground pull in the same direction. -->
+  <div class="absolute inset-0 bg-gradient-to-b from-ink/86 via-ink/72 to-ink/90"></div>
 
   <!-- pt clears the overlaid header: 161px now the Register row is gone. -->
   <div class="relative mx-auto max-w-4xl px-4 pb-24 pt-48 text-center sm:pt-52">
@@ -70,9 +70,9 @@ export const hero = (site, c) => {
            rather than as a glow effect applied to it. Scales and fades rather
            than animating blur, so it composites. -->
       <div aria-hidden="true" class="vsl-bloom pointer-events-none absolute -inset-x-28 -inset-y-20 -z-10 blur-3xl"
-           style="background:radial-gradient(50% 50% at 50% 50%,rgba(0,185,198,.16),transparent 75%)"></div>
+           style="background:radial-gradient(50% 50% at 50% 50%,rgba(0,185,198,.3),transparent 74%)"></div>
 
-      <div class="relative overflow-hidden ring-1 ring-cyan/20 shadow-[0_0_70px_-26px_rgba(0,185,198,.3),0_40px_90px_-45px_rgba(0,0,0,.85)]"
+      <div class="relative overflow-hidden ring-1 ring-cyan/40 shadow-[0_0_100px_-20px_rgba(0,185,198,.48),0_40px_90px_-45px_rgba(0,0,0,.85)]"
            style="aspect-ratio:2.39/1">
         <div class="absolute inset-0 [&>div]:h-full [&>div]:w-full">
           <div class="wistia_embed wistia_async_${esc(c.home.vsl.wistiaId)} videoFoam=true h-full w-full">&nbsp;</div>
@@ -88,8 +88,6 @@ export const hero = (site, c) => {
           <span class="vsl-label">Tap for sound</span>
         </button>
       </div>
-
-      <p class="mt-5 font-body text-[11px] uppercase tracking-[0.35em] text-white/55">${esc(c.home.vsl.title.split('—')[0].trim())}</p>
     </div>
 
     <div class="mt-14 flex flex-col items-center gap-8">
