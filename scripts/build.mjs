@@ -31,8 +31,8 @@ const shell = (page) => `<!doctype html>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Lato:wght@400;700&display=swap">
 <link rel="stylesheet" href="/styles.css">
 </head>
-<body class="bg-cream font-body text-ink antialiased">
-<a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-white focus:px-4 focus:py-2 focus:ring-2 focus:ring-rose">Skip to content</a>
+<body class="bg-white font-body text-ink antialiased">
+<a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-white focus:px-4 focus:py-2 focus:ring-2 focus:ring-magenta">Skip to content</a>
 ${header(site, page.href)}
 <main id="main">
 ${page.body}

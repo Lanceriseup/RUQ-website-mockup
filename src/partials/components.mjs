@@ -3,7 +3,7 @@ import { esc } from './layout.mjs';
 export const section = (o) => `
 <section class="${o.bg ?? ''} ${o.pad ?? 'py-16 sm:py-24'}" ${o.id?`id="${esc(o.id)}"`:''}>
   <div class="mx-auto max-w-content px-4">
-    ${o.eyebrow?`<p class="font-body text-sm uppercase tracking-[0.2em] text-rose">${esc(o.eyebrow)}</p>`:''}
+    ${o.eyebrow?`<p class="font-body text-sm uppercase tracking-[0.2em] text-magenta-text">${esc(o.eyebrow)}</p>`:''}
     ${o.heading?`<h2 class="mt-3 font-display text-3xl font-bold leading-tight text-ink sm:text-4xl">${esc(o.heading)}</h2>`:''}
     ${o.lead?`<p class="mt-4 max-w-2xl font-body text-lg text-ink-soft">${esc(o.lead)}</p>`:''}
     ${o.body ?? ''}
@@ -33,24 +33,24 @@ export const videoFacade = (v, provider = 'wistia') => `
 export const card = (title, body, meta) => `
 <article class="rounded-xl bg-white p-6 shadow-sm ring-1 ring-ink/10 transition hover:shadow-md">
   <h3 class="font-display text-lg font-semibold text-ink">${esc(title)}</h3>
-  ${meta?`<p class="mt-1 font-body text-xs uppercase tracking-wider text-rose">${esc(meta)}</p>`:''}
+  ${meta?`<p class="mt-1 font-body text-xs uppercase tracking-wider text-magenta-text">${esc(meta)}</p>`:''}
   ${body?`<p class="mt-3 font-body text-sm leading-relaxed text-ink-soft">${esc(body)}</p>`:''}
 </article>`;
 
 export const personCard = (m) => `
 <article class="overflow-hidden rounded-xl bg-white shadow-sm ring-1 ring-ink/10 transition hover:shadow-md">
   <img src="${esc(m.photo)}" alt="${esc(m.name)}" width="600" height="800" loading="lazy" decoding="async"
-       class="aspect-[3/4] w-full bg-cream-dark object-cover object-top">
+       class="aspect-[3/4] w-full bg-ink-line object-cover object-top">
   <div class="p-5">
     <h3 class="font-display text-lg font-semibold text-ink">${esc(m.name)}</h3>
-    ${m.role ? `<p class="mt-0.5 font-body text-xs uppercase tracking-wider text-rose">${esc(m.role)}</p>` : ''}
+    ${m.role ? `<p class="mt-0.5 font-body text-xs uppercase tracking-wider text-magenta-text">${esc(m.role)}</p>` : ''}
     ${m.bio ? `<p class="mt-3 font-body text-sm leading-relaxed text-ink-soft">${esc(m.bio)}</p>` : ''}
   </div>
 </article>`;
 
 export const cta = (label, href, style = 'primary') => {
   const cls = style === 'primary'
-    ? 'bg-rose text-white hover:bg-rose-dark'
+    ? 'bg-magenta text-white hover:bg-magenta-deep'
     : 'bg-transparent text-ink ring-1 ring-ink/25 hover:bg-ink/5';
   return `<a href="${esc(href)}" class="inline-block rounded-full px-7 py-3 font-body font-semibold transition ${cls} focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink">${esc(label)}</a>`;
 };

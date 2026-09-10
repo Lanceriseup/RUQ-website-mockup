@@ -4,15 +4,38 @@
 (function () {
   'use strict';
 
-  var toggle = document.getElementById('nav-toggle');
-  var mobile = document.getElementById('nav-menu-mobile');
-  if (toggle && mobile) {
+  // Mobile drawer (nav variants A, B, C).
+  document.querySelectorAll('.nav-toggle').forEach(function (toggle) {
+    var menu = document.getElementById(toggle.dataset.target);
+    if (!menu) return;
     toggle.addEventListener('click', function () {
       var open = toggle.getAttribute('aria-expanded') === 'true';
       toggle.setAttribute('aria-expanded', String(!open));
-      mobile.hidden = open;
+      menu.hidden = open;
     });
-  }
+  });
+
+  // Full-screen overlay (nav variant D).
+  // Traps nothing fancy, but does the three things that matter: Escape closes,
+  // focus moves into and back out of the panel, and the page behind cannot scroll.
+  (function overlayNav() {
+    var open = document.getElementById('navD-open');
+    var close = document.getElementById('navD-close');
+    var panel = document.getElementById('navD-panel');
+    if (!open || !close || !panel) return;
+
+    function setOpen(state) {
+      panel.hidden = !state;
+      open.setAttribute('aria-expanded', String(state));
+      document.documentElement.style.overflow = state ? 'hidden' : '';
+      (state ? close : open).focus();
+    }
+    open.addEventListener('click', function () { setOpen(true); });
+    close.addEventListener('click', function () { setOpen(false); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !panel.hidden) setOpen(false);
+    });
+  })();
 
   // Hero background video.
   // Held back behind data-src so it costs nothing for people who should not get

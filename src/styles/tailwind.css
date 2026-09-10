@@ -5,7 +5,7 @@
 @layer base {
   h1, h2, h3, h4, h5, h6 { @apply font-display text-balance; }
   p { @apply text-pretty; }
-  :focus-visible { @apply outline-2 outline-offset-2 outline-rose; }
+  :focus-visible { @apply outline-2 outline-offset-2 outline-magenta; }
 }
 
 @layer components {
