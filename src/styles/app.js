@@ -15,15 +15,27 @@
     });
   });
 
-  // Full-screen overlay (nav variant D).
-  // Traps nothing fancy, but does the three things that matter: Escape closes,
-  // focus moves into and back out of the panel, and the page behind cannot scroll.
-  (function overlayNav() {
-    var open = document.getElementById('navD-open');
-    var close = document.getElementById('navD-close');
-    var panel = document.getElementById('navD-panel');
-    if (!open || !close || !panel) return;
+  // Scroll-morph header (variant F): transparent over the hero, solid once
+  // past it. Uses IntersectionObserver on a sentinel rather than a scroll
+  // listener, so nothing runs on the main thread while scrolling.
+  (function morphNav() {
+    var nav = document.getElementById('morphNav');
+    if (!nav || !('IntersectionObserver' in window)) return;
+    var sentinel = document.createElement('div');
+    sentinel.style.cssText = 'position:absolute;top:0;height:80px;width:1px;pointer-events:none';
+    document.body.prepend(sentinel);
+    new IntersectionObserver(function (entries) {
+      nav.classList.toggle('is-stuck', !entries[0].isIntersecting);
+    }, { threshold: 0 }).observe(sentinel);
+  })();
 
+  // Cinematic overlay (variant I) and full-screen overlay (variant D) share
+  // this: Escape closes, focus moves in and back, page behind cannot scroll.
+  ['navI', 'navD'].forEach(function (prefix) {
+    var open = document.getElementById(prefix + '-open');
+    var close = document.getElementById(prefix + '-close');
+    var panel = document.getElementById(prefix + '-panel');
+    if (!open || !close || !panel) return;
     function setOpen(state) {
       panel.hidden = !state;
       open.setAttribute('aria-expanded', String(state));
@@ -35,7 +47,7 @@
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && !panel.hidden) setOpen(false);
     });
-  })();
+  });
 
   // Hero background video.
   // Held back behind data-src so it costs nothing for people who should not get
