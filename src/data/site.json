@@ -20,14 +20,17 @@
       {
         "dates": "October 15–17, 2026",
         "location": "Dallas, TX",
-        "note": "LIMITED SPOTS"
+        "note": "LIMITED SPOTS",
+        "startsAt": "2026-10-15T09:00:00-05:00"
       },
       {
         "dates": "May 5–7, 2027",
         "location": "Dallas, TX",
-        "note": ""
+        "note": "",
+        "startsAt": "2027-05-05T09:00:00-05:00"
       }
-    ]
+    ],
+    "_startsAt_note": "ISO start times, needed for the countdown treatment. 9am CST matches the welcome-email times observed on the live site. CONFIRM with Jayden along with the dates themselves."
   },
   "nav": [
     {
