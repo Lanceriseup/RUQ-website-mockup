@@ -19,6 +19,8 @@ const SANS_LINE =
   'block font-display text-base font-bold uppercase leading-snug tracking-[0.2em] text-white sm:text-2xl';
 
 export const hero = (site, c) => {
+  const [first, second] = site.nextEvent.upcoming;
+
   // Duotone: the word is transparent and filled by a magenta-to-cyan gradient,
   // with a second, wider highlight gradient travelling across it. See .sheen
   // in tailwind.css — it also carries the no-background-clip fallback and is
@@ -90,19 +92,30 @@ export const hero = (site, c) => {
       </div>
     </div>
 
-    <div class="mt-14 flex flex-col items-center gap-8">
-      <div class="text-white">
-        <p class="font-body text-sm font-semibold uppercase tracking-[0.2em] text-magenta">${esc(c.home.hero.eyebrow)}</p>
-        ${site.nextEvent.upcoming.map(e =>
-          `<p class="mt-1 font-display text-2xl font-bold sm:text-[28px]">${esc(e.dates)}</p>`).join('')}
+    <!-- Marquee: one glass strip carrying the eyebrow, next date, location,
+         the LIMITED SPOTS badge and the action. Keeps the hero short, and
+         surfaces the location and badge that site.json already held but the
+         page never showed. -->
+    <div class="mx-auto mt-12 max-w-4xl">
+      <div class="flex flex-col items-center gap-5 rounded-3xl px-6 py-5 ring-1 ring-white/20 sm:flex-row sm:justify-between sm:rounded-full sm:px-8"
+           style="background:rgba(255,255,255,.08);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)">
+        <div class="text-center sm:text-left">
+          <p class="font-body text-[11px] font-semibold uppercase tracking-[0.2em] text-magenta">${esc(c.home.hero.eyebrow)}</p>
+          <p class="mt-1 font-display text-lg font-bold text-white sm:text-xl">
+            ${esc(first.dates)} <span class="text-white/45">&middot;</span> ${esc(first.location)}
+          </p>
+        </div>
+        <div class="flex flex-wrap items-center justify-center gap-4">
+          ${first.note ? `<span class="inline-flex items-center rounded-full bg-cyan px-3 py-1 font-body text-[10px] font-bold uppercase tracking-[0.18em] text-ink">${esc(first.note)}</span>` : ''}
+          <a href="${esc(site.nextEvent.ctaUrl)}"
+             class="group inline-flex min-h-11 items-center gap-2.5 rounded-full bg-magenta px-7 py-3 font-body text-xs font-bold uppercase tracking-[0.2em] text-white shadow-[0_14px_30px_-14px_rgba(232,32,143,.9)] transition hover:bg-magenta-deep focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-magenta">
+             ${esc(site.nextEvent.ctaText)}
+             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"
+                  class="transition-transform group-hover:translate-x-1"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
       </div>
-
-      <a href="${esc(site.nextEvent.ctaUrl)}"
-         class="group inline-flex min-h-11 items-center gap-3 rounded-full bg-magenta px-10 py-5 font-body text-sm font-bold uppercase tracking-[0.2em] text-white shadow-[0_18px_40px_-18px_rgba(232,32,143,.9)] transition hover:bg-magenta-deep focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-magenta">
-         ${esc(site.nextEvent.ctaText)}
-         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"
-              class="transition-transform group-hover:translate-x-1"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </a>
+      <p class="mt-4 font-body text-sm text-white/55">Also scheduled &middot; ${esc(second.dates)}</p>
     </div>
   </div>
 </section>`;
