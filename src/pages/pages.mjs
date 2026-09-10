@@ -2,6 +2,7 @@ import { esc } from '../partials/layout.mjs';
 import { section, videoFacade, card, personCard, cta, faq } from '../partials/components.mjs';
 import { hero } from '../partials/hero.mjs';
 import { spread } from '../partials/spread.mjs';
+import { ctaSection } from '../partials/cta.mjs';
 
 const grid = (cols, items) => `<div class="mt-10 grid gap-6 ${cols}">${items.join('')}</div>`;
 
@@ -24,6 +25,8 @@ export const pages = (site, c, vids) => ([
                 before:-translate-x-1/2 before:rounded-full before:bg-ink/15">
       ${spread(site, c)}
     </div>
+
+    ${ctaSection(site, c)}
 
     ${section({ bg: 'bg-white', eyebrow: 'Watch', heading: 'Hear from the women who came',
       lead: 'Testimonies from the 2025 events.', body:
