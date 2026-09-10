@@ -86,24 +86,16 @@ export const header = (site, current, opts = {}) => {
       </button>
     </nav>
 
-    <div id="site-nav-rule" class="mt-6 h-px w-full bg-gradient-to-r from-transparent via-cyan to-transparent"></div>
-
-    <div id="site-nav-cta-row" class="mt-5 pb-5 text-center">
-      <a href="${esc(site.nextEvent.ctaUrl)}"
-         class="inline-flex min-h-11 items-center border-b-2 border-cyan pb-1 font-body text-xs font-bold uppercase tracking-[0.3em] transition
-                ${onHero ? 'text-white hover:border-white focus-visible:outline-white [text-shadow:0_1px_10px_rgba(0,0,0,.7)]' : 'text-ink hover:border-magenta focus-visible:outline-magenta'}
-                focus-visible:outline-2 focus-visible:outline-offset-4">
-         ${esc(site.nextEvent.ctaText)}</a>
-    </div>
+    <!-- The header's Register Now was removed: the hero carries the real CTA
+         as a filled button, and two of them on one screen split the action.
+         The scrolled capsule still has one, for after the hero is gone. -->
+    <div id="site-nav-rule" class="mt-6 mb-5 h-px w-full bg-gradient-to-r from-transparent via-cyan to-transparent"></div>
   </div>
 
   <ul id="navMain" hidden
       class="md:hidden ${onHero ? 'bg-ink/95 backdrop-blur' : 'border-t border-ink-line bg-white'} px-6 py-4">
     ${site.nav.map(n => `<li><a href="${esc(n.href)}"
       class="flex min-h-11 items-center font-body text-[12px] uppercase tracking-[0.25em] ${onHero ? 'text-white' : 'text-ink'}">${esc(n.label)}</a></li>`).join('')}
-    <li class="pt-3"><a href="${esc(site.nextEvent.ctaUrl)}"
-      class="inline-flex min-h-11 items-center border-b-2 border-cyan pb-1 font-body text-xs font-bold uppercase tracking-[0.3em] ${onHero ? 'text-white' : 'text-ink'}">
-      ${esc(site.nextEvent.ctaText)}</a></li>
   </ul>
 </header>`;
 };

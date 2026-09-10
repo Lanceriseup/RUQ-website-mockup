@@ -29,7 +29,7 @@ const shell = (page) => `<!doctype html>
 <link rel="apple-touch-icon" href="${esc(site.assets.faviconSizes['180'])}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Lato:wght@400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Lato:wght@400;700&family=Dancing+Script:wght@600;700&display=swap">
 <link rel="stylesheet" href="/styles.css">
 </head>
 <body class="bg-white font-body text-ink antialiased">
@@ -41,6 +41,7 @@ ${page.body}
 </main>
 ${footer(site)}
 <script src="/app.js" defer></script>
+<script src="/hero-rotate.js" defer></script>
 </body>
 </html>
 `;
@@ -54,6 +55,7 @@ for (const page of list) {
   fs.writeFileSync(path.join(dist, page.file), shell(page));
 }
 fs.copyFileSync(path.join(ROOT, 'src/styles/app.js'), path.join(dist, 'app.js'));
+fs.copyFileSync(path.join(ROOT, 'src/styles/hero-rotate.js'), path.join(dist, 'hero-rotate.js'));
 
 // Static assets (hero video, poster) ship as-is.
 const assetsSrc = path.join(ROOT, 'src/assets');

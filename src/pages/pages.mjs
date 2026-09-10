@@ -1,5 +1,6 @@
 import { esc } from '../partials/layout.mjs';
 import { section, videoFacade, card, personCard, cta, faq } from '../partials/components.mjs';
+import { hero } from '../partials/hero.mjs';
 
 const grid = (cols, items) => `<div class="mt-10 grid gap-6 ${cols}">${items.join('')}</div>`;
 
@@ -10,27 +11,8 @@ export const pages = (site, c, vids) => ([
     desc: site.brand.tagline,
     hero: true,   // header renders in overHero mode and sits on top of this section
     body: `
-    <section class="relative overflow-hidden bg-ink">
-      <!-- Background b-roll. Muted + playsinline so mobile browsers allow autoplay.
-           The poster shows before the first frame decodes and is the whole picture
-           for anyone on prefers-reduced-motion (app.js skips loading the video). -->
-      <video id="hero-video" class="absolute inset-0 h-full w-full object-cover opacity-40"
-             poster="${esc(site.assets.heroVideo.poster)}"
-             autoplay muted loop playsinline preload="none" aria-hidden="true" tabindex="-1"
-             data-src="${esc(site.assets.heroVideo.src)}"></video>
-      <!-- pt clears the overlaid editorial header: 225px at the 88px logo
-           (28 + 88 + 24 + 1 + 20 + 44 + 20). pt-64 = 256px leaves 31px. -->
-      <div class="relative mx-auto max-w-content px-4 pb-28 pt-60 sm:pb-40 sm:pt-64">
-        <p class="font-body text-sm uppercase tracking-[0.25em] text-cyan">${esc(c.home.hero.eyebrow)}</p>
-        <h1 class="mt-4 max-w-3xl font-display text-4xl font-bold leading-[1.1] text-white sm:text-6xl">${esc(c.home.hero.heading)}</h1>
-        <p class="mt-6 max-w-xl font-body text-lg text-white/85">${esc(c.home.hero.sub)}</p>
-        <div class="mt-9 flex flex-wrap gap-4">
-          ${cta(site.nextEvent.ctaText, site.nextEvent.ctaUrl)}
-          <a href="/events.html" class="inline-block rounded-full px-7 py-3 font-body font-semibold text-white ring-1 ring-white/40 hover:bg-white/10">See the full path</a>
-        </div>
-        <p class="mt-6 font-body text-sm text-white/70">${esc(site.nextEvent.dates)} &middot; ${esc(site.nextEvent.location)}</p>
-      </div>
-    </section>
+    ${hero(site, c)}
+
 
     ${section({ bg: 'bg-white', heading: c.home.painPoints.heading, body:
       grid('sm:grid-cols-2 lg:grid-cols-3', c.home.painPoints.items.map(t =>
