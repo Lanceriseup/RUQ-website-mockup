@@ -56,7 +56,7 @@ export const hero = (site, c) => {
        style="background:linear-gradient(to bottom,rgba(28,28,28,.68) 0%,rgba(28,28,28,0) 34%,rgba(28,28,28,0) 62%,rgba(28,28,28,.58) 100%)"></div>
 
   <!-- pt clears the overlaid header: 161px now the Register row is gone. -->
-  <div class="relative mx-auto max-w-4xl px-4 pb-24 pt-48 text-center sm:pt-52">
+  <div class="relative mx-auto max-w-4xl px-4 pb-36 pt-48 text-center sm:pt-52">
 
     <h1 class="text-white">
       <span class="${SANS_LINE}">${esc(c.home.hero.headingBefore)}</span>

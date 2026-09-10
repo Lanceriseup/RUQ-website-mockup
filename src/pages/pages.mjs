@@ -14,7 +14,16 @@ export const pages = (site, c, vids) => ([
     ${hero(site, c)}
 
 
-    ${section({ bg: 'bg-white', heading: c.home.painPoints.heading, body:
+    ${section({
+      bg: 'bg-white',
+      // Overlapping panel: this section lifts over the hero rather than the
+      // hero cutting a shape out of itself. The before: pseudo-element is the
+      // grabber bar on the top edge — Tailwind's preflight supplies its
+      // content, so no content-[''] utility is needed.
+      cls: '-mt-16 rounded-t-[2.5rem] relative z-10 shadow-[0_-26px_60px_-28px_rgba(0,0,0,.5)] '
+         + 'before:absolute before:left-1/2 before:top-4 before:h-1.5 before:w-16 '
+         + 'before:-translate-x-1/2 before:rounded-full before:bg-ink/15',
+      heading: c.home.painPoints.heading, body:
       grid('sm:grid-cols-2 lg:grid-cols-3', c.home.painPoints.items.map(t =>
         `<p class="rounded-xl bg-white/70 p-6 font-body text-ink-soft ring-1 ring-ink/10">${esc(t)}</p>`)) })}
 

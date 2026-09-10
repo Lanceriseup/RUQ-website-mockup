@@ -1,7 +1,10 @@
 import { esc } from './layout.mjs';
 
+// `cls` carries structural classes that are not background or padding — the
+// overlapping panel transition needs negative margin, radius, z-index and a
+// pseudo-element on the section itself.
 export const section = (o) => `
-<section class="${o.bg ?? ''} ${o.pad ?? 'py-16 sm:py-24'}" ${o.id?`id="${esc(o.id)}"`:''}>
+<section class="${o.bg ?? ''} ${o.pad ?? 'py-16 sm:py-24'} ${o.cls ?? ''}" ${o.id?`id="${esc(o.id)}"`:''}>
   <div class="mx-auto max-w-content px-4">
     ${o.eyebrow?`<p class="font-body text-sm uppercase tracking-[0.2em] text-magenta-text">${esc(o.eyebrow)}</p>`:''}
     ${o.heading?`<h2 class="mt-3 font-display text-3xl font-bold leading-tight text-ink sm:text-4xl">${esc(o.heading)}</h2>`:''}
