@@ -1,7 +1,7 @@
 import { esc } from '../partials/layout.mjs';
 import { section, videoFacade, card, personCard, cta, faq } from '../partials/components.mjs';
 import { hero } from '../partials/hero.mjs';
-import { renderSpread as spread } from '../partials/spread-variants.mjs';
+import { spread } from '../partials/spread.mjs';
 
 const grid = (cols, items) => `<div class="mt-10 grid gap-6 ${cols}">${items.join('')}</div>`;
 
@@ -22,7 +22,7 @@ export const pages = (site, c, vids) => ([
     <div class="relative z-10 -mt-16 overflow-hidden rounded-t-[2.5rem] shadow-[0_-26px_60px_-28px_rgba(0,0,0,.5)]
                 before:absolute before:left-1/2 before:top-4 before:z-20 before:h-1.5 before:w-16
                 before:-translate-x-1/2 before:rounded-full before:bg-ink/15">
-      ${spread(site, c, 'magazine')}
+      ${spread(site, c)}
     </div>
 
     ${section({ bg: 'bg-white', eyebrow: 'Watch', heading: 'Hear from the women who came',
