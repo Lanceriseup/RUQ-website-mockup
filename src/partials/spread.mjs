@@ -77,13 +77,17 @@ export const spread = (site, c) => `
     </div>
   </section>
 
-  <!-- The answers. Plate lifts up across the boundary between the two. -->
+  <!-- The answers. Plate lifts up across the boundary between the two.
+       The photo column is wider than the text column (7:6) so the plate reads
+       as the larger object, and both column tops are raised together — the
+       plate further, the text with it — so they stay visually related while
+       the overlap across the section boundary is preserved. -->
   <section class="relative mx-auto max-w-content px-6 pb-24">
-    <div class="grid items-start gap-14 lg:grid-cols-[6fr_6fr]">
-      <div class="-mt-20 lg:-mt-32">
+    <div class="grid items-start gap-12 lg:grid-cols-[7fr_6fr]">
+      <div class="-mt-24 lg:-mt-44">
         ${plate(c.home.renewal.photo, c.home.renewal.photoAlt, 'center 32%')}
       </div>
-      <div class="pt-6">
+      <div class="pt-2 lg:-mt-8">
         ${dualHeading('healing and renewal', 'Join us to experience', CYAN, 'text-ink-soft', false, '3.75rem')}
         <div class="mt-10 divide-y divide-ink/10 border-y border-ink/10">
           ${c.home.renewal.items.map(it => `
