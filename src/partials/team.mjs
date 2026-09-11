@@ -19,6 +19,7 @@
 // The header renders over this page with no scrim, so the page has to leave
 // room for it: 153px tall on mobile, 161px from sm. See pages.mjs.
 import { esc } from './layout.mjs';
+import { renderTeamHeading } from './team-headings.mjs';
 
 const MAGENTA = '#e8208f';
 const CYAN = '#00b9c6';
@@ -26,6 +27,15 @@ const CYAN = '#00b9c6';
 // sinking into deep brand magenta. Both ends are dark, so it never passes
 // through the mid-grey that would make white type on it unreadable.
 const GROUND = 'linear-gradient(180deg,#0b0b0b 0%,#130c11 45%,#220d19 100%)';
+
+// Spotlight, from the ground options, laid over the plum rather than instead
+// of it: plum is the colour of the page, this is where the light falls on it.
+// A wide pool behind the header and the page heading, gone by 72% down, so the
+// top reads as a lit stage and the grids below sit in shadow.
+//
+// White at 14% over a near-black ground lifts it to about #232323 at the
+// brightest point — enough to see, nowhere near enough to threaten white type.
+const SPOTLIGHT = 'radial-gradient(120% 55% at 50% 0%,rgba(255,255,255,.14),rgba(255,255,255,.04) 40%,transparent 72%)';
 
 // Fixed tilts, not Math.random: a random angle changes on every build, which
 // turns every rebuild into a diff and makes the page impossible to review.
@@ -81,25 +91,20 @@ const leader = (m, i) => `
   </figcaption>
 </figure>`;
 
-const sectionHead = (heading, sub) => `
-<div class="text-center">
-  <h2 class="font-display text-2xl font-bold text-white sm:text-[2rem]">${esc(heading)}</h2>
-  ${sub ? `<p class="mx-auto mt-3 max-w-xl font-body text-sm text-white/50">${esc(sub)}</p>` : ''}
-  <span aria-hidden="true" class="mx-auto mt-6 block h-px w-24" style="background:linear-gradient(to right,transparent,${MAGENTA},transparent)"></span>
-</div>`;
-
-export const teamPage = (site, c) => {
+export const teamPage = (site, c, headingKey = 'current') => {
   const coaches = c.team.members.filter(m => m.group === 'coach');
   const leaders = c.team.members.filter(m => m.group === 'leadership');
 
   return `
 <div class="relative" style="background:${GROUND}">
-  <div class="mx-auto max-w-content px-4 pb-20 pt-44 sm:pt-48">
 
-    <div class="mx-auto max-w-2xl text-center">
-      <h1 class="font-display text-3xl font-bold leading-tight text-white sm:text-[2.7rem]">${esc(c.team.heading)}</h1>
-      <p class="mt-4 font-body text-lg text-white/60">${esc(c.team.lead)}</p>
-    </div>
+  <!-- Decoration only, and unclipped: the pool fades to transparent well
+       before the foot of the page, so there is no edge for anything to cut. -->
+  <div aria-hidden="true" class="pointer-events-none absolute inset-0" style="background:${SPOTLIGHT}"></div>
+
+  <div class="relative mx-auto max-w-content px-4 pb-20 pt-44 sm:pt-48">
+
+    ${renderTeamHeading(headingKey, c.team.heading, { tag: 'h1', lead: c.team.lead, count: coaches.length })}
 
     <!-- Explicit 3-up, not flex-wrap. Six people fall into 3x2 at lg either
          way, but wrapping decides that from the container width and silently
@@ -112,7 +117,7 @@ export const teamPage = (site, c) => {
     </div>
 
     <div class="mt-24">
-      ${sectionHead(c.team.groups.find(g => g.key === 'leadership').heading)}
+      ${renderTeamHeading(headingKey, c.team.groups.find(g => g.key === 'leadership').heading, { tag: 'h2', colour: CYAN, count: leaders.length })}
       <!-- Same grid as the coaches above: six people, 3x2, same plate size.
            They differ in what they carry, not in how big they are. -->
       <div class="mt-12 grid items-start gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
