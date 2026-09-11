@@ -21,8 +21,13 @@
 // Everything here previously ran on two bios and three generic role buckets;
 // the real page has twelve real titles and six real biographies.
 //
-// Bios open in a dialog rather than a disclosure — see bio-effects.mjs for the
-// treatments. The trade that made is worth naming: a <details> opened with the
+// Bios open in a dialog rather than a disclosure, with the "lift" entrance:
+// the card is measured where it sits in the grid and a ghost of the plate is
+// flown from that position to where the dialog's image lands. It is the only
+// effect that measures anything, because a card's position depends on the
+// viewport and cannot be known at build time.
+//
+// See bio-effects.mjs for the other five. The trade that made is worth naming: a <details> opened with the
 // script blocked and was keyboard-operable for nothing. A dialog has to earn
 // all of that back in bio-modal.js, and the bio itself is kept in the page as
 // real markup so it is still in the document if the script never runs.
@@ -119,7 +124,7 @@ const leader = (m, i) => `
   </figcaption>
 </figure>`;
 
-export const teamPage = (site, c, headingKey = 'script', effect = 'scale') => {
+export const teamPage = (site, c, headingKey = 'script', effect = 'lift') => {
   const coaches = c.team.members.filter(m => m.group === 'coach');
   const leaders = c.team.members.filter(m => m.group === 'leadership');
 
