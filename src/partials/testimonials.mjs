@@ -88,7 +88,7 @@ const rail = (items, dir, seconds) => {
 // headingKey selects a treatment from testimonial-headings.mjs. Kept as a
 // parameter so the options page and the live page render the same section
 // rather than two lookalikes.
-export const testimonialsSection = (site, c, vids, headingKey = 'inline') => {
+export const testimonialsSection = (site, c, vids, headingKey = 'verbatim') => {
   const list = vids.wistia.filter(v => v.page === 'home' && /Testimonial/i.test(v.title));
   const half = Math.ceil(list.length / 2);
 

@@ -1,4 +1,4 @@
-// Builds /testimonial-heading.html — six centred treatments for the
+// Builds /testimonial-heading.html — six centred wordings for the
 // testimonial heading.
 //
 // Each frame renders the real section, not a heading on its own: the lead
@@ -54,17 +54,29 @@ const page = `<!doctype html>
     own now, so the wash was a second gradient competing with it), the lead sentence is gone, the rails run at roughly half
     the speed, and clicking any card opens the video in a lightbox.
     <br><br>
-    <strong>The copy is the client's, unchanged</strong> — “What Women Have Experienced at Rise Up Queens”. Only the emphasis
-    and the arrangement move. One option adds an eyebrow line, which is new words and is marked as placeholder.
+    <strong>The style is fixed</strong> — the same construction as “Common struggles / WOMEN IN MARRIAGE HAVE” two sections
+    above: script line with the drawn swash, uppercase Montserrat beneath. Only the words change between these six.
+  </div>
+
+  <div class="mt-3 rounded-xl border border-amber-300 bg-amber-50 p-5 text-sm">
+    <strong>Five of these six replace client copy.</strong> The live heading is “What Women Have Experienced at Rise Up
+    Queens”. The first option keeps it word for word and only re-splits it across the two faces; the rest are wording I
+    have written and are labelled below. Rewriting a client's heading is their call, not mine — treat the five as
+    suggestions to take to them.
   </div>
 
   ${Object.entries(TESTIMONIAL_HEADINGS).map(([k, v]) => `
   <section class="mt-8">
     <div class="flex flex-wrap items-baseline gap-3">
-      <span class="rounded-full ${k === 'inline' ? 'bg-ink' : 'bg-magenta'} px-3 py-1 font-body text-xs font-bold text-white">${esc(k)}</span>
+      <span class="rounded-full ${v.clientCopy ? 'bg-ink' : 'bg-magenta'} px-3 py-1 font-body text-xs font-bold text-white">${esc(k)}</span>
       <span class="font-display text-lg font-bold">${esc(v.label)}</span>
+      ${v.clientCopy
+        ? '<span class="rounded-full bg-ink px-3 py-1 font-body text-xs text-white">client copy, unchanged</span>'
+        : '<span class="rounded-full border border-amber-400 bg-amber-100 px-3 py-1 font-body text-xs font-semibold">my wording</span>'}
       <a href="/th-${k}.html" target="_blank" rel="noopener" class="rounded-full bg-ink px-4 py-1 text-xs font-semibold text-white">Open ↗</a>
     </div>
+    <p class="mt-2 font-body text-sm"><span class="text-ink-soft">reads:</span>
+       <span class="font-semibold">${esc(v.script)}</span> / <span class="font-semibold uppercase">${esc(v.sans)}</span></p>
     <p class="mt-1 max-w-3xl text-sm text-ink-soft">${esc(v.note)}</p>
     <div class="mt-3 overflow-hidden rounded-xl ring-1 ring-ink-line">
       <iframe src="/th-${k}.html" title="${esc(v.label)}" loading="lazy" class="block h-[1500px] w-full border-0"></iframe>
