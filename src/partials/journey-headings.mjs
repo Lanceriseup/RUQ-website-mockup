@@ -99,7 +99,7 @@ export const renderJourneyHeading = (key) => {
     return `
 <h2 class="leading-none">
   <span class="block font-body text-[13px] font-bold uppercase tracking-[0.4em] text-ink-soft">The journey</span>
-  <span class="mt-4 block font-display font-extrabold uppercase text-ink"
+  <span class="mt-4 block font-display font-extrabold uppercase"
         style="font-size:clamp(2.4rem,6.4vw,4.2rem);letter-spacing:-.015em;color:${MAGENTA}">${esc(KEY)}</span>
   <span class="mt-4 block font-display text-xl font-bold text-ink sm:text-[1.7rem]">${esc(TAIL)}</span>
 </h2>`;
