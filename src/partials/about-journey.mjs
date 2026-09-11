@@ -68,12 +68,25 @@ const orbs = `
        style="background:radial-gradient(circle,rgba(0,185,198,.10),transparent 68%)"></div>
 </div>`;
 
+// The wrapper does NOT clip. Only the decoration layer does.
+//
+// overflow-hidden on the wrapper is what the arch originally used to round its
+// own top corners, and it clips everything else with them — including the
+// closing ticket's rimGlow, whose halo reaches about 63px below the panel
+// against 64px of padding. That produced a straight line across the page at
+// the foot of the section.
+//
+// Painting the ground and the orbs on an absolutely positioned layer keeps the
+// rounded top and the orb clipping, while letting content and its shadows
+// spill past the bottom edge and fade onto the page below.
 const arch = (inner) => `
-<div class="relative z-10 -mt-16 overflow-hidden rounded-t-[2.5rem] shadow-[0_-26px_60px_-28px_rgba(0,0,0,.5)]
-            before:absolute before:left-1/2 before:top-4 before:z-20 before:h-1.5 before:w-16
-            before:-translate-x-1/2 before:rounded-full before:bg-ink/15"
-     style="background:${GROUND}">
-  ${orbs}
+<div class="relative z-10 -mt-16">
+  <div aria-hidden="true"
+       class="absolute inset-0 overflow-hidden rounded-t-[2.5rem] shadow-[0_-26px_60px_-28px_rgba(0,0,0,.5)]"
+       style="background:${GROUND}">
+    ${orbs}
+  </div>
+  <span aria-hidden="true" class="absolute left-1/2 top-4 z-20 h-1.5 w-16 -translate-x-1/2 rounded-full bg-ink/15"></span>
   <div class="relative">${inner}</div>
 </div>`;
 
