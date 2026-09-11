@@ -25,13 +25,12 @@ export const faithSection = (site, c) => `
 
   <div class="relative mx-auto max-w-4xl px-6">
 
-    <p class="mx-auto max-w-3xl text-center font-body text-lg leading-relaxed text-white/85">
-      ${esc(c.home.faith.mission)}
-    </p>
+    <!-- The mission statement now opens the CTA above, where it sets up the
+         ask. It sat awkwardly here with nothing to attach to. -->
 
     <!-- Parchment plate. Cormorant throughout; Lato only for the small caps
          label and the numerals, where a serif would read as decoration. -->
-    <div class="mt-14 p-10 shadow-[0_40px_90px_-40px_rgba(0,0,0,.9)] sm:p-14"
+    <div class="p-10 shadow-[0_40px_90px_-40px_rgba(0,0,0,.9)] sm:p-14"
          style="background:#F6F1E8;font-family:'Cormorant Garamond',serif">
 
       <p class="text-center font-body text-[11px] uppercase tracking-[0.4em] text-ink-soft">${esc(c.home.faith.title)}</p>

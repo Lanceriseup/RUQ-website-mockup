@@ -26,6 +26,12 @@ export const ctaSection = (site, c) => `
 
     <h2 class="font-display text-3xl font-bold text-ink sm:text-4xl">${esc(c.home.cta.heading)}</h2>
 
+    <!-- The mission statement reads as a lead-in here, where it sets up the
+         ask. Under the creed below it had nothing to attach to. -->
+    <p class="mx-auto mt-6 max-w-3xl font-body leading-relaxed text-ink-soft">
+      ${esc(c.home.faith.mission)}
+    </p>
+
     <form action="#" method="post" novalidate class="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center">
       ${c.home.cta.fields.map(f => `
       <div class="flex-1">
