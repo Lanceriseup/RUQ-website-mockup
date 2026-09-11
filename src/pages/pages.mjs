@@ -29,15 +29,17 @@ export const pages = (site, c, vids) => ([
 
     ${ctaSection(site, c)}
 
+    <!-- The creed sits directly under the breakthrough CTA, matching the live
+         page's order: the ask, then what the movement stands on. -->
+    ${faithSection(site, c)}
+
     ${section({ bg: 'bg-white', eyebrow: 'Watch', heading: 'Hear from the women who came',
       lead: 'Testimonies from the 2025 events.', body:
       grid('sm:grid-cols-2 lg:grid-cols-3', vids.wistia.filter(v => v.page === 'home').slice(0, 6).map(v => videoFacade(v, 'wistia'))) })}
 
     ${section({ bg: 'bg-magenta-tint', heading: c.home.founder.heading, body: `
       <p class="mt-4 max-w-3xl font-body text-lg leading-relaxed text-ink-soft">${esc(c.home.founder.body)}</p>
-      <div class="mt-8">${cta('Meet the team', '/team.html', 'ghost')}</div>` })}
-
-    ${faithSection(site, c)}`
+      <div class="mt-8">${cta('Meet the team', '/team.html', 'ghost')}</div>` })}`
   },
 
   {
