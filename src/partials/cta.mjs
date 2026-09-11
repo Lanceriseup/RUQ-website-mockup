@@ -23,18 +23,20 @@ const HIGHLIGHTS = [
   'strength, identity, and purpose',
 ];
 
-// #dc1e88, not the brand #e8208f. At 17.6px semibold these are body text, not
-// large text — large needs 18.66px bold or 24px — so they must clear 4.5:1.
-// Brand magenta measures 4.17:1 on white and would fail; the darker variant
-// is 4.57:1 and is indistinguishable at this size.
+// #dc1e88, not the brand #e8208f. At 16px bold these are body text, not large
+// text — large needs 18.66px bold or 24px — so they must clear 4.5:1. Brand
+// magenta measures 4.17:1 on white and would fail; the darker variant is
+// 4.58:1 and is indistinguishable at this size.
 const HIGHLIGHT_COLOUR = '#dc1e88';
 
+// font-bold, not font-semibold: only 400 and 700 of Lato are loaded, so 600
+// would be synthesised — a faked weight that smears the strokes.
 const missionHtml = (c) => {
   let out = esc(c.home.faith.mission);
   for (const phrase of HIGHLIGHTS) {
     const e = esc(phrase);
     out = out.split(e).join(
-      `<strong class="font-semibold" style="color:${HIGHLIGHT_COLOUR}">${e}</strong>`
+      `<strong class="font-bold" style="color:${HIGHLIGHT_COLOUR}">${e}</strong>`
     );
   }
   return out;
@@ -66,17 +68,15 @@ export const ctaSection = (site, c) => `
 
     <!-- The mission statement reads as a lead-in here, where it sets up the
          ask. Under the creed below it had nothing to attach to.
-         Set in Cormorant, which also links it to the creed section below.
-         1.21rem across the full container measure: the size went up 10% so the
-         measure widened with it, or the text spills to a fourth line.
-         Colour is full ink rather than ink-soft — Cormorant has thin stems and
-         reads noticeably lighter than a sans at the same value. Hierarchy
-         against the heading comes from weight, size and face, not from
-         greying the body down.
-         Highlights stay in Cormorant at 600 rather than switching to the
-         sans, which would fracture the line mid-sentence. -->
-    <p class="mx-auto mt-6 max-w-6xl text-[1.21rem] leading-[1.7] text-ink"
-       style="font-family:'Cormorant Garamond',serif">${missionHtml(c)}</p>
+         Set in the body sans. 1rem across the full container measure holds it
+         to three lines — Lato is a wider face than Cormorant (~0.505em per
+         character against ~0.44em), so the same text needs a smaller size here
+         than it did in the serif. Its much larger x-height means 1rem Lato
+         reads about the same size as 1.21rem Cormorant did, despite the
+         smaller number.
+         Colour is full ink; hierarchy against the heading comes from weight,
+         size and face rather than from greying the body down. -->
+    <p class="mx-auto mt-6 max-w-6xl font-body text-[1rem] leading-[1.85] text-ink">${missionHtml(c)}</p>
 
     <form action="#" method="post" novalidate class="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center">
       ${c.home.cta.fields.map(f => `
