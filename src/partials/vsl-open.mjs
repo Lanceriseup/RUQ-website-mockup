@@ -46,13 +46,23 @@ export const VSL_OPEN = {
 
 export const stageClass = (key) => `vsl-stage vsl-fx-${key || 'none'}`;
 
-// The stage. 16:9 with two bars masking it to 2.39:1, so the resting frame
-// looks exactly as it did before any of this existed.
+// The stage. The frame is a percentage-padding box, so its height is a ratio
+// of its own width and nothing else — 41.84% is 1/2.39, which is exactly the
+// shape the button had before any of this existed. Nothing is painted over the
+// picture: the poster is object-cover inside the frame, so a 16:9 source is
+// cropped to 2.39:1 the same way it always was.
+//
+// This replaces a first attempt that made the stage 16:9 and masked it down
+// with two solid bars. That was wrong twice over — the element became 25.6%
+// taller than it had been, and the crop became paint, so the bars were
+// visible as bars.
+//
+// padding-bottom rather than aspect-ratio because it is the property that
+// opens: percentage padding transitions everywhere, and aspect-ratio only
+// interpolates in Chrome 117+, Safari 17.4+ and Firefox 126+.
 export const vslStage = (key, inner) => `
-<div data-vsl-stage class="${stageClass(key)} relative w-full" style="aspect-ratio:16/9">
-  ${inner}
-  <!-- Above the player, and never catching a click: the bars are a mask, not
-       a control. -->
-  <span aria-hidden="true" class="vsl-bar vsl-bar-top pointer-events-none absolute inset-x-0 top-0 z-10"></span>
-  <span aria-hidden="true" class="vsl-bar vsl-bar-bottom pointer-events-none absolute inset-x-0 bottom-0 z-10"></span>
+<div data-vsl-stage class="${stageClass(key)} relative w-full">
+  <div class="vsl-frame relative h-0 w-full overflow-hidden">
+    ${inner}
+  </div>
 </div>`;

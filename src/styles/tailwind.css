@@ -351,11 +351,18 @@
      end — (1/2.39) / (1/(16/9)) leaves 74.4% visible. The bars scale rather
      than resize: height is a layout property and animating it would reflow the
      hero on every frame. */
-  .vsl-bar { height: 12.81%; background: #1c1c1c; transform-origin: top; transition: transform .9s cubic-bezier(.22,1,.36,1); }
-  .vsl-bar-bottom { transform-origin: bottom; }
+  /* The frame's height is a percentage of its own width: 41.84% is 1/2.39,
+     the shape the button had before the stage existed. Nothing is painted over
+     the picture — the crop is the frame, as it always was.
 
-  /* Unfold: the bars retract and the full 16:9 arrives. */
-  .vsl-fx-unfold.is-playing .vsl-bar { transform: scaleY(0); }
+     An earlier pass made the stage 16:9 and masked it with two solid bars.
+     That made the element 25.6% taller and turned the crop into paint, so the
+     bars showed as bars. */
+  .vsl-frame { padding-bottom: 41.84%; transition: padding-bottom .9s cubic-bezier(.22,1,.36,1); }
+
+  /* Unfold: the frame opens to 16:9 and the quarter of the picture the crop
+     was hiding arrives. 56.25% is 9/16. */
+  .vsl-fx-unfold.is-playing .vsl-frame { padding-bottom: 56.25%; }
 
   /* Swell: the frame grows, the bloom behind it rises with it. The bloom is a
      sibling in the hero, so it is reached from the section rather than the
@@ -380,8 +387,8 @@
 
   @media (prefers-reduced-motion: reduce) {
     /* Straight to the end state. The point is the video, not the entrance. */
-    .vsl-bar, .vsl-stage, .vsl-shell, .vsl-dimmable, .vsl-fx-iris .vsl-player { transition: none; }
-    .vsl-fx-unfold.is-playing .vsl-bar { transform: scaleY(0); }
+    .vsl-frame, .vsl-stage, .vsl-shell, .vsl-dimmable, .vsl-fx-iris .vsl-player { transition: none; }
+    .vsl-fx-unfold.is-playing .vsl-frame { padding-bottom: 56.25%; }
     .vsl-fx-swell.is-playing { transform: none; }
     .vsl-shell:has(.vsl-fx-widen.is-playing) { max-width: none; }
     section:has(.vsl-fx-dim.is-playing) .vsl-dimmable { opacity: 1; }
