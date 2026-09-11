@@ -54,12 +54,16 @@ export const ctaSection = (site, c) => `
 
     <!-- The mission statement reads as a lead-in here, where it sets up the
          ask. Under the creed below it had nothing to attach to.
-         Set in Cormorant, which also links it to the creed section below, and
-         at 1.1rem across a max-w-5xl measure so it holds to three lines —
-         Cormorant is a narrow face, so it fits more per line than the sans did
-         even at a smaller size. Highlights stay in Cormorant at 600 rather
-         than switching to the sans, which would fracture the line. -->
-    <p class="mx-auto mt-6 max-w-5xl text-[1.1rem] leading-[1.7] text-ink-soft"
+         Set in Cormorant, which also links it to the creed section below.
+         1.21rem across the full container measure: the size went up 10% so the
+         measure widened with it, or the text spills to a fourth line.
+         Colour is full ink rather than ink-soft — Cormorant has thin stems and
+         reads noticeably lighter than a sans at the same value. Hierarchy
+         against the heading comes from weight, size and face, not from
+         greying the body down.
+         Highlights stay in Cormorant at 600 rather than switching to the
+         sans, which would fracture the line mid-sentence. -->
+    <p class="mx-auto mt-6 max-w-6xl text-[1.21rem] leading-[1.7] text-ink"
        style="font-family:'Cormorant Garamond',serif">${missionHtml(c)}</p>
 
     <form action="#" method="post" novalidate class="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center">
