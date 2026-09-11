@@ -8,6 +8,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { JOURNEY_OPTIONS, renderJourney } from '../src/partials/about-journey.mjs';
+import { JOURNEY_HEADINGS } from '../src/partials/journey-headings.mjs';
 import { aboutHero } from '../src/partials/about-hero.mjs';
 import { header, footer, esc } from '../src/partials/layout.mjs';
 
@@ -18,7 +19,7 @@ const dist = path.join(ROOT, 'dist');
 
 const FONTS = 'https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Lato:wght@400;700&family=Cormorant+Garamond:wght@400;500;600&display=swap';
 
-const wrap = (key) => `<!doctype html><html lang="en"><head><meta charset="utf-8">
+const wrap = (key, headingKey) => `<!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${esc(JOURNEY_OPTIONS[key].label)}</title>
 <link rel="stylesheet" href="${FONTS}">
@@ -26,7 +27,7 @@ const wrap = (key) => `<!doctype html><html lang="en"><head><meta charset="utf-8
 <body class="bg-white">
 ${header(site, '/about.html', { overHero: true })}
 ${aboutHero(site, content)}
-${renderJourney(site, content, key)}
+${renderJourney(site, content, key, headingKey)}
 <section class="bg-white py-20"><div class="mx-auto max-w-content px-6">
   <p class="font-body text-[11px] uppercase tracking-[0.3em] text-ink-soft/50">↓ rest of the about page continues</p>
 </div></section>
@@ -37,7 +38,11 @@ ${footer(site)}
 </body></html>`;
 
 for (const k of Object.keys(JOURNEY_OPTIONS)) {
-  fs.writeFileSync(path.join(dist, `aj-${k}.html`), wrap(k));
+  fs.writeFileSync(path.join(dist, `aj-${k}.html`), wrap(k, 'current'));
+}
+// Overlap is chosen; these are heading treatments on it.
+for (const hk of Object.keys(JOURNEY_HEADINGS)) {
+  fs.writeFileSync(path.join(dist, `ajh-${hk}.html`), wrap('overlap', hk));
 }
 
 const page = `<!doctype html>
@@ -60,8 +65,8 @@ const page = `<!doctype html>
     <strong>Every frame shows the real hero above it</strong>, because the arch lifts over whatever precedes it and the
     hero is dark. The join is part of what is being judged.
     <br><br>
-    <strong>Everything they have is here</strong> — heading, both lead paragraphs, all three cards, the in-sentence link
-    on the third, and the closing line that follows the cards on the live page.
+    <strong>The closing line is gone</strong> — "Don't let another day go by…" no longer renders. It is still in
+    content.json, because it is their copy off their live page and deleting it from the data would lose it.
   </div>
 
   <div class="mt-3 rounded-xl border border-amber-300 bg-amber-50 p-5 text-sm">
@@ -77,10 +82,29 @@ const page = `<!doctype html>
     page's meta description — but nothing renders it now.
   </div>
 
+  <h2 class="mt-10 font-display text-2xl font-bold">The headline</h2>
+  <p class="mt-1 max-w-3xl text-sm text-ink-soft">All on the chosen <span class="font-semibold">overlap</span> layout.
+     No option changes a word.</p>
+  ${Object.entries(JOURNEY_HEADINGS).map(([k, v]) => `
+  <section class="mt-8">
+    <div class="flex flex-wrap items-baseline gap-3">
+      <span class="rounded-full ${k === 'current' ? 'bg-ink' : 'bg-magenta'} px-3 py-1 font-body text-xs font-bold text-white">${esc(k)}</span>
+      <span class="font-display text-lg font-bold">${esc(v.label)}</span>
+      <a href="/ajh-${k}.html" target="_blank" rel="noopener" class="rounded-full bg-ink px-4 py-1 text-xs font-semibold text-white">Open ↗</a>
+    </div>
+    <p class="mt-1 max-w-3xl text-sm text-ink-soft">${esc(v.note)}</p>
+    <div class="mt-3 overflow-hidden rounded-xl ring-1 ring-ink-line">
+      <iframe src="/ajh-${k}.html" title="${esc(v.label)}" loading="lazy" class="block h-[1100px] w-full border-0"></iframe>
+    </div>
+  </section>`).join('')}
+
+  <h2 class="mt-16 font-display text-2xl font-bold">The layout</h2>
+  <p class="mt-1 max-w-3xl text-sm text-ink-soft">All with the current heading, so only the layout changes.
+     <span class="font-semibold">overlap</span> is what ships.</p>
   ${Object.entries(JOURNEY_OPTIONS).map(([k, v]) => `
   <section class="mt-8">
     <div class="flex flex-wrap items-baseline gap-3">
-      <span class="rounded-full ${k === 'split' ? 'bg-ink' : 'bg-magenta'} px-3 py-1 font-body text-xs font-bold text-white">${esc(k)}</span>
+      <span class="rounded-full ${k === 'overlap' ? 'bg-ink' : 'bg-magenta'} px-3 py-1 font-body text-xs font-bold text-white">${esc(k)}</span>
       <span class="font-display text-lg font-bold">${esc(v.label)}</span>
       <a href="/aj-${k}.html" target="_blank" rel="noopener" class="rounded-full bg-ink px-4 py-1 text-xs font-semibold text-white">Open ↗</a>
     </div>
@@ -93,4 +117,4 @@ const page = `<!doctype html>
 </body></html>`;
 
 fs.writeFileSync(path.join(dist, 'about-journey.html'), page);
-console.log(`built about-journey.html + ${Object.keys(JOURNEY_OPTIONS).length} frames`);
+console.log(`built about-journey.html + ${Object.keys(JOURNEY_OPTIONS).length + Object.keys(JOURNEY_HEADINGS).length} frames`);

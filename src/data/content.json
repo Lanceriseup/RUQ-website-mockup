@@ -166,7 +166,7 @@
         }
       ],
       "close": "Don’t let another day go by disconnected from who you were created to be. There’s a seat for you, and a woman you haven’t met yet on the other side of saying yes.",
-      "_closeNote": "This line follows the three cards on the live page. Included so it is not lost; whether it belongs in this section or the next one is a call for Lance."
+      "_closeNote": "NOT RENDERED. Removed from the page on request. Kept here because it is the client's copy from their live about page; delete it from the data only if they confirm it is gone for good."
     },
     "_whoForNote": "The \"Who is it for?\" heading and lead are no longer rendered on the page; the journey block replaced them. Kept because about.lead is still the page meta description."
   },

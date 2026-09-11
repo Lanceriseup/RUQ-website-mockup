@@ -3,9 +3,10 @@
 // Replaces "Who is it for?". Six treatments, all light — the live version is
 // white type on black marble, and inverting it is the point of the exercise.
 //
-// Everything they have is here: the heading, two lead paragraphs, three cards,
-// and the closing line that follows the cards on the live page. Copy is
-// verbatim, mixed apostrophes and all.
+// Heading, two lead paragraphs and three cards, all verbatim and with their
+// mixed apostrophes intact. The closing line that follows the cards on the
+// live page is no longer rendered — removed on request; it is still in
+// content.json.
 //
 // All six share the arch shell the homepage uses under its hero, so the page
 // reads as the same site: rounded-t-[2.5rem], -mt-16 over the hero, the
@@ -16,6 +17,7 @@
 // ground mono reads as missing colour instead, so most options below let them
 // keep it — the ones that do desaturate say why.
 import { esc } from './layout.mjs';
+import { renderJourneyHeading } from './journey-headings.mjs';
 
 const MAGENTA = '#e8208f';
 const CYAN = '#00b9c6';
@@ -67,12 +69,10 @@ const arch = (inner) => `
   <div class="relative">${inner}</div>
 </div>`;
 
-// The heading is magenta on the live page and stays magenta here. On white it
-// measures 4.17:1, which fails body text but clears the 3:1 large-text
-// threshold comfortably at this size — it is set at 30px+ bold everywhere.
-const head = (c) => `
+// The heading treatment is a second lever — see journey-headings.mjs.
+const head = (c, headingKey) => `
 <div class="mx-auto max-w-3xl text-center">
-  <h2 class="font-display text-3xl font-bold leading-tight sm:text-[2.5rem]" style="color:${MAGENTA}">${esc(c.about.journey.heading)}</h2>
+  ${renderJourneyHeading(headingKey)}
   ${c.about.journey.lead.map(p => `<p class="mt-5 font-body text-lg leading-relaxed text-ink-soft">${esc(p)}</p>`).join('')}
 </div>`;
 
@@ -90,8 +90,10 @@ const bodyHtml = (card) => {
     t.slice(i + phrase.length);
 };
 
-const closeLine = (c) => `
-<p class="mx-auto mt-16 max-w-3xl text-center font-body text-lg leading-relaxed text-ink">${esc(c.about.journey.close)}</p>`;
+// Removed on request. journey.close is still in content.json — it is their
+// copy, taken off their live page, and dropping it from the data would lose
+// it. Nothing renders it.
+const closeLine = () => '';
 
 const img = (card, cls) => `
 <img src="${esc(card.photo)}" alt="" aria-hidden="true" width="900" height="700" loading="lazy" decoding="async" class="${cls}">`;
@@ -99,9 +101,9 @@ const img = (card, cls) => `
 // ---------------------------------------------------------------- options
 
 const RENDER = {
-  plates: (site, c) => arch(`
+  plates: (site, c, headingKey) => arch(`
     <div class="mx-auto max-w-content px-6 py-24">
-      ${head(c)}
+      ${head(c, headingKey)}
       <div class="mt-16 grid gap-10 md:grid-cols-3">
         ${c.about.journey.cards.map((card, i) => `
         <article>
@@ -119,9 +121,9 @@ const RENDER = {
       ${closeLine(c)}
     </div>`),
 
-  cardsLift: (site, c) => arch(`
+  cardsLift: (site, c, headingKey) => arch(`
     <div class="mx-auto max-w-content px-6 py-24">
-      ${head(c)}
+      ${head(c, headingKey)}
       <div class="mt-16 grid gap-7 md:grid-cols-3">
         ${c.about.journey.cards.map(card => `
         <article class="group overflow-hidden rounded-2xl bg-white shadow-[0_20px_50px_-30px_rgba(28,28,28,.45)] ring-1 ring-ink/[.07]
@@ -138,9 +140,9 @@ const RENDER = {
       ${closeLine(c)}
     </div>`),
 
-  numbered: (site, c) => arch(`
+  numbered: (site, c, headingKey) => arch(`
     <div class="mx-auto max-w-content px-6 py-24">
-      ${head(c)}
+      ${head(c, headingKey)}
       <div class="mt-16 grid gap-12 md:grid-cols-3">
         ${c.about.journey.cards.map((card, i) => `
         <article>
@@ -158,9 +160,9 @@ const RENDER = {
       ${closeLine(c)}
     </div>`),
 
-  overlap: (site, c) => arch(`
+  overlap: (site, c, headingKey) => arch(`
     <div class="mx-auto max-w-content px-6 py-24">
-      ${head(c)}
+      ${head(c, headingKey)}
       <!-- Staggered: the middle column drops, so three equal columns stop
            reading as a table. Removed below md, where the offset would just
            look like uneven spacing. -->
@@ -181,9 +183,9 @@ const RENDER = {
       ${closeLine(c)}
     </div>`),
 
-  duotone: (site, c) => arch(`
+  duotone: (site, c, headingKey) => arch(`
     <div class="mx-auto max-w-content px-6 py-24">
-      ${head(c)}
+      ${head(c, headingKey)}
       <div class="mt-16 grid gap-8 md:grid-cols-3">
         ${c.about.journey.cards.map(card => `
         <article class="group">
@@ -201,9 +203,9 @@ const RENDER = {
       ${closeLine(c)}
     </div>`),
 
-  timeline: (site, c) => arch(`
+  timeline: (site, c, headingKey) => arch(`
     <div class="mx-auto max-w-content px-6 py-24">
-      ${head(c)}
+      ${head(c, headingKey)}
       <div class="relative mt-16">
         <!-- The rule sits behind the markers and stops short of both ends, so
              it reads as a path between three points rather than a border. -->
@@ -226,4 +228,5 @@ const RENDER = {
     </div>`),
 };
 
-export const renderJourney = (site, c, key) => (RENDER[key] ?? RENDER.plates)(site, c);
+export const renderJourney = (site, c, key, headingKey = 'current') =>
+  (RENDER[key] ?? RENDER.plates)(site, c, headingKey);
