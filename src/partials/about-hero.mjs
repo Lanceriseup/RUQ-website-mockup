@@ -34,7 +34,7 @@ import { vslStage } from './vsl-open.mjs';
 const SANS_LINE =
   'block font-display text-base font-bold uppercase leading-snug tracking-[0.2em] text-white sm:text-2xl';
 
-export const aboutHero = (site, c, vslFx = 'none') => {
+export const aboutHero = (site, c, vslFx = 'unfold', vslFeel = 'gentle') => {
   const h = c.about.hero;
   const [first, second] = site.nextEvent.upcoming;
 
@@ -102,7 +102,7 @@ export const aboutHero = (site, c, vslFx = 'none') => {
               <svg width="28" height="28" viewBox="0 0 24 24" fill="#e8208f"><path d="M8 5v14l11-7z"/></svg>
             </span>
           </span>
-        </button>`)}
+        </button>`, vslFeel)}
       </div>
     </div>
 

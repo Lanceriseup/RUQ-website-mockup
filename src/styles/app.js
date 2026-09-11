@@ -235,15 +235,29 @@
       var wrap = document.createElement('div');
       // Inside a stage the frame is the stage, so the player fills it rather
       // than setting its own aspect ratio — otherwise the two fight and the
-      // letterbox cannot open.
+      // frame cannot open.
       wrap.className = stage ? 'vsl-player absolute inset-0' : 'relative aspect-video w-full';
       wrap.appendChild(iframeFor(btn.dataset.provider, btn.dataset.id, btn.dataset.title, btn.dataset.hash));
-      btn.replaceWith(wrap);
 
-      // One frame later, so the browser has the player's start state to
-      // transition from. Setting the class in the same tick would apply the
-      // end state immediately and nothing would animate.
-      if (stage) requestAnimationFrame(function () { stage.classList.add('is-playing'); });
+      if (!stage) { btn.replaceWith(wrap); return; }
+
+      // Cross-fade rather than swap. Replacing the button outright removes the
+      // poster in the same frame the iframe appears, so an empty player shows
+      // through while it loads and the frame is still opening — which is the
+      // jump, not the easing. The player goes in UNDERNEATH and the poster
+      // fades off the top of it.
+      btn.parentNode.insertBefore(wrap, btn);
+      btn.classList.add('is-fading');
+      btn.setAttribute('aria-hidden', 'true');
+      btn.tabIndex = -1;
+
+      var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      window.setTimeout(function () { btn.remove(); }, reduced ? 0 : 900);
+
+      // One frame later, so the browser has a start state to transition from.
+      // Setting the class in the same tick applies the end state immediately
+      // and nothing animates.
+      requestAnimationFrame(function () { stage.classList.add('is-playing'); });
     });
   });
 })();

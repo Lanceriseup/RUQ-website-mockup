@@ -44,7 +44,27 @@ export const VSL_OPEN = {
   },
 };
 
-export const stageClass = (key) => `vsl-stage vsl-fx-${key || 'none'}`;
+export const UNFOLD_FEEL = {
+  snap: {
+    label: 'Snap — 0.9s, fast start',
+    note: 'The original timing. Expo-out: most of the movement happens in the first third, then it decelerates hard. Quick, and the one that reads as abrupt.',
+  },
+  gentle: {
+    label: 'Gentle — 1.4s, even',
+    note: 'A symmetric ease over half again the time. Eases in as well as out, so there is no sudden start — that is usually what is missing when an animation feels rough rather than slow.',
+  },
+  glide: {
+    label: 'Glide — 1.8s, long soft landing',
+    note: 'Starts promptly and spends most of the time arriving. The frame appears to settle into place rather than stop. Softest of the four.',
+  },
+  slow: {
+    label: 'Slow — 2.4s, deliberate',
+    note: 'Nearly three times the original, eased at both ends. Unmistakably an unfolding. Long enough that a visitor may look away before it finishes.',
+  },
+};
+
+export const stageClass = (key, feel) =>
+  `vsl-stage vsl-fx-${key || 'none'}${feel ? ' vsl-ease-' + feel : ''}`;
 
 // The stage. The frame is a percentage-padding box, so its height is a ratio
 // of its own width and nothing else — 41.84% is 1/2.39, which is exactly the
@@ -60,8 +80,8 @@ export const stageClass = (key) => `vsl-stage vsl-fx-${key || 'none'}`;
 // padding-bottom rather than aspect-ratio because it is the property that
 // opens: percentage padding transitions everywhere, and aspect-ratio only
 // interpolates in Chrome 117+, Safari 17.4+ and Firefox 126+.
-export const vslStage = (key, inner) => `
-<div data-vsl-stage class="${stageClass(key)} relative w-full">
+export const vslStage = (key, inner, feel) => `
+<div data-vsl-stage class="${stageClass(key, feel)} relative w-full">
   <div class="vsl-frame relative h-0 w-full overflow-hidden">
     ${inner}
   </div>
