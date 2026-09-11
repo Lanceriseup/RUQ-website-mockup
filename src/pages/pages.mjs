@@ -9,6 +9,7 @@ import { closingSection } from '../partials/closing.mjs';
 import { teamPage } from '../partials/team.mjs';
 import { aboutHero } from '../partials/about-hero.mjs';
 import { renderJourney } from '../partials/about-journey.mjs';
+import { renderFaqs } from '../partials/faq-variants.mjs';
 
 const grid = (cols, items) => `<div class="mt-10 grid gap-6 ${cols}">${items.join('')}</div>`;
 
@@ -81,11 +82,9 @@ export const pages = (site, c, vids) => ([
          step on your path" — so the ticket is that step. -->
     ${renderJourney(site, c, 'overlap', 'stacked', closingSection(site, c, 'inherit'))}
 
-    ${section({ bg: 'bg-white', body: `
-      <div class="grid gap-8 md:grid-cols-2">
-        ${c.about.pullquotes.map(q => `<blockquote class="border-l-4 border-magenta pl-6 font-display text-2xl font-semibold text-ink">${esc(q)}</blockquote>`).join('')}
-      </div>` })}
-    ${section({ bg: 'bg-white', heading: 'Frequently Asked Questions', body: faq(c.about.faqs) })}
+    <!-- The two pullquotes used to sit here and are removed. Their copy stays
+         in content.json as about.pullquotes. -->
+    ${section({ bg: 'bg-white', pad: '', body: renderFaqs(c, 'current') })}
 `
   },
 

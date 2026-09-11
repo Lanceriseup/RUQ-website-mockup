@@ -109,20 +109,35 @@
     "ctaHeading": "Ready to Take the First Step?",
     "faqs": [
       {
-        "q": "Who is Rise Up Queens for?",
-        "a": "Women of faith who sense untapped potential and want freedom, deeper connection and greater impact — whether married, single, or somewhere in between."
+        "q": "Do I have to be married to attend?",
+        "a": "No. While many women come to work on their marriage, this event is ultimately about you. We welcome single, engaged, divorced, and widowed women too.",
+        "emphasis": "you"
       },
       {
-        "q": "What happens at the 3-day event?",
-        "a": "Three days of teaching, guided exercises and community designed to surface what's blocking your joy and connection, then walk you into practical next steps."
+        "q": "What do we believe when it comes to faith?",
+        "a": "Rise Up Queens is based on the non-denominational Christian faith. However, we have people attend from a wide variety of biblical-based religions."
       },
       {
-        "q": "Do I need to come with my spouse?",
-        "a": "No. Rise Up Queens is for women. Rise Up Kings runs the parallel movement for men, and Elevate is the couples experience."
+        "q": "Does my husband have to go to Rise Up Kings first?",
+        "a": "No. While we encourage you both to take on this journey together, there is no prerequisite for this event."
       },
       {
-        "q": "What if I'm not ready for a live event?",
-        "a": "Start with a masterclass or the free resource. Both are lower-commitment ways into the same material."
+        "q": "What are the days like?",
+        "a": "Each of the 3 days has a spiritual, mental & physical component to it. This is an experiential event with over 10 experiences that are designed to transform a woman."
+      },
+      {
+        "q": "What is included in the ticket price?",
+        "a": "We will cover meals and transportation during the event. You will be responsible for your hotel, meals outside the event times, and transportation to the hotel."
+      },
+      {
+        "q": "Where is the event?",
+        "a": "Dallas, TX"
+      },
+      {
+        "q": "Do you offer payment plans?",
+        "a": "Please contact support@riseupqueens.com for more details",
+        "linkText": "support@riseupqueens.com",
+        "linkUrl": "mailto:support@riseupqueens.com"
       }
     ],
     "hero": {
@@ -168,7 +183,27 @@
       "close": "Don’t let another day go by disconnected from who you were created to be. There’s a seat for you, and a woman you haven’t met yet on the other side of saying yes.",
       "_closeNote": "NOT RENDERED. Removed from the page on request. Kept here because it is the client's copy from their live about page; delete it from the data only if they confirm it is gone for good."
     },
-    "_whoForNote": "The \"Who is it for?\" heading and lead are no longer rendered on the page; the journey block replaced them. Kept because about.lead is still the page meta description."
+    "_whoForNote": "The \"Who is it for?\" heading and lead are no longer rendered on the page; the journey block replaced them. Kept because about.lead is still the page meta description.",
+    "_faqsWere": [
+      {
+        "q": "Who is Rise Up Queens for?",
+        "a": "Women of faith who sense untapped potential and want freedom, deeper connection and greater impact — whether married, single, or somewhere in between."
+      },
+      {
+        "q": "What happens at the 3-day event?",
+        "a": "Three days of teaching, guided exercises and community designed to surface what's blocking your joy and connection, then walk you into practical next steps."
+      },
+      {
+        "q": "Do I need to come with my spouse?",
+        "a": "No. Rise Up Queens is for women. Rise Up Kings runs the parallel movement for men, and Elevate is the couples experience."
+      },
+      {
+        "q": "What if I'm not ready for a live event?",
+        "a": "Start with a masterclass or the free resource. Both are lower-commitment ways into the same material."
+      }
+    ],
+    "_faqsNote": "The four questions previously here were written during the first extraction pass and were not the client's. These seven are verbatim from riseupqueens.com/about/, fetched 2026-09-12. The old four are kept above in case any of the wording is wanted.",
+    "_pullquotesNote": "NOT RENDERED. Removed from the page on request. Kept because it is the client's copy from their live about page."
   },
   "events": {
     "heading": "Your Path with Rise Up Queens",
