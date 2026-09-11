@@ -58,19 +58,28 @@ export const renderTeamHeading = (key, text, { tag = 'h2', lead = '', colour = M
     : '';
 
   if (key === 'script') {
-    // Four words split; one word cannot. "Leadership" takes the script face
-    // whole rather than being padded with an invented lead-in.
-    const words = text.split(' ');
-    const head = words.length > 1 ? words.slice(0, -1).join(' ') : text;
-    const tail = words.length > 1 ? words[words.length - 1] : '';
+    // Uppercase first, brush face second — the qualifier above, the group it
+    // names below. That is the "JOIN US TO EXPERIENCE / healing and renewal"
+    // pattern from the homepage rather than the "Common struggles / WOMEN IN
+    // MARRIAGE HAVE" one, and it is this way round for a specific reason:
+    // script-first would put "RUQ" in the brush face, and an acronym set in a
+    // casual brush is close to unreadable. Taking the last word instead gives
+    // "RUQ / Coaches" and "LEADERSHIP / Team", which reads for both.
+    //
+    // If the brush should carry "Leadership" rather than "Team", swap the two
+    // lines here — but then the first heading needs its own split, and the two
+    // stop being peers, which is the thing this set exists to fix.
+    const words = text.trim().split(/\s+/);
+    const upper = words.length > 1 ? words.slice(0, -1).join(' ') : '';
+    const brush = words[words.length - 1];
     return `
 <div class="text-center">
   <${T} class="leading-none">
-    <span class="relative inline-block">
-      <span class="script block" style="color:${colour};font-size:clamp(2.4rem,6vw,3.9rem);line-height:.9">${esc(head)}</span>
+    ${upper ? `<span class="block font-display text-lg font-bold uppercase tracking-[0.3em] text-white sm:text-xl">${esc(upper)}</span>` : ''}
+    <span class="relative mt-2 inline-block">
+      <span class="script block" style="color:${colour};font-size:clamp(2.6rem,6.5vw,4.2rem);line-height:.9">${esc(brush)}</span>
       ${swash(colour)}
     </span>
-    ${tail ? `<span class="mt-3 block font-display text-2xl font-bold uppercase tracking-[0.06em] text-white sm:text-[2rem]">${esc(tail)}</span>` : ''}
   </${T}>
   ${leadHtml}
 </div>`;

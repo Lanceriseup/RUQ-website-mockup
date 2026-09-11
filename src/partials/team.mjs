@@ -1,5 +1,14 @@
 // Meet the Team — collage portraits, split into Coaches and Leadership.
 //
+// Headings are the script treatment: the qualifier in uppercase, the group it
+// names in the brush face beneath. No sub-headline — c.team.lead still exists
+// in the data because pages.mjs uses it as the meta description, but it is no
+// longer rendered.
+//
+// "RUQ Coaches" and "Leadership Team" are edits to the client's own headings
+// ("Rise Up Queens Coaches" and "Leadership"); both originals are kept in
+// content.json.
+//
 // The split is the live site's own. Six coaches, each with a biography behind
 // a disclosure; six leadership, who have no biography at all. That is not a
 // gap to be filled later — the live page does not have one for them either —
@@ -91,7 +100,7 @@ const leader = (m, i) => `
   </figcaption>
 </figure>`;
 
-export const teamPage = (site, c, headingKey = 'current') => {
+export const teamPage = (site, c, headingKey = 'script') => {
   const coaches = c.team.members.filter(m => m.group === 'coach');
   const leaders = c.team.members.filter(m => m.group === 'leadership');
 
@@ -104,7 +113,7 @@ export const teamPage = (site, c, headingKey = 'current') => {
 
   <div class="relative mx-auto max-w-content px-4 pb-20 pt-44 sm:pt-48">
 
-    ${renderTeamHeading(headingKey, c.team.heading, { tag: 'h1', lead: c.team.lead, count: coaches.length })}
+    ${renderTeamHeading(headingKey, c.team.heading, { tag: 'h1', count: coaches.length })}
 
     <!-- Explicit 3-up, not flex-wrap. Six people fall into 3x2 at lg either
          way, but wrapping decides that from the container width and silently

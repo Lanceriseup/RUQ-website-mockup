@@ -212,7 +212,7 @@
     ]
   },
   "team": {
-    "heading": "Rise Up Queens Coaches",
+    "heading": "RUQ Coaches",
     "lead": "The people who guide the work.",
     "members": [
       {
@@ -317,13 +317,16 @@
     "groups": [
       {
         "key": "coach",
-        "heading": "Rise Up Queens Coaches"
+        "heading": "RUQ Coaches"
       },
       {
         "key": "leadership",
-        "heading": "Leadership"
+        "heading": "Leadership Team",
+        "_originalHeading": "Leadership"
       }
-    ]
+    ],
+    "_originalHeading": "Rise Up Queens Coaches",
+    "_leadNote": "No longer rendered on the page — removed on request. Kept because pages.mjs uses it as the meta description."
   },
   "freeResource": {
     "heading": "Free Resource",
