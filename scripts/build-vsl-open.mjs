@@ -29,7 +29,7 @@ ${aboutHero(site, content, key, feel)}
 </body></html>`;
 
 for (const k of Object.keys(VSL_OPEN)) {
-  fs.writeFileSync(path.join(dist, `vo-${k}.html`), wrap(k, 'gentle'));
+  fs.writeFileSync(path.join(dist, `vo-${k}.html`), wrap(k, 'glide'));
 }
 // Unfold is chosen; these are its timings, all on the same effect.
 for (const f of Object.keys(UNFOLD_FEEL)) {
@@ -74,11 +74,11 @@ const page = `<!doctype html>
 
   <h2 class="mt-10 font-display text-2xl font-bold">How fast unfold opens</h2>
   <p class="mt-1 max-w-3xl text-sm text-ink-soft">All the same effect — only the duration and the easing curve change.
-     <span class="font-semibold">gentle</span> is what ships.</p>
+     <span class="font-semibold">glide</span> is what ships.</p>
   ${Object.entries(UNFOLD_FEEL).map(([k, v]) => `
   <section class="mt-8">
     <div class="flex flex-wrap items-baseline gap-3">
-      <span class="rounded-full ${k === 'gentle' ? 'bg-ink' : 'bg-magenta'} px-3 py-1 font-body text-xs font-bold text-white">${esc(k)}</span>
+      <span class="rounded-full ${k === 'glide' ? 'bg-ink' : 'bg-magenta'} px-3 py-1 font-body text-xs font-bold text-white">${esc(k)}</span>
       <span class="font-display text-lg font-bold">${esc(v.label)}</span>
       <a href="/vf-${k}.html" target="_blank" rel="noopener" class="rounded-full bg-ink px-4 py-1 text-xs font-semibold text-white">Open ↗</a>
     </div>
@@ -89,7 +89,7 @@ const page = `<!doctype html>
   </section>`).join('')}
 
   <h2 class="mt-16 font-display text-2xl font-bold">The other effects</h2>
-  <p class="mt-1 max-w-3xl text-sm text-ink-soft">All shown at the <span class="font-semibold">gentle</span> timing.</p>
+  <p class="mt-1 max-w-3xl text-sm text-ink-soft">All shown at the <span class="font-semibold">glide</span> timing.</p>
   ${Object.entries(VSL_OPEN).map(([k, v]) => `
   <section class="mt-8">
     <div class="flex flex-wrap items-baseline gap-3">

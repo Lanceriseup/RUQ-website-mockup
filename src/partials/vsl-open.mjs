@@ -51,11 +51,11 @@ export const UNFOLD_FEEL = {
   },
   gentle: {
     label: 'Gentle — 1.4s, even',
-    note: 'A symmetric ease over half again the time. Eases in as well as out, so there is no sudden start — that is usually what is missing when an animation feels rough rather than slow.',
+    note: 'A symmetric ease over half again the original time. Eases in as well as out, so there is no sudden start — that is usually what is missing when an animation feels rough rather than slow.',
   },
   glide: {
     label: 'Glide — 1.8s, long soft landing',
-    note: 'Starts promptly and spends most of the time arriving. The frame appears to settle into place rather than stop. Softest of the four.',
+    note: 'Starts promptly and spends most of the time arriving, so the frame appears to settle into place rather than stop. Softest of the four, and what ships.',
   },
   slow: {
     label: 'Slow — 2.4s, deliberate',

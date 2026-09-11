@@ -7,7 +7,12 @@
 //   radial vignette            same stops
 //   text band                  same stops
 //   .sheen rotating word       same class, same clamp, same grid cell
-//   VSL below the headline     same 2.39:1 letterbox, same cyan bloom
+//   VSL below the headline     same 2.39:1 crop, same cyan bloom
+//
+// The video opens with "unfold" at the "glide" timing: the 2.39:1 frame grows
+// to 16:9 over 1.8s, giving back the quarter of the picture the crop hides,
+// and the poster cross-fades off the player rather than being swapped out.
+// See vsl-open.mjs.
 //   divided dates + CTA        same block
 //   pt-48 / sm:pt-52           same header clearance
 //
@@ -34,7 +39,7 @@ import { vslStage } from './vsl-open.mjs';
 const SANS_LINE =
   'block font-display text-base font-bold uppercase leading-snug tracking-[0.2em] text-white sm:text-2xl';
 
-export const aboutHero = (site, c, vslFx = 'unfold', vslFeel = 'gentle') => {
+export const aboutHero = (site, c, vslFx = 'unfold', vslFeel = 'glide') => {
   const h = c.about.hero;
   const [first, second] = site.nextEvent.upcoming;
 
