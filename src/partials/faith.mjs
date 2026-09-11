@@ -8,13 +8,18 @@
 // sit inside a collapsed accordion and then a scroll box, which makes the most
 // load-bearing content on the page for this audience the hardest to reach.
 //
-// Background is the writing photograph — the act of writing echoes the
-// manuscript idea, and it reads as texture rather than portraiture once it is
-// behind the ink scrim.
+// Background is the photograph the live site uses behind this section: a cross
+// hung with prayer notes, women seated around it. Far more apt for a statement
+// of faith than anything in the general event library.
+//
+// The live site renders it through filter: brightness(190%) saturate(0%),
+// which is what drains it to near-grey. That is not reproduced here — the ink
+// scrim below provides the contrast the parchment plate needs while leaving
+// the photograph legible as an image.
 import { esc } from './layout.mjs';
 
 const MAGENTA = '#e8208f';
-const PHOTO = '/assets/photos/gallery-2-2.png';
+const PHOTO = '/assets/photos/faith-bg.png';
 
 export const faithSection = (site, c) => `
 <section class="relative overflow-hidden py-24">
