@@ -10,7 +10,7 @@
 // a cyan rule, the testimonial section below opens with a magenta wash. A
 // single neutral tint at both ends would read as a third colour arriving from
 // nowhere.
-import { faithPlate, FAITH_PHOTO, FAITH_IMG_FILTER, FAITH_SCRIM } from './faith.mjs';
+import { faithPlate, FAITH_PHOTO, FAITH_IMG_FILTER, FAITH_SCRIM, waveEdge } from './faith.mjs';
 
 const WHITE = '#ffffff';
 const MAGENTA_BAND = '#f7e4f0';   // deeper than magenta-tint so it reads against white
@@ -42,36 +42,6 @@ export const FAITH_WAVE_OPTIONS = {
     note: 'The wave shape, then a gradient over it so the boundary itself is soft. Combines this set with the fade set: you read a wave, but there is no crisp edge anywhere on it.',
   },
 };
-
-// ------------------------------------------------------------------ paths
-
-// Plotted rather than hand-written. A wave as a literal path string cannot be
-// adjusted — changing the amplitude means rewriting every coordinate — and
-// these need to be tuned against each other.
-//
-// 120 segments across 1440 is 12px apart before preserveAspectRatio stretches
-// them, which is well under the point where the polyline reads as faceted.
-const VIEW_W = 1440;
-
-const wavePath = ({ h, amp, periods, phase = 0, mid = 0.55 }) => {
-  const N = 120;
-  const pts = [];
-  for (let i = N; i >= 0; i--) {
-    const x = (VIEW_W * i) / N;
-    const y = h * mid + amp * Math.sin((i / N) * Math.PI * 2 * periods + phase);
-    pts.push(`${x.toFixed(1)},${y.toFixed(1)}`);
-  }
-  return `M0,0 H${VIEW_W} L${pts.join(' L')} Z`;
-};
-
-// One <svg> per edge carrying every layer, so the layers cannot drift apart
-// and the whole edge is a single element to position.
-const edgeSvg = (h, layers, flip) => `
-<svg aria-hidden="true" viewBox="0 0 ${VIEW_W} ${h}" preserveAspectRatio="none"
-     class="pointer-events-none absolute inset-x-0 ${flip ? 'bottom-0' : 'top-0'} w-full"
-     style="height:${h}px;display:block${flip ? ';transform:scaleY(-1)' : ''}">
-  ${layers.map(l => `<path d="${wavePath({ h, ...l })}" fill="${l.fill}"${l.opacity ? ` opacity="${l.opacity}"` : ''}/>`).join('\n  ')}
-</svg>`;
 
 // ---------------------------------------------------------------- options
 
@@ -155,8 +125,8 @@ export const renderFaithWave = (site, c, key) => {
     <div class="absolute inset-0" style="background:${FAITH_SCRIM}"></div>
   </div>
 
-  ${edgeSvg(w.h, w.top, false)}
-  ${edgeSvg(w.h, w.bottom, true)}
+  ${waveEdge(w.h, w.top, false)}
+  ${waveEdge(w.h, w.bottom, true)}
   ${softener}
 
   <!-- Content paints after the waves, so the plate stays clear of them no
