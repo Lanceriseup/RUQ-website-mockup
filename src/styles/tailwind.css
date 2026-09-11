@@ -192,6 +192,27 @@
     .ctk-throb .cta-glow, .ctk-breatheGlow .cta-glow { transform: none; opacity: .85; }
   }
 
+  /* Collage portraits on the team page. Each figure carries its own --tilt,
+     set inline, and straightens when pointed at or focused within — so a
+     keyboard user gets the same behaviour as a mouse user, which an inline
+     onmouseover would not have given them. */
+  .polaroid .polaroid-plate {
+    transform: rotate(var(--tilt, 0deg));
+    transition: transform .45s cubic-bezier(.22,1,.36,1);
+  }
+  .polaroid:hover .polaroid-plate,
+  .polaroid:focus-within .polaroid-plate { transform: rotate(0deg); }
+
+  /* An open bio squares the plate up and keeps it there, so the column of body
+     copy underneath is never read at an angle. */
+  .polaroid:has(details[open]) .polaroid-plate { transform: rotate(0deg); }
+
+  @media (prefers-reduced-motion: reduce) {
+    /* The tilt itself stays — it is the design, not the animation. Only the
+       movement between the two states goes. */
+    .polaroid .polaroid-plate { transition: none; }
+  }
+
   /* Testimonial rails. The track holds the cards twice over and travels
      exactly one set, so the wrap is invisible. Direction is the only
      difference between the two rails; duration is set per-instance.

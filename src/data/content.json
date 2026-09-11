@@ -218,74 +218,110 @@
       {
         "name": "Jessica Lewis",
         "role": "Founder",
-        "bio": "Christian marriage coach, speaker, and founder of Rise Up Queens. Co-leads RUQ alongside her husband Skylar Lewis, founder of Rise Up Kings.",
-        "photo": "/assets/team/jessica-lewis.jpg"
+        "bio": [
+          "Jessica Lewis is a Christian marriage coach, speaker, and founder of Rise Up Queens—a transformational movement for high-achieving women who are tired of carrying it all and long to live in their God-given femininity.",
+          "Before Rise Up Queens, Jessica spent years living in quiet overdrive—building businesses, managing a household, and constantly striving to “do it right.” Behind closed doors, she battled burnout, resentment, and the ache of feeling emotionally disconnected in her own marriage. Her spiritual life felt dutiful, but dry. Her intimacy felt obligatory, not alive. And like many women, she felt pressure to stay strong while silently falling apart.",
+          "Everything shifted when Jessica began confronting the internal bricks that were blocking her joy, softness, and connection—with God, with her husband, and with herself. That journey led her to discover the power of biblical femininity, emotional healing, and raw vulnerability. Now, she helps other women do the same—guiding them into deeper intimacy, restored identity, and spiritual freedom.",
+          "Today, Jessica co-leads Rise Up Queens alongside her husband, Skylar Lewis (founder of Rise Up Kings), helping thousands of Christian couples transform their marriages from the inside out. Her work blends deep emotional healing with bold truth, combining biblical conviction, experiential learning, and a call to rise."
+        ],
+        "photo": "/assets/team/jessica-lewis.jpg",
+        "group": "coach"
       },
       {
         "name": "Molly Rhodes",
-        "role": "Coach",
-        "bio": "Coach, speaker and passionate leader with Rise Up Queens. After experiencing radical transformation through RUQ, she now guides other women through it.",
-        "photo": "/assets/team/molly-rhodes.jpg"
+        "role": "Master Coach",
+        "bio": [
+          "Molly Rhodes is a coach, speaker, and passionate leader with Rise Up Queens. After experiencing radical transformation through RUQ, she now devotes her life to helping women break free from the lies that keep them stuck. Trained in trauma integration, inner healing, and self-regulation therapies, Molly equips women to reclaim their true identity and walk in boldness and clarity. She knows the cost of living under the enemy’s lies—and now walks closely with women to help them rewrite their stories and live fully alive in God's purpose. If you’ve ever longed for someone to meet you in the hard, holy parts of life, Molly offers Spirit-led guidance with truth, compassion, and fire. A devoted prayer warrior and skilled coach, she lives in Dallas, Texas with her three boys and husband, Thomas."
+        ],
+        "photo": "/assets/team/molly-rhodes.jpg",
+        "group": "coach"
       },
       {
         "name": "Becky Hilty",
         "role": "Coach",
-        "bio": "",
-        "photo": "/assets/team/becky-hilty.jpg"
+        "bio": [
+          "Hi, I’m Becky—wife of 16 years to my amazing husband, Robert, and mom to four wonderful kids: Amber, Sean, Savannah, and Jenni. I live in the wide-open beauty of Wyoming, where I’m a homemaker, business owner, and faith-based life coach with a heart for helping women live free from the pressure of performance.",
+          "Over the years, I’ve found deep joy in connecting with women—whether through conversation over coffee, moments of shared honesty, or walking through life’s challenges together. That love for truth, connection, and meaningful growth led me into coaching. Today, I have the privilege of walking alongside women as they rediscover their identity, set healthy boundaries, and step confidently into the life they were created for.",
+          "Whether I’m homeschooling my kids, managing our drive-thru coffee business, or sitting across from a woman in need of encouragement, I lead with intentionality, warmth, and grace. I’m passionate about helping others release perfectionism, rewrite the stories that have held them back, and live with purpose, clarity, and peace.",
+          "At the heart of everything I do is the desire to create space—where women feel seen, heard, and supported. A space where they can breathe deep, let go of pressure, and finally embrace the freedom of living with purpose and grace"
+        ],
+        "photo": "/assets/team/becky-hilty.jpg",
+        "group": "coach"
       },
       {
         "name": "Christy Tijerina",
         "role": "Coach",
-        "bio": "",
-        "photo": "/assets/team/christy-tijerina.jpg"
+        "bio": [
+          "Christy Tijerina was raised in a conservative Christian home and always dreamed of being a wife and mom—a dream that came true when she married her high school sweetheart at 18. Together, they had three children, all boys! She pursued nursing and became a registered nurse as part of a bigger dream they had together, to own their own business! They later built a plumbing business from their garage, that they have since sold. Christy now uses her experience to serve and support women as a coach with Rise Up Queens. Christy lives in Argyle, Texas with her family, including her shihtzu, Duke."
+        ],
+        "photo": "/assets/team/christy-tijerina.jpg",
+        "group": "coach"
       },
       {
         "name": "Natasha Seguin-Congrove",
         "role": "Coach",
-        "bio": "",
-        "photo": "/assets/team/natasha-seguin-congrove.jpg"
+        "bio": [
+          "Natasha is a RUQ coach dedicated to helping women break free from fear and control, and to build deeper, more fulfilling relationships within their families. Formerly she worked alongside her husband running multiple family businesses in South Carolina, Natasha experienced her own profound transformation through coaching, which inspired her to follow God’s calling and support other women on their journeys. As a mentor to girls in a Bible group, Natasha is passionate about creating safe, nurturing spaces where young women can be authentic and empowered. As a mother of four daughters, she understands the challenges women face in balancing family, faith, and personal growth.",
+          "Natasha’s coaching style is compassionate and collaborative, focused on helping women deepen relationships and experience true freedom in everyday life. She is committed to continuous personal development and believes that living in alignment with God’s purpose brings harmony to every area of life. Based in South Carolina, Natasha is devoted to guiding women toward greater purpose, connection, and fulfillment at home and beyond."
+        ],
+        "photo": "/assets/team/natasha-seguin-congrove.jpg",
+        "group": "coach"
       },
       {
         "name": "Maurie Shipp",
         "role": "Coach",
-        "bio": "",
-        "photo": "/assets/team/maurie-shipp.jpg"
+        "bio": [
+          "Above all, Maurie Shipp adores and follows her Lord and Savior, Jesus Christ. Without Him, nothing is possible! Maurie (pronounced “Marie”) knows the journey to and beauty of surrender; the surrender from self-driven pressure to perform and be perfect in the eyes of man. Prior to her own growth through Rise Up Queens, the Lord called her to serve women in their own walks. Maurie is passionate and enthusiastic. She knows the source of her joy and desires to help women move from the bondage of perfectionism to the peace of letting it all go. Maurie lives in College Station, Texas, with her husband, Dallas, and their three young children—Marlow, Bozeman, and Ryman. As a part-time homeschool teacher in their hybrid schooling, she’s learned a few things: God always delivers, the twisty crayons are better than the original ones, and grace given is oftentimes more important than giving the “right” answer."
+        ],
+        "photo": "/assets/team/maurie-shipp.jpg",
+        "group": "coach"
       },
       {
         "name": "Jayden Ngoi",
-        "role": "Team",
-        "bio": "",
-        "photo": "/assets/team/jayden-ngoi.jpg"
+        "role": "RUQ Event Manager",
+        "photo": "/assets/team/jayden-ngoi.jpg",
+        "group": "leadership"
       },
       {
         "name": "Jessica Craycraft",
-        "role": "Team",
-        "bio": "",
-        "photo": "/assets/team/jessica-craycraft.jpg"
+        "role": "Director of Operations",
+        "photo": "/assets/team/jessica-craycraft.jpg",
+        "group": "leadership"
       },
       {
         "name": "Carolyn Johnson",
-        "role": "Team",
-        "bio": "",
-        "photo": "/assets/team/carolyn-johnson.jpg"
+        "role": "Event Director",
+        "photo": "/assets/team/carolyn-johnson.jpg",
+        "group": "leadership"
       },
       {
         "name": "Maria Hazzard",
-        "role": "Team",
-        "bio": "",
-        "photo": "/assets/team/maria-hazzard.jpg"
+        "role": "Event Support Associate",
+        "photo": "/assets/team/maria-hazzard.jpg",
+        "group": "leadership"
       },
       {
         "name": "Justin Baker",
-        "role": "Team",
-        "bio": "",
-        "photo": "/assets/team/justin-baker.png"
+        "role": "Director of Technology",
+        "photo": "/assets/team/justin-baker.png",
+        "group": "leadership"
       },
       {
         "name": "Nathan Griffey",
-        "role": "Team",
-        "bio": "",
-        "photo": "/assets/team/nathan-griffey.jpg"
+        "role": "Videographer",
+        "photo": "/assets/team/nathan-griffey.jpg",
+        "group": "leadership"
+      }
+    ],
+    "_source": "Roles, groups and bios taken from riseupqueens.com/team/ on 2026-09-11, verbatim. Bios are stored as arrays of paragraphs exactly as the live page breaks them.",
+    "groups": [
+      {
+        "key": "coach",
+        "heading": "Rise Up Queens Coaches"
+      },
+      {
+        "key": "leadership",
+        "heading": "Leadership"
       }
     ]
   },
