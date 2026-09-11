@@ -11,6 +11,11 @@
 // competes with it. Each option says what it does about that.
 import { esc } from './layout.mjs';
 
+// None of these carries a top margin. A margin on the footer shows the body
+// background between the page and the footer — invisible while every page was
+// white, a white band across the foot of the dark team page. Spacing below
+// content belongs to the page.
+
 const MAGENTA = '#e8208f';
 const CYAN = '#00b9c6';
 
@@ -68,7 +73,7 @@ const parentLink = (site, cls) =>
 
 const RENDER = {
   current: (site) => `
-<footer class="mt-24 bg-ink text-white">
+<footer class="bg-ink text-white">
   <div class="mx-auto grid max-w-content gap-10 px-4 py-14 sm:grid-cols-2 lg:grid-cols-4">
     <div class="sm:col-span-2">
       <img src="${esc(site.assets.logoWhite)}" alt="${esc(site.brand.name)}" width="180" height="56" class="h-12 w-auto object-contain" loading="lazy" decoding="async">
@@ -93,7 +98,7 @@ const RENDER = {
 </footer>`,
 
   oneLine: (site) => `
-<footer class="mt-20 bg-ink text-white">
+<footer class="bg-ink text-white">
   <!-- Three items on one row at lg, stacked and centred below it. Stacking
        rather than shrinking: eight links squeezed onto one line on a tablet
        would set at a size nobody can tap accurately. -->
@@ -113,7 +118,7 @@ const RENDER = {
 </footer>`,
 
   centred: (site) => `
-<footer class="mt-20 bg-ink text-white">
+<footer class="bg-ink text-white">
   <div class="mx-auto flex max-w-content flex-col items-center px-4 py-14 text-center">
     <img src="${esc(site.assets.logoWhite)}" alt="${esc(site.brand.name)}" width="180" height="56" class="h-11 w-auto object-contain" loading="lazy" decoding="async">
     <span aria-hidden="true" class="mt-7 block h-px w-20" style="background:linear-gradient(to right,transparent,${MAGENTA},transparent)"></span>
@@ -127,7 +132,7 @@ const RENDER = {
 </footer>`,
 
   light: (site) => `
-<footer class="mt-20 border-t border-ink/10 bg-white text-ink">
+<footer class="border-t border-ink/10 bg-white text-ink">
   <div class="mx-auto flex max-w-content flex-col items-center gap-7 px-4 py-10 lg:flex-row lg:justify-between lg:gap-10">
     <!-- The white mark, inverted to black.
          There is no dark logo in the asset set. logo-ruq.png sounds like one
@@ -152,7 +157,7 @@ const RENDER = {
 </footer>`,
 
   rule: (site) => `
-<footer class="mt-20 border-t border-ink/10 bg-white text-ink">
+<footer class="border-t border-ink/10 bg-white text-ink">
   <div class="mx-auto flex max-w-content flex-col gap-6 px-4 py-8 lg:flex-row lg:items-center lg:justify-between">
     ${links(site, 'font-body text-[11px] font-semibold uppercase tracking-[0.18em] text-ink-soft transition hover:text-ink', 'nav class="flex flex-wrap gap-x-6 gap-y-3"')}
     <div class="flex items-center gap-5">
@@ -163,7 +168,7 @@ const RENDER = {
 </footer>`,
 
   corner: (site) => `
-<footer class="mt-20 bg-ink text-white">
+<footer class="bg-ink text-white">
   <div class="mx-auto flex max-w-content flex-col gap-10 px-4 py-12 md:flex-row md:items-end md:justify-between">
     <div>
       <img src="${esc(site.assets.logoWhite)}" alt="${esc(site.brand.name)}" width="240" height="74" class="h-16 w-auto object-contain" loading="lazy" decoding="async">

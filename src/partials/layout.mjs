@@ -11,7 +11,15 @@ export const esc = s => String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;
 export { header } from './nav.mjs';
 
 export const footer = (site) => `
-<footer class="mt-24 bg-ink text-white">
+<!-- No top margin. The footer used to carry mt-24, which put 96px of the
+     body's own background between the page and the footer. On a white page
+     that was invisible; on the dark team page it read as a white band across
+     the foot of the site.
+
+     Spacing below content belongs to the page, not to the footer: every
+     section already ends on its own padding (py-24 on the shared section
+     component, py-16 on the closing CTA), so nothing needed the margin. -->
+<footer class="bg-ink text-white">
   <div class="mx-auto grid max-w-content gap-10 px-4 py-14 sm:grid-cols-2 lg:grid-cols-4">
     <div class="sm:col-span-2">
       <img src="${esc(site.assets.logoWhite)}" alt="${esc(site.brand.name)}" width="180" height="56" class="h-12 w-auto object-contain" loading="lazy" decoding="async">
