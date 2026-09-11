@@ -14,11 +14,10 @@ import { renderContactPage } from '../partials/contact.mjs';
 
 const grid = (cols, items) => `<div class="mt-10 grid gap-6 ${cols}">${items.join('')}</div>`;
 
-// Which of the six contact treatments the page ships. Parked on `float`
-// because it is the nearest relative of the raised glass panel that was
-// approved, so the page barely moves while the treatment is being chosen.
-// See /contact-styles.html for the other five.
-const CONTACT_STYLE = 'float';
+// The three still-open contact choices. Parked, not chosen: 'none' simply
+// drops the two-tone bar without inventing a replacement, and 'above' is the
+// smallest fix for the crest alignment. See /contact-styles.html.
+const CONTACT_OPTS = { rule: 'none', partnerShape: 'above', panel: 'current' };
 
 export const pages = (site, c, vids) => ([
   {
@@ -190,7 +189,7 @@ export const pages = (site, c, vids) => ([
     // Ontraport. A form that looks live and posts nowhere swallows real
     // enquiries in silence, so the fields stay disabled and say so until one of
     // those is wired. See contact-parts.mjs.
-    body: renderContactPage(site, c, vids, CONTACT_STYLE)
+    body: renderContactPage(site, c, vids, CONTACT_OPTS)
   },
 
   {

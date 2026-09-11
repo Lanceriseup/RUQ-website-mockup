@@ -185,20 +185,53 @@ export const rukCrest = (site, cls = 'w-16') => `
      width="1762" height="2560" loading="lazy" decoding="async"
      class="${cls} shrink-0">`;
 
-// `shape` is how much room the layout can give it.
-//   stacked  crest above the heading, left-aligned
-//   beside   crest to the left of the text
-//   bar      crest, text and button on one wide row
-export const partner = (site, c, shape = 'beside') => {
+// How the crest is built into the Rise Up Kings block.
+//
+// The first attempt — a tall crest standing beside two short lines of text —
+// is kept as `beside` so the comparison is honest, but it is the one that was
+// rejected and the reason is structural: the crest is a portrait shield at
+// roughly 2:3, and it was set against a two-line text block half its height,
+// so nothing lined up at the top or the bottom. Every option below either
+// gives it a horizontal band of its own, shrinks it to text scale, or stops
+// treating it as a sibling of the text altogether.
+export const PARTNER_SHAPES = {
+  beside: {
+    label: 'Current — crest standing beside the text',
+    note: 'What is there now, for comparison. A portrait shield against a two-line text block half its height, so the two align at neither the top nor the bottom and the block reads as two unrelated objects.',
+  },
+  badge: {
+    label: 'Badge — a bordered card, crest centred at the top',
+    note: 'The block becomes a card with a gold hairline edge, the crest centred above the text and the button running the full width beneath. The crest gets a symmetrical space of its own, which is the shape a shield actually wants, and the whole thing reads as a sealed invitation rather than a link with a picture next to it.',
+  },
+  above: {
+    label: 'Above — crest over the heading, left aligned',
+    note: 'The smallest change that fixes the alignment: the crest moves off the side and sits above the heading on the same left edge as everything else in the column. Nothing else in the block moves. Safest of the six.',
+  },
+  watermark: {
+    label: 'Watermark — the crest behind the text, faint',
+    note: 'A large crest set into the top-right corner of a tinted panel at low opacity, with the text over it. The crest stops being an object to align and becomes texture, so there is nothing left to line up. Most designed of the six and the least literal.',
+  },
+  banner: {
+    label: 'Banner — a gold rule, then crest and heading on one line',
+    note: 'A gold hairline opens the block, then a small crest and the heading share a single baseline. The rule does the separating that the crest was being asked to do, which lets the crest come down to the size of the type beside it.',
+  },
+  inButton: {
+    label: 'In the button — the crest as the button’s own mark',
+    note: 'No standalone crest at all. It sits inside the Rise Up Kings button at text size, ahead of the label, the way a sign-in-with button carries a mark. Tidiest option by a distance, and the only one where the crest is attached to the thing it actually leads to.',
+  },
+};
+
+export const partner = (site, c, shape = 'above') => {
   const p = c.contact.partner;
-  const link = `
-<a href="${esc(p.url)}" target="_blank" rel="noopener"
-   class="inline-flex items-center gap-2 rounded-full border px-6 py-3 font-display text-xs font-bold uppercase
-          tracking-[.14em] text-white transition hover:bg-white/10
-          focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-   style="border-color:${RUK_GOLD}">
-  ${esc(p.cta)}
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+
+  const arrow = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+  const linkCls = (extra = '') => `inline-flex items-center gap-2 rounded-full border px-6 py-3 font-display text-xs font-bold uppercase
+     tracking-[.14em] text-white transition hover:bg-white/10
+     focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white ${extra}`;
+
+  const link = (extra = '') => `
+<a href="${esc(p.url)}" target="_blank" rel="noopener" class="${linkCls(extra)}" style="border-color:${RUK_GOLD}">
+  ${esc(p.cta)}${arrow}
 </a>`;
 
   const text = `
@@ -207,18 +240,52 @@ export const partner = (site, c, shape = 'beside') => {
   <p class="mt-1 font-body text-white/60">${esc(p.body)}</p>
 </div>`;
 
-  if (shape === 'stacked') return `
-<div>
-  ${rukCrest(site, 'w-20')}
-  <div class="mt-5">${text}</div>
-  <div class="mt-5">${link}</div>
+  if (shape === 'badge') return `
+<div class="rounded-2xl border p-7 text-center" style="border-color:rgba(192,151,97,.35)">
+  <div class="flex justify-center">${rukCrest(site, 'w-16')}</div>
+  <h2 class="mt-5 font-display text-xl font-bold text-white">${esc(p.heading)}</h2>
+  <p class="mt-1 font-body text-white/60">${esc(p.body)}</p>
+  ${link('mt-6 w-full justify-center')}
 </div>`;
 
-  if (shape === 'bar') return `
-<div class="flex flex-wrap items-center gap-6 rounded-2xl bg-white/[.04] p-6 ring-1 ring-white/10 sm:p-8">
-  ${rukCrest(site, 'w-14')}
-  <div class="min-w-[14rem] flex-1">${text}</div>
-  ${link}
+  if (shape === 'above') return `
+<div>
+  ${rukCrest(site, 'w-16')}
+  <div class="mt-5">${text}</div>
+  <div class="mt-5">${link()}</div>
+</div>`;
+
+  // The crest is meant to run off the corner here, so this overflow-hidden is
+  // doing intended work rather than accidentally clipping a decoration.
+  if (shape === 'watermark') return `
+<div class="relative overflow-hidden rounded-2xl bg-white/[.04] p-7 ring-1 ring-white/10">
+  <span aria-hidden="true" class="pointer-events-none absolute -right-6 -top-8 opacity-10">
+    ${rukCrest(site, 'w-36')}
+  </span>
+  <div class="relative">
+    ${text}
+    <div class="mt-5">${link()}</div>
+  </div>
+</div>`;
+
+  if (shape === 'banner') return `
+<div class="border-t pt-6" style="border-color:rgba(192,151,97,.4)">
+  <div class="flex items-center gap-4">
+    ${rukCrest(site, 'w-10')}
+    <h2 class="font-display text-xl font-bold text-white">${esc(p.heading)}</h2>
+  </div>
+  <p class="mt-3 font-body text-white/60">${esc(p.body)}</p>
+  <div class="mt-5">${link()}</div>
+</div>`;
+
+  if (shape === 'inButton') return `
+<div>
+  ${text}
+  <a href="${esc(p.url)}" target="_blank" rel="noopener"
+     class="${linkCls('mt-5 gap-3 py-2.5 pl-3')}" style="border-color:${RUK_GOLD}">
+    ${rukCrest(site, 'w-5')}
+    ${esc(p.cta)}${arrow}
+  </a>
 </div>`;
 
   return `
@@ -227,24 +294,82 @@ export const partner = (site, c, shape = 'beside') => {
     ${rukCrest(site, 'w-16')}
     ${text}
   </div>
-  <div class="mt-5">${link}</div>
+  <div class="mt-5">${link()}</div>
 </div>`;
 };
 
 // ------------------------------------------------------------------ heading
 
-export const heading = (c, { align = 'left', size = 'big', rule = 'gradient' } = {}) => {
+// What sits under the word "Contact". The magenta-to-cyan bar that was there
+// is kept as `gradient` for comparison only — it is the thing being replaced.
+export const HEADING_RULES = {
+  gradient: {
+    label: 'Current — the two-tone bar',
+    note: 'What is there now, for comparison: a short magenta-to-cyan bar. The gradient is doing decorative work here that it does structural work for elsewhere on the site, which is most of why it reads as an ornament stuck under the word.',
+  },
+  none: {
+    label: 'None — the heading and the lead, nothing between',
+    note: 'The rule simply goes. The lead moves up to sit close under the heading, and the two read as one block. Quietest option, and the one that makes the left column feel least decorated — which suits a page that is mostly a form.',
+  },
+  hair: {
+    label: 'Hairline — a full-width rule across the column',
+    note: 'A single hairline at 15% white running the whole width of the column rather than a short stub. It stops being an ornament and becomes structure: it separates the heading from the lead and sets the column width at the same time.',
+  },
+  solid: {
+    label: 'Solid — one colour, no gradient',
+    note: 'The same short bar, but magenta only. Keeps the brand accent and the proportion that is already there, and removes only the two-tone fade. The smallest possible change if the shape was never the problem.',
+  },
+  stub: {
+    label: 'Stub — short, thick, white',
+    note: 'Half the width and half again the thickness, in plain white. Reads as a typographic mark rather than a brand device, which is what lets it sit under a word this heavy without competing with it.',
+  },
+  side: {
+    label: 'Side bar — a vertical rule beside the heading',
+    note: 'The rule moves off the bottom and stands to the left of the heading and the lead together, running the full height of both. Gives the column a left edge and makes the heading feel set into the page rather than floating at the top of it.',
+  },
+  word: {
+    label: 'Word rule — underlining the word itself',
+    note: 'A hairline tucked directly under "Contact" at exactly the width of the word, not an arbitrary length. It is the only option here where the rule is measured by the type rather than chosen, which is why it always looks in proportion.',
+  },
+};
+
+export const heading = (c, { align = 'left', size = 'big', rule = 'none' } = {}) => {
   const sizes = { huge: 'text-6xl sm:text-7xl', big: 'text-5xl sm:text-6xl', small: 'text-4xl sm:text-5xl' };
+  const centred = align === 'center';
+  const h1 = `<h1 class="font-display font-extrabold leading-[.95] text-white ${sizes[size]}">${esc(c.contact.heading)}</h1>`;
+  const lead = (mt) => `<p class="${mt} ${centred ? 'mx-auto ' : ''}max-w-xl font-body text-lg leading-relaxed text-white/70">${esc(c.contact.lead)}</p>`;
+
+  // The vertical bar is a flex sibling, not an absolute element: it has to be
+  // the height of the heading AND the lead together, and that height is not
+  // knowable at build time.
+  if (rule === 'side') return `
+<div class="flex gap-6">
+  <span aria-hidden="true" class="w-1 shrink-0 rounded-full" style="background:${MAGENTA}"></span>
+  <div>${h1}${lead('mt-6')}</div>
+</div>`;
+
+  // inline-block so the border is the width of the word rather than the width
+  // of the column.
+  if (rule === 'word') return `
+<div class="${centred ? 'text-center' : ''}">
+  <h1 class="font-display font-extrabold leading-[.95] text-white ${sizes[size]}">
+    <span class="inline-block border-b-2 border-white/25 pb-2">${esc(c.contact.heading)}</span>
+  </h1>
+  ${lead('mt-6')}
+</div>`;
+
   const rules = {
-    gradient: `<span aria-hidden="true" class="mt-6 block h-1 w-20 rounded-full ${align === 'center' ? 'mx-auto' : ''}" style="background:linear-gradient(to right,${MAGENTA},${CYAN})"></span>`,
+    gradient: `<span aria-hidden="true" class="mt-6 block h-1 w-20 rounded-full ${centred ? 'mx-auto' : ''}" style="background:linear-gradient(to right,${MAGENTA},${CYAN})"></span>`,
+    solid: `<span aria-hidden="true" class="mt-6 block h-1 w-20 rounded-full ${centred ? 'mx-auto' : ''}" style="background:${MAGENTA}"></span>`,
+    stub: `<span aria-hidden="true" class="mt-6 block h-1.5 w-10 rounded-full bg-white ${centred ? 'mx-auto' : ''}"></span>`,
     hair: `<span aria-hidden="true" class="mt-7 block h-px w-full bg-white/15"></span>`,
     none: '',
   };
   return `
-<div class="${align === 'center' ? 'text-center' : ''}">
-  <h1 class="font-display font-extrabold leading-[.95] text-white ${sizes[size]}">${esc(c.contact.heading)}</h1>
-  ${rules[rule]}
-  <p class="mt-6 ${align === 'center' ? 'mx-auto ' : ''}max-w-xl font-body text-lg leading-relaxed text-white/70">${esc(c.contact.lead)}</p>
+<div class="${centred ? 'text-center' : ''}">
+  ${h1}
+  ${rules[rule] ?? ''}
+  ${lead(rule === 'none' ? 'mt-5' : 'mt-6')}
 </div>`;
 };
 
