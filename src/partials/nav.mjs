@@ -66,7 +66,13 @@ export const header = (site, current, opts = {}) => {
   // the type sits on a controlled ground regardless of what the footage is
   // doing. Interior pages need none of this — ink on white is already at full
   // contrast.
-  const scrim = onHero
+  //
+  // It can be turned off while staying in hero mode. The header paints above
+  // the page, so on a page that is already dark at the top the scrim buys no
+  // legibility and instead lays 80% ink over the first 288px of content —
+  // which turns a white page heading grey. Pass scrim: false there.
+  const wantsScrim = onHero && opts.scrim !== false;
+  const scrim = wantsScrim
     ? `<div id="site-nav-scrim" class="pointer-events-none absolute inset-x-0 top-0 h-72 bg-gradient-to-b from-ink/80 via-ink/40 to-transparent"></div>`
     : '';
 

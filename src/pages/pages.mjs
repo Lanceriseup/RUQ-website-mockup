@@ -136,6 +136,10 @@ export const pages = (site, c, vids) => ([
     // and the top of this page is black. `hero` would also pull in the Wistia
     // player, which this page has no use for.
     overHero: true,
+    // No scrim. It exists to hold white nav type over a bright video frame;
+    // this page is near-black at the top, so it buys nothing and instead lays
+    // 80% ink over the first 288px of the page, which greys out the heading.
+    navScrim: false,
     body: teamPage(site, c)
   },
 

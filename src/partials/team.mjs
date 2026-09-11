@@ -63,9 +63,16 @@ const card = (m) => `
   </div>
 </article>`;
 
+// The header is absolutely positioned in over-hero mode, so it takes no space
+// in flow and the page has to leave room for it. Its height is pt-7 (28px) plus
+// the logo (h-20 = 80px, h-[5.5rem] = 88px from sm) plus the rule block
+// (mt-6 + 1px + mb-5 = 45px): 153px on mobile, 161px from sm.
+//
+// pt-44 / sm:pt-48 clears that by 23px and 31px. Without it the heading renders
+// underneath the logo, which is exactly what happened the first time.
 export const teamPage = (site, c) => `
 <div class="relative" style="background:${GROUND}">
-  <div class="mx-auto max-w-content px-4 py-16">
+  <div class="mx-auto max-w-content px-4 pb-16 pt-44 sm:pt-48">
 
     <!-- Heading stays inside the solid black band at the top: white type is
          only safe above the 28% stop. -->
