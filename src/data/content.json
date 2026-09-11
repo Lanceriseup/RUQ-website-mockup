@@ -88,6 +88,15 @@
         "God desires all people to be saved and this only comes through repentance and faith in Jesus Christ as Savior and Lord – salvation comes by grace through faith alone, not by works.",
         "The Holy Spirit indwells all believers to give spiritual life, to guide personal and spiritual growth."
       ]
+    },
+    "closing": {
+      "_source": "riseupqueens.com homepage, fetched 2026-09-11. Sits after Meet the Founder, last section before the footer.",
+      "_apostrophes": "Mixed in the source: We’ve is U+2019, You're is U+0027. Left as found.",
+      "heading": "What if this is your turning point?",
+      "body": "We’ve helped thousands of women reclaim their voice, freedom, and joy. You're next.",
+      "emphasis": "You're next.",
+      "button": "Register Now",
+      "_liveHref": "https://riseupqueens.com/registertoday"
     }
   },
   "about": {
