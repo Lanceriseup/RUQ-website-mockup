@@ -192,6 +192,21 @@
     .ctk-throb .cta-glow, .ctk-breatheGlow .cta-glow { transform: none; opacity: .85; }
   }
 
+  /* YouTube facade. The button rests at YouTube's own idle state — near-black
+     at 80% — and turns red on hover and on keyboard focus, which is what the
+     real player does. Written here rather than as group-hover utilities
+     because fill-opacity has no Tailwind equivalent, and animating fill alone
+     would leave the button stuck at 80% red. */
+  .yt-facade .yt-btn-bg { transition: fill .2s ease, fill-opacity .2s ease; }
+  .yt-facade:hover .yt-btn-bg,
+  .yt-facade:focus-visible .yt-btn-bg { fill: #f00; fill-opacity: 1; }
+
+  @media (prefers-reduced-motion: reduce) {
+    /* The colour change stays — it is the affordance, not decoration. Only
+       the transition between the two states goes. */
+    .yt-facade .yt-btn-bg { transition: none; }
+  }
+
   /* Collage portraits on the team page. Each figure carries its own --tilt,
      set inline, and straightens when pointed at or focused within — so a
      keyboard user gets the same behaviour as a mouse user, which an inline

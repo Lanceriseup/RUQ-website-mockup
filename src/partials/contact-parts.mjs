@@ -234,29 +234,35 @@ const VIDEO_TITLES = {
   jO_JIAVVRdE: 'How to Get Addicted to Intimacy with Your Spouse Again',
 };
 
-export const video = (id, vids, { radius = 'rounded-2xl', ring = 'ring-1 ring-white/15' } = {}) => {
+// YouTube's own play button, at its own 68x48 geometry. Using the real mark
+// rather than a brand-coloured circle is the point: it tells the visitor what
+// clicking will actually open before they click it.
+const YT_PLAY = `
+<svg width="68" height="48" viewBox="0 0 68 48" aria-hidden="true" class="transition duration-200">
+  <path class="yt-btn-bg" fill="#212121" fill-opacity=".8"
+        d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55C3.97 2.33 2.27 4.81 1.48 7.74.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z"/>
+  <path fill="#fff" d="M45 24 27 14v20z"/>
+</svg>`;
+
+// No caption and no figure. The button already carries the title as its
+// accessible name, so removing the visible line costs nothing to a screen
+// reader — and the dark gradient that used to sit along the bottom went with
+// it, since it was only there to seat a caption that is no longer on the
+// image. Without it the thumbnail is the artwork the channel actually made.
+export const video = (id, vids) => {
   const v = vids.youtube.find(x => x.id === id) || { id, title: VIDEO_TITLES[id] || 'Watch' };
-  const short = VIDEO_TITLES[id] || v.title.replace(/\s*\|\s*Jessica Lewis\s*$/, '');
   return `
-<figure class="group">
-  <button type="button" data-lightbox data-provider="youtube" data-id="${esc(v.id)}" data-title="${esc(v.title)}"
-          class="video-facade relative block w-full overflow-hidden ${radius} ${ring}
-                 shadow-[0_26px_60px_-28px_rgba(0,0,0,.95)]
-                 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-magenta">
-    <span class="sr-only">Play ${esc(v.title)}</span>
-    <span class="relative block aspect-video w-full">
-      <img src="/assets/posters/yt-${esc(v.id)}.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async"
-           class="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-105">
-      <span aria-hidden="true" class="absolute inset-0" style="background:linear-gradient(to top,rgba(0,0,0,.55),transparent 55%)"></span>
-      <span aria-hidden="true" class="absolute inset-0 flex items-center justify-center">
-        <span class="flex h-16 w-16 items-center justify-center rounded-full bg-white/95 shadow-[0_12px_34px_-8px_rgba(0,0,0,.7)] transition group-hover:scale-110">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="${MAGENTA}" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-        </span>
-      </span>
-    </span>
-  </button>
-  <figcaption class="mt-3 font-body text-sm leading-snug text-white/65">${esc(short)}</figcaption>
-</figure>`;
+<button type="button" data-lightbox data-provider="youtube" data-id="${esc(v.id)}" data-title="${esc(v.title)}"
+        class="video-facade yt-facade group relative block w-full overflow-hidden ring-1 ring-white/15
+               shadow-[0_26px_60px_-28px_rgba(0,0,0,.95)]
+               focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-magenta">
+  <span class="sr-only">Play ${esc(v.title)}</span>
+  <span class="relative block aspect-video w-full">
+    <img src="/assets/posters/yt-${esc(v.id)}.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async"
+         class="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-105">
+    <span aria-hidden="true" class="absolute inset-0 flex items-center justify-center">${YT_PLAY}</span>
+  </span>
+</button>`;
 };
 
 // ------------------------------------------------------------------ partner
