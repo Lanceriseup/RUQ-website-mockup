@@ -34,9 +34,17 @@ export const pages = (site, c, vids) => ([
          page's order: the ask, then what the movement stands on. -->
     ${faithSection(site, c)}
 
-    <!-- Testimonies. Returns to white out of the creed band's arch, with a
-         brand wash under the dome so the curve does not land on bare white. -->
-    ${testimonialsSection(site, c, vids)}
+    <!-- Testimonies. The heading is the "mirror" wording, which answers the
+         struggles heading up the page: same grammar, same rhythm, past tense
+         instead of present. Read top to bottom they are a question and its
+         answer — "Common struggles women in marriage HAVE", then "Real change
+         women in marriage FOUND".
+
+         That wording is mine, not the client's. Theirs is "What Women Have
+         Experienced at Rise Up Queens", kept as the 'verbatim' option in
+         testimonial-headings.mjs. If they want their sentence back, pass
+         'verbatim' here and nothing else changes. -->
+    ${testimonialsSection(site, c, vids, 'mirror')}
 
     ${section({ bg: 'bg-magenta-tint', heading: c.home.founder.heading, body: `
       <p class="mt-4 max-w-3xl font-body text-lg leading-relaxed text-ink-soft">${esc(c.home.founder.body)}</p>

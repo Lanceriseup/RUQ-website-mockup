@@ -6,9 +6,13 @@
 // change between the options below.
 //
 // COPY WARNING. The live heading is "What Women Have Experienced at Rise Up
-// Queens". Only the first option keeps it; the other five are wording I have
-// written, and every one of them is marked on the options page. Client copy is
-// the client's to change.
+// Queens". Only `verbatim` keeps it; the other five are wording I have
+// written, and every one of them is marked on the options page.
+//
+// The homepage currently ships `mirror`, which is NOT the client's wording.
+// That was chosen deliberately — see the note in pages.mjs — but it has to be
+// signed off before it goes anywhere near production. Passing 'verbatim' in
+// pages.mjs puts their sentence back and changes nothing else.
 import { esc } from './layout.mjs';
 
 const MAGENTA = '#e8208f';
