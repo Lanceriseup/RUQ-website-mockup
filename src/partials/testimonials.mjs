@@ -54,6 +54,28 @@ const card = (v, dupe = false) => `
   </span>
 </button>`;
 
+// The section ground. White at both ends so the creed band's wave dissolves
+// into the top and the closing CTA's white meets the bottom; warm through the
+// middle, which is the same blush the struggles spread runs.
+const GROUND = 'linear-gradient(180deg,#ffffff 0%,#FDF6F1 46%,#ffffff 100%)';
+
+// The rails run past the viewport on both sides; without these they appear to
+// stop mid-air at the edge.
+//
+// The fade carries the section's own ground and is masked out sideways, rather
+// than being a gradient to a flat colour. A flat white fade was right only
+// while the section was white — against the warm middle of GROUND it would
+// show as two pale columns down the sides. Masking the real ground means the
+// fade matches at every height by construction.
+//
+// -webkit- first: Safari before 15.4 needs the prefix and ignores the
+// unprefixed property outright.
+const edgeFade = (side) => `
+<div aria-hidden="true" class="pointer-events-none absolute inset-y-0 ${side}-0 w-24"
+     style="background:${GROUND};
+            -webkit-mask-image:linear-gradient(to ${side === 'left' ? 'right' : 'left'},#000,transparent);
+            mask-image:linear-gradient(to ${side === 'left' ? 'right' : 'left'},#000,transparent)"></div>`;
+
 const CARD_W = 230 + 20;   // w-[230px] + mr-5 (1.25rem)
 
 // A track of two sets translated -50% only works while one set is at least as
@@ -93,7 +115,21 @@ export const testimonialsSection = (site, c, vids, headingKey = 'verbatim') => {
   const half = Math.ceil(list.length / 2);
 
   return `
-<section class="relative overflow-hidden bg-white pb-20 pt-16">
+<section class="relative overflow-hidden pb-20 pt-16" style="background:${GROUND}">
+
+  <!-- Ambient brand light, the same device the struggles spread uses: a warm
+       vertical ground with two heavily blurred orbs off the edges. Magenta
+       top-left, cyan bottom-right, at 12% and 10%.
+
+       This is not the wash that was removed earlier. That one was a hard
+       gradient pinned to the top edge, fighting the creed band's wave a few
+       pixels above it. These sit low and central and never reach the seam. -->
+  <div aria-hidden="true" class="pointer-events-none absolute inset-0 overflow-hidden">
+    <div class="absolute -left-24 top-24 h-[34rem] w-[34rem] rounded-full blur-3xl"
+         style="background:radial-gradient(circle,rgba(232,32,143,.12),transparent 68%)"></div>
+    <div class="absolute -right-16 bottom-0 h-[30rem] w-[30rem] rounded-full blur-3xl"
+         style="background:radial-gradient(circle,rgba(0,185,198,.10),transparent 68%)"></div>
+  </div>
 
   <div class="relative mx-auto max-w-content px-4">
     ${renderTestimonialHeading(headingKey)}
@@ -104,9 +140,7 @@ export const testimonialsSection = (site, c, vids, headingKey = 'verbatim') => {
     ${rail(list.slice(half), 'right', 150)}
   </div>
 
-  <!-- The rails run past the viewport on both sides; without these they appear
-       to stop mid-air at the edge. -->
-  <div aria-hidden="true" class="pointer-events-none absolute inset-y-0 left-0 w-24" style="background:linear-gradient(to right,#fff,rgba(255,255,255,0))"></div>
-  <div aria-hidden="true" class="pointer-events-none absolute inset-y-0 right-0 w-24" style="background:linear-gradient(to left,#fff,rgba(255,255,255,0))"></div>
+  ${edgeFade('left')}
+  ${edgeFade('right')}
 </section>`;
 };
