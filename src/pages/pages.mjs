@@ -6,6 +6,7 @@ import { ctaSection } from '../partials/cta.mjs';
 import { faithSection } from '../partials/faith.mjs';
 import { testimonialsSection } from '../partials/testimonials.mjs';
 import { closingSection } from '../partials/closing.mjs';
+import { teamPage } from '../partials/team.mjs';
 
 const grid = (cols, items) => `<div class="mt-10 grid gap-6 ${cols}">${items.join('')}</div>`;
 
@@ -130,8 +131,12 @@ export const pages = (site, c, vids) => ([
   {
     file: 'team.html', href: '/team.html',
     title: `Meet the Team — ${site.brand.name}`, desc: c.team.lead,
-    body: section({ bg: 'bg-white', heading: c.team.heading, lead: c.team.lead, body:
-      grid('sm:grid-cols-2 lg:grid-cols-4', c.team.members.map(m => personCard(m))) })
+    // overHero, not hero: the page needs the header rendered over it rather
+    // than above it, because its standard mode is white with a bottom border
+    // and the top of this page is black. `hero` would also pull in the Wistia
+    // player, which this page has no use for.
+    overHero: true,
+    body: teamPage(site, c)
   },
 
   {

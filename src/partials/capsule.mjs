@@ -19,7 +19,13 @@ export const capsule = (site, current) => `
 <div id="nav-capsule" aria-hidden="true"
      class="pointer-events-none fixed inset-x-0 top-0 z-50 flex justify-center px-4 pt-3">
   <nav class="pointer-events-auto flex items-center gap-1 rounded-full border border-white/20 px-3 py-1.5 shadow-[0_20px_45px_-20px_rgba(0,0,0,.65)]"
-       style="background:rgba(22,22,22,.55)" aria-label="Primary, condensed">
+       <!-- .65, not .55. The capsule is fixed to the top of the viewport, so
+            it sits over whatever is scrolled under it — and most of this site
+            is white. At .55 the pill composites to #7f7f7f over a white
+            section and its 12px semibold links measure 4.01:1, under the 4.5:1
+            small text needs. .65 gives 5.61:1 there and costs nothing over a
+            dark section, where it was 18.5:1 and is still 18.4:1. -->
+       style="background:rgba(22,22,22,.65)" aria-label="Primary, condensed">
     ${site.nav.map(n => `<a href="${esc(n.href)}"
       class="flex min-h-11 items-center rounded-full px-4 font-body text-[12px] font-semibold uppercase tracking-[0.2em] text-white/85 transition hover:bg-white/10 hover:text-white
              ${current === n.href ? 'bg-white/15 text-white' : ''}
