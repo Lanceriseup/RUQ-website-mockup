@@ -15,6 +15,7 @@
 // in a column this shallow and pushes the panel taller than the reference.
 // Every alternative is marked on the options page.
 import { esc } from './layout.mjs';
+import { motionClass } from './closing-motion.mjs';
 
 const MAGENTA = '#e8208f';
 const CYAN = '#00b9c6';
@@ -111,8 +112,8 @@ const button = (site, copy, tone) => {
   };
   return `
 <a href="${esc(site.nextEvent.ctaUrl)}" rel="noopener"
-   class="group inline-flex min-h-12 shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-xl px-8 py-3.5
-          font-body text-sm font-bold uppercase tracking-[0.14em] shadow-[0_14px_30px_-14px_rgba(0,0,0,.55)]
+   class="cta-btn group inline-flex min-h-14 shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-xl px-9 py-4
+          font-body text-[15px] font-bold uppercase tracking-[0.14em] shadow-[0_14px_30px_-14px_rgba(0,0,0,.55)]
           transition hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-4 ${tone === 'white' ? 'focus-visible:outline-white' : 'focus-visible:outline-magenta'}"
    style="${tones[tone]}">
   ${esc(copy.button)}
@@ -131,10 +132,10 @@ const button = (site, copy, tone) => {
 // lines up. If it ever fails to match, the heading simply renders plain rather
 // than breaking.
 //
-// Colour is applied to the heading only. At 24px rising to 30.4px bold this is
-// large text and clears 3:1 on every panel here — the tightest is magenta on
-// the paper panel at 3.78:1. The same colours would fail at body size, which
-// is why the sub-headline never takes them.
+// Colour is applied to the heading only. At 27.2px rising to 35.2px bold this
+// is large text and clears 3:1 on every panel here — the tightest is magenta
+// on the paper panel at 3.78:1. The same colours would fail the 4.5:1 body
+// threshold, which is why the sub-headline never takes them.
 const headingHtml = (copy, accentColour) => {
   const head = esc(copy.heading);
   const tail = copy.accent ? ` <span style="color:${accentColour}">${esc(copy.accent)}</span>` : '';
@@ -149,20 +150,20 @@ const headingHtml = (copy, accentColour) => {
 };
 
 const copyBlock = (copy, headTone, bodyTone, accentColour) => `
-<div class="min-w-0">
-  <h2 class="font-display text-2xl font-bold leading-tight ${headTone} sm:text-[1.9rem]">
+<div class="cta-copy min-w-0">
+  <h2 class="font-display text-[1.7rem] font-bold leading-tight ${headTone} sm:text-[2.2rem]">
     ${headingHtml(copy, accentColour)}
   </h2>
-  <p class="mt-2.5 max-w-xl font-body text-[15px] leading-relaxed ${bodyTone}">${esc(copy.body)}</p>
+  <p class="mt-3 max-w-xl font-body text-[17px] leading-relaxed ${bodyTone}">${esc(copy.body)}</p>
 </div>`;
 
 // The shared frame. Every layout is this: a full-width container, a panel
 // inside it, and a glow underneath that is wider than the panel so it reads as
 // light thrown onto the page rather than a shadow.
-const frame = (inner, glow) => `
-<section class="relative bg-white py-16">
+const frame = (inner, glow, motion = '') => `
+<section class="relative bg-white py-16 ${motion}">
   <div class="relative mx-auto max-w-content px-4">
-    ${glow ? `<div aria-hidden="true" class="pointer-events-none absolute inset-x-8 bottom-2 top-8 rounded-[2rem] blur-2xl" style="background:${glow}"></div>` : ''}
+    ${glow ? `<div aria-hidden="true" class="cta-glow pointer-events-none absolute inset-x-8 bottom-2 top-8 rounded-[2rem] blur-2xl" style="background:${glow}"></div>` : ''}
     <div class="relative">${inner}</div>
   </div>
 </section>`;
@@ -178,38 +179,38 @@ const row = (left, right) => `
 // ---------------------------------------------------------------- layouts
 
 const LAYOUTS = {
-  paperGlow: (site, c, copy) => frame(`
-    <div class="rounded-[1.75rem] px-8 py-10 ring-1 ring-ink/[.07] shadow-[0_30px_70px_-40px_rgba(0,0,0,.35)] sm:px-12"
+  paperGlow: (site, c, copy, motion) => frame(`
+    <div class="cta-panel rounded-[2rem] px-9 py-12 ring-1 ring-ink/[.07] shadow-[0_30px_70px_-40px_rgba(0,0,0,.35)] sm:px-14"
          style="background:#F7F3EF">
       <div style="${DOTS('rgba(28,28,28,.09)')}">
         ${row(copyBlock(copy, 'text-ink', 'text-ink-soft', MAGENTA), button(site, copy, 'magenta'))}
       </div>
     </div>`,
-    `radial-gradient(60% 100% at 50% 100%,rgba(232,32,143,.30),transparent 70%)`),
+    `radial-gradient(60% 100% at 50% 100%,rgba(232,32,143,.30),transparent 70%)`, motion),
 
-  duskGlow: (site, c, copy) => frame(`
-    <div class="rounded-[1.75rem] px-8 py-10 shadow-[0_40px_90px_-45px_rgba(0,0,0,.7)] sm:px-12"
+  duskGlow: (site, c, copy, motion) => frame(`
+    <div class="cta-panel rounded-[2rem] px-9 py-12 shadow-[0_40px_90px_-45px_rgba(0,0,0,.7)] sm:px-14"
          style="background:#141414">
       <div style="${DOTS('rgba(255,255,255,.10)')}">
         ${row(copyBlock(copy, 'text-white', 'text-white/70', CYAN), button(site, copy, 'magenta'))}
       </div>
     </div>`,
-    `radial-gradient(60% 100% at 50% 100%,rgba(232,32,143,.34),transparent 70%)`),
+    `radial-gradient(60% 100% at 50% 100%,rgba(232,32,143,.34),transparent 70%)`, motion),
 
-  gradientEdge: (site, c, copy) => frame(`
-    <div class="overflow-hidden rounded-[1.75rem] ring-1 ring-ink/[.08] shadow-[0_30px_70px_-40px_rgba(0,0,0,.3)]"
+  gradientEdge: (site, c, copy, motion) => frame(`
+    <div class="cta-panel overflow-hidden rounded-[2rem] ring-1 ring-ink/[.08] shadow-[0_30px_70px_-40px_rgba(0,0,0,.3)]"
          style="background:#fff">
       <div class="flex">
         <span aria-hidden="true" class="w-2 shrink-0" style="background:linear-gradient(to bottom,${MAGENTA},${CYAN})"></span>
-        <div class="min-w-0 flex-1 px-8 py-10 sm:px-12" style="${DOTS('rgba(28,28,28,.07)')}">
+        <div class="min-w-0 flex-1 px-9 py-12 sm:px-14" style="${DOTS('rgba(28,28,28,.07)')}">
           ${row(copyBlock(copy, 'text-ink', 'text-ink-soft', MAGENTA), button(site, copy, 'magenta'))}
         </div>
       </div>
     </div>`,
-    `radial-gradient(55% 100% at 50% 100%,rgba(0,185,198,.24),transparent 70%)`),
+    `radial-gradient(55% 100% at 50% 100%,rgba(0,185,198,.24),transparent 70%)`, motion),
 
-  photoSliver: (site, c, copy) => frame(`
-    <div class="relative overflow-hidden rounded-[1.75rem] shadow-[0_40px_90px_-45px_rgba(0,0,0,.6)]"
+  photoSliver: (site, c, copy, motion) => frame(`
+    <div class="cta-panel relative overflow-hidden rounded-[2rem] shadow-[0_40px_90px_-45px_rgba(0,0,0,.6)]"
          style="background:#141414">
       <!-- The band is 30% wide and the copy column starts at 36%, so the two
            never overlap. Running the copy over the photo would mean white text
@@ -222,14 +223,14 @@ const LAYOUTS = {
         <img src="${PHOTO}" alt="" loading="lazy" decoding="async" class="h-full w-full object-cover">
         <div class="absolute inset-0" style="background:linear-gradient(to right,rgba(20,20,20,.35),rgba(20,20,20,1) 96%)"></div>
       </div>
-      <div class="relative px-8 py-10 sm:pl-[36%] sm:pr-12">
+      <div class="relative px-9 py-12 sm:pl-[36%] sm:pr-12">
         ${row(copyBlock(copy, 'text-white', 'text-white/70', CYAN), button(site, copy, 'magenta'))}
       </div>
     </div>`,
-    `radial-gradient(60% 100% at 50% 100%,rgba(232,32,143,.28),transparent 70%)`),
+    `radial-gradient(60% 100% at 50% 100%,rgba(232,32,143,.28),transparent 70%)`, motion),
 
-  ticketBar: (site, c, copy) => frame(`
-    <div class="relative flex flex-col gap-8 rounded-[1.75rem] px-8 py-10 shadow-[0_40px_90px_-45px_rgba(0,0,0,.6)] md:flex-row md:items-center md:gap-10 sm:px-12"
+  ticketBar: (site, c, copy, motion) => frame(`
+    <div class="cta-panel relative flex flex-col gap-8 rounded-[2rem] px-9 py-12 shadow-[0_40px_90px_-45px_rgba(0,0,0,.6)] md:flex-row md:items-center md:gap-10 sm:px-14"
          style="background:#141414">
       <div class="min-w-0 flex-1" style="${DOTS('rgba(255,255,255,.09)')}">
         ${copyBlock(copy, 'text-white', 'text-white/70', CYAN)}
@@ -237,26 +238,26 @@ const LAYOUTS = {
       ${button(site, copy, 'magenta')}
       <!-- Perforation runs vertically on desktop and horizontally when the
            panel stacks, because a torn edge only reads along the split. -->
-      <div class="shrink-0 border-t-2 border-dashed pt-6 text-center md:border-l-2 md:border-t-0 md:pl-10 md:pt-0 md:text-left"
+      <div class="cta-stub shrink-0 border-t-2 border-dashed pt-6 text-center md:border-l-2 md:border-t-0 md:pl-12 md:pt-0 md:text-left"
            style="border-color:rgba(255,255,255,.28)">
         <p class="font-body text-[10px] font-bold uppercase tracking-[0.35em]" style="color:${CYAN}">Next live event</p>
-        <p class="mt-2 font-display text-base font-bold leading-tight text-white">${esc(site.nextEvent.dates)}</p>
-        <p class="font-body text-sm text-white/65">${esc(site.nextEvent.location)}</p>
+        <p class="mt-2 font-display text-lg font-bold leading-tight text-white">${esc(site.nextEvent.dates)}</p>
+        <p class="font-body text-[15px] text-white/65">${esc(site.nextEvent.location)}</p>
         <p class="mt-2 font-body text-[9px] uppercase tracking-[0.2em] text-amber-300">Dates unconfirmed</p>
       </div>
     </div>`,
-    `radial-gradient(60% 100% at 50% 100%,rgba(232,32,143,.30),transparent 70%)`),
+    `radial-gradient(60% 100% at 50% 100%,rgba(232,32,143,.30),transparent 70%)`, motion),
 
-  duotoneBand: (site, c, copy) => frame(`
-    <div class="rounded-[1.75rem] px-8 py-10 shadow-[0_40px_90px_-45px_rgba(232,32,143,.45)] sm:px-12"
+  duotoneBand: (site, c, copy, motion) => frame(`
+    <div class="cta-panel rounded-[2rem] px-9 py-12 shadow-[0_40px_90px_-45px_rgba(232,32,143,.45)] sm:px-14"
          style="background:linear-gradient(115deg,${MAGENTA},#c31c8f 45%,${CYAN})">
       ${row(copyBlock(copy, 'text-white', 'text-white/85', '#ffffff'), button(site, copy, 'white'))}
     </div>`,
-    `radial-gradient(60% 100% at 50% 100%,rgba(0,185,198,.30),transparent 70%)`),
+    `radial-gradient(60% 100% at 50% 100%,rgba(0,185,198,.30),transparent 70%)`, motion),
 };
 
-export const renderClosingWide = (site, c, layoutKey, copyKey = 'verbatim') =>
-  (LAYOUTS[layoutKey] ?? LAYOUTS.paperGlow)(site, c, CLOSING_COPY[copyKey] ?? CLOSING_COPY.verbatim);
+export const renderClosingWide = (site, c, layoutKey, copyKey = 'verbatim', motionKey = 'none') =>
+  (LAYOUTS[layoutKey] ?? LAYOUTS.paperGlow)(site, c, CLOSING_COPY[copyKey] ?? CLOSING_COPY.verbatim, motionClass(motionKey));
 
 // Each layout is previewed with a different wording so the gallery shows both
 // levers at once. They are independent — any pairing works.

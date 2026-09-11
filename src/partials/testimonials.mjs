@@ -68,22 +68,38 @@ const GROUND = 'linear-gradient(180deg,#ffffff 0%,#FDF6F1 46%,#ffffff 100%)';
 // show as two pale columns down the sides. Masking the real ground means the
 // fade matches at every height by construction.
 //
+// The ramp is front-loaded rather than linear: solid for the first 10% and
+// most of the way gone by 45%. A straight ramp put half-strength ground over
+// 48px of card, which is what read as a heavy white wash. It can afford to be
+// this light because MIN_SET_W below guarantees there is never a gap in the
+// track for it to hide — the only things it has to cover are the abrupt card
+// edge and the orb clip at exactly x=0, and both sit in the solid part.
+//
 // -webkit- first: Safari before 15.4 needs the prefix and ignores the
 // unprefixed property outright.
-const edgeFade = (side) => `
+const edgeFade = (side) => {
+  const dir = side === 'left' ? 'right' : 'left';
+  const ramp = `linear-gradient(to ${dir},#000 0%,#000 10%,rgba(0,0,0,.28) 45%,transparent 100%)`;
+  return `
 <div aria-hidden="true" class="pointer-events-none absolute inset-y-0 ${side}-0 w-24"
      style="background:${GROUND};
-            -webkit-mask-image:linear-gradient(to ${side === 'left' ? 'right' : 'left'},#000,transparent);
-            mask-image:linear-gradient(to ${side === 'left' ? 'right' : 'left'},#000,transparent)"></div>`;
+            -webkit-mask-image:${ramp};
+            mask-image:${ramp}"></div>`;
+};
 
 const CARD_W = 230 + 20;   // w-[230px] + mr-5 (1.25rem)
 
 // A track of two sets translated -50% only works while one set is at least as
 // wide as the viewport. Five cards is 1250px, so on anything wider the rail
 // would run out and leave dead space. Each set is repeated until it clears
-// MIN_SET_W; 2400 plus the 96px edge fades covers every common desktop width
-// including 2560, where the shortfall falls under the mask.
-const MIN_SET_W = 2400;
+// MIN_SET_W.
+//
+// 2600, not the 2400 it was. The old figure leaned on the edge fades to cover
+// the last ~100px at a 2560px viewport, and those fades are now far lighter —
+// a gap would show straight through them. Covering the widest common desktop
+// outright is the honest fix; leaning on a mask to hide a layout gap was
+// always a bit of a cheat.
+const MIN_SET_W = 2600;
 
 // The spacing lives on the card (mr-5), never as a gap on the track. N cards
 // duplicated leaves 2N-1 gaps, so translating -50% lands half a gap short of

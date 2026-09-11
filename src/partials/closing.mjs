@@ -20,4 +20,7 @@ import { renderClosingWide } from './closing-wide.mjs';
 export const LAYOUT = 'ticketBar';
 export const WORDING = 'startsHere';
 
-export const closingSection = (site, c) => renderClosingWide(site, c, LAYOUT, WORDING);
+// Motion is undecided; the section ships static until a choice is made.
+export const MOTION = 'none';
+
+export const closingSection = (site, c) => renderClosingWide(site, c, LAYOUT, WORDING, MOTION);

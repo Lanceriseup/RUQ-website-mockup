@@ -104,6 +104,102 @@
     .cta-blob, .cta-rays { animation: none; }
   }
 
+  /* Closing CTA motion. Options live in closing-motion.mjs; the section
+     carries .cta-motion plus one .cta-motion-<key>.
+
+     Arrival options put the panel in its start state here and release it when
+     closing-motion.js adds .is-in. The start state is scoped to .cta-motion so
+     a panel with no motion class is never touched, and every arrival is also
+     released by the reduced-motion block at the bottom — a decoration must
+     never be able to leave the final ask invisible. */
+  .cta-motion-rise .cta-panel,
+  .cta-motion-stagger .cta-panel,
+  .cta-motion-tear .cta-panel {
+    opacity: 0;
+    transform: translateY(1.75rem);
+    transition: opacity .7s ease, transform .7s cubic-bezier(.22,1,.36,1);
+  }
+  .cta-motion.is-in .cta-panel { opacity: 1; transform: none; }
+
+  /* Stagger: the same arrival in four beats, button last — the eye should
+     finish where the click is. */
+  .cta-motion-stagger .cta-copy,
+  .cta-motion-stagger .cta-btn,
+  .cta-motion-stagger .cta-stub {
+    opacity: 0;
+    transform: translateY(.75rem);
+    transition: opacity .55s ease, transform .55s cubic-bezier(.22,1,.36,1);
+  }
+  .cta-motion-stagger .cta-copy { transition-delay: .09s; }
+  .cta-motion-stagger .cta-stub { transition-delay: .18s; }
+  .cta-motion-stagger .cta-btn  { transition-delay: .27s; }
+  .cta-motion-stagger.is-in .cta-copy,
+  .cta-motion-stagger.is-in .cta-btn,
+  .cta-motion-stagger.is-in .cta-stub { opacity: 1; transform: none; }
+
+  /* Tear: the stub separates along the perforation after the panel lands. */
+  .cta-motion-tear .cta-stub {
+    opacity: 0;
+    transform: translateX(1.25rem);
+    transition: opacity .5s ease .25s, transform .6s cubic-bezier(.22,1,.36,1) .25s;
+  }
+  .cta-motion-tear.is-in .cta-stub { opacity: 1; transform: none; }
+
+  /* Ambient. No start state and no .is-in — these just run. */
+  .cta-motion-sheen .cta-panel { position: relative; overflow: hidden; }
+  .cta-motion-sheen .cta-panel::after {
+    content: '';
+    position: absolute;
+    inset: -50% -30%;
+    background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,.13) 50%, transparent 60%);
+    animation: cta-sheen 7s ease-in-out infinite;
+    pointer-events: none;
+  }
+  @keyframes cta-sheen {
+    0%, 100% { transform: translate3d(-60%,0,0); }
+    55%      { transform: translate3d(60%,0,0); }
+  }
+
+  .cta-motion-breathe .cta-glow { animation: cta-breathe 9s ease-in-out infinite; }
+  @keyframes cta-breathe {
+    0%, 100% { transform: scale(1);    opacity: .85; }
+    50%      { transform: scale(1.08); opacity: 1; }
+  }
+
+  /* Pulse rings leave the button itself, so the motion points at the click
+     rather than at the panel. */
+  .cta-motion-pulse .cta-btn { position: relative; }
+  .cta-motion-pulse .cta-btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    box-shadow: 0 0 0 0 rgba(232,32,143,.55);
+    animation: cta-pulse 3s ease-out infinite;
+    pointer-events: none;
+  }
+  @keyframes cta-pulse {
+    0%   { box-shadow: 0 0 0 0 rgba(232,32,143,.55); }
+    70%  { box-shadow: 0 0 0 18px rgba(232,32,143,0); }
+    100% { box-shadow: 0 0 0 0 rgba(232,32,143,0); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    /* Released, not merely un-animated: without the first rule the arrival
+       options would stay at opacity 0 forever. */
+    .cta-motion .cta-panel,
+    .cta-motion .cta-copy,
+    .cta-motion .cta-btn,
+    .cta-motion .cta-stub {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+    .cta-motion-sheen .cta-panel::after,
+    .cta-motion-pulse .cta-btn::after { animation: none; display: none; }
+    .cta-motion-breathe .cta-glow { animation: none; }
+  }
+
   /* Testimonial rails. The track holds the cards twice over and travels
      exactly one set, so the wrap is invisible. Direction is the only
      difference between the two rails; duration is set per-instance.
