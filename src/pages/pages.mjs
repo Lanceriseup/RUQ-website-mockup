@@ -4,6 +4,7 @@ import { hero } from '../partials/hero.mjs';
 import { spread } from '../partials/spread.mjs';
 import { ctaSection } from '../partials/cta.mjs';
 import { faithSection } from '../partials/faith.mjs';
+import { testimonialsSection } from '../partials/testimonials.mjs';
 
 const grid = (cols, items) => `<div class="mt-10 grid gap-6 ${cols}">${items.join('')}</div>`;
 
@@ -33,9 +34,9 @@ export const pages = (site, c, vids) => ([
          page's order: the ask, then what the movement stands on. -->
     ${faithSection(site, c)}
 
-    ${section({ bg: 'bg-white', eyebrow: 'Watch', heading: 'Hear from the women who came',
-      lead: 'Testimonies from the 2025 events.', body:
-      grid('sm:grid-cols-2 lg:grid-cols-3', vids.wistia.filter(v => v.page === 'home').slice(0, 6).map(v => videoFacade(v, 'wistia'))) })}
+    <!-- Testimonies. Returns to white out of the creed band's arch, with a
+         brand wash under the dome so the curve does not land on bare white. -->
+    ${testimonialsSection(site, c, vids)}
 
     ${section({ bg: 'bg-magenta-tint', heading: c.home.founder.heading, body: `
       <p class="mt-4 max-w-3xl font-body text-lg leading-relaxed text-ink-soft">${esc(c.home.founder.body)}</p>

@@ -13,7 +13,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { TESTIMONIAL_OPTIONS, renderTestimonials } from '../src/partials/testimonials.mjs';
+import { TESTIMONIAL_OPTIONS, renderTestimonials } from '../src/partials/testimonials-variants.mjs';
 import { faithSection } from '../src/partials/faith.mjs';
 import { esc } from '../src/partials/layout.mjs';
 

@@ -104,6 +104,34 @@
     .cta-blob, .cta-rays { animation: none; }
   }
 
+  /* Testimonial rails. The track holds the cards twice over and travels
+     exactly one set, so the wrap is invisible. Direction is the only
+     difference between the two rails; duration is set per-instance.
+
+     translate3d, not `left` — this has to composite, since it runs forever
+     and the cards carry images and a shadow. */
+  /* No will-change here. The track is several thousand pixels wide, and
+     pinning a layer that size for the life of the page costs real GPU memory
+     for no gain — a running transform animation is promoted anyway. */
+  .rail-track {
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  }
+  @keyframes rail-left  { from { transform: translate3d(0,0,0); }     to { transform: translate3d(-50%,0,0); } }
+  @keyframes rail-right { from { transform: translate3d(-50%,0,0); }  to { transform: translate3d(0,0,0); } }
+
+  /* Pause on pointer or keyboard. focus-within matters more than hover: a
+     card scrolling out from under a keyboard user is the failure case. */
+  .rail:hover .rail-track,
+  .rail:focus-within .rail-track { animation-play-state: paused; }
+
+  @media (prefers-reduced-motion: reduce) {
+    /* Stop dead and hand the rails back as ordinary scrollable strips —
+       still fully usable, just not moving on their own. */
+    .rail-track { animation: none; transform: none; }
+    .rail { overflow-x: auto; }
+  }
+
   /* Scroll-revealed lines. Hidden state is set here rather than inline so
      that if the JS fails the CSS below still shows them — see reveal.js, which
      also adds is-in immediately when IntersectionObserver is unavailable. */
