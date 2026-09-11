@@ -50,7 +50,16 @@ export const ctaSection = (site, c) => `
 
   <div class="relative mx-auto max-w-content px-6 text-center">
 
-    <h2 class="font-display text-3xl font-bold text-ink sm:text-4xl">${esc(c.home.cta.heading)}</h2>
+    <!-- Framed heading. The rules are hidden below sm: at narrow widths the
+         heading wraps to two lines and flanking rules would squeeze it into a
+         column rather than marking it. -->
+    <div class="flex items-center justify-center gap-5">
+      <span aria-hidden="true" class="hidden h-0.5 w-16 rounded-full sm:block"
+            style="background:linear-gradient(to right,transparent,${MAGENTA})"></span>
+      <h2 class="font-display text-3xl font-bold text-ink sm:text-4xl">${esc(c.home.cta.heading)}</h2>
+      <span aria-hidden="true" class="hidden h-0.5 w-16 rounded-full sm:block"
+            style="background:linear-gradient(to left,transparent,${CYAN})"></span>
+    </div>
 
     <!-- The mission statement reads as a lead-in here, where it sets up the
          ask. Under the creed below it had nothing to attach to.
