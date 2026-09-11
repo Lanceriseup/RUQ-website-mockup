@@ -72,7 +72,7 @@ export const pages = (site, c, vids) => ([
     body: `
     ${aboutHero(site, c)}
 
-    ${renderJourney(site, c, 'plates')}
+    ${renderJourney(site, c, 'overlap')}
 
     ${section({ bg: 'bg-white', body: `
       <div class="grid gap-8 md:grid-cols-2">
