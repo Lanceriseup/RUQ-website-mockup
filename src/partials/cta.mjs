@@ -68,15 +68,13 @@ export const ctaSection = (site, c) => `
 
     <!-- The mission statement reads as a lead-in here, where it sets up the
          ask. Under the creed below it had nothing to attach to.
-         Set in the body sans. 1rem across the full container measure holds it
-         to three lines — Lato is a wider face than Cormorant (~0.505em per
-         character against ~0.44em), so the same text needs a smaller size here
-         than it did in the serif. Its much larger x-height means 1rem Lato
-         reads about the same size as 1.21rem Cormorant did, despite the
-         smaller number.
-         Colour is full ink; hierarchy against the heading comes from weight,
-         size and face rather than from greying the body down. -->
-    <p class="mx-auto mt-6 max-w-6xl font-body text-[1rem] leading-[1.85] text-ink">${missionHtml(c)}</p>
+         Typography now matches the struggles list exactly — font-body,
+         text-lg, leading-relaxed, text-ink — so the two read as the same voice
+         rather than near-misses of each other.
+         That costs the three-line target: at 18px this measure fits roughly
+         121 characters a line against 391 of copy, so it sets as four. Holding
+         three lines requires 16px, which is smaller than the list. -->
+    <p class="mx-auto mt-6 max-w-6xl font-body text-lg leading-relaxed text-ink">${missionHtml(c)}</p>
 
     <form action="#" method="post" novalidate class="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center">
       ${c.home.cta.fields.map(f => `
