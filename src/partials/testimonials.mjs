@@ -115,20 +115,30 @@ export const testimonialsSection = (site, c, vids, headingKey = 'verbatim') => {
   const half = Math.ceil(list.length / 2);
 
   return `
-<section class="relative overflow-hidden pb-20 pt-16" style="background:${GROUND}">
+<section class="relative overflow-hidden pb-28 pt-16" style="background:${GROUND}">
 
   <!-- Ambient brand light, the same device the struggles spread uses: a warm
-       vertical ground with two heavily blurred orbs off the edges. Magenta
-       top-left, cyan bottom-right, at 12% and 10%.
+       vertical ground with two heavily blurred orbs off the edges.
 
-       This is not the wash that was removed earlier. That one was a hard
-       gradient pinned to the top edge, fighting the creed band's wave a few
-       pixels above it. These sit low and central and never reach the seam. -->
+       Placement is not copied from the spread, because this section has far
+       less ground to show it on. The two rails are ~595px of opaque poster
+       cards running full bleed, leaving only the band above them and the
+       bottom padding. Sitting the orbs where the spread sits them puts both
+       bright centres behind the cards: the magenta still reads, because its
+       upper falloff spills into the band above, but the cyan showed nothing
+       at all — only its weakest lower edge, at 10% alpha, over ground that
+       has already returned to white.
+
+       So each centre is placed in ground that is actually visible: magenta
+       just above the rails, cyan in the bottom pad. -->
   <div aria-hidden="true" class="pointer-events-none absolute inset-0 overflow-hidden">
-    <div class="absolute -left-24 top-24 h-[34rem] w-[34rem] rounded-full blur-3xl"
+    <div class="absolute -left-24 -top-32 h-[34rem] w-[34rem] rounded-full blur-3xl"
          style="background:radial-gradient(circle,rgba(232,32,143,.12),transparent 68%)"></div>
-    <div class="absolute -right-16 bottom-0 h-[30rem] w-[30rem] rounded-full blur-3xl"
-         style="background:radial-gradient(circle,rgba(0,185,198,.10),transparent 68%)"></div>
+    <!-- 16% rather than the spread's 10%. Cyan is the weaker hue against a
+         warm ground, and this one sits at the bottom where the ground is back
+         to white with nothing to lift it. -->
+    <div class="absolute -right-16 -bottom-44 h-[30rem] w-[30rem] rounded-full blur-3xl"
+         style="background:radial-gradient(circle,rgba(0,185,198,.16),transparent 68%)"></div>
   </div>
 
   <div class="relative mx-auto max-w-content px-4">
