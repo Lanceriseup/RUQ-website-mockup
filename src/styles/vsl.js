@@ -40,9 +40,16 @@
     onReady: function (video) {
       var unmuted = false;
 
+      // The frame opens here rather than on load. The video is already
+      // playing as a silent loop when the page arrives; the moment worth
+      // marking is someone choosing to actually watch it, which is the same
+      // moment the about hero's play button represents.
+      var stage = mount.querySelector('[data-vsl-stage]');
+
       function turnOnSound() {
         if (unmuted) return;
         unmuted = true;
+        if (stage) stage.classList.add('is-playing');
         try {
           video.unmute();
           video.time(0);

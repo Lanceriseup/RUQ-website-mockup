@@ -10,6 +10,7 @@
 // The header no longer carries a Register link — this button is the page's
 // single primary action until the hero scrolls away and the capsule takes over.
 import { esc } from './layout.mjs';
+import { stageClass } from './vsl-open.mjs';
 
 // Both sans lines of the headline — the one above the rotating word and the
 // one below — share this. They are two halves of a single sentence, so they
@@ -18,7 +19,7 @@ import { esc } from './layout.mjs';
 const SANS_LINE =
   'block font-display text-base font-bold uppercase leading-snug tracking-[0.2em] text-white sm:text-2xl';
 
-export const hero = (site, c) => {
+export const hero = (site, c, vslFx = 'unfold', vslFeel = 'glide') => {
   const [first, second] = site.nextEvent.upcoming;
 
   // Duotone: the word is transparent and filled by a magenta-to-cyan gradient,
@@ -83,8 +84,14 @@ export const hero = (site, c) => {
       <div aria-hidden="true" class="vsl-bloom pointer-events-none absolute -inset-x-28 -inset-y-20 -z-10 blur-3xl"
            style="background:radial-gradient(50% 50% at 50% 50%,rgba(0,185,198,.3),transparent 74%)"></div>
 
-      <div class="relative overflow-hidden ring-1 ring-cyan/40 shadow-[0_0_100px_-20px_rgba(0,185,198,.48),0_40px_90px_-45px_rgba(0,0,0,.85)]"
-           style="aspect-ratio:2.39/1">
+      <!-- The frame opens on the first real view — see vsl.js. Same stage as
+           the about hero: a percentage-padding box at 41.84% (1/2.39) that
+           grows to 56.25% (9/16), giving back the quarter of the picture the
+           crop hides. videoFoam already sizes the player to the container's
+           width from the video's own 16:9, so the extra height reveals footage
+           that was there all along rather than stretching anything. -->
+      <div data-vsl-stage class="${stageClass(vslFx, vslFeel)} relative overflow-hidden ring-1 ring-cyan/40 shadow-[0_0_100px_-20px_rgba(0,185,198,.48),0_40px_90px_-45px_rgba(0,0,0,.85)]">
+        <div class="vsl-frame relative h-0 w-full overflow-hidden">
         <div class="absolute inset-0 [&>div]:h-full [&>div]:w-full">
           <div class="wistia_embed wistia_async_${esc(c.home.vsl.wistiaId)} videoFoam=true h-full w-full">&nbsp;</div>
         </div>
@@ -92,6 +99,8 @@ export const hero = (site, c) => {
         <!-- Vignette, over the player but not catching clicks. -->
         <div aria-hidden="true" class="pointer-events-none absolute inset-0 z-10"
              style="box-shadow:inset 0 0 140px 40px rgba(0,0,0,.72)"></div>
+
+        </div>
 
         <button type="button" class="vsl-sound absolute bottom-4 right-4 z-20 flex min-h-11 items-center gap-2 rounded-full bg-ink/70 px-4 font-body text-[11px] font-bold uppercase tracking-[0.15em] text-white backdrop-blur transition hover:bg-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan">
           <svg class="vsl-icon-muted" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5zM22 9l-6 6M16 9l6 6"/></svg>
