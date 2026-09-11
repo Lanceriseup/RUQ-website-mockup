@@ -44,9 +44,12 @@ export const ctaSection = (site, c) => `
 <section class="relative overflow-hidden bg-white py-20">
 
   <!-- The only chrome: a brand hairline across the top edge, which also
-       separates this from the section above without a hard border. -->
+       separates this from the section above without a hard border.
+       Magenta throughout rather than fading through cyan — a single colour
+       reads as one deliberate rule; the two-colour version looked like a
+       gradient artefact at 1px. -->
   <div aria-hidden="true" class="pointer-events-none absolute inset-x-0 top-0 h-px"
-       style="background:linear-gradient(to right,transparent,${MAGENTA},${CYAN},transparent)"></div>
+       style="background:linear-gradient(to right,transparent,${MAGENTA} 30%,${MAGENTA} 70%,transparent)"></div>
 
   <div class="relative mx-auto max-w-content px-6 text-center">
 
