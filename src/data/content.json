@@ -413,9 +413,44 @@
     "note": "PENDING — the live page has no resource attached yet. Confirm the deliverable and delivery mechanism."
   },
   "contact": {
+    "_source": "riseupqueens.com/contact/, fetched 2026-09-12. Copy and field labels verbatim.",
     "heading": "Contact",
-    "lead": "We'd love to hear from you. If you have questions, our team is here to help.",
-    "socialHeading": "Find Us On Socials"
+    "lead": "We’d love to hear from you. If you have questions, our team is here to help.",
+    "fields": [
+      {
+        "name": "name",
+        "label": "Name",
+        "type": "text"
+      },
+      {
+        "name": "phone",
+        "label": "Phone",
+        "type": "tel"
+      },
+      {
+        "name": "email",
+        "label": "Email",
+        "type": "email"
+      },
+      {
+        "name": "message",
+        "label": "Message",
+        "type": "textarea"
+      }
+    ],
+    "submit": "Submit",
+    "socialHeading": "Find Us On Socials",
+    "videos": [
+      "MsKV8OsY2pg",
+      "jO_JIAVVRdE"
+    ],
+    "partner": {
+      "heading": "Is Your Husband Interested?",
+      "body": "Explore the movement for men",
+      "cta": "Learn About Rise Up Kings",
+      "url": "https://riseupkings.com/"
+    },
+    "_formNote": "The form is inert. The live one posts to a Brizy handler, the Jotform routes were reported broken, and the plan was MOS into Ontraport. Fields stay disabled until an endpoint exists — a disabled field cannot swallow a real enquiry."
   },
   "thankYou": {
     "heading": "Thank You, Queen!",

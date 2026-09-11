@@ -43,7 +43,9 @@ const CYAN = '#00b9c6';
 // Plum, from the ground options: black at the top so the nav sits on black,
 // sinking into deep brand magenta. Both ends are dark, so it never passes
 // through the mid-grey that would make white type on it unreadable.
-const GROUND = 'linear-gradient(180deg,#0b0b0b 0%,#130c11 45%,#220d19 100%)';
+// Exported: the contact page runs on this same ground and imports it rather
+// than copying the stops, so a re-tone here carries to both pages.
+export const GROUND = 'linear-gradient(180deg,#0b0b0b 0%,#130c11 45%,#220d19 100%)';
 
 // Spotlight, from the ground options, laid over the plum rather than instead
 // of it: plum is the colour of the page, this is where the light falls on it.
@@ -52,7 +54,7 @@ const GROUND = 'linear-gradient(180deg,#0b0b0b 0%,#130c11 45%,#220d19 100%)';
 //
 // White at 14% over a near-black ground lifts it to about #232323 at the
 // brightest point — enough to see, nowhere near enough to threaten white type.
-const SPOTLIGHT = 'radial-gradient(120% 55% at 50% 0%,rgba(255,255,255,.14),rgba(255,255,255,.04) 40%,transparent 72%)';
+export const SPOTLIGHT = 'radial-gradient(120% 55% at 50% 0%,rgba(255,255,255,.14),rgba(255,255,255,.04) 40%,transparent 72%)';
 
 // Fixed tilts, not Math.random: a random angle changes on every build, which
 // turns every rebuild into a diff and makes the page impossible to review.

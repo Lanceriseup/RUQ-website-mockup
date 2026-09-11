@@ -6,9 +6,12 @@
 // to 1280x720 here — the facades are rendered large enough that 960 goes soft
 // on a retina display, and Wistia serves the larger crop from the same asset.
 //
-// Without these the video facades are blank dark rectangles. A testimonial
-// section made of blank rectangles cannot be judged, so this runs before any
-// design work on that section.
+// YouTube thumbnails come from i.ytimg.com. maxresdefault does not exist for
+// every video and the request still returns 200 with a 120x90 grey placeholder,
+// so the size is checked rather than the status before accepting it.
+//
+// Without these the video facades are blank dark rectangles. A section made of
+// blank rectangles cannot be judged, so this runs before any design work on one.
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -48,6 +51,33 @@ const run = async () => {
       fail++;
       console.error(`  FAILED        ${v.id}.jpg  ${v.title} — ${e.message}`);
     }
+  }
+
+  for (const v of videos.youtube) {
+    const dest = path.join(OUT, `yt-${v.id}.jpg`);
+    if (fs.existsSync(dest) && !FORCE) { skip++; continue; }
+    let buf = null;
+    for (const name of ['maxresdefault', 'hqdefault']) {
+      try {
+        const r = await fetch(`https://i.ytimg.com/vi/${v.id}/${name}.jpg`);
+        if (!r.ok) continue;
+        const b = Buffer.from(await r.arrayBuffer());
+        // A missing maxresdefault still answers 200, with a 120x90 grey
+        // placeholder a few KB in size. Checking the status is not enough.
+        if (b.length < 8000) continue;
+        buf = b;
+        break;
+      } catch (e) { /* fall through to the smaller size */ }
+    }
+    if (!buf) {
+      fail++;
+      console.error(`  FAILED        yt-${v.id}.jpg  ${v.title}`);
+      continue;
+    }
+    fs.writeFileSync(dest, buf);
+    bytes += buf.length;
+    ok++;
+    console.log(`  ${(buf.length / 1024).toFixed(0).padStart(5)} KB  yt-${v.id}.jpg  ${v.title}`);
   }
 
   console.log(`\nposters: downloaded ${ok}, skipped ${skip}, failed ${fail} — ${(bytes / 1024 / 1024).toFixed(1)} MB`);

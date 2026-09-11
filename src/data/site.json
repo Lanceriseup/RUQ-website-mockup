@@ -120,7 +120,9 @@
   },
   "social": {
     "instagram": "https://www.instagram.com/riseupqueens/",
-    "facebook": "https://www.facebook.com/JessicaRiseUpQueens/"
+    "facebook": "https://www.facebook.com/JessicaRiseUpQueens/",
+    "youtube": "https://www.youtube.com/@talkmarriagetome",
+    "_note": "The contact page links all three. The YouTube channel is Talk Marriage To Me, which is Jessica's channel rather than a Rise Up Queens one — worth confirming that is intended before it goes in the footer too."
   },
   "funnels": {
     "threeDayEvent": "https://go.riseupqueens.com/3dayevent",
