@@ -14,10 +14,11 @@ import { renderContactPage } from '../partials/contact.mjs';
 
 const grid = (cols, items) => `<div class="mt-10 grid gap-6 ${cols}">${items.join('')}</div>`;
 
-// The three still-open contact choices. Parked, not chosen: 'none' simply
-// drops the two-tone bar without inventing a replacement, and 'above' is the
-// smallest fix for the crest alignment. See /contact-styles.html.
-const CONTACT_OPTS = { rule: 'none', partnerShape: 'above', panel: 'current' };
+// Chosen: a full-width hairline under the heading in place of the two-tone
+// bar, and the crest as a faint watermark behind the Rise Up Kings block
+// rather than an object standing beside the text. The form panel keeps the
+// glass treatment that was approved. Options remain at /contact-styles.html.
+const CONTACT_OPTS = { rule: 'hair', partnerShape: 'watermark', panel: 'current' };
 
 export const pages = (site, c, vids) => ([
   {
