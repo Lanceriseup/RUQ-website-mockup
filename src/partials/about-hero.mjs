@@ -1,26 +1,31 @@
-// About page hero.
+// About page hero — the homepage hero, on the about page's own photograph
+// and its own video.
 //
-// The homepage hero's treatment, on the photograph the live about page uses.
-// Deliberately the same recipe rather than a lookalike:
+// Same structure and the same numbers, not a lookalike:
 //
-//   image at 50% over bg-ink   the same as the homepage video
+//   image at 50% over bg-ink   the homepage runs its video at the same opacity
 //   radial vignette            same stops
 //   text band                  same stops
 //   .sheen rotating word       same class, same clamp, same grid cell
+//   VSL below the headline     same 2.39:1 letterbox, same cyan bloom
+//   divided dates + CTA        same block
 //   pt-48 / sm:pt-52           same header clearance
 //
 // That chain is not decoration, it is what makes the headline legible. The
-// magenta stop of the duotone is the binding constraint: over a near-white
-// area of this photograph it measures 1.02:1 under a single 55% scrim and
-// never clears 3:1 at any single-layer opacity — it only comes back as the
-// ground approaches solid ink. Stacked as above it lands at 3.21:1 against a
-// 245-grey worst case, which is the same margin the homepage runs on.
+// duotone's magenta stop is the binding constraint: over a near-white area of
+// this photograph it measures 1.02:1 under a single 55% scrim and never clears
+// 3:1 at any single-layer opacity — it only recovers as the ground approaches
+// solid ink. Layered as above it lands at 3.21:1 against a 245-grey worst case.
 //
-// The photograph is Queens-Waving-Photo-2-scaled.jpg, which is the background
-// the live about page sets on its hero section. Already local.
+// The video is the What-is-RUQ interview the live about page embeds. It used
+// to sit in the "Who is it for?" section below; it is in the hero now, so that
+// section is copy only until its content is decided.
 //
-// No VSL and no dates block. The live about hero is a headline and a button,
-// and a second video on this page would compete with the homepage's.
+// The photograph is Queens-Waving-Photo-2, which is the background the live
+// about page sets on its hero section. Already local.
+//
+// Two things this now duplicates from the homepage, deliberately but worth
+// knowing: the event dates appear on both pages, and so does the Register CTA.
 import { esc } from './layout.mjs';
 
 // Same definition as the homepage's SANS_LINE. The two heroes have to match,
@@ -30,6 +35,7 @@ const SANS_LINE =
 
 export const aboutHero = (site, c) => {
   const h = c.about.hero;
+  const [first, second] = site.nextEvent.upcoming;
 
   // clamp() rather than breakpoints: "reclaim" is half again the width of
   // "rise", so a step change at a breakpoint would be visible mid-rotation.
@@ -51,7 +57,7 @@ export const aboutHero = (site, c) => {
 
   <!-- Text band. A vignette alone leaves the centre bright, which is where the
        headline sits. This darkens the top and bottom and stays clear through
-       the middle, where the faces are. -->
+       the middle, where the video is. -->
   <div aria-hidden="true" class="absolute inset-0"
        style="background:linear-gradient(to bottom,rgba(28,28,28,.68) 0%,rgba(28,28,28,0) 34%,rgba(28,28,28,0) 62%,rgba(28,28,28,.58) 100%)"></div>
 
@@ -69,16 +75,55 @@ export const aboutHero = (site, c) => {
          announced once, statically. -->
     <p class="sr-only">${esc(h.sub)}</p>
 
-    <div class="mt-12">
+    <!-- The interview, framed exactly as the homepage frames its VSL.
+         Click-to-load rather than the homepage's autoplaying Wistia embed:
+         this one is a 30-minute conversation, not a 2-minute promo, and
+         nothing should start playing it on arrival. -->
+    <div class="relative mx-auto mt-16 max-w-4xl">
+
+      <!-- Cyan bloom. Wide and diffuse at low alpha, so it reads as the frame
+           sitting in light rather than a glow applied to it. Scales and fades
+           rather than animating blur, so it composites. -->
+      <div aria-hidden="true" class="vsl-bloom pointer-events-none absolute -inset-x-28 -inset-y-20 -z-10 blur-3xl"
+           style="background:radial-gradient(50% 50% at 50% 50%,rgba(0,185,198,.3),transparent 74%)"></div>
+
+      <button type="button"
+              class="video-facade group relative block w-full overflow-hidden ring-1 ring-cyan/40 shadow-[0_0_100px_-20px_rgba(0,185,198,.48),0_40px_90px_-45px_rgba(0,0,0,.85)]"
+              style="aspect-ratio:2.39/1"
+              data-provider="wistia" data-id="${esc(c.about.whoForVideo)}" data-title="What is Rise Up Queens?">
+        <span class="sr-only">Play: What is Rise Up Queens?</span>
+        <img src="/assets/posters/${esc(c.about.whoForVideo)}.jpg" alt="" aria-hidden="true" loading="eager" decoding="async"
+             class="absolute inset-0 h-full w-full object-cover">
+        <span aria-hidden="true" class="pointer-events-none absolute inset-0" style="box-shadow:inset 0 0 140px 40px rgba(0,0,0,.72)"></span>
+        <span class="absolute inset-0 flex items-center justify-center">
+          <span class="flex h-20 w-20 items-center justify-center rounded-full bg-white/95 shadow-[0_14px_40px_-10px_rgba(0,0,0,.7)] transition group-hover:scale-110">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="#e8208f"><path d="M8 5v14l11-7z"/></svg>
+          </span>
+        </span>
+      </button>
+    </div>
+
+    <!-- Divided: action first, then the two dates either side of a hairline.
+         Same block as the homepage. -->
+    <div class="mt-12 flex flex-col items-center gap-5">
       <a href="${esc(site.nextEvent.ctaUrl)}" rel="noopener"
-         class="group inline-flex min-h-14 items-center justify-center gap-2 rounded-full px-9 py-4 font-body
-                text-sm font-bold uppercase tracking-[0.18em] text-white shadow-[0_18px_40px_-18px_rgba(0,0,0,.7)]
-                transition hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-magenta"
-         style="background:#e8208f">
-        ${esc(site.nextEvent.ctaText)}
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"
-             class="transition group-hover:translate-x-1"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+         class="group inline-flex min-h-11 items-center gap-3 rounded-full bg-magenta px-9 py-4 font-body text-sm font-bold uppercase tracking-[0.2em] text-white shadow-[0_16px_36px_-16px_rgba(232,32,143,.9)] transition hover:bg-magenta-deep focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-magenta">
+         ${esc(site.nextEvent.ctaText)}
+         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"
+              class="transition-transform group-hover:translate-x-1"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </a>
+
+      <div class="flex items-stretch gap-5 text-center">
+        <div>
+          <p class="font-display text-sm font-bold text-white">${esc(first.dates)}</p>
+          <p class="mt-0.5 font-body text-[11px] uppercase tracking-[0.15em] text-white/50">${esc(first.location)}</p>
+        </div>
+        <div aria-hidden="true" class="w-px bg-white/20"></div>
+        <div>
+          <p class="font-display text-sm font-bold text-white/70">${esc(second.dates)}</p>
+          <p class="mt-0.5 font-body text-[11px] uppercase tracking-[0.15em] text-white/40">${esc(second.location)}</p>
+        </div>
+      </div>
     </div>
   </div>
 </section>`;

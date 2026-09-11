@@ -8,6 +8,7 @@ import { testimonialsSection } from '../partials/testimonials.mjs';
 import { closingSection } from '../partials/closing.mjs';
 import { teamPage } from '../partials/team.mjs';
 import { aboutHero } from '../partials/about-hero.mjs';
+import { renderAboutWho } from '../partials/about-who.mjs';
 
 const grid = (cols, items) => `<div class="mt-10 grid gap-6 ${cols}">${items.join('')}</div>`;
 
@@ -71,8 +72,10 @@ export const pages = (site, c, vids) => ([
     body: `
     ${aboutHero(site, c)}
 
-    ${section({ bg: 'bg-white', heading: c.about.heading, lead: c.about.lead, body: `
-      <div class="mt-10 grid gap-8 md:grid-cols-2">
+    ${renderAboutWho(site, c, 'copyOnly')}
+
+    ${section({ bg: 'bg-white', body: `
+      <div class="grid gap-8 md:grid-cols-2">
         ${c.about.pullquotes.map(q => `<blockquote class="border-l-4 border-magenta pl-6 font-display text-2xl font-semibold text-ink">${esc(q)}</blockquote>`).join('')}
       </div>` })}
     ${section({ bg: 'bg-white', heading: 'Frequently Asked Questions', body: faq(c.about.faqs) })}

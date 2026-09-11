@@ -26,6 +26,11 @@ const CYAN = '#00b9c6';
 const GROUND = 'linear-gradient(180deg,#ffffff,#FDF6F1 55%,#ffffff)';
 
 export const ABOUT_WHO_OPTIONS = {
+  copyOnly: {
+    label: 'Copy only — what ships now',
+    note: 'The video has moved into the hero, so this is the paragraph in the arch and nothing else. A holding state until its content is decided, not a design decision. The five below are the layouts explored while the video was here, and any of them works again the moment something goes back beside the copy.',
+  },
+
   split: {
     label: 'Split — copy left, video right',
     note: 'The live arrangement, rebuilt inside the arch. Two equal columns, video in a plate with the brand offset block behind it. The safest option and the one the client will recognise immediately.',
@@ -121,6 +126,16 @@ const arch = (inner, clipped = true) => clipped ? `
 // --------------------------------------------------------------- options
 
 const RENDER = {
+  // What ships today. The video moved up into the hero, so this is the copy in
+  // the arch with nothing beside it — a holding state, not a design decision.
+  // Centred rather than left-aligned, because a single column of text pinned
+  // to the left of an empty panel reads as something having gone missing.
+  copyOnly: (site, c) => arch(`
+    <div class="mx-auto max-w-content px-6 py-24">
+      ${copy(c, 'center')}
+    </div>`),
+
+
   split: (site, c) => arch(`
     <div class="mx-auto grid max-w-content items-center gap-12 px-6 py-24 lg:grid-cols-2">
       ${copy(c)}
