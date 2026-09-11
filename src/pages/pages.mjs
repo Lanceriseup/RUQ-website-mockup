@@ -14,11 +14,10 @@ import { renderContactPage } from '../partials/contact.mjs';
 
 const grid = (cols, items) => `<div class="mt-10 grid gap-6 ${cols}">${items.join('')}</div>`;
 
-// Chosen: a full-width hairline under the heading in place of the two-tone
-// bar, and the crest as a faint watermark behind the Rise Up Kings block
-// rather than an object standing beside the text. The form panel keeps the
-// glass treatment that was approved. Options remain at /contact-styles.html.
-const CONTACT_OPTS = { rule: 'hair', partnerShape: 'watermark', panel: 'current' };
+// Chosen: a full-width hairline under the heading, the crest as a faint
+// watermark behind the Rise Up Kings block, square social tiles, and the
+// glass form panel that was approved. Options at /contact-styles.html.
+const CONTACT_OPTS = { rule: 'hair', partnerShape: 'watermark', panel: 'current', social: 'tile' };
 
 export const pages = (site, c, vids) => ([
   {
