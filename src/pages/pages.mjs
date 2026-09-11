@@ -10,6 +10,7 @@ import { teamPage } from '../partials/team.mjs';
 import { aboutHero } from '../partials/about-hero.mjs';
 import { renderJourney } from '../partials/about-journey.mjs';
 import { renderFaqs } from '../partials/faq-variants.mjs';
+import { renderContact } from '../partials/contact-layouts.mjs';
 
 const grid = (cols, items) => `<div class="mt-10 grid gap-6 ${cols}">${items.join('')}</div>`;
 
@@ -171,31 +172,19 @@ export const pages = (site, c, vids) => ([
   {
     file: 'contact.html', href: '/contact.html',
     title: `Contact — ${site.brand.name}`, desc: c.contact.lead,
-    body: section({ bg: 'bg-white', heading: c.contact.heading, lead: c.contact.lead, body: `
-      <div class="mt-10 grid gap-10 md:grid-cols-2">
-        <form action="#" method="post" novalidate class="space-y-4" aria-describedby="form-note">
-          <p id="form-note" class="rounded-lg bg-ink/5 px-4 py-3 font-body text-sm text-ink-soft">
-            Mockup only — this form is not connected. Wire to MOS &rarr; Ontraport before launch.</p>
-          ${['Name', 'Email', 'Phone'].map(l => `
-          <div>
-            <label for="f-${l.toLowerCase()}" class="block font-body text-sm font-semibold text-ink">${l}</label>
-            <input id="f-${l.toLowerCase()}" name="${l.toLowerCase()}" type="${l === 'Email' ? 'email' : l === 'Phone' ? 'tel' : 'text'}" disabled
-                   class="mt-1 w-full rounded-lg border border-ink/20 bg-white px-4 py-2.5 font-body disabled:bg-ink/5">
-          </div>`).join('')}
-          <div>
-            <label for="f-msg" class="block font-body text-sm font-semibold text-ink">Message</label>
-            <textarea id="f-msg" name="message" rows="5" disabled class="mt-1 w-full rounded-lg border border-ink/20 bg-white px-4 py-2.5 font-body disabled:bg-ink/5"></textarea>
-          </div>
-          <button type="submit" disabled class="rounded-full bg-magenta px-7 py-3 font-body font-semibold text-white opacity-50">Send</button>
-        </form>
-        <div>
-          <h3 class="font-display text-lg font-semibold text-ink">${esc(c.contact.socialHeading)}</h3>
-          <ul class="mt-4 space-y-2 font-body">
-            <li><a href="${esc(site.social.instagram)}" rel="noopener" class="text-ink underline underline-offset-4 hover:text-magenta-text">Instagram</a></li>
-            <li><a href="${esc(site.social.facebook)}" rel="noopener" class="text-ink underline underline-offset-4 hover:text-magenta-text">Facebook</a></li>
-          </ul>
-        </div>
-      </div>` })
+    // Same pair of flags as the team page, and for the same reasons: the
+    // header renders over a page that is near-black at the top, and the scrim
+    // exists to hold white nav type over a bright video frame. Here it would
+    // only lay 80% ink over the first 288px and grey the heading out.
+    overHero: true,
+    navScrim: false,
+    // The form on this page is DISABLED, deliberately and not as an oversight.
+    // There is no endpoint — the live page posts to a Brizy handler, the
+    // Jotform routes were reported broken, and the plan of record was MOS into
+    // Ontraport. A form that looks live and posts nowhere swallows real
+    // enquiries in silence, so the fields stay disabled and say so until one of
+    // those is wired. See contact-layouts.mjs.
+    body: renderContact(site, c, vids, 'split')
   },
 
   {
