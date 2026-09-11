@@ -72,19 +72,14 @@ export const pages = (site, c, vids) => ([
     body: `
     ${aboutHero(site, c)}
 
-    ${renderJourney(site, c, 'overlap', 'stacked')}
+    <!-- The ticket is passed INTO the journey block rather than following it,
+         so both sit on one continuous ground. Rendered as its own section it
+         opened with bg-white against the journey's warm gradient, and the two
+         met as a straight line across the page.
 
-    <!-- The same closing ticket the homepage ends on, so both pages carry the
-         same ask rather than two different ones.
-
-         It sits directly under the journey cards: the third card already ends
-         on "take the next step", so the ticket is the step. Further down, after
-         the FAQs, it would be answering a question nobody had just asked.
-
-         It replaces the "Ready to Take the First Step?" band that used to sit
-         at the foot of this page — the same ask in a weaker form. That heading
-         is still in content.json as about.ctaHeading. -->
-    ${closingSection(site, c)}
+         It sits directly under the third card, which ends on "take the next
+         step on your path" — so the ticket is that step. -->
+    ${renderJourney(site, c, 'overlap', 'stacked', closingSection(site, c, 'inherit'))}
 
     ${section({ bg: 'bg-white', body: `
       <div class="grid gap-8 md:grid-cols-2">

@@ -52,8 +52,16 @@ export const JOURNEY_OPTIONS = {
 
 // ------------------------------------------------------------------ parts
 
+// Masked top and bottom. The wrapper clips at the section edges, and the
+// cyan orb sits at bottom-0 still painting colour when it gets there — which
+// rendered as a straight line across the page. Fading the layer out before
+// either edge leaves the clip nothing to cut.
+//
+// Same fix as the testimonial rails. -webkit- first for Safari before 15.4.
 const orbs = `
-<div aria-hidden="true" class="pointer-events-none absolute inset-0 overflow-hidden">
+<div aria-hidden="true" class="pointer-events-none absolute inset-0 overflow-hidden"
+     style="-webkit-mask-image:linear-gradient(to bottom,transparent 0%,#000 7%,#000 93%,transparent 100%);
+            mask-image:linear-gradient(to bottom,transparent 0%,#000 7%,#000 93%,transparent 100%)">
   <div class="absolute -left-40 top-0 h-[34rem] w-[34rem] rounded-full blur-3xl"
        style="background:radial-gradient(circle,rgba(232,32,143,.12),transparent 68%)"></div>
   <div class="absolute -right-32 bottom-0 h-[30rem] w-[30rem] rounded-full blur-3xl"
@@ -101,7 +109,7 @@ const img = (card, cls) => `
 // ---------------------------------------------------------------- options
 
 const RENDER = {
-  plates: (site, c, headingKey) => arch(`
+  plates: (site, c, headingKey, extra) => arch(`
     <div class="mx-auto max-w-content px-6 py-24">
       ${head(c, headingKey)}
       <div class="mt-16 grid gap-10 md:grid-cols-3">
@@ -119,9 +127,10 @@ const RENDER = {
         </article>`).join('')}
       </div>
       ${closeLine(c)}
-    </div>`),
+    </div>
+    ${extra}`),
 
-  cardsLift: (site, c, headingKey) => arch(`
+  cardsLift: (site, c, headingKey, extra) => arch(`
     <div class="mx-auto max-w-content px-6 py-24">
       ${head(c, headingKey)}
       <div class="mt-16 grid gap-7 md:grid-cols-3">
@@ -138,9 +147,10 @@ const RENDER = {
         </article>`).join('')}
       </div>
       ${closeLine(c)}
-    </div>`),
+    </div>
+    ${extra}`),
 
-  numbered: (site, c, headingKey) => arch(`
+  numbered: (site, c, headingKey, extra) => arch(`
     <div class="mx-auto max-w-content px-6 py-24">
       ${head(c, headingKey)}
       <div class="mt-16 grid gap-12 md:grid-cols-3">
@@ -158,9 +168,10 @@ const RENDER = {
         </article>`).join('')}
       </div>
       ${closeLine(c)}
-    </div>`),
+    </div>
+    ${extra}`),
 
-  overlap: (site, c, headingKey) => arch(`
+  overlap: (site, c, headingKey, extra) => arch(`
     <div class="mx-auto max-w-content px-6 py-24">
       ${head(c, headingKey)}
       <!-- Staggered: the middle column drops, so three equal columns stop
@@ -181,9 +192,10 @@ const RENDER = {
         </article>`).join('')}
       </div>
       ${closeLine(c)}
-    </div>`),
+    </div>
+    ${extra}`),
 
-  duotone: (site, c, headingKey) => arch(`
+  duotone: (site, c, headingKey, extra) => arch(`
     <div class="mx-auto max-w-content px-6 py-24">
       ${head(c, headingKey)}
       <div class="mt-16 grid gap-8 md:grid-cols-3">
@@ -201,9 +213,10 @@ const RENDER = {
         </article>`).join('')}
       </div>
       ${closeLine(c)}
-    </div>`),
+    </div>
+    ${extra}`),
 
-  timeline: (site, c, headingKey) => arch(`
+  timeline: (site, c, headingKey, extra) => arch(`
     <div class="mx-auto max-w-content px-6 py-24">
       ${head(c, headingKey)}
       <div class="relative mt-16">
@@ -225,8 +238,12 @@ const RENDER = {
         </div>
       </div>
       ${closeLine(c)}
-    </div>`),
+    </div>
+    ${extra}`),
 };
 
-export const renderJourney = (site, c, key, headingKey = 'current') =>
-  (RENDER[key] ?? RENDER.plates)(site, c, headingKey);
+// The extra slot renders INSIDE the arch, beneath the cards. Anything passed
+// there sits on the journey’s own ground instead of opening a new section
+// with a new background, which is what produced the visible seam.
+export const renderJourney = (site, c, key, headingKey = 'current', extra = '') =>
+  (RENDER[key] ?? RENDER.plates)(site, c, headingKey, extra);

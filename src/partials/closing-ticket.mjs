@@ -173,12 +173,15 @@ const headingHtml = (copy, motionKey) => {
   return head.slice(0, i) + mark + head.slice(i + hl.length);
 };
 
-export const closingTicket = (site, c, copy, sizeKey = 'current', motionKey = 'none') => {
+// ground: 'white' paints its own, 'inherit' paints none — for when the ticket
+// is nested inside a section that already has one, so the two do not meet as a
+// step in colour.
+export const closingTicket = (site, c, copy, sizeKey = 'current', motionKey = 'none', ground = 'white') => {
   const size = CLOSING_SIZES[sizeKey] ?? CLOSING_SIZES.current;
   const dots = 'background-image:radial-gradient(rgba(255,255,255,.10) 1px,transparent 1px);background-size:18px 18px';
 
   return `
-<section class="relative bg-white py-16 ${motionClass(motionKey)}">
+<section class="relative ${ground === 'white' ? 'bg-white ' : ''}py-16 ${motionClass(motionKey)}">
   <div class="relative mx-auto ${size.wrap} px-4">
 
     <!-- Glow. Inset differently from the panel so it is wider than the thing

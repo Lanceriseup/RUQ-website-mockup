@@ -32,5 +32,9 @@ export const WORDING = 'startsHere';
 export const SIZE = 'snug';
 export const MOTION = 'rimGlow';
 
-export const closingSection = (site, c) =>
-  closingTicket(site, c, CLOSING_COPY[WORDING], SIZE, MOTION);
+// ground defaults to 'white', which is right on the homepage where this opens
+// its own section. The about page nests it inside the journey arch and passes
+// 'inherit', so the ticket floats on that section's ground instead of laying a
+// white band over it.
+export const closingSection = (site, c, ground = 'white') =>
+  closingTicket(site, c, CLOSING_COPY[WORDING], SIZE, MOTION, ground);
