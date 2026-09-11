@@ -230,10 +230,20 @@
   document.querySelectorAll('.video-facade').forEach(function (btn) {
     btn.addEventListener('click', function () {
       if (btn.hasAttribute('data-lightbox')) { openLightbox(btn); return; }
+
+      var stage = btn.closest('[data-vsl-stage]');
       var wrap = document.createElement('div');
-      wrap.className = 'relative aspect-video w-full';
+      // Inside a stage the frame is the stage, so the player fills it rather
+      // than setting its own aspect ratio — otherwise the two fight and the
+      // letterbox cannot open.
+      wrap.className = stage ? 'vsl-player absolute inset-0' : 'relative aspect-video w-full';
       wrap.appendChild(iframeFor(btn.dataset.provider, btn.dataset.id, btn.dataset.title, btn.dataset.hash));
       btn.replaceWith(wrap);
+
+      // One frame later, so the browser has the player's start state to
+      // transition from. Setting the class in the same tick would apply the
+      // end state immediately and nothing would animate.
+      if (stage) requestAnimationFrame(function () { stage.classList.add('is-playing'); });
     });
   });
 })();

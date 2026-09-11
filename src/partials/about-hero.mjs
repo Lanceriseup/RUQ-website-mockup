@@ -27,13 +27,14 @@
 // Two things this now duplicates from the homepage, deliberately but worth
 // knowing: the event dates appear on both pages, and so does the Register CTA.
 import { esc } from './layout.mjs';
+import { vslStage } from './vsl-open.mjs';
 
 // Same definition as the homepage's SANS_LINE. The two heroes have to match,
 // and the only way to be sure is to set them from the same numbers.
 const SANS_LINE =
   'block font-display text-base font-bold uppercase leading-snug tracking-[0.2em] text-white sm:text-2xl';
 
-export const aboutHero = (site, c) => {
+export const aboutHero = (site, c, vslFx = 'none') => {
   const h = c.about.hero;
   const [first, second] = site.nextEvent.upcoming;
 
@@ -64,7 +65,7 @@ export const aboutHero = (site, c) => {
   <!-- pt clears the overlaid header: 161px from sm. -->
   <div class="relative mx-auto max-w-4xl px-4 pb-28 pt-48 text-center sm:pt-52">
 
-    <h1 class="text-white">
+    <h1 class="vsl-dimmable text-white">
       <span class="${SANS_LINE}">${esc(h.headingBefore)}</span>
       <span class="mt-3 block">
         <span class="hero-rotator relative inline-grid" data-swap="fade">${words}</span>
@@ -79,7 +80,7 @@ export const aboutHero = (site, c) => {
          Click-to-load rather than the homepage's autoplaying Wistia embed:
          this one is a 30-minute conversation, not a 2-minute promo, and
          nothing should start playing it on arrival. -->
-    <div class="relative mx-auto mt-16 max-w-4xl">
+    <div class="vsl-shell relative mx-auto mt-16 max-w-4xl">
 
       <!-- Cyan bloom. Wide and diffuse at low alpha, so it reads as the frame
            sitting in light rather than a glow applied to it. Scales and fades
@@ -87,25 +88,27 @@ export const aboutHero = (site, c) => {
       <div aria-hidden="true" class="vsl-bloom pointer-events-none absolute -inset-x-28 -inset-y-20 -z-10 blur-3xl"
            style="background:radial-gradient(50% 50% at 50% 50%,rgba(0,185,198,.3),transparent 74%)"></div>
 
-      <button type="button"
-              class="video-facade group relative block w-full overflow-hidden ring-1 ring-cyan/40 shadow-[0_0_100px_-20px_rgba(0,185,198,.48),0_40px_90px_-45px_rgba(0,0,0,.85)]"
-              style="aspect-ratio:2.39/1"
-              data-provider="wistia" data-id="${esc(c.about.whoForVideo)}" data-title="What is Rise Up Queens?">
-        <span class="sr-only">Play: What is Rise Up Queens?</span>
-        <img src="/assets/posters/${esc(c.about.whoForVideo)}.jpg" alt="" aria-hidden="true" loading="eager" decoding="async"
-             class="absolute inset-0 h-full w-full object-cover">
-        <span aria-hidden="true" class="pointer-events-none absolute inset-0" style="box-shadow:inset 0 0 140px 40px rgba(0,0,0,.72)"></span>
-        <span class="absolute inset-0 flex items-center justify-center">
-          <span class="flex h-20 w-20 items-center justify-center rounded-full bg-white/95 shadow-[0_14px_40px_-10px_rgba(0,0,0,.7)] transition group-hover:scale-110">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="#e8208f"><path d="M8 5v14l11-7z"/></svg>
+      <div class="overflow-hidden ring-1 ring-cyan/40 shadow-[0_0_100px_-20px_rgba(0,185,198,.48),0_40px_90px_-45px_rgba(0,0,0,.85)]">
+        ${vslStage(vslFx, `
+        <button type="button"
+                class="video-facade group absolute inset-0 block h-full w-full"
+                data-provider="wistia" data-id="${esc(c.about.whoForVideo)}" data-title="What is Rise Up Queens?">
+          <span class="sr-only">Play: What is Rise Up Queens?</span>
+          <img src="/assets/posters/${esc(c.about.whoForVideo)}.jpg" alt="" aria-hidden="true" loading="eager" decoding="async"
+               class="absolute inset-0 h-full w-full object-cover">
+          <span aria-hidden="true" class="pointer-events-none absolute inset-0" style="box-shadow:inset 0 0 140px 40px rgba(0,0,0,.72)"></span>
+          <span class="absolute inset-0 flex items-center justify-center">
+            <span class="flex h-20 w-20 items-center justify-center rounded-full bg-white/95 shadow-[0_14px_40px_-10px_rgba(0,0,0,.7)] transition group-hover:scale-110">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="#e8208f"><path d="M8 5v14l11-7z"/></svg>
+            </span>
           </span>
-        </span>
-      </button>
+        </button>`)}
+      </div>
     </div>
 
     <!-- Divided: action first, then the two dates either side of a hairline.
          Same block as the homepage. -->
-    <div class="mt-12 flex flex-col items-center gap-5">
+    <div class="vsl-dimmable mt-12 flex flex-col items-center gap-5">
       <a href="${esc(site.nextEvent.ctaUrl)}" rel="noopener"
          class="group inline-flex min-h-11 items-center gap-3 rounded-full bg-magenta px-9 py-4 font-body text-sm font-bold uppercase tracking-[0.2em] text-white shadow-[0_16px_36px_-16px_rgba(232,32,143,.9)] transition hover:bg-magenta-deep focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-magenta">
          ${esc(site.nextEvent.ctaText)}
