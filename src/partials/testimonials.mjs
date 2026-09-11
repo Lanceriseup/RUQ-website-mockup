@@ -130,14 +130,36 @@ export const testimonialsSection = (site, c, vids, headingKey = 'verbatim') => {
        has already returned to white.
 
        So each centre is placed in ground that is actually visible: magenta
-       just above the rails, cyan in the bottom pad. -->
-  <div aria-hidden="true" class="pointer-events-none absolute inset-0 overflow-hidden">
-    <div class="absolute -left-24 -top-32 h-[34rem] w-[34rem] rounded-full blur-3xl"
+       just above the rails, cyan in the bottom pad.
+
+       That alone is not enough, and cannot be. The wrapper is clipped at the
+       section edges, and a clip only shows as a straight line if the gradient
+       is still painting colour when it gets there. These orbs paint out to
+       roughly 380px from their centres — 0.48 of the box for a farthest-corner
+       radial, plus about 128px that blur-3xl drags past it — while their
+       centres have to sit inside the 222px band above the rails or the 112px
+       pad below. There is no size that satisfies both, so geometry cannot fix
+       it.
+
+       Hence the mask: the wrapper fades to nothing before it reaches either
+       edge, so the clip has nothing left to cut. Ramps are placed clear of
+       both centres — 9% is 84px against a magenta centre at 160px, 94% is
+       873px against a cyan centre at 849px — so neither orb is dimmed by it.
+
+       Vertical only. The left and right clips fall under the edge fades,
+       which paint opaque ground at exactly x=0 and x=100%.
+
+       -webkit- first: Safari before 15.4 needs the prefix and ignores the
+       unprefixed property outright. -->
+  <div aria-hidden="true" class="pointer-events-none absolute inset-0 overflow-hidden"
+       style="-webkit-mask-image:linear-gradient(to bottom,transparent 0%,#000 9%,#000 94%,transparent 100%);
+              mask-image:linear-gradient(to bottom,transparent 0%,#000 9%,#000 94%,transparent 100%)">
+    <div class="absolute -left-24 -top-28 h-[34rem] w-[34rem] rounded-full blur-3xl"
          style="background:radial-gradient(circle,rgba(232,32,143,.12),transparent 68%)"></div>
     <!-- 16% rather than the spread's 10%. Cyan is the weaker hue against a
          warm ground, and this one sits at the bottom where the ground is back
          to white with nothing to lift it. -->
-    <div class="absolute -right-16 -bottom-44 h-[30rem] w-[30rem] rounded-full blur-3xl"
+    <div class="absolute -right-16 -bottom-40 h-[30rem] w-[30rem] rounded-full blur-3xl"
          style="background:radial-gradient(circle,rgba(0,185,198,.16),transparent 68%)"></div>
   </div>
 
