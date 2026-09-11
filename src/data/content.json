@@ -138,7 +138,37 @@
     "_leadWasParaphrased": "Previously ended \"...family and beyond.\" The live page says \"...family and community.\" Corrected from source.",
     "_casingNote": "The live page writes \"Rise up Queens\" with a lowercase u in this paragraph, against \"Rise Up Queens\" everywhere else on their site. Preserved verbatim rather than tidied — it is their copy, and it is probably a typo worth raising with them.",
     "_originalHeading": "About Rise Up Queens",
-    "whoForVideo": "02b33ety61"
+    "whoForVideo": "02b33ety61",
+    "journey": {
+      "_source": "riseupqueens.com/about/, fetched 2026-09-12. Verbatim, including the mixed straight and curly apostrophes, which are theirs.",
+      "heading": "The journey doesn’t end after the first event…",
+      "lead": [
+        "You're not just checking a box when you attend your first Rise Up Queens event. You’re stepping into an ongoing journey of healing, growth, and sisterhood.",
+        "After completion, you'll gain access to a private community of like-minded women committed to doing life together, not just attending one event and disappearing."
+      ],
+      "cards": [
+        {
+          "title": "Private Community App",
+          "body": "Stay connected, share your wins, and walk with women who truly get it. This is your space to keep the momentum going.",
+          "photo": "/assets/photos/gallery-1-2.png"
+        },
+        {
+          "title": "Bi-Weekly Women’s Calls",
+          "body": "Every other week, join live teachings designed to help you deepen your transformation and stay aligned with your calling.",
+          "photo": "/assets/photos/gallery-3-2.png"
+        },
+        {
+          "title": "Continue the Journey",
+          "body": "Take the next step on your path of transformation at one of our events designed to help you go further.",
+          "linkText": "the next step on your path",
+          "linkUrl": "https://go.riseupqueens.com/3dayevent",
+          "photo": "/assets/photos/gallery-2-2.png"
+        }
+      ],
+      "close": "Don’t let another day go by disconnected from who you were created to be. There’s a seat for you, and a woman you haven’t met yet on the other side of saying yes.",
+      "_closeNote": "This line follows the three cards on the live page. Included so it is not lost; whether it belongs in this section or the next one is a call for Lance."
+    },
+    "_whoForNote": "The \"Who is it for?\" heading and lead are no longer rendered on the page; the journey block replaced them. Kept because about.lead is still the page meta description."
   },
   "events": {
     "heading": "Your Path with Rise Up Queens",

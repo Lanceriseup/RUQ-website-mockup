@@ -8,7 +8,7 @@ import { testimonialsSection } from '../partials/testimonials.mjs';
 import { closingSection } from '../partials/closing.mjs';
 import { teamPage } from '../partials/team.mjs';
 import { aboutHero } from '../partials/about-hero.mjs';
-import { renderAboutWho } from '../partials/about-who.mjs';
+import { renderJourney } from '../partials/about-journey.mjs';
 
 const grid = (cols, items) => `<div class="mt-10 grid gap-6 ${cols}">${items.join('')}</div>`;
 
@@ -72,7 +72,7 @@ export const pages = (site, c, vids) => ([
     body: `
     ${aboutHero(site, c)}
 
-    ${renderAboutWho(site, c, 'copyOnly')}
+    ${renderJourney(site, c, 'plates')}
 
     ${section({ bg: 'bg-white', body: `
       <div class="grid gap-8 md:grid-cols-2">

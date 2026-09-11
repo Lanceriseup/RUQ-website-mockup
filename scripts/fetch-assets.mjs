@@ -48,6 +48,8 @@ export const ASSETS = {
     ['2025/07/1-2.png', 'gallery-1-2.png'],
     ['2025/07/2-1.png', 'gallery-2-1.png'],
     ['2025/07/2-2.png', 'gallery-2-2.png'],
+    // Used by the about page's journey cards. Was not in the original sweep.
+    ['2025/07/3-2.png', 'gallery-3-2.png'],
     // The live Statement of Faith background. The filename contains U+202F
     // NARROW NO-BREAK SPACE before "PM" — a macOS screenshot artifact — so it
     // must be percent-encoded as %E2%80%AF. A normal space (%20 or +) 404s.
