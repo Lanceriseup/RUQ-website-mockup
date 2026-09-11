@@ -159,9 +159,11 @@ export const closingTicket = (site, c, copy, sizeKey = 'current', motionKey = 'n
          style="background:radial-gradient(60% 100% at 50% 100%,rgba(0,185,198,.34),transparent 70%)"></div>
 
     <div class="cta-shell relative ${size.radius}">
-      <!-- Beam layer. A conic gradient larger than the panel, rotating behind
-           it; the panel's own background covers all but the 2px rim. -->
-      <div aria-hidden="true" class="cta-beam pointer-events-none absolute inset-0 overflow-hidden ${size.radius}"></div>
+      <!-- Beam layer. Deliberately 2px LARGER than the panel on every side:
+           the panel is an opaque sibling painted after this, so at inset-0 it
+           would cover the beam edge to edge and nothing would show. The 2px
+           it sticks out by is the entire effect. -->
+      <div aria-hidden="true" class="cta-beam pointer-events-none absolute -inset-[2px] overflow-hidden ${size.radius}"></div>
 
       <div class="cta-panel relative flex flex-col gap-8 ${size.radius} ${size.pad} ${size.gap} shadow-[0_40px_90px_-45px_rgba(0,0,0,.6)] md:flex-row md:items-center"
            style="background:#141414">

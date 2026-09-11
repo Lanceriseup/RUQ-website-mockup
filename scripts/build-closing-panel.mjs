@@ -48,7 +48,7 @@ const gallery = (prefix, set, badge) => Object.entries(set).map(([k, v]) => `
     </div>
     <p class="mt-1 max-w-3xl text-sm text-ink-soft">${esc(v.note)}</p>
     <div class="mt-3 overflow-hidden rounded-xl ring-1 ring-ink-line">
-      <iframe src="/${prefix}${k}.html" title="${esc(v.label)}" loading="lazy" class="block h-[440px] w-full border-0"></iframe>
+      <iframe src="/${prefix}${k}.html" title="${esc(v.label)}" loading="lazy" class="block h-[520px] w-full border-0"></iframe>
     </div>
   </section>`).join('');
 

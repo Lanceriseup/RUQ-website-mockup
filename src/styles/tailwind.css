@@ -119,7 +119,6 @@
   /* Beam: a conic gradient wider than the panel, rotating behind it. The
      panel's own opaque background covers everything but the 2px rim, which is
      what turns a spinning disc into a light running along an edge. */
-  .ctk .cta-beam { padding: 2px; }
   .ctk-beam .cta-beam::before {
     content: '';
     position: absolute;
@@ -137,12 +136,12 @@
   .ctk-glowCycle .cta-glow     { animation: ctk-glow-a 10s ease-in-out infinite; }
   .ctk-glowCycle .cta-glow-alt { animation: ctk-glow-b 10s ease-in-out infinite; }
   @keyframes ctk-glow-a {
-    0%, 100% { opacity: 1; transform: translateX(-4%); }
-    50%      { opacity: 0; transform: translateX(4%); }
+    0%, 100% { opacity: 1; transform: translateX(-9%) scale(1); }
+    50%      { opacity: 0; transform: translateX(9%) scale(1.06); }
   }
   @keyframes ctk-glow-b {
-    0%, 100% { opacity: 0; transform: translateX(4%); }
-    50%      { opacity: 1; transform: translateX(-4%); }
+    0%, 100% { opacity: 0; transform: translateX(9%) scale(1.06); }
+    50%      { opacity: 1; transform: translateX(-9%) scale(1); }
   }
 
   /* Arrow run. Pauses on hover so the CSS loop does not fight the hover
@@ -151,12 +150,12 @@
   .ctk-arrowRun .cta-btn:hover .cta-arrow { animation-play-state: paused; }
   @keyframes ctk-arrow {
     0%, 60%, 100% { transform: translateX(0); }
-    30%           { transform: translateX(5px); }
+    30%           { transform: translateX(8px); }
   }
 
   /* Grid drift. background-position only — the dots are a background image, so
      nothing re-rasterises. One full 18px tile per cycle keeps it seamless. */
-  .ctk-gridDrift .cta-dots { animation: ctk-grid 14s linear infinite; }
+  .ctk-gridDrift .cta-dots { animation: ctk-grid 6s linear infinite; }
   @keyframes ctk-grid { to { background-position: 18px 18px; } }
 
   @media (prefers-reduced-motion: reduce) {
