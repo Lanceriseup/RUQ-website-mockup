@@ -213,6 +213,136 @@
     .polaroid .polaroid-plate { transition: none; }
   }
 
+  /* Coach bio dialog. One modal, six entrances — the effect is chosen by a
+     class on the page (.bio-fx-lift, .bio-fx-scale, ...) and everything below
+     is transform and opacity only.
+
+     The panel is built by bio-modal.js, so these are plain classes rather than
+     Tailwind utilities: a class that only ever appears inside a JS string is
+     not reliably seen by the content scanner. */
+  .bio-modal { position: fixed; inset: 0; z-index: 130; }
+  .bio-modal-backdrop {
+    position: absolute; inset: 0;
+    background: rgba(10,10,10,.82);
+    backdrop-filter: blur(6px);
+    opacity: 0; transition: opacity .28s ease;
+  }
+  .bio-modal.is-open .bio-modal-backdrop { opacity: 1; }
+
+  .bio-modal-panel {
+    position: absolute; left: 50%; top: 50%;
+    width: min(56rem, calc(100vw - 2rem));
+    max-height: min(44rem, calc(100vh - 2rem));
+    display: grid; grid-template-columns: 1fr; gap: 0;
+    overflow: hidden auto;
+    border-radius: 1.5rem;
+    background: #171717;
+    box-shadow: 0 60px 120px -40px rgba(0,0,0,.9);
+    outline: 1px solid rgba(255,255,255,.10);
+    transform: translate(-50%,-50%);
+  }
+  @media (min-width: 48rem) {
+    .bio-modal-panel { grid-template-columns: 22rem 1fr; overflow: hidden; }
+    .bio-modal-media { height: 100%; }
+    .bio-modal-body  { overflow-y: auto; }
+  }
+  .bio-modal-media img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+  .bio-modal-body { padding: 2rem; }
+  .bio-modal-role { font-family: Lato, sans-serif; font-size: 10px; font-weight: 700; letter-spacing: .25em; text-transform: uppercase; color: #e8208f; }
+  .bio-modal-name { margin-top: .75rem; font-family: Montserrat, sans-serif; font-size: 1.6rem; font-weight: 700; color: #fff; }
+  .bio-modal-prose p { margin-top: 1rem; font-family: Lato, sans-serif; font-size: 14px; line-height: 1.7; color: rgba(255,255,255,.75); }
+  .bio-modal-close {
+    position: absolute; right: .75rem; top: .75rem; z-index: 2;
+    display: grid; place-items: center; height: 2.25rem; width: 2.25rem;
+    border-radius: 9999px; color: #fff;
+    background: rgba(0,0,0,.55); outline: 1px solid rgba(255,255,255,.25);
+  }
+  .bio-modal-close:hover { background: rgba(0,0,0,.75); }
+
+  /* The flying card. Fixed, above the backdrop, below the panel. */
+  .bio-modal-ghost { position: fixed; z-index: 131; display: none; overflow: hidden; border-radius: .25rem; background: #fff; padding: .4rem; box-shadow: 0 24px 50px -20px rgba(0,0,0,.85); }
+  .bio-modal-ghost img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+
+  /* ---- entrances ---- */
+  .bio-modal-panel { opacity: 0; transition: opacity .26s ease, transform .34s cubic-bezier(.22,1,.36,1), clip-path .45s cubic-bezier(.22,1,.36,1); }
+  .bio-modal.is-open .bio-modal-panel { opacity: 1; }
+
+  .bio-fx-scale ~ .bio-modal .bio-modal-panel,
+  .bio-modal .bio-modal-panel { transform: translate(-50%,-50%) scale(.92); }
+  .bio-modal.is-open .bio-modal-panel { transform: translate(-50%,-50%) scale(1); }
+
+  /* lift: the ghost does the travelling, so the panel only fades. */
+  body:has(.bio-fx-lift) .bio-modal-panel { transform: translate(-50%,-50%) scale(1); transition-delay: .18s; }
+
+  /* curtain: the panel is revealed by a wipe rather than scaled. */
+  body:has(.bio-fx-curtain) .bio-modal-panel { transform: translate(-50%,-50%) scale(1); clip-path: inset(0 100% 0 0); }
+  body:has(.bio-fx-curtain) .bio-modal.is-open .bio-modal-panel { clip-path: inset(0 0 0 0); }
+  body:has(.bio-fx-curtain) .bio-modal-backdrop { background: rgba(10,10,10,.82); }
+  body:has(.bio-fx-curtain) .bio-modal::after {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(90deg, #e8208f, #00b9c6);
+    transform: scaleX(0); transform-origin: left;
+    animation: bio-curtain .62s cubic-bezier(.76,0,.24,1) forwards;
+  }
+  @keyframes bio-curtain {
+    0%   { transform: scaleX(0); transform-origin: left; }
+    45%  { transform: scaleX(1); transform-origin: left; }
+    46%  { transform: scaleX(1); transform-origin: right; }
+    100% { transform: scaleX(0); transform-origin: right; }
+  }
+
+  /* slideOver: a full-height panel on the right edge. */
+  body:has(.bio-fx-slideOver) .bio-modal-panel {
+    left: auto; right: 0; top: 0;
+    width: min(34rem, 100vw); max-height: none; height: 100%;
+    border-radius: 1.5rem 0 0 1.5rem;
+    grid-template-columns: 1fr; overflow-y: auto;
+    transform: translateX(100%);
+  }
+  body:has(.bio-fx-slideOver) .bio-modal.is-open .bio-modal-panel { transform: translateX(0); }
+  body:has(.bio-fx-slideOver) .bio-modal-media { height: 16rem; }
+
+  /* sheet: rises from the bottom, with a handle. */
+  body:has(.bio-fx-sheet) .bio-modal-panel {
+    left: 0; right: 0; top: auto; bottom: 0;
+    width: 100%; max-height: 88vh;
+    border-radius: 1.5rem 1.5rem 0 0;
+    grid-template-columns: 1fr; overflow-y: auto;
+    transform: translateY(100%);
+  }
+  body:has(.bio-fx-sheet) .bio-modal.is-open .bio-modal-panel { transform: translateY(0); }
+  body:has(.bio-fx-sheet) .bio-modal-media { height: 14rem; }
+  body:has(.bio-fx-sheet) .bio-modal-panel::before {
+    content: ''; position: absolute; left: 50%; top: .6rem; z-index: 2;
+    height: .25rem; width: 2.5rem; margin-left: -1.25rem;
+    border-radius: 9999px; background: rgba(255,255,255,.35);
+  }
+
+  /* flip: no modal at all. The card turns over and the bio is on its back. */
+  .bio-fx-flip [data-bio-card] { perspective: 1200px; }
+  .bio-fx-flip .bio-flip-inner {
+    position: relative; transform-style: preserve-3d;
+    transition: transform .6s cubic-bezier(.22,1,.36,1);
+  }
+  .bio-fx-flip [data-bio-card].is-flipped .bio-flip-inner { transform: rotateY(180deg); }
+  .bio-fx-flip .bio-flip-face { backface-visibility: hidden; }
+  .bio-fx-flip .bio-flip-back {
+    position: absolute; inset: 0; transform: rotateY(180deg);
+    overflow-y: auto; border-radius: .25rem; padding: 1rem;
+    background: #171717; outline: 1px solid rgba(255,255,255,.12);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .bio-modal-backdrop,
+    .bio-modal-panel { transition: none; }
+    .bio-modal-panel { transform: translate(-50%,-50%) scale(1); clip-path: none; }
+    body:has(.bio-fx-slideOver) .bio-modal-panel,
+    body:has(.bio-fx-sheet) .bio-modal-panel { transform: none; }
+    body:has(.bio-fx-curtain) .bio-modal::after { display: none; }
+    .bio-fx-flip .bio-flip-inner { transition: none; }
+    .bio-modal-ghost { display: none !important; }
+  }
+
   /* Testimonial rails. The track holds the cards twice over and travels
      exactly one set, so the wrap is invisible. Direction is the only
      difference between the two rails; duration is set per-instance.

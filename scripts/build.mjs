@@ -41,7 +41,10 @@ ${page.body}
 </main>
 ${footer(site)}
 <script src="/app.js" defer></script>
-<script src="/hero-rotate.js" defer></script>${page.body.includes('data-countdown') ? `
+<script src="/hero-rotate.js" defer></script>${page.body.includes('data-bio-open') ? `
+<!-- Keyed off the trigger the page rendered, so a page with coach bios on it
+     cannot ship without the script that opens them. -->
+<script src="/bio-modal.js" defer></script>` : ''}${page.body.includes('data-countdown') ? `
 <!-- Keyed off the attribute that drives it rather than a flag, so a page that
      renders a countdown cannot ship without the script that fills it in. -->
 <script src="/countdown.js" defer></script>` : ''}${page.hero ? `
@@ -63,6 +66,7 @@ fs.copyFileSync(path.join(ROOT, 'src/styles/app.js'), path.join(dist, 'app.js'))
 fs.copyFileSync(path.join(ROOT, 'src/styles/hero-rotate.js'), path.join(dist, 'hero-rotate.js'));
 fs.copyFileSync(path.join(ROOT, 'src/styles/vsl.js'), path.join(dist, 'vsl.js'));
 fs.copyFileSync(path.join(ROOT, 'src/styles/countdown.js'), path.join(dist, 'countdown.js'));
+fs.copyFileSync(path.join(ROOT, 'src/styles/bio-modal.js'), path.join(dist, 'bio-modal.js'));
 
 // Static assets (hero video, poster) ship as-is.
 const assetsSrc = path.join(ROOT, 'src/assets');

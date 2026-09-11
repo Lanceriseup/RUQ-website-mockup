@@ -21,14 +21,17 @@
 // Everything here previously ran on two bios and three generic role buckets;
 // the real page has twelve real titles and six real biographies.
 //
-// The disclosure is <details>/<summary>, not a JS accordion. It opens with the
-// script blocked, it is keyboard-operable for free, and Ctrl+F finds text
-// inside a closed one in browsers that support hidden=until-found.
+// Bios open in a dialog rather than a disclosure — see bio-effects.mjs for the
+// treatments. The trade that made is worth naming: a <details> opened with the
+// script blocked and was keyboard-operable for nothing. A dialog has to earn
+// all of that back in bio-modal.js, and the bio itself is kept in the page as
+// real markup so it is still in the document if the script never runs.
 //
 // The header renders over this page with no scrim, so the page has to leave
 // room for it: 153px tall on mobile, 161px from sm. See pages.mjs.
 import { esc } from './layout.mjs';
 import { renderTeamHeading } from './team-headings.mjs';
+import { effectClass, BIO_EFFECTS } from './bio-effects.mjs';
 
 const MAGENTA = '#e8208f';
 const CYAN = '#00b9c6';
@@ -61,33 +64,49 @@ const plate = (m, i) => `
   ${photo(m)}
 </div>`;
 
-const coach = (m, i) => `
-<figure class="polaroid group mx-auto w-full max-w-[18rem]" style="--tilt:${TILT[i % TILT.length]}deg">
-  ${plate(m, i)}
+const coach = (m, i, effect) => {
+  const bioHtml = (m.bio || [])
+    .map(p => `<p>${esc(p)}</p>`).join('');
+
+  // flip needs the plate and the bio as two faces of one rotating box; every
+  // other effect leaves the plate alone and opens a dialog.
+  const face = effect === 'flip'
+    ? `<div class="bio-flip-inner">
+         <div class="bio-flip-face">${plate(m, i)}</div>
+         <div class="bio-flip-back bio-flip-face" data-bio-back hidden>
+           <p class="font-body text-[10px] font-bold uppercase tracking-[0.25em]" style="color:${MAGENTA}">${esc(m.role)}</p>
+           <h3 class="mt-1 font-display text-base font-semibold text-white">${esc(m.name)}</h3>
+           <div class="bio-modal-prose">${bioHtml}</div>
+         </div>
+       </div>`
+    : plate(m, i);
+
+  return `
+<figure class="polaroid group mx-auto w-full max-w-[18rem]" style="--tilt:${TILT[i % TILT.length]}deg"
+        data-bio-card data-bio-name="${esc(m.name)}" data-bio-role="${esc(m.role)}">
+  ${face}
   <figcaption class="mt-3">
     <p class="text-center font-display text-base font-semibold leading-tight text-white">${esc(m.name)}</p>
     <p class="mt-0.5 text-center font-body text-[10px] font-bold uppercase tracking-[0.25em]" style="color:${MAGENTA}">${esc(m.role)}</p>
 
     ${m.bio ? `
-    <details class="group/d mt-3">
-      <summary class="flex cursor-pointer list-none items-center justify-center gap-1.5 rounded-full px-3 py-1.5
-                      font-body text-[10px] font-bold uppercase tracking-[0.2em] text-white/70
-                      ring-1 ring-white/20 transition hover:text-white hover:ring-white/40
-                      focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-magenta">
-        <span class="group-open/d:hidden">Read bio</span>
-        <span class="hidden group-open/d:inline">Close</span>
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"
-             class="transition group-open/d:rotate-180"><path d="M6 9l6 6 6-6"/></svg>
-      </summary>
-      <!-- The plate above is tilted; this is not. A rotated column of body
-           copy is unreadable, and un-rotating it inside the tilted parent
-           would need a counter-transform that fights the hover. -->
-      <div class="mt-3 rounded-xl p-4 text-left ring-1 ring-white/10" style="background:#171717">
-        ${m.bio.map(p => `<p class="font-body text-[13px] leading-relaxed text-white/75 [&+p]:mt-3">${esc(p)}</p>`).join('')}
-      </div>
-    </details>` : ''}
+    <div class="mt-3 flex justify-center">
+      <button type="button" data-bio-open aria-expanded="false"
+              class="flex items-center gap-1.5 rounded-full px-3 py-1.5 font-body text-[10px] font-bold uppercase
+                     tracking-[0.2em] text-white/70 ring-1 ring-white/20 transition hover:text-white hover:ring-white/40
+                     focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-magenta">
+        Read bio
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </button>
+    </div>
+
+    <!-- The bio lives here, in the page, whether the dialog ever opens or not.
+         The dialog clones it. Hidden rather than absent so it is still in the
+         document for search and for anything reading the markup. -->
+    ${effect === 'flip' ? '' : `<div data-bio-content hidden>${bioHtml}</div>`}` : ''}
   </figcaption>
 </figure>`;
+};
 
 // No disclosure. Leadership have no biography on the live site either, so an
 // empty drawer would advertise a gap that is not there.
@@ -100,12 +119,12 @@ const leader = (m, i) => `
   </figcaption>
 </figure>`;
 
-export const teamPage = (site, c, headingKey = 'script') => {
+export const teamPage = (site, c, headingKey = 'script', effect = 'scale') => {
   const coaches = c.team.members.filter(m => m.group === 'coach');
   const leaders = c.team.members.filter(m => m.group === 'leadership');
 
   return `
-<div class="relative" style="background:${GROUND}">
+<div class="relative ${effectClass(effect)}" style="background:${GROUND}">
 
   <!-- Decoration only, and unclipped: the pool fades to transparent well
        before the foot of the page, so there is no edge for anything to cut. -->
@@ -122,7 +141,7 @@ export const teamPage = (site, c, headingKey = 'script') => {
          items-start, not stretch: an open bio makes one figure much taller
          than its neighbours, and a stretched row would drag the others with it. -->
     <div class="mt-16 grid items-start gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
-      ${coaches.map(coach).join('')}
+      ${coaches.map((m, i) => coach(m, i, effect)).join('')}
     </div>
 
     <div class="mt-24">
