@@ -79,7 +79,16 @@ export const pages = (site, c, vids) => ([
         ${c.about.pullquotes.map(q => `<blockquote class="border-l-4 border-magenta pl-6 font-display text-2xl font-semibold text-ink">${esc(q)}</blockquote>`).join('')}
       </div>` })}
     ${section({ bg: 'bg-white', heading: 'Frequently Asked Questions', body: faq(c.about.faqs) })}
-    ${section({ bg: 'bg-magenta-tint', heading: c.about.ctaHeading, body: `<div class="mt-8">${cta(site.nextEvent.ctaText, site.nextEvent.ctaUrl)}</div>` })}`
+
+    <!-- The same closing ticket the homepage ends on, so both pages finish on
+         the same ask rather than two different ones.
+
+         It replaces the "Ready to Take the First Step?" band that used to sit
+         here — a pink section with a Register button, which is the same ask in
+         a weaker form. Two register CTAs back to back would compete rather
+         than reinforce. That heading is still in content.json as
+         about.ctaHeading if it is ever wanted elsewhere. -->
+    ${closingSection(site, c)}`
   },
 
   {
