@@ -95,15 +95,17 @@ const coach = (m, i, effect) => {
     <p class="mt-0.5 text-center font-body text-[10px] font-bold uppercase tracking-[0.25em]" style="color:${MAGENTA}">${esc(m.role)}</p>
 
     ${m.bio ? `
-    <div class="mt-3 flex justify-center">
-      <button type="button" data-bio-open aria-expanded="false"
-              class="flex items-center gap-1.5 rounded-full px-3 py-1.5 font-body text-[10px] font-bold uppercase
-                     tracking-[0.2em] text-white/70 ring-1 ring-white/20 transition hover:text-white hover:ring-white/40
-                     focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-magenta">
-        Read bio
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </button>
-    </div>
+    <!-- w-full, matching the <summary> this replaced. A <summary> is
+         block-level, so it filled the card; a <button> is not, and without
+         w-full it shrinks to its text and reads as a different control. -->
+    <button type="button" data-bio-open aria-expanded="false"
+            class="mt-3 flex w-full items-center justify-center gap-1.5 rounded-full px-3 py-1.5 font-body
+                   text-[10px] font-bold uppercase tracking-[0.2em] text-white/70 ring-1 ring-white/20
+                   transition hover:text-white hover:ring-white/40
+                   focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-magenta">
+      Read bio
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </button>
 
     <!-- The bio lives here, in the page, whether the dialog ever opens or not.
          The dialog clones it. Hidden rather than absent so it is still in the
