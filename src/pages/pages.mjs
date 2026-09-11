@@ -7,6 +7,7 @@ import { faithSection } from '../partials/faith.mjs';
 import { testimonialsSection } from '../partials/testimonials.mjs';
 import { closingSection } from '../partials/closing.mjs';
 import { teamPage } from '../partials/team.mjs';
+import { aboutHero } from '../partials/about-hero.mjs';
 
 const grid = (cols, items) => `<div class="mt-10 grid gap-6 ${cols}">${items.join('')}</div>`;
 
@@ -64,7 +65,12 @@ export const pages = (site, c, vids) => ([
   {
     file: 'about.html', href: '/about.html',
     title: `About — ${site.brand.name}`, desc: c.about.lead,
+    // overHero, not hero: the header renders over the photograph. The hero
+    // flag would also pull in the Wistia player, and this page has no video.
+    overHero: true,
     body: `
+    ${aboutHero(site, c)}
+
     ${section({ bg: 'bg-white', heading: c.about.heading, lead: c.about.lead, body: `
       <div class="mt-10 grid gap-8 md:grid-cols-2">
         ${c.about.pullquotes.map(q => `<blockquote class="border-l-4 border-magenta pl-6 font-display text-2xl font-semibold text-ink">${esc(q)}</blockquote>`).join('')}

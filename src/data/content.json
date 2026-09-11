@@ -124,7 +124,17 @@
         "q": "What if I'm not ready for a live event?",
         "a": "Start with a masterclass or the free resource. Both are lower-commitment ways into the same material."
       }
-    ]
+    ],
+    "hero": {
+      "_source": "Headline verbatim from riseupqueens.com/about/. That page rotates the same three words, as [\"heal\",\"reclaim\",\" rise\"] — order here is Lance's, and the stray leading space on \" rise\" in their source is a bug and is not reproduced.",
+      "headingBefore": "A movement for women who are ready to",
+      "rotatingWords": [
+        "rise",
+        "heal",
+        "reclaim"
+      ],
+      "sub": "A movement for women who are ready to rise, heal and reclaim."
+    }
   },
   "events": {
     "heading": "Your Path with Rise Up Queens",
