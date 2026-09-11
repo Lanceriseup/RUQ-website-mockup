@@ -81,6 +81,29 @@
   /* The sound badge fades out once sound is on rather than vanishing. */
   .vsl-sound { transition: opacity .3s ease; }
 
+
+  /* CTA aurora. Four blobs on different cycles so the field never repeats.
+     transform and opacity only — animating the blur radius would re-rasterise
+     the layer every frame, which is the usual cause of a janky hero. */
+  .cta-blob { will-change: transform; }
+  .cta-blob-1 { top:-8rem;  left:-10rem; animation: cta-drift-1 26s ease-in-out infinite; }
+  .cta-blob-2 { bottom:-10rem; right:-8rem; animation: cta-drift-2 32s ease-in-out infinite; }
+  .cta-blob-3 { top:20%; right:14%; animation: cta-drift-3 24s ease-in-out infinite; }
+  .cta-blob-4 { bottom:8%; left:18%; animation: cta-drift-4 29s ease-in-out infinite; }
+  @keyframes cta-drift-1 { 0%,100%{transform:translate3d(0,0,0) scale(1)}   50%{transform:translate3d(6rem,3rem,0) scale(1.12)} }
+  @keyframes cta-drift-2 { 0%,100%{transform:translate3d(0,0,0) scale(1.08)} 50%{transform:translate3d(-5rem,-3rem,0) scale(1)} }
+  @keyframes cta-drift-3 { 0%,100%{transform:translate3d(0,0,0) scale(1)}   50%{transform:translate3d(-4rem,4rem,0) scale(1.15)} }
+  @keyframes cta-drift-4 { 0%,100%{transform:translate3d(0,0,0) scale(1.1)}  50%{transform:translate3d(5rem,-3rem,0) scale(1)} }
+
+  /* Conic burst. One very slow rotation; fast enough to notice only if you
+     look for it. */
+  .cta-rays { animation: cta-spin 90s linear infinite; }
+  @keyframes cta-spin { to { transform: translate(-50%,-50%) rotate(360deg); } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cta-blob, .cta-rays { animation: none; }
+  }
+
   /* Scroll-revealed lines. Hidden state is set here rather than inline so
      that if the JS fails the CSS below still shows them — see reveal.js, which
      also adds is-in immediately when IntersectionObserver is unavailable. */
