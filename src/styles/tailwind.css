@@ -104,21 +104,65 @@
     .cta-blob, .cta-rays { animation: none; }
   }
 
-  /* Closing CTA motion. Every option here loops — that is the point of the
-     set. The section carries .ctk plus one .ctk-<key>.
+  /* Closing CTA motion. Every option moves the whole panel, or the light
+     around it — not a part of it. The section carries .ctk plus one .ctk-<key>.
 
-     transform, opacity and background-position only, so each one runs on the
-     compositor. Nothing animates a colour stop, a blur radius or a layout
-     property, which is what makes an always-on loop affordable at the bottom
-     of a long page.
+     Transforms go on .cta-shell rather than .cta-panel so the panel's own
+     shadow and the beam layer travel with it; transforming the panel alone
+     would leave its shadow behind.
 
-     Reduced motion kills all of it at the end of this block. Nothing here
-     hides content in its resting state, so switching the animation off is
-     enough — no release rule is needed. */
+     transform and opacity only. box-shadow is never animated — it re-rasters
+     the layer every frame, which is exactly what you cannot afford in a loop
+     that runs for as long as the page is open. Where a shadow appears to
+     pulse it is a fixed shadow on a pseudo-element whose opacity moves. */
 
-  /* Beam: a conic gradient wider than the panel, rotating behind it. The
-     panel's own opaque background covers everything but the 2px rim, which is
-     what turns a spinning disc into a light running along an edge. */
+  .ctk .cta-shell { will-change: auto; }
+
+  /* Throb: the panel swells, and the glow swells with it. Out of sync and the
+     glow reads as a separate object sliding under the panel. */
+  .ctk-throb .cta-shell { animation: ctk-throb 3.4s ease-in-out infinite; }
+  .ctk-throb .cta-glow  { animation: ctk-throb-glow 3.4s ease-in-out infinite; }
+  @keyframes ctk-throb      { 0%,100% { transform: scale(1); }    50% { transform: scale(1.02); } }
+  @keyframes ctk-throb-glow { 0%,100% { transform: scale(1); opacity: .85; } 50% { transform: scale(1.12); opacity: 1; } }
+
+  /* Float: the panel moves, the glow does not. That gap between them is what
+     reads as height — move both and it is just a section sliding. */
+  .ctk-float .cta-shell { animation: ctk-float 5s ease-in-out infinite; }
+  @keyframes ctk-float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+
+  /* Halo: a ring leaving the panel outline. inset:0 with border-radius:inherit
+     means it traces the panel exactly whatever radius the size preset uses. */
+  .ctk-halo .cta-shell::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    border: 2px solid rgba(232,32,143,.55);
+    animation: ctk-halo 3s ease-out infinite;
+    pointer-events: none;
+  }
+  @keyframes ctk-halo {
+    0%   { transform: scale(1);    opacity: .75; }
+    70%  { transform: scale(1.06); opacity: 0; }
+    100% { transform: scale(1.06); opacity: 0; }
+  }
+
+  /* Rim glow: a fixed brand shadow on a pseudo-element, opacity animated.
+     Nothing moves, so this is the one to pick if the panel sits near copy. */
+  .ctk-rimGlow .cta-shell::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    box-shadow: 0 0 60px 6px rgba(232,32,143,.55), 0 0 90px 18px rgba(0,185,198,.28);
+    animation: ctk-rim 4s ease-in-out infinite;
+    pointer-events: none;
+  }
+  @keyframes ctk-rim { 0%,100% { opacity: .25; } 50% { opacity: 1; } }
+
+  /* Beam: a conic gradient wider than the panel, rotating behind it. The beam
+     layer is 2px proud of the panel on every side and the panel's own opaque
+     background covers the rest, so only that rim shows. */
   .ctk-beam .cta-beam::before {
     content: '';
     position: absolute;
@@ -130,42 +174,22 @@
   }
   @keyframes ctk-beam { to { transform: translate(-50%,-50%) rotate(360deg); } }
 
-  /* Glow cycle: two glows cross-fading, both drifting. Animating between two
-     layers rather than animating the gradient itself, which is not
-     interpolable. */
-  .ctk-glowCycle .cta-glow     { animation: ctk-glow-a 10s ease-in-out infinite; }
-  .ctk-glowCycle .cta-glow-alt { animation: ctk-glow-b 10s ease-in-out infinite; }
-  @keyframes ctk-glow-a {
-    0%, 100% { opacity: 1; transform: translateX(-9%) scale(1); }
-    50%      { opacity: 0; transform: translateX(9%) scale(1.06); }
-  }
-  @keyframes ctk-glow-b {
-    0%, 100% { opacity: 0; transform: translateX(9%) scale(1.06); }
-    50%      { opacity: 1; transform: translateX(-9%) scale(1); }
-  }
-
-  /* Arrow run. Pauses on hover so the CSS loop does not fight the hover
-     transform already on the arrow. */
-  .ctk-arrowRun .cta-arrow { animation: ctk-arrow 1.6s ease-in-out infinite; }
-  .ctk-arrowRun .cta-btn:hover .cta-arrow { animation-play-state: paused; }
-  @keyframes ctk-arrow {
-    0%, 60%, 100% { transform: translateX(0); }
-    30%           { transform: translateX(8px); }
-  }
-
-  /* Grid drift. background-position only — the dots are a background image, so
-     nothing re-rasterises. One full 18px tile per cycle keeps it seamless. */
-  .ctk-gridDrift .cta-dots { animation: ctk-grid 6s linear infinite; }
-  @keyframes ctk-grid { to { background-position: 18px 18px; } }
+  /* Breathe: only the light under the panel. */
+  .ctk-breatheGlow .cta-glow { animation: ctk-breathe 6s ease-in-out infinite; }
+  @keyframes ctk-breathe { 0%,100% { transform: scale(1); opacity: .7; } 50% { transform: scale(1.14); opacity: 1; } }
 
   @media (prefers-reduced-motion: reduce) {
+    .ctk-throb .cta-shell, .ctk-throb .cta-glow,
+    .ctk-float .cta-shell,
+    .ctk-halo .cta-shell::after,
+    .ctk-rimGlow .cta-shell::after,
     .ctk-beam .cta-beam::before,
-    .ctk-glowCycle .cta-glow,
-    .ctk-glowCycle .cta-glow-alt,
-    .ctk-arrowRun .cta-arrow,
-    .ctk-gridDrift .cta-dots { animation: none; }
-    .ctk-glowCycle .cta-glow     { opacity: 1; transform: none; }
-    .ctk-glowCycle .cta-glow-alt { opacity: 0; }
+    .ctk-breatheGlow .cta-glow { animation: none; }
+    /* The two ring effects rest at full strength, which would be a permanent
+       halo. Hide them instead. */
+    .ctk-halo .cta-shell::after,
+    .ctk-rimGlow .cta-shell::after { display: none; }
+    .ctk-throb .cta-glow, .ctk-breatheGlow .cta-glow { transform: none; opacity: .85; }
   }
 
   /* Testimonial rails. The track holds the cards twice over and travels

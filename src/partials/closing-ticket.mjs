@@ -30,6 +30,13 @@ export const CLOSING_SIZES = {
     head: 'text-[1.45rem] sm:text-[1.8rem]', body: 'text-[15px] mt-2.5',
     btn: 'min-h-12 px-8 py-3.5 text-[13px]', stubDate: 'text-base', stubPad: 'md:pl-9', gap: 'md:gap-9',
   },
+  snug: {
+    label: 'Snug — compact, about 10% up',
+    note: 'Compact proportions with everything nudged up a step: heading 1.8 to 2rem, body 15 to 16px, padding and button in proportion. Keeps the low, wide, button-led look of compact rather than the enlarged-panel look of current.',
+    wrap: 'max-w-content', pad: 'px-8 py-10 sm:px-12', radius: 'rounded-[1.75rem]',
+    head: 'text-[1.6rem] sm:text-[2rem]', body: 'text-[16px] mt-2.5',
+    btn: 'min-h-[3.25rem] px-8 py-4 text-[14px]', stubDate: 'text-[17px]', stubPad: 'md:pl-10', gap: 'md:gap-9',
+  },
   current: {
     label: 'Current — the 15% version',
     note: 'What is live now, shown for comparison. Everything went up together, which is why it reads as the same panel enlarged rather than a different proportion.',
@@ -69,34 +76,41 @@ export const CLOSING_SIZES = {
 
 // ---------------------------------------------------------------- motion
 
+// Every option here moves the WHOLE panel — or the light around it — rather
+// than one part of it. The previous set animated the arrow, the dot grid and a
+// word inside the heading, which is not what "highlight the container" means.
 export const CLOSING_MOTIONS = {
   none: {
     label: 'None',
     note: 'Static, for comparison.',
   },
+  throb: {
+    label: 'Throb — the panel swells and settles',
+    note: 'The whole panel scales between 1 and 1.02 on a 3.4-second cycle with the glow beneath swelling in step. The most literal reading of a breathing container, and the one that is hardest to ignore without being frantic.',
+  },
+  float: {
+    label: 'Float — the panel rises and sinks',
+    note: 'The panel drifts 8px up and back over 5 seconds while its glow stays put, so it genuinely reads as hovering rather than as an effect playing on a flat box. Calmest of the set.',
+  },
+  halo: {
+    label: 'Halo — a ring pings out from the panel edge',
+    note: 'A magenta ring leaves the panel outline every 3 seconds and fades as it expands. Sonar rather than breathing: the panel itself never moves, so nothing inside it shifts while you read.',
+  },
+  rimGlow: {
+    label: 'Rim glow — brand light around the whole edge, pulsing',
+    note: 'A soft magenta-into-cyan glow sits around the entire panel and fades up and down over 4 seconds. Lights the container without moving it at all — the safest option if the panel sits near text.',
+  },
   beam: {
     label: 'Beam — a light runs around the panel edge',
-    note: 'A bright arc travels the border on a 5-second loop, magenta into cyan. The most eye-catching thing here that does not touch the content — nothing inside the panel moves, so nothing gets harder to read.',
+    note: 'Kept from the last set because it is the one that was genuinely broken rather than disliked: it never rendered. A bright arc travels the border on a 5-second loop, magenta into cyan.',
   },
-  glowCycle: {
-    label: 'Glow cycle — the light beneath changes colour',
-    note: 'The glow under the panel drifts side to side and cross-fades magenta to cyan and back over 10 seconds. Affects only the page behind the panel, so it is the calmest of the loops while still clearly alive.',
-  },
-  arrowRun: {
-    label: 'Arrow run — the button keeps pointing',
-    note: 'The arrow slides out and returns every 1.6 seconds. The only loop aimed at the click itself rather than the panel, and the one most likely to actually move the number.',
-  },
-  gridDrift: {
-    label: 'Grid drift — the dot texture keeps moving',
-    note: 'The dot grid on the panel face travels diagonally, forever and very slowly. Reads as a surface in motion rather than an animation playing. Subtlest of the loops.',
-  },
-  wordSheen: {
-    label: 'Word sheen — light travels through the headline',
-    note: 'The highlighted phrase carries a moving gradient, the same device as the hero rotator. Pulls the eye to the sentence instead of the frame, and ties the closing ask back to the top of the page.',
+  breatheGlow: {
+    label: 'Breathe — only the light beneath moves',
+    note: 'The glow under the panel swells and brightens on a 6-second cycle while the panel holds still. The subtlest of the six and the only one where nothing with an edge moves.',
   },
   countdown: {
     label: 'Countdown — the stub counts down, live',
-    note: 'The date stub becomes a running clock to the event, ticking every second. By far the strongest attention device here and the only one carrying real information — but it is the one that makes the unconfirmed date load-bearing, and it stops itself once the date passes.',
+    note: 'Not a container effect, kept because it was the strongest attention device of the last set: the stub becomes a running clock, ticking every second. Combines with any of the above.',
     needsDate: true,
   },
 };
@@ -104,6 +118,22 @@ export const CLOSING_MOTIONS = {
 export const motionClass = (key) => (key && key !== 'none') ? `ctk ctk-${key}` : 'ctk';
 
 // ---------------------------------------------------------------- render
+
+// The client's own note for the next event — "LIMITED SPOTS" in site.json
+// today. #f0569f rather than brand magenta: at 10px uppercase this is small
+// text needing 4.5:1, and #e8208f measures 4.42:1 on the panel while the
+// lighter magenta makes 5.73:1.
+//
+// NOTE FOR WHOEVER SHIPS THIS: the dates above are still contradictory. The
+// live banner says October 9-11, site.json carries October 15-17 2026 with a
+// _verify flag. That warning used to be printed on the stub, which read as the
+// site doubting its own date; it now lives here and in build-report.json.
+const note = (site) => {
+  const n = site.nextEvent.upcoming[0].note;
+  return n
+    ? `<p class="mt-2 font-body text-[10px] font-bold uppercase tracking-[0.2em]" style="color:#f0569f">${esc(n)}</p>`
+    : '';
+};
 
 const countdownStub = (site) => `
 <div class="cta-stub cd-root shrink-0 border-t-2 border-dashed pt-6 text-center md:border-t-0 md:border-l-2 md:pt-0 md:text-left"
@@ -117,7 +147,7 @@ const countdownStub = (site) => `
       <span class="mt-1 block font-body text-[9px] uppercase tracking-[0.2em] text-white/50">${label}</span>
     </div>`).join('')}
   </div>
-  <p class="mt-3 font-body text-[9px] uppercase tracking-[0.2em] text-amber-300">Date unconfirmed</p>
+  ${note(site)}
 </div>`;
 
 const dateStub = (site, size) => `
@@ -126,7 +156,7 @@ const dateStub = (site, size) => `
   <p class="font-body text-[10px] font-bold uppercase tracking-[0.35em]" style="color:${CYAN}">Next live event</p>
   <p class="mt-2 font-display ${size.stubDate} font-bold leading-tight text-white">${esc(site.nextEvent.dates)}</p>
   <p class="font-body text-[15px] text-white/65">${esc(site.nextEvent.location)}</p>
-  <p class="mt-2 font-body text-[9px] uppercase tracking-[0.2em] text-amber-300">Dates unconfirmed</p>
+  ${note(site)}
 </div>`;
 
 // The highlighted phrase takes a gradient fill under wordSheen and a flat

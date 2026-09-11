@@ -22,7 +22,7 @@ import { CLOSING_COPY } from './closing-wide.mjs';
 import { closingTicket } from './closing-ticket.mjs';
 
 export const WORDING = 'startsHere';
-export const SIZE = 'current';
+export const SIZE = 'snug';
 export const MOTION = 'none';
 
 export const closingSection = (site, c) =>
