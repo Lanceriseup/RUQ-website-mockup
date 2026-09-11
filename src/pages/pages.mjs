@@ -195,7 +195,7 @@ export const pages = (site, c, vids) => ([
   {
     file: 'thank-you.html', href: '/thank-you.html',
     title: `Thank You — ${site.brand.name}`, desc: c.thankYou.lead,
-    body: section({ bg: 'bg-white', pad: 'py-28', heading: c.thankYou.heading, lead: c.thankYou.lead,
+    body: section({ bg: 'bg-white', pad: 'py-16 sm:py-28', heading: c.thankYou.heading, lead: c.thankYou.lead,
       body: `<div class="mt-8">${cta('Back to home', '/index.html', 'ghost')}</div>` })
   },
 ]);

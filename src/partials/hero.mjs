@@ -57,7 +57,7 @@ export const hero = (site, c, vslFx = 'unfold', vslFeel = 'glide') => {
        style="background:linear-gradient(to bottom,rgba(28,28,28,.68) 0%,rgba(28,28,28,0) 34%,rgba(28,28,28,0) 62%,rgba(28,28,28,.58) 100%)"></div>
 
   <!-- pt clears the overlaid header: 161px now the Register row is gone. -->
-  <div class="relative mx-auto max-w-4xl px-4 pb-36 pt-48 text-center sm:pt-52">
+  <div class="relative mx-auto max-w-4xl px-4 pb-20 sm:pb-36 pt-44 text-center sm:pt-52">
 
     <h1 class="text-white">
       <span class="${SANS_LINE}">${esc(c.home.hero.headingBefore)}</span>
@@ -75,7 +75,7 @@ export const hero = (site, c, vslFx = 'unfold', vslFeel = 'glide') => {
     <!-- VSL: cinema letterbox with a cyan spotlight.
          Plays muted and looping on load; clicking unmutes and restarts. See
          vsl.js — the Wistia player is mounted into the div below. -->
-    <div class="relative mx-auto mt-16 max-w-4xl" data-vsl-id="${esc(c.home.vsl.wistiaId)}">
+    <div class="relative mx-auto mt-10 sm:mt-16 max-w-4xl" data-vsl-id="${esc(c.home.vsl.wistiaId)}">
 
       <!-- Cyan bloom. Deliberately restrained: wider and more diffuse than a
            tight halo, at low alpha, so it reads as the frame sitting in light
@@ -115,7 +115,7 @@ export const hero = (site, c, vslFx = 'unfold', vslFeel = 'glide') => {
          this to roughly 112px against the marquee's ~180px.
          Note: this treatment has no room for the LIMITED SPOTS badge or the
          eyebrow — both are still in site.json and one line away if wanted. -->
-    <div class="mt-12 flex flex-col items-center gap-5">
+    <div class="mt-8 sm:mt-12 flex flex-col items-center gap-5">
       <a href="${esc(site.nextEvent.ctaUrl)}"
          class="group inline-flex min-h-11 items-center gap-3 rounded-full bg-magenta px-9 py-4 font-body text-sm font-bold uppercase tracking-[0.2em] text-white shadow-[0_16px_36px_-16px_rgba(232,32,143,.9)] transition hover:bg-magenta-deep focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-magenta">
          ${esc(site.nextEvent.ctaText)}

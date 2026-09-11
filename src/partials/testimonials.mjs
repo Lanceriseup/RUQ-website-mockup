@@ -131,7 +131,7 @@ export const testimonialsSection = (site, c, vids, headingKey = 'verbatim') => {
   const half = Math.ceil(list.length / 2);
 
   return `
-<section class="relative overflow-hidden pb-28 pt-16" style="background:${GROUND}">
+<section class="relative overflow-hidden pb-16 sm:pb-28 pt-10 sm:pt-16" style="background:${GROUND}">
 
   <!-- Ambient brand light, the same device the struggles spread uses: a warm
        vertical ground with two heavily blurred orbs off the edges.
@@ -183,7 +183,7 @@ export const testimonialsSection = (site, c, vids, headingKey = 'verbatim') => {
     ${renderTestimonialHeading(headingKey)}
   </div>
 
-  <div class="relative mt-12 space-y-5">
+  <div class="relative mt-8 sm:mt-12 space-y-5">
     ${rail(list.slice(0, half), 'left', 130)}
     ${rail(list.slice(half), 'right', 150)}
   </div>

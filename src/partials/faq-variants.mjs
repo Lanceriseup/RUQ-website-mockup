@@ -84,7 +84,7 @@ const chevron = `
 
 const RENDER = {
   current: (c) => `
-<div class="mx-auto max-w-content px-6 py-20">
+<div class="mx-auto max-w-content px-6 py-12 sm:py-20">
   ${heading()}
   <div class="mx-auto mt-10 max-w-3xl divide-y divide-ink/10 border-y border-ink/10">
     ${c.about.faqs.map(f => `
@@ -98,11 +98,11 @@ const RENDER = {
 </div>`,
 
   open: (c) => `
-<div class="mx-auto max-w-content px-6 py-20">
+<div class="mx-auto max-w-content px-6 py-12 sm:py-20">
   ${heading()}
   <!-- columns, not a grid: the answers are different lengths and a grid would
        leave a ragged gap under every short one. -->
-  <div class="mx-auto mt-12 max-w-5xl columns-1 gap-12 lg:columns-2">
+  <div class="mx-auto mt-8 sm:mt-12 max-w-5xl columns-1 gap-12 lg:columns-2">
     ${c.about.faqs.map(f => `
     <div class="mb-8 break-inside-avoid">
       <h3 class="${Q}" style="color:${MAGENTA}">${esc(f.q)}</h3>
@@ -112,9 +112,9 @@ const RENDER = {
 </div>`,
 
   cards: (c) => `
-<div class="mx-auto max-w-content px-6 py-20">
+<div class="mx-auto max-w-content px-6 py-12 sm:py-20">
   ${heading()}
-  <div class="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+  <div class="mt-8 sm:mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
     ${c.about.faqs.map(f => `
     <article class="rounded-2xl bg-white p-6 shadow-[0_18px_40px_-28px_rgba(28,28,28,.4)] ring-1 ring-ink/[.07]">
       <h3 class="${Q} text-ink">${esc(f.q)}</h3>
@@ -124,7 +124,7 @@ const RENDER = {
 </div>`,
 
   accordion: (c) => `
-<div class="mx-auto max-w-content px-6 py-20">
+<div class="mx-auto max-w-content px-6 py-12 sm:py-20">
   ${heading()}
   <div class="mx-auto mt-10 max-w-3xl">
     ${c.about.faqs.map((f, i) => `
@@ -141,7 +141,7 @@ const RENDER = {
 </div>`,
 
   split: (c) => `
-<div class="mx-auto max-w-content px-6 py-20">
+<div class="mx-auto max-w-content px-6 py-12 sm:py-20">
   <div class="grid gap-12 lg:grid-cols-[5fr_7fr]">
     <div>
       <!-- sticky, so nothing above it may clip: an overflow-hidden ancestor
@@ -169,9 +169,9 @@ const RENDER = {
 </div>`,
 
   numbered: (c) => `
-<div class="mx-auto max-w-content px-6 py-20">
+<div class="mx-auto max-w-content px-6 py-12 sm:py-20">
   ${heading()}
-  <div class="mx-auto mt-12 max-w-3xl">
+  <div class="mx-auto mt-8 sm:mt-12 max-w-3xl">
     ${c.about.faqs.map((f, i) => `
     <div class="flex gap-6 border-b border-ink/10 py-6">
       <span aria-hidden="true" class="w-10 shrink-0 font-display text-2xl font-extrabold leading-none tabular-nums"

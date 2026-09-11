@@ -29,7 +29,7 @@
 import { esc } from './layout.mjs';
 
 const MAGENTA = '#e8208f';
-export const FAITH_PHOTO = '/assets/photos/faith-bg.png';
+export const FAITH_PHOTO = '/assets/photos/faith-bg.jpg';
 export const FAITH_IMG_FILTER = 'grayscale contrast-125 brightness-90';
 export const FAITH_SCRIM = 'rgba(28,28,28,.78)';
 
@@ -144,7 +144,7 @@ export const faithSection = (site, c) => `
   ${waveEdge(WAVE.H, bottomLayers, true)}
 
   <!-- Content paints after the waves, so the plate stays clear of the crests. -->
-  <div class="relative py-28">
+  <div class="relative py-16 sm:py-28">
     <div class="mx-auto max-w-4xl px-6">
       ${faithPlate(c)}
     </div>

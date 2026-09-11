@@ -15,7 +15,7 @@ import { esc } from './layout.mjs';
 
 const MAGENTA = '#e8208f';
 const CYAN = '#00b9c6';
-const PHOTO = '/assets/photos/faith-bg.png';
+const PHOTO = '/assets/photos/faith-bg.jpg';
 const WHITE = '#ffffff';
 
 export const FAITH_FILTERS = {

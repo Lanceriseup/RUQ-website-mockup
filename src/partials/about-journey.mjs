@@ -123,9 +123,9 @@ const img = (card, cls) => `
 
 const RENDER = {
   plates: (site, c, headingKey, extra) => arch(`
-    <div class="mx-auto max-w-content px-6 py-24">
+    <div class="mx-auto max-w-content px-6 py-14 sm:py-24">
       ${head(c, headingKey)}
-      <div class="mt-16 grid gap-10 md:grid-cols-3">
+      <div class="mt-10 sm:mt-16 grid gap-10 md:grid-cols-3">
         ${c.about.journey.cards.map((card, i) => `
         <article>
           <div class="relative">
@@ -144,9 +144,9 @@ const RENDER = {
     ${extra}`),
 
   cardsLift: (site, c, headingKey, extra) => arch(`
-    <div class="mx-auto max-w-content px-6 py-24">
+    <div class="mx-auto max-w-content px-6 py-14 sm:py-24">
       ${head(c, headingKey)}
-      <div class="mt-16 grid gap-7 md:grid-cols-3">
+      <div class="mt-10 sm:mt-16 grid gap-7 md:grid-cols-3">
         ${c.about.journey.cards.map(card => `
         <article class="group overflow-hidden rounded-2xl bg-white shadow-[0_20px_50px_-30px_rgba(28,28,28,.45)] ring-1 ring-ink/[.07]
                         transition duration-300 hover:-translate-y-1.5 hover:shadow-[0_36px_70px_-30px_rgba(28,28,28,.5)]">
@@ -164,13 +164,13 @@ const RENDER = {
     ${extra}`),
 
   numbered: (site, c, headingKey, extra) => arch(`
-    <div class="mx-auto max-w-content px-6 py-24">
+    <div class="mx-auto max-w-content px-6 py-14 sm:py-24">
       ${head(c, headingKey)}
-      <div class="mt-16 grid gap-12 md:grid-cols-3">
+      <div class="mt-10 sm:mt-16 grid gap-12 md:grid-cols-3">
         ${c.about.journey.cards.map((card, i) => `
         <article>
           <div class="flex items-start gap-5">
-            <span aria-hidden="true" class="font-display text-5xl font-extrabold leading-none tabular-nums"
+            <span aria-hidden="true" class="font-display text-4xl sm:text-5xl font-extrabold leading-none tabular-nums"
                   style="color:${MAGENTA}33">${String(i + 1).padStart(2, '0')}</span>
             <div class="min-w-0 flex-1 overflow-hidden rounded-xl">
               ${img(card, 'aspect-square w-full object-cover')}
@@ -185,12 +185,12 @@ const RENDER = {
     ${extra}`),
 
   overlap: (site, c, headingKey, extra) => arch(`
-    <div class="mx-auto max-w-content px-6 py-24">
+    <div class="mx-auto max-w-content px-6 py-14 sm:py-24">
       ${head(c, headingKey)}
       <!-- Staggered: the middle column drops, so three equal columns stop
            reading as a table. Removed below md, where the offset would just
            look like uneven spacing. -->
-      <div class="mt-16 grid gap-x-8 gap-y-16 md:grid-cols-3">
+      <div class="mt-10 sm:mt-16 grid gap-x-8 gap-y-10 sm:gap-y-16 md:grid-cols-3">
         ${c.about.journey.cards.map((card, i) => `
         <article class="${i === 1 ? 'md:mt-14' : ''}">
           <div class="relative">
@@ -209,9 +209,9 @@ const RENDER = {
     ${extra}`),
 
   duotone: (site, c, headingKey, extra) => arch(`
-    <div class="mx-auto max-w-content px-6 py-24">
+    <div class="mx-auto max-w-content px-6 py-14 sm:py-24">
       ${head(c, headingKey)}
-      <div class="mt-16 grid gap-8 md:grid-cols-3">
+      <div class="mt-10 sm:mt-16 grid gap-8 md:grid-cols-3">
         ${c.about.journey.cards.map(card => `
         <article class="group">
           <div class="relative overflow-hidden rounded-2xl" style="isolation:isolate">
@@ -230,9 +230,9 @@ const RENDER = {
     ${extra}`),
 
   timeline: (site, c, headingKey, extra) => arch(`
-    <div class="mx-auto max-w-content px-6 py-24">
+    <div class="mx-auto max-w-content px-6 py-14 sm:py-24">
       ${head(c, headingKey)}
-      <div class="relative mt-16">
+      <div class="relative mt-10 sm:mt-16">
         <!-- The rule sits behind the markers and stops short of both ends, so
              it reads as a path between three points rather than a border. -->
         <div aria-hidden="true" class="absolute left-[16%] right-[16%] top-[calc(11rem+0.5rem)] hidden h-px md:block"

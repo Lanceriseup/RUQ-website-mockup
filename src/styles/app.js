@@ -104,15 +104,30 @@
 
   // Hero background video.
   // Held back behind data-src so it costs nothing for people who should not get
-  // it: reduced-motion users, and anyone on a metered/Save-Data connection.
-  // They keep the poster frame, which carries the same image.
+  // it. They keep the poster frame, which is a still from the same footage.
+  //
+  // The file is 11 MB. It is decoration — a muted, looping b-roll montage at
+  // 50% opacity behind the headline — so it is never worth 11 MB of someone's
+  // mobile data, and on a phone-sized viewport the detail in it cannot be seen
+  // anyway. Four gates, cheapest check first:
+  //
+  //   reduced motion   the montage is constant movement
+  //   Save-Data        the visitor has asked for exactly this
+  //   slow connection  2g/3g would still be loading it after the scroll
+  //   narrow viewport  a phone, where it costs the most and shows the least
   (function heroVideo() {
     var v = document.getElementById('hero-video');
     if (!v || !v.dataset.src) return;
 
     var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var saveData = navigator.connection && navigator.connection.saveData;
-    if (reduced || saveData) return;
+    var conn = navigator.connection || {};
+    var saveData = conn.saveData;
+    var slow = /(^|-)2g$|^3g$/.test(conn.effectiveType || '');
+    // Matches the lg breakpoint the layout already uses. Checked once on load
+    // and not re-checked on resize: starting an 11 MB download because someone
+    // turned their phone sideways is the behaviour this is here to prevent.
+    var narrow = window.innerWidth < 1024;
+    if (reduced || saveData || slow || narrow) return;
 
     v.preload = 'auto';
     v.src = v.dataset.src;

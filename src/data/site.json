@@ -108,12 +108,12 @@
       "270": "/assets/brand/favicon-270.png"
     },
     "photos": [
-      "/assets/photos/event-8.png",
-      "/assets/photos/event-9.png",
-      "/assets/photos/gallery-1-1.png",
-      "/assets/photos/gallery-1-2.png",
-      "/assets/photos/gallery-2-1.png",
-      "/assets/photos/gallery-2-2.png"
+      "/assets/photos/event-8.jpg",
+      "/assets/photos/event-9.jpg",
+      "/assets/photos/gallery-1-1.jpg",
+      "/assets/photos/gallery-1-2.jpg",
+      "/assets/photos/gallery-2-1.jpg",
+      "/assets/photos/gallery-2-2.jpg"
     ],
     "plaidTexture": "/assets/brand/logo-ruq.png",
     "_logoNote": "Only a WHITE logo exists (logoWhite). There is no dark variant in the asset set — plaidTexture above is RUQ.png, which is a pink plaid pattern despite the filename, NOT a mark. Anything on a light ground inverts logoWhite as a stopgap. Ask the client for the dark logo file."

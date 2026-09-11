@@ -12,7 +12,7 @@
 import { esc } from './layout.mjs';
 
 const MAGENTA = '#e8208f';
-const PHOTO = '/assets/photos/faith-bg.png';
+const PHOTO = '/assets/photos/faith-bg.jpg';
 
 export const FAITH_COMPACT = {
   tightened: {

@@ -43,7 +43,7 @@ const missionHtml = (c) => {
 };
 
 export const ctaSection = (site, c) => `
-<section class="relative overflow-hidden bg-white py-20">
+<section class="relative overflow-hidden bg-white py-12 sm:py-20">
 
   <!-- The only chrome: a brand hairline across the top edge, which also
        separates this from the section above without a hard border.

@@ -160,7 +160,7 @@ const copyBlock = (copy, headTone, bodyTone, accentColour) => `
 // inside it, and a glow underneath that is wider than the panel so it reads as
 // light thrown onto the page rather than a shadow.
 const frame = (inner, glow) => `
-<section class="relative bg-white py-16">
+<section class="relative bg-white py-10 sm:py-16">
   <div class="relative mx-auto max-w-content px-4">
     ${glow ? `<div aria-hidden="true" class="cta-glow pointer-events-none absolute inset-x-8 bottom-2 top-8 rounded-[2rem] blur-2xl" style="background:${glow}"></div>` : ''}
     <div class="relative">${inner}</div>
@@ -179,7 +179,7 @@ const row = (left, right) => `
 
 const LAYOUTS = {
   paperGlow: (site, c, copy) => frame(`
-    <div class="cta-panel rounded-[2rem] px-9 py-12 ring-1 ring-ink/[.07] shadow-[0_30px_70px_-40px_rgba(0,0,0,.35)] sm:px-14"
+    <div class="cta-panel rounded-[2rem] px-9 py-8 sm:py-12 ring-1 ring-ink/[.07] shadow-[0_30px_70px_-40px_rgba(0,0,0,.35)] sm:px-14"
          style="background:#F7F3EF">
       <div style="${DOTS('rgba(28,28,28,.09)')}">
         ${row(copyBlock(copy, 'text-ink', 'text-ink-soft', MAGENTA), button(site, copy, 'magenta'))}
@@ -188,7 +188,7 @@ const LAYOUTS = {
     `radial-gradient(60% 100% at 50% 100%,rgba(232,32,143,.30),transparent 70%)`),
 
   duskGlow: (site, c, copy) => frame(`
-    <div class="cta-panel rounded-[2rem] px-9 py-12 shadow-[0_40px_90px_-45px_rgba(0,0,0,.7)] sm:px-14"
+    <div class="cta-panel rounded-[2rem] px-9 py-8 sm:py-12 shadow-[0_40px_90px_-45px_rgba(0,0,0,.7)] sm:px-14"
          style="background:#141414">
       <div style="${DOTS('rgba(255,255,255,.10)')}">
         ${row(copyBlock(copy, 'text-white', 'text-white/70', CYAN), button(site, copy, 'magenta'))}
@@ -201,7 +201,7 @@ const LAYOUTS = {
          style="background:#fff">
       <div class="flex">
         <span aria-hidden="true" class="w-2 shrink-0" style="background:linear-gradient(to bottom,${MAGENTA},${CYAN})"></span>
-        <div class="min-w-0 flex-1 px-9 py-12 sm:px-14" style="${DOTS('rgba(28,28,28,.07)')}">
+        <div class="min-w-0 flex-1 px-9 py-8 sm:py-12 sm:px-14" style="${DOTS('rgba(28,28,28,.07)')}">
           ${row(copyBlock(copy, 'text-ink', 'text-ink-soft', MAGENTA), button(site, copy, 'magenta'))}
         </div>
       </div>
@@ -222,14 +222,14 @@ const LAYOUTS = {
         <img src="${PHOTO}" alt="" loading="lazy" decoding="async" class="h-full w-full object-cover">
         <div class="absolute inset-0" style="background:linear-gradient(to right,rgba(20,20,20,.35),rgba(20,20,20,1) 96%)"></div>
       </div>
-      <div class="relative px-9 py-12 sm:pl-[36%] sm:pr-12">
+      <div class="relative px-9 py-8 sm:py-12 sm:pl-[36%] sm:pr-12">
         ${row(copyBlock(copy, 'text-white', 'text-white/70', CYAN), button(site, copy, 'magenta'))}
       </div>
     </div>`,
     `radial-gradient(60% 100% at 50% 100%,rgba(232,32,143,.28),transparent 70%)`),
 
   ticketBar: (site, c, copy) => frame(`
-    <div class="cta-panel relative flex flex-col gap-8 rounded-[2rem] px-9 py-12 shadow-[0_40px_90px_-45px_rgba(0,0,0,.6)] md:flex-row md:items-center md:gap-10 sm:px-14"
+    <div class="cta-panel relative flex flex-col gap-8 rounded-[2rem] px-9 py-8 sm:py-12 shadow-[0_40px_90px_-45px_rgba(0,0,0,.6)] md:flex-row md:items-center md:gap-10 sm:px-14"
          style="background:#141414">
       <div class="min-w-0 flex-1" style="${DOTS('rgba(255,255,255,.09)')}">
         ${copyBlock(copy, 'text-white', 'text-white/70', CYAN)}
@@ -248,7 +248,7 @@ const LAYOUTS = {
     `radial-gradient(60% 100% at 50% 100%,rgba(232,32,143,.30),transparent 70%)`),
 
   duotoneBand: (site, c, copy) => frame(`
-    <div class="cta-panel rounded-[2rem] px-9 py-12 shadow-[0_40px_90px_-45px_rgba(232,32,143,.45)] sm:px-14"
+    <div class="cta-panel rounded-[2rem] px-9 py-8 sm:py-12 shadow-[0_40px_90px_-45px_rgba(232,32,143,.45)] sm:px-14"
          style="background:linear-gradient(115deg,${MAGENTA},#c31c8f 45%,${CYAN})">
       ${row(copyBlock(copy, 'text-white', 'text-white/85', '#ffffff'), button(site, copy, 'white'))}
     </div>`,

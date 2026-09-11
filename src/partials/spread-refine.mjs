@@ -184,7 +184,7 @@ export const renderRefine = (site, c, key) => `
         </ul>
       </div>
       <div class="relative hidden lg:block">
-        ${plate(key, '/assets/photos/gallery-1-2.png', 'Women together at a Rise Up Queens event', 'aspect-[4/5]', 'z-10')}
+        ${plate(key, '/assets/photos/gallery-1-2.jpg', 'Women together at a Rise Up Queens event', 'aspect-[4/5]', 'z-10')}
       </div>
     </div>
   </section>

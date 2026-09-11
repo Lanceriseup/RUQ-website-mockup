@@ -26,49 +26,49 @@ export const CLOSING_SIZES = {
   compact: {
     label: 'Compact — before the 15% bump',
     note: 'Where it was two changes ago. Lowest and lightest; the button carries the section rather than the type. Use this if the panel should read as a footer strip that happens to float.',
-    wrap: 'max-w-content', pad: 'px-7 py-9 sm:px-10', radius: 'rounded-[1.5rem]',
+    wrap: 'max-w-content', pad: 'px-5 py-7 sm:px-10 sm:py-9', radius: 'rounded-[1.5rem]',
     head: 'text-[1.45rem] sm:text-[1.8rem]', body: 'text-[15px] mt-2.5',
     btn: 'min-h-12 px-8 py-3.5 text-[13px]', stubDate: 'text-base', stubPad: 'md:pl-9', gap: 'md:gap-9',
   },
   snug: {
     label: 'Snug — compact, about 10% up',
     note: 'Compact proportions with everything nudged up a step: heading 1.8 to 2rem, body 15 to 16px, padding and button in proportion. Keeps the low, wide, button-led look of compact rather than the enlarged-panel look of current.',
-    wrap: 'max-w-content', pad: 'px-8 py-10 sm:px-12', radius: 'rounded-[1.75rem]',
+    wrap: 'max-w-content', pad: 'px-5 py-8 sm:px-12 sm:py-10', radius: 'rounded-[1.75rem]',
     head: 'text-[1.6rem] sm:text-[2rem]', body: 'text-[16px] mt-2.5',
     btn: 'min-h-[3.25rem] px-8 py-4 text-[14px]', stubDate: 'text-[17px]', stubPad: 'md:pl-10', gap: 'md:gap-9',
   },
   current: {
     label: 'Current — the 15% version',
     note: 'What is live now, shown for comparison. Everything went up together, which is why it reads as the same panel enlarged rather than a different proportion.',
-    wrap: 'max-w-content', pad: 'px-9 py-12 sm:px-14', radius: 'rounded-[2rem]',
+    wrap: 'max-w-content', pad: 'px-5 py-8 sm:px-14 sm:py-12', radius: 'rounded-[2rem]',
     head: 'text-[1.7rem] sm:text-[2.2rem]', body: 'text-[17px] mt-3',
     btn: 'min-h-14 px-9 py-4 text-[15px]', stubDate: 'text-lg', stubPad: 'md:pl-12', gap: 'md:gap-10',
   },
   narrow: {
     label: 'Narrow — a tighter container, same type',
     note: 'The panel pulls in to 64rem while everything inside stays put, so the copy, button and stub sit closer together. Denser and more deliberate; the most premium-looking of the six and the one that least resembles a banner.',
-    wrap: 'max-w-5xl', pad: 'px-9 py-12 sm:px-12', radius: 'rounded-[2rem]',
+    wrap: 'max-w-5xl', pad: 'px-5 py-8 sm:px-12 sm:py-12', radius: 'rounded-[2rem]',
     head: 'text-[1.7rem] sm:text-[2.05rem]', body: 'text-[16px] mt-3',
     btn: 'min-h-14 px-8 py-4 text-[14px]', stubDate: 'text-base', stubPad: 'md:pl-10', gap: 'md:gap-8',
   },
   roomy: {
     label: 'Roomy — same type, far more air',
     note: 'Type identical to current, vertical padding up by half again. Nothing gets louder; the panel just stops feeling packed. The cheapest way to make it look considered.',
-    wrap: 'max-w-content', pad: 'px-10 py-16 sm:px-16', radius: 'rounded-[2rem]',
+    wrap: 'max-w-content', pad: 'px-5 py-10 sm:px-16 sm:py-16', radius: 'rounded-[2rem]',
     head: 'text-[1.7rem] sm:text-[2.2rem]', body: 'text-[17px] mt-3',
     btn: 'min-h-14 px-9 py-4 text-[15px]', stubDate: 'text-lg', stubPad: 'md:pl-14', gap: 'md:gap-12',
   },
   bold: {
     label: 'Bold — big heading, restrained padding',
     note: 'The heading jumps to 2.6rem while the padding barely moves, so the panel stays low but the sentence lands hard. Puts the weight on the words rather than on the box.',
-    wrap: 'max-w-content', pad: 'px-9 py-11 sm:px-14', radius: 'rounded-[2rem]',
+    wrap: 'max-w-content', pad: 'px-5 py-9 sm:px-14 sm:py-11', radius: 'rounded-[2rem]',
     head: 'text-[1.9rem] sm:text-[2.6rem]', body: 'text-[17px] mt-3',
     btn: 'min-h-14 px-9 py-4 text-[15px]', stubDate: 'text-lg', stubPad: 'md:pl-12', gap: 'md:gap-10',
   },
   grand: {
     label: 'Grand — everything up another step',
     note: 'Biggest type and the most padding. Stops being a strip and becomes a closing statement in its own right. Loudest of the six, and the only one that will noticeably lengthen the page.',
-    wrap: 'max-w-content', pad: 'px-10 py-16 sm:px-16', radius: 'rounded-[2.25rem]',
+    wrap: 'max-w-content', pad: 'px-5 py-10 sm:px-16 sm:py-16', radius: 'rounded-[2.25rem]',
     head: 'text-[2.05rem] sm:text-[2.9rem]', body: 'text-[19px] mt-4',
     btn: 'min-h-16 px-11 py-5 text-[16px]', stubDate: 'text-xl', stubPad: 'md:pl-14', gap: 'md:gap-12',
   },
@@ -181,7 +181,7 @@ export const closingTicket = (site, c, copy, sizeKey = 'current', motionKey = 'n
   const dots = 'background-image:radial-gradient(rgba(255,255,255,.10) 1px,transparent 1px);background-size:18px 18px';
 
   return `
-<section class="relative ${ground === 'white' ? 'bg-white ' : ''}py-16 ${motionClass(motionKey)}">
+<section class="relative ${ground === 'white' ? 'bg-white ' : ''}py-10 sm:py-16 ${motionClass(motionKey)}">
   <div class="relative mx-auto ${size.wrap} px-4">
 
     <!-- Glow. Inset differently from the panel so it is wider than the thing

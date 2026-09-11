@@ -75,7 +75,7 @@ export const renderLight = (site, c, key) => {
 <div style="background:${PAPER}">
   <div class="grid lg:grid-cols-[5fr_6fr]">
     <div class="relative min-h-[380px] lg:min-h-full">
-      <img src="/assets/photos/gallery-1-1.png" alt="Two women in conversation at a Rise Up Queens event"
+      <img src="/assets/photos/gallery-1-1.jpg" alt="Two women in conversation at a Rise Up Queens event"
            class="absolute inset-0 h-full w-full object-cover">
     </div>
     <div class="px-6 py-20 lg:px-16">
@@ -124,7 +124,7 @@ export const renderLight = (site, c, key) => {
         </ul>
       </div>
       <div class="relative hidden lg:block">
-        <img src="/assets/photos/gallery-1-2.png" alt="Women together at a Rise Up Queens event"
+        <img src="/assets/photos/gallery-1-2.jpg" alt="Women together at a Rise Up Queens event"
              class="sticky top-24 aspect-[4/5] w-full rounded-[2rem] object-cover shadow-[0_30px_60px_-30px_rgba(28,28,28,.45)]">
       </div>
     </div>

@@ -97,7 +97,7 @@ export const renderPremium = (site, c, key) => {
 <div class="relative overflow-hidden bg-ink">
   <div class="grid lg:grid-cols-2">
     <div class="relative min-h-[420px] lg:min-h-full">
-      <img src="/assets/photos/event-8.png" alt="" aria-hidden="true" class="absolute inset-0 h-full w-full object-cover"
+      <img src="/assets/photos/event-8.jpg" alt="" aria-hidden="true" class="absolute inset-0 h-full w-full object-cover"
            style="filter:grayscale(1) contrast(1.1)">
       <!-- Duotone over the photograph so it belongs to the palette rather than
            sitting next to it. -->

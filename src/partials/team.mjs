@@ -139,7 +139,7 @@ export const teamPage = (site, c, headingKey = 'script', effect = 'lift') => {
        before the foot of the page, so there is no edge for anything to cut. -->
   <div aria-hidden="true" class="pointer-events-none absolute inset-0" style="background:${SPOTLIGHT}"></div>
 
-  <div class="relative mx-auto max-w-content px-4 pb-20 pt-44 sm:pt-48">
+  <div class="relative mx-auto max-w-content px-4 pb-12 sm:pb-20 pt-44 sm:pt-48">
 
     ${renderTeamHeading(headingKey, c.team.heading, { tag: 'h1', count: coaches.length })}
 
@@ -149,15 +149,15 @@ export const teamPage = (site, c, headingKey = 'script', effect = 'lift') => {
 
          items-start, not stretch: an open bio makes one figure much taller
          than its neighbours, and a stretched row would drag the others with it. -->
-    <div class="mt-16 grid items-start gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
+    <div class="mt-10 sm:mt-16 grid items-start gap-x-8 gap-y-9 sm:gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
       ${coaches.map((m, i) => coach(m, i, effect)).join('')}
     </div>
 
-    <div class="mt-24">
+    <div class="mt-14 sm:mt-24">
       ${renderTeamHeading(headingKey, c.team.groups.find(g => g.key === 'leadership').heading, { tag: 'h2', colour: CYAN, count: leaders.length })}
       <!-- Same grid as the coaches above: six people, 3x2, same plate size.
            They differ in what they carry, not in how big they are. -->
-      <div class="mt-12 grid items-start gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
+      <div class="mt-8 sm:mt-12 grid items-start gap-x-8 gap-y-9 sm:gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
         ${leaders.map(leader).join('')}
       </div>
     </div>

@@ -70,7 +70,7 @@ const form = (c, opts = {}) => {
 const heading = (c, cls) => `<h2 class="font-display text-3xl font-bold leading-tight ${cls} sm:text-[2.5rem]">${esc(c.home.cta.heading)}</h2>`;
 const mission = (c, cls) => `<p class="font-body leading-relaxed ${cls}">${esc(c.home.cta.mission)}</p>`;
 const photo = (cls, filter = '') =>
-  `<img src="/assets/photos/gallery-2-2.png" alt="" aria-hidden="true" loading="lazy" decoding="async" class="${cls}" ${filter ? `style="filter:${filter}"` : ''}>`;
+  `<img src="/assets/photos/gallery-2-2.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async" class="${cls}" ${filter ? `style="filter:${filter}"` : ''}>`;
 
 export const renderCtaSection = (site, c, key) => {
   if (key === 'spotlight') {

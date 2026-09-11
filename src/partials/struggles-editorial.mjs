@@ -52,7 +52,7 @@ const listCol = (c) => `
 </div>`;
 
 const photo = (extra = '') => `
-<img src="/assets/photos/gallery-1-2.png" alt="Women together at a Rise Up Queens event"
+<img src="/assets/photos/gallery-1-2.jpg" alt="Women together at a Rise Up Queens event"
      width="1080" height="1080" loading="lazy" decoding="async"
      class="aspect-[4/5] w-full rounded-[2rem] object-cover shadow-[0_30px_60px_-30px_rgba(28,28,28,.45)] ${extra}">`;
 
@@ -99,7 +99,7 @@ export const renderEditorial = (site, c, key) => {
         ${photo()}
         <!-- Second image offset below-left, deliberately smaller and tucked
              under the first so the pair reads as coverage, not a collage. -->
-        <img src="/assets/photos/gallery-1-1.png" alt="Two women in conversation at the event"
+        <img src="/assets/photos/gallery-1-1.jpg" alt="Two women in conversation at the event"
              width="1080" height="1080" loading="lazy" decoding="async"
              class="absolute -bottom-14 -left-16 aspect-square w-40 rounded-2xl border-4 border-white object-cover shadow-[0_20px_40px_-20px_rgba(28,28,28,.5)]">
         <span class="absolute -bottom-14 right-0 rounded-full bg-ink px-4 py-1.5 font-body text-[10px] font-bold uppercase tracking-[0.18em] text-white">Dallas, TX</span>

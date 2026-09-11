@@ -165,19 +165,19 @@
         {
           "title": "Private Community App",
           "body": "Stay connected, share your wins, and walk with women who truly get it. This is your space to keep the momentum going.",
-          "photo": "/assets/photos/gallery-1-2.png"
+          "photo": "/assets/photos/gallery-1-2.jpg"
         },
         {
           "title": "Bi-Weekly Women’s Calls",
           "body": "Every other week, join live teachings designed to help you deepen your transformation and stay aligned with your calling.",
-          "photo": "/assets/photos/gallery-3-2.png"
+          "photo": "/assets/photos/gallery-3-2.jpg"
         },
         {
           "title": "Continue the Journey",
           "body": "Take the next step on your path of transformation at one of our events designed to help you go further.",
           "linkText": "the next step on your path",
           "linkUrl": "https://go.riseupqueens.com/3dayevent",
-          "photo": "/assets/photos/gallery-2-2.png"
+          "photo": "/assets/photos/gallery-2-2.jpg"
         }
       ],
       "close": "Don’t let another day go by disconnected from who you were created to be. There’s a seat for you, and a woman you haven’t met yet on the other side of saying yes.",
@@ -382,7 +382,7 @@
       {
         "name": "Justin Baker",
         "role": "Director of Technology",
-        "photo": "/assets/team/justin-baker.png",
+        "photo": "/assets/team/justin-baker.jpg",
         "group": "leadership"
       },
       {

@@ -14,7 +14,7 @@
 // and the poster cross-fades off the player rather than being swapped out.
 // See vsl-open.mjs.
 //   divided dates + CTA        same block
-//   pt-48 / sm:pt-52           same header clearance
+//   pt-44 / sm:pt-52           same header clearance
 //
 // That chain is not decoration, it is what makes the headline legible. The
 // duotone's magenta stop is the binding constraint: over a near-white area of
@@ -68,7 +68,7 @@ export const aboutHero = (site, c, vslFx = 'unfold', vslFeel = 'glide') => {
        style="background:linear-gradient(to bottom,rgba(28,28,28,.68) 0%,rgba(28,28,28,0) 34%,rgba(28,28,28,0) 62%,rgba(28,28,28,.58) 100%)"></div>
 
   <!-- pt clears the overlaid header: 161px from sm. -->
-  <div class="relative mx-auto max-w-4xl px-4 pb-28 pt-48 text-center sm:pt-52">
+  <div class="relative mx-auto max-w-4xl px-4 pb-16 sm:pb-28 pt-44 text-center sm:pt-52">
 
     <h1 class="vsl-dimmable text-white">
       <span class="${SANS_LINE}">${esc(h.headingBefore)}</span>
@@ -85,7 +85,7 @@ export const aboutHero = (site, c, vslFx = 'unfold', vslFeel = 'glide') => {
          Click-to-load rather than the homepage's autoplaying Wistia embed:
          this one is a 30-minute conversation, not a 2-minute promo, and
          nothing should start playing it on arrival. -->
-    <div class="vsl-shell relative mx-auto mt-16 max-w-4xl">
+    <div class="vsl-shell relative mx-auto mt-10 sm:mt-16 max-w-4xl">
 
       <!-- Cyan bloom. Wide and diffuse at low alpha, so it reads as the frame
            sitting in light rather than a glow applied to it. Scales and fades
@@ -113,7 +113,7 @@ export const aboutHero = (site, c, vslFx = 'unfold', vslFeel = 'glide') => {
 
     <!-- Divided: action first, then the two dates either side of a hairline.
          Same block as the homepage. -->
-    <div class="vsl-dimmable mt-12 flex flex-col items-center gap-5">
+    <div class="vsl-dimmable mt-8 sm:mt-12 flex flex-col items-center gap-5">
       <a href="${esc(site.nextEvent.ctaUrl)}" rel="noopener"
          class="group inline-flex min-h-11 items-center gap-3 rounded-full bg-magenta px-9 py-4 font-body text-sm font-bold uppercase tracking-[0.2em] text-white shadow-[0_16px_36px_-16px_rgba(232,32,143,.9)] transition hover:bg-magenta-deep focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-magenta">
          ${esc(site.nextEvent.ctaText)}

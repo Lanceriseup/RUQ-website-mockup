@@ -33,7 +33,7 @@ const strugglesAbove = `
         </ul>
       </div>
       <div class="relative hidden lg:block">
-        <img src="/assets/photos/gallery-1-2.png" alt="" aria-hidden="true"
+        <img src="/assets/photos/gallery-1-2.jpg" alt="" aria-hidden="true"
              class="aspect-[4/5] w-full rounded-[2rem] object-cover shadow-[0_30px_60px_-30px_rgba(28,28,28,.45)]">
       </div>
     </div>

@@ -41,7 +41,7 @@ export const FAITH = {
   },
 };
 
-const PHOTO = '/assets/photos/gallery-2-1.png';
+const PHOTO = '/assets/photos/gallery-2-1.jpg';
 const ALT = 'Women at a Rise Up Queens event';
 
 const mission = (c, cls) => `<p class="mx-auto max-w-3xl text-center font-body text-lg leading-relaxed ${cls}">${esc(c.home.faith.mission)}</p>`;

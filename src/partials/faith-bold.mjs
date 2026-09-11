@@ -14,7 +14,7 @@ import { esc } from './layout.mjs';
 
 const MAGENTA = '#e8208f';
 const CYAN = '#00b9c6';
-const PHOTO = '/assets/photos/gallery-2-1.png';
+const PHOTO = '/assets/photos/gallery-2-1.jpg';
 const ALT = 'Women at a Rise Up Queens event';
 
 export const FAITH_BOLD = {

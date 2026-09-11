@@ -428,7 +428,7 @@ export const HEADING_RULES = {
 };
 
 export const heading = (c, { align = 'left', size = 'big', rule = 'none' } = {}) => {
-  const sizes = { huge: 'text-6xl sm:text-7xl', big: 'text-5xl sm:text-6xl', small: 'text-4xl sm:text-5xl' };
+  const sizes = { huge: 'text-5xl sm:text-6xl lg:text-7xl', big: 'text-4xl sm:text-5xl lg:text-6xl', small: 'text-3xl sm:text-4xl lg:text-5xl' };
   const centred = align === 'center';
   const h1 = `<h1 class="font-display font-extrabold leading-[.95] text-white ${sizes[size]}">${esc(c.contact.heading)}</h1>`;
   const lead = (mt) => `<p class="${mt} ${centred ? 'mx-auto ' : ''}max-w-xl font-body text-lg leading-relaxed text-white/70">${esc(c.contact.lead)}</p>`;

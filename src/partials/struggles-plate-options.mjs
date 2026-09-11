@@ -113,7 +113,7 @@ export const renderPlateOpt = (site, c, key) => {
         <div class="mt-12">${struggleList(c)}</div>
       </div>
       <div class="relative z-10 hidden lg:block">
-        ${plate('/assets/photos/gallery-1-2.png', 'Women together at a Rise Up Queens event', 'aspect-[4/5]')}
+        ${plate('/assets/photos/gallery-1-2.jpg', 'Women together at a Rise Up Queens event', 'aspect-[4/5]')}
       </div>
     </div>
   </section>
@@ -132,7 +132,7 @@ export const renderPlateOpt = (site, c, key) => {
       </div>
       <!-- 3:4 rather than 4:5, so the plate runs the full height of the column. -->
       <div class="relative z-10 hidden lg:block">
-        ${plate('/assets/photos/gallery-1-2.png', 'Women together at a Rise Up Queens event', 'aspect-[3/4]')}
+        ${plate('/assets/photos/gallery-1-2.jpg', 'Women together at a Rise Up Queens event', 'aspect-[3/4]')}
       </div>
     </div>
   </section>
@@ -151,7 +151,7 @@ export const renderPlateOpt = (site, c, key) => {
       </div>
       <!-- Starts above the heading line and runs past the container edge. -->
       <div class="relative z-10 hidden lg:block lg:-mt-14 lg:-mr-24">
-        ${plate('/assets/photos/gallery-1-2.png', 'Women together at a Rise Up Queens event', 'aspect-[4/5]')}
+        ${plate('/assets/photos/gallery-1-2.jpg', 'Women together at a Rise Up Queens event', 'aspect-[4/5]')}
       </div>
     </div>
   </section>
@@ -169,7 +169,7 @@ export const renderPlateOpt = (site, c, key) => {
         <div class="mt-12">${struggleList(c)}</div>
       </div>
       <div class="relative z-10 hidden lg:block">
-        ${plate('/assets/photos/gallery-1-2.png', 'Women together at a Rise Up Queens event', 'aspect-[4/5]')}
+        ${plate('/assets/photos/gallery-1-2.jpg', 'Women together at a Rise Up Queens event', 'aspect-[4/5]')}
       </div>
     </div>
   </section>

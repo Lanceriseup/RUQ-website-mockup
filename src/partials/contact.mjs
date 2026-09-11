@@ -92,7 +92,7 @@ export const renderPanel = (key, inner) => (PANEL[key] ?? PANEL.current)(inner);
 // -------------------------------------------------------------------- page
 
 const videoBand = (c, vids) => `
-<div class="mt-20">
+<div class="mt-12 sm:mt-20">
   ${watchLabel}
   <div class="mt-6 grid gap-8 sm:grid-cols-2">
     ${c.contact.videos.map(id => video(id, vids)).join('')}
@@ -104,7 +104,7 @@ export const renderContactPage = (site, c, vids, opts = {}) => {
   return `
 <div class="relative" style="background:${GROUND}">
   <div aria-hidden="true" class="pointer-events-none absolute inset-0" style="background:${SPOTLIGHT}"></div>
-  <div class="relative mx-auto max-w-content px-4 pb-24 pt-44 sm:pt-48">
+  <div class="relative mx-auto max-w-content px-4 pb-14 sm:pb-24 pt-44 sm:pt-48">
 
     <!-- The Rise Up Kings block and the form panel end on the same line.
          Which of the two is doing the work depends on which column is taller,
@@ -128,7 +128,7 @@ export const renderContactPage = (site, c, vids, opts = {}) => {
     <div class="grid gap-12 lg:grid-cols-[5fr_7fr] lg:gap-16">
       <div class="flex h-full flex-col">
         ${heading(c, { rule })}
-        <div class="mt-12">${socials(site, { style: social })}</div>
+        <div class="mt-8 sm:mt-12">${socials(site, { style: social })}</div>
         <div class="mt-12 lg:mt-auto lg:pt-12">${partner(site, c, partnerShape)}</div>
       </div>
       ${renderPanel(panel, form(c, { idPrefix: 'ct' }))}

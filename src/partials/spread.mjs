@@ -58,13 +58,13 @@ export const spread = (site, c) => `
   <!-- The problems. The heading sits INSIDE the left column, not as a
        full-width band above the grid — that is what lets the plate start on
        the same line as the script rather than below the whole heading. -->
-  <section class="relative mx-auto max-w-content px-6 pb-12 pt-24">
+  <section class="relative mx-auto max-w-content px-6 pb-8 sm:pb-12 pt-14 sm:pt-24">
     <div class="grid gap-14 lg:grid-cols-[6fr_6fr]">
       <div>
         <div class="border-b border-ink/10 pb-4">
           ${dualHeading('Common struggles', 'women in marriage have', MAGENTA, 'text-ink', true, '4.5rem')}
         </div>
-        <ul class="mt-12 space-y-8">
+        <ul class="mt-8 sm:mt-12 space-y-8">
           ${c.home.painPoints.items.map((t, i) => `
           <li class="flex gap-6">
             <span aria-hidden="true" class="shrink-0 font-display text-xl font-bold leading-none tabular-nums"
@@ -74,7 +74,7 @@ export const spread = (site, c) => `
         </ul>
       </div>
       <div class="relative z-10 hidden lg:block">
-        ${plate('/assets/photos/gallery-1-2.png', 'Women together at a Rise Up Queens event')}
+        ${plate('/assets/photos/gallery-1-2.jpg', 'Women together at a Rise Up Queens event')}
       </div>
     </div>
   </section>
@@ -83,7 +83,7 @@ export const spread = (site, c) => `
        are the same 6fr column at 4:5, and each sits level with its own
        heading, so the two read as facing pages. The lift keeps the magazine
        overlap across the section boundary. -->
-  <section class="relative mx-auto max-w-content px-6 pb-24">
+  <section class="relative mx-auto max-w-content px-6 pb-14 sm:pb-24">
     <div class="grid gap-14 lg:grid-cols-[6fr_6fr]">
       <div class="-mt-20 lg:-mt-24">
         ${plate(c.home.renewal.photo, c.home.renewal.photoAlt, 'center 32%')}

@@ -102,7 +102,7 @@ export const renderSpread = (site, c, key) => {
         <div class="mt-12">${struggleList(c, 'rgba(232,32,143,.4)')}</div>
       </div>
       <div class="relative hidden lg:block">
-        ${img('/assets/photos/gallery-1-2.png', '', 'sticky top-24 aspect-[4/5] w-full rounded-[2rem] object-cover shadow-[0_30px_60px_-30px_rgba(28,28,28,.45)]')}
+        ${img('/assets/photos/gallery-1-2.jpg', '', 'sticky top-24 aspect-[4/5] w-full rounded-[2rem] object-cover shadow-[0_30px_60px_-30px_rgba(28,28,28,.45)]')}
       </div>
     </div>
   </div>
@@ -137,7 +137,7 @@ export const renderSpread = (site, c, key) => {
       <div>${struggleList(c, 'rgba(232,32,143,.4)')}</div>
       <div class="relative hidden lg:block">
         <!-- Plate hangs below its column and overlaps the section boundary. -->
-        ${img('/assets/photos/gallery-1-2.png', '', 'relative z-10 aspect-[4/5] w-full rounded-[2rem] object-cover shadow-[0_36px_70px_-30px_rgba(28,28,28,.5)] ring-8 ring-white')}
+        ${img('/assets/photos/gallery-1-2.jpg', '', 'relative z-10 aspect-[4/5] w-full rounded-[2rem] object-cover shadow-[0_36px_70px_-30px_rgba(28,28,28,.5)] ring-8 ring-white')}
       </div>
     </div>
   </section>
@@ -167,7 +167,7 @@ export const renderSpread = (site, c, key) => {
         <div class="mt-12">${struggleList(c, key === 'gold' ? 'rgba(183,135,62,.55)' : 'rgba(232,32,143,.4)')}</div>
       </div>
       <div class="relative hidden lg:block">
-        ${img('/assets/photos/gallery-1-2.png', '', 'sticky top-24 aspect-[4/5] w-full rounded-[2rem] object-cover shadow-[0_30px_60px_-30px_rgba(28,28,28,.45)]')}
+        ${img('/assets/photos/gallery-1-2.jpg', '', 'sticky top-24 aspect-[4/5] w-full rounded-[2rem] object-cover shadow-[0_30px_60px_-30px_rgba(28,28,28,.45)]')}
       </div>
     </div>
   </div>
