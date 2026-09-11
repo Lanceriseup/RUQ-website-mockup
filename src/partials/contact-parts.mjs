@@ -37,36 +37,124 @@ const SOCIAL_KEYS = [
   { key: 'youtube', label: 'YouTube' },
 ];
 
-// `shape` — round chips, square tiles, or bare icons with no container at all.
-export const socials = (site, { tone = 'dark', align = 'start', shape = 'chip', heading = true } = {}) => {
-  const dark = tone === 'dark';
-  const box = {
-    chip: dark
-      ? 'h-12 w-12 rounded-full bg-white/[.06] text-white ring-1 ring-white/15 hover:bg-white/[.14] hover:ring-white/30'
-      : 'h-12 w-12 rounded-full bg-ink/[.04] text-ink ring-1 ring-ink/10 hover:bg-ink/[.08] hover:ring-ink/25',
-    tile: dark
-      ? 'h-12 w-12 rounded-lg bg-white/[.05] text-white ring-1 ring-white/15 hover:bg-white/[.12]'
-      : 'h-12 w-12 rounded-lg bg-ink/[.04] text-ink ring-1 ring-ink/10 hover:bg-ink/[.08]',
-    bare: dark
-      ? 'h-10 w-10 text-white/70 hover:text-white'
-      : 'h-10 w-10 text-ink-soft hover:text-ink',
-  }[shape];
+export const SOCIAL_STYLES = {
+  chip: {
+    label: 'Current — filled round chips',
+    note: 'What is there now, for comparison: a 5% white fill inside a hairline ring, 48px across. It reads as three buttons, which is slightly more emphasis than three outbound links usually need on a page whose job is the form.',
+  },
+  outline: {
+    label: 'Outline — the ring without the fill',
+    note: 'The same circles with the fill removed, so only the hairline and the icon remain and the plum shows through. Lighter on the page and it stops the three chips reading as a row of solid buttons competing with Submit. Brightens on hover, which is where the fill comes back.',
+  },
+  tile: {
+    label: 'Tile — rounded squares',
+    note: 'Square with an 8px radius instead of round. Squares sit against the straight left edge of the column better than circles do, and they echo the corner radius the form panel and the Rise Up Kings block already use. The most structurally consistent option.',
+  },
+  bare: {
+    label: 'Bare — icons only, no container',
+    note: 'No chip at all: three larger glyphs at 26px, spaced apart, in 70% white. Quietest by a distance and the fastest to read as icons rather than as objects. It loses the 48px tap target, so the hit area is padded back out invisibly to keep it thumb-sized on a phone.',
+  },
+  strip: {
+    label: 'Strip — all three inside one pill',
+    note: 'One rounded container divided into three cells by hairlines, rather than three separate chips. Reads as a single control — one thing called "our socials" — instead of three, which suits a group that always appears together and never alone.',
+  },
+  labelled: {
+    label: 'Labelled — icon and name, stacked',
+    note: 'Each becomes a row: the glyph, then the word Instagram, Facebook or YouTube. The only option where the destination is named rather than inferred from a logo, which matters for the YouTube one, since that channel is branded Talk Marriage To Me rather than Rise Up Queens. Tallest of the seven, which now matters: see the note about bottom alignment.',
+  },
+  gradient: {
+    label: 'Gradient — brand-filled circles',
+    note: 'Each circle filled with the magenta-to-cyan sweep and the glyph knocked out in white. The loudest option and the only one that puts colour in the left column. It will pull the eye off the heading, which is either the point or the problem.',
+  },
+};
 
-  return `
+// `style` picks the treatment; `tone` flips it for a light ground.
+export const socials = (site, { tone = 'dark', align = 'start', style = 'chip', heading = true } = {}) => {
+  const dark = tone === 'dark';
+  const items = SOCIAL_KEYS.filter(s => site.social[s.key]);
+  const focus = 'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-magenta';
+  const title = heading
+    ? `<h2 class="font-display text-xs font-bold uppercase tracking-[.22em] ${dark ? 'text-white/55' : 'text-ink-soft'}">Find Us On Socials</h2>`
+    : '';
+  const icon = (s, size = 21) =>
+    `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">${SOCIAL_ICONS[s.key]}</svg>`;
+  const href = (s) => `href="${esc(site.social[s.key])}" target="_blank" rel="noopener"`;
+  const wrap = (inner, gap) => `
 <div class="${align === 'center' ? 'text-center' : ''}">
-  ${heading ? `<h2 class="font-display text-xs font-bold uppercase tracking-[.22em] ${dark ? 'text-white/55' : 'text-ink-soft'}">Find Us On Socials</h2>` : ''}
-  <ul class="${heading ? 'mt-4 ' : ''}flex ${align === 'center' ? 'justify-center' : ''} ${shape === 'bare' ? 'gap-5' : 'gap-3'}">
-    ${SOCIAL_KEYS.filter(s => site.social[s.key]).map(s => `
+  ${title}
+  <ul class="${heading ? 'mt-4 ' : ''}flex ${align === 'center' ? 'justify-center' : ''} ${gap}">${inner}</ul>
+</div>`;
+
+  // One rounded container split into cells, so the hairline between two cells
+  // is a single border rather than two chips' rings touching.
+  if (style === 'strip') return `
+<div class="${align === 'center' ? 'text-center' : ''}">
+  ${title}
+  <ul class="${heading ? 'mt-4 ' : ''}inline-flex overflow-hidden rounded-full ${dark ? 'ring-1 ring-white/15' : 'ring-1 ring-ink/15'}">
+    ${items.map((s, i) => `
     <li>
-      <a href="${esc(site.social[s.key])}" target="_blank" rel="noopener"
-         class="flex items-center justify-center transition ${box}
-                focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-magenta">
-        <span class="sr-only">${esc(s.label)}</span>
-        <svg width="21" height="21" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">${SOCIAL_ICONS[s.key]}</svg>
+      <a ${href(s)} class="flex h-12 w-16 items-center justify-center transition ${focus}
+            ${i ? (dark ? 'border-l border-white/15' : 'border-l border-ink/15') : ''}
+            ${dark ? 'text-white/80 hover:bg-white/10 hover:text-white' : 'text-ink-soft hover:bg-ink/5 hover:text-ink'}">
+        <span class="sr-only">${esc(s.label)}</span>${icon(s)}
       </a>
     </li>`).join('')}
   </ul>
 </div>`;
+
+  if (style === 'labelled') return `
+<div>
+  ${title}
+  <ul class="${heading ? 'mt-4 ' : ''}space-y-1">
+    ${items.map(s => `
+    <li>
+      <a ${href(s)} class="group flex min-h-11 items-center gap-3 rounded-lg py-3 pr-3 transition ${focus}
+            ${dark ? 'text-white/70 hover:text-white' : 'text-ink-soft hover:text-ink'}">
+        ${icon(s, 20)}
+        <span class="font-body text-[15px]">${esc(s.label)}</span>
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+             aria-hidden="true" class="opacity-0 transition group-hover:opacity-60 group-focus-visible:opacity-60"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </li>`).join('')}
+  </ul>
+</div>`;
+
+  if (style === 'gradient') return wrap(items.map(s => `
+    <li>
+      <a ${href(s)} class="flex h-12 w-12 items-center justify-center rounded-full text-white transition hover:opacity-80 ${focus}"
+         style="background:linear-gradient(135deg,${MAGENTA},${CYAN})">
+        <span class="sr-only">${esc(s.label)}</span>${icon(s)}
+      </a>
+    </li>`).join(''), 'gap-3');
+
+  // bare has no box, so the 48px tap target has to come from padding instead —
+  // an icon-sized hit area is a real problem on a phone.
+  if (style === 'bare') return wrap(items.map(s => `
+    <li>
+      <a ${href(s)} class="-m-2 flex h-12 w-12 items-center justify-center p-2 transition ${focus}
+            ${dark ? 'text-white/70 hover:text-white' : 'text-ink-soft hover:text-ink'}">
+        <span class="sr-only">${esc(s.label)}</span>${icon(s, 26)}
+      </a>
+    </li>`).join(''), 'gap-4');
+
+  const box = {
+    chip: dark
+      ? 'rounded-full bg-white/[.06] text-white ring-1 ring-white/15 hover:bg-white/[.15] hover:ring-white/30'
+      : 'rounded-full bg-ink/[.04] text-ink ring-1 ring-ink/10 hover:bg-ink/[.08] hover:ring-ink/25',
+    outline: dark
+      ? 'rounded-full text-white/80 ring-1 ring-white/25 hover:bg-white/10 hover:text-white hover:ring-white/60'
+      : 'rounded-full text-ink-soft ring-1 ring-ink/20 hover:bg-ink/5 hover:text-ink hover:ring-ink/40',
+    tile: dark
+      ? 'rounded-lg bg-white/[.05] text-white ring-1 ring-white/15 hover:bg-white/[.15] hover:ring-white/30'
+      : 'rounded-lg bg-ink/[.04] text-ink ring-1 ring-ink/10 hover:bg-ink/[.08]',
+  }[style] || '';
+
+  return wrap(items.map(s => `
+    <li>
+      <a ${href(s)} class="flex h-12 w-12 items-center justify-center transition ${box} ${focus}">
+        <span class="sr-only">${esc(s.label)}</span>${icon(s)}
+      </a>
+    </li>`).join(''), 'gap-3');
 };
 
 // --------------------------------------------------------------------- form

@@ -20,6 +20,7 @@ import { MAGENTA, CYAN, socials, form, video, partner, heading, watchLabel } fro
 
 export { HEADING_RULES } from './contact-parts.mjs';
 export { PARTNER_SHAPES } from './contact-parts.mjs';
+export { SOCIAL_STYLES } from './contact-parts.mjs';
 
 // The form panel. `current` is what is on the page now and what was approved;
 // the other five push it without changing its character, because the character
@@ -99,17 +100,26 @@ const videoBand = (c, vids) => `
 </div>`;
 
 export const renderContactPage = (site, c, vids, opts = {}) => {
-  const { rule = 'none', partnerShape = 'above', panel = 'current' } = opts;
+  const { rule = 'hair', partnerShape = 'watermark', panel = 'current', social = 'chip' } = opts;
   return `
 <div class="relative" style="background:${GROUND}">
   <div aria-hidden="true" class="pointer-events-none absolute inset-0" style="background:${SPOTLIGHT}"></div>
   <div class="relative mx-auto max-w-content px-4 pb-24 pt-44 sm:pt-48">
 
+    <!-- The Rise Up Kings block sits on the same baseline as the foot of the
+         form panel. That works because grid rows stretch by default, so the
+         left column is already as tall as the form; making it a flex column
+         and giving the last child lg:mt-auto pushes it to that bottom edge.
+         No height is measured and none is hard-coded, so it stays aligned
+         whatever the form grows to.
+
+         lg only. Below that the grid is a single column and there is no
+         second column to align with — mt-auto would just add a gap. -->
     <div class="grid gap-12 lg:grid-cols-[5fr_7fr] lg:gap-16">
-      <div>
+      <div class="flex h-full flex-col">
         ${heading(c, { rule })}
-        <div class="mt-12">${socials(site)}</div>
-        <div class="mt-12">${partner(site, c, partnerShape)}</div>
+        <div class="mt-12">${socials(site, { style: social })}</div>
+        <div class="mt-12 lg:mt-auto lg:pt-12">${partner(site, c, partnerShape)}</div>
       </div>
       <div>${renderPanel(panel, form(c, { idPrefix: 'ct' }))}</div>
     </div>
