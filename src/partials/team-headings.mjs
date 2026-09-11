@@ -58,26 +58,18 @@ export const renderTeamHeading = (key, text, { tag = 'h2', lead = '', colour = M
     : '';
 
   if (key === 'script') {
-    // Uppercase first, brush face second — the qualifier above, the group it
-    // names below. That is the "JOIN US TO EXPERIENCE / healing and renewal"
-    // pattern from the homepage rather than the "Common struggles / WOMEN IN
-    // MARRIAGE HAVE" one, and it is this way round for a specific reason:
-    // script-first would put "RUQ" in the brush face, and an acronym set in a
-    // casual brush is close to unreadable. Taking the last word instead gives
-    // "RUQ / Coaches" and "LEADERSHIP / Team", which reads for both.
+    // The whole heading in the brush face, not split across two faces.
     //
-    // If the brush should carry "Leadership" rather than "Team", swap the two
-    // lines here — but then the first heading needs its own split, and the two
-    // stop being peers, which is the thing this set exists to fix.
-    const words = text.trim().split(/\s+/);
-    const upper = words.length > 1 ? words.slice(0, -1).join(' ') : '';
-    const brush = words[words.length - 1];
+    // This was an uppercase line over a brush word, which kept "RUQ" out of a
+    // casual script where an acronym is hard to read. Setting it all in the
+    // brush is the call that was made, so that is what this does; the size is
+    // pulled back from 4.2rem to 3.6rem because a two-word phrase is much
+    // wider than the single word this used to set.
     return `
 <div class="text-center">
   <${T} class="leading-none">
-    ${upper ? `<span class="block font-display text-lg font-bold uppercase tracking-[0.3em] text-white sm:text-xl">${esc(upper)}</span>` : ''}
-    <span class="relative mt-2 inline-block">
-      <span class="script block" style="color:${colour};font-size:clamp(2.6rem,6.5vw,4.2rem);line-height:.9">${esc(brush)}</span>
+    <span class="relative inline-block">
+      <span class="script block" style="color:${colour};font-size:clamp(2.2rem,5.6vw,3.6rem);line-height:.95">${esc(text)}</span>
       ${swash(colour)}
     </span>
   </${T}>

@@ -19,15 +19,17 @@ export const capsule = (site, current) => `
 <div id="nav-capsule" aria-hidden="true"
      class="pointer-events-none fixed inset-x-0 top-0 z-50 flex justify-center px-4 pt-3">
   <!-- Pill fill is .65, not the .55 it started at. The capsule is fixed to the
-       top of the viewport, so it sits over whatever is scrolled under it — and
+       top of the viewport, so it sits over whatever is scrolled under it, and
        most of this site is white. At .55 it composited to #7f7f7f over a white
        section and its 12px semibold links measured 4.01:1, under the 4.5:1
        small text needs. .65 gives 5.61:1 there and costs nothing over a dark
        section, where it was 18.5:1 and is still 18.4:1.
 
-       This note lives above the tag, not inside it. A comment inside an
-       opening tag is not a comment: the parser ends the tag at the first > it
-       finds, which is the one in -->, and everything after it renders as text. -->
+       Two things this note must not do, both of which it did at some point:
+       sit inside the opening tag below, and contain a comment-closing
+       sequence. Either one ends the comment early and dumps the rest of it
+       onto the page as visible text. HTML comments cannot carry a double
+       hyphen at all, so no comment anywhere in this project should quote one. -->
   <nav class="pointer-events-auto flex items-center gap-1 rounded-full border border-white/20 px-3 py-1.5 shadow-[0_20px_45px_-20px_rgba(0,0,0,.65)]"
        style="background:rgba(22,22,22,.65)" aria-label="Primary, condensed">
     ${site.nav.map(n => `<a href="${esc(n.href)}"
