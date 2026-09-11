@@ -73,7 +73,7 @@ const PANEL = {
 
   framed: (inner) => `
 <div class="relative rounded-3xl bg-white/[.05] p-3 ring-1 ring-white/10 shadow-[0_40px_90px_-50px_rgba(0,0,0,1)] backdrop-blur-sm">
-  <div class="rounded-[1rem] p-5 ring-1 ring-white/10 sm:p-7">${inner}</div>
+  <div class="h-full rounded-[1rem] p-5 ring-1 ring-white/10 sm:p-7">${inner}</div>
 </div>`,
 
   deep: (inner) => `
@@ -83,7 +83,7 @@ const PANEL = {
   // has no reliable corner radius in Safari.
   edge: (inner) => `
 <div class="rounded-3xl p-px shadow-[0_40px_90px_-50px_rgba(0,0,0,1)]" style="background:linear-gradient(140deg,${MAGENTA},${CYAN})">
-  <div class="rounded-[calc(1.5rem-1px)] ${PANEL_BASE}" style="background:#170c12">${inner}</div>
+  <div class="h-full rounded-[calc(1.5rem-1px)] ${PANEL_BASE}" style="background:#170c12">${inner}</div>
 </div>`,
 };
 
@@ -106,22 +106,32 @@ export const renderContactPage = (site, c, vids, opts = {}) => {
   <div aria-hidden="true" class="pointer-events-none absolute inset-0" style="background:${SPOTLIGHT}"></div>
   <div class="relative mx-auto max-w-content px-4 pb-24 pt-44 sm:pt-48">
 
-    <!-- The Rise Up Kings block sits on the same baseline as the foot of the
-         form panel. That works because grid rows stretch by default, so the
-         left column is already as tall as the form; making it a flex column
-         and giving the last child lg:mt-auto pushes it to that bottom edge.
-         No height is measured and none is hard-coded, so it stays aligned
-         whatever the form grows to.
+    <!-- The Rise Up Kings block and the form panel end on the same line.
+         Which of the two is doing the work depends on which column is taller,
+         and BOTH have to be handled or it only aligns half the time:
 
-         lg only. Below that the grid is a single column and there is no
-         second column to align with — mt-auto would just add a gap. -->
+           left taller   the panel is the grid item itself, with no wrapper
+                         around it, so align-items: stretch (the grid default)
+                         grows it down to the row. This is the live case — the
+                         heading, lead, socials and Rise Up Kings together run
+                         past the foot of the form.
+           right taller  the left column is a flex column and its last child
+                         takes lg:mt-auto, which pushes the block down to meet
+                         the panel.
+
+         The first attempt only did the second, so on the real page mt-auto had
+         no slack to use and nothing moved.
+
+         No height is measured or hard-coded anywhere, so this survives the
+         form gaining a field or the lead gaining a line. lg only: below that
+         the grid is one column and there is nothing to align to. -->
     <div class="grid gap-12 lg:grid-cols-[5fr_7fr] lg:gap-16">
       <div class="flex h-full flex-col">
         ${heading(c, { rule })}
         <div class="mt-12">${socials(site, { style: social })}</div>
         <div class="mt-12 lg:mt-auto lg:pt-12">${partner(site, c, partnerShape)}</div>
       </div>
-      <div>${renderPanel(panel, form(c, { idPrefix: 'ct' }))}</div>
+      ${renderPanel(panel, form(c, { idPrefix: 'ct' }))}
     </div>
 
     ${videoBand(c, vids)}
