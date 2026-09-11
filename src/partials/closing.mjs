@@ -11,8 +11,15 @@
 // is mine; theirs is "What if this is your turning point?" and remains as the
 // `verbatim` entry in closing-wide.mjs.
 //
-// SIZE and MOTION are both still open — see /closing-panel.html. The section
-// ships at the current size with no motion until a choice is made.
+// SIZE is 'snug' — compact's low, wide, button-led proportions a step up,
+// rather than current's enlarged-panel look.
+//
+// MOTION is 'rimGlow': brand light around the whole panel edge, fading up and
+// down on a 4-second loop. Nothing moves — the glow is a fixed shadow on a
+// pseudo-element and only its opacity animates, so the loop stays on the
+// compositor for as long as the page is open. Under prefers-reduced-motion the
+// ring is hidden rather than merely un-animated; at rest it sits at full
+// strength, which would leave a permanent halo.
 //
 // The stub shows event dates, and those are contradictory: the live banner
 // says October 9-11, site.json carries October 15-17 2026 flagged for
@@ -23,7 +30,7 @@ import { closingTicket } from './closing-ticket.mjs';
 
 export const WORDING = 'startsHere';
 export const SIZE = 'snug';
-export const MOTION = 'none';
+export const MOTION = 'rimGlow';
 
 export const closingSection = (site, c) =>
   closingTicket(site, c, CLOSING_COPY[WORDING], SIZE, MOTION);
