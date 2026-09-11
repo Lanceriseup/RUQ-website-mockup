@@ -1,12 +1,15 @@
 // Testimonials. Two rails of portrait frames drifting in opposite directions.
 //
-// The section it follows is the creed band: dark, arched along the bottom.
-// This returns to white, and the brand wash across the top fills the space the
-// dome leaves open so the curve lands in colour rather than on bare white.
+// No wash across the top any more. That existed to fill the curve the creed
+// band's arch left open; the layered wave now resolves its own join, so the
+// wash was a second gradient competing with it a few pixels below.
 //
 // Poster frames come from Wistia's oEmbed endpoint via scripts/fetch-posters.mjs
 // and are served locally. Nothing here loads a third-party player until the
-// visitor clicks — see videoFacade in components.mjs for the same contract.
+// visitor clicks, and then it opens in the lightbox in app.js rather than
+// inline: these cards are 230px portraits, so playing a talking head at that
+// size would be pointless, and a card that became a player in place would then
+// drift off the edge of the screen while it played.
 //
 // Motion rules, all handled in tailwind.css under .rail-*:
 //   - transform only, so the rails composite instead of re-laying-out
@@ -20,19 +23,17 @@
 // so the cards carry a duration and nothing else. First names have to come
 // from the client.
 import { esc } from './layout.mjs';
+import { renderTestimonialHeading } from './testimonial-headings.mjs';
 
 const MAGENTA = '#e8208f';
 
 const poster = (id) => `/assets/posters/${id}.jpg`;
 const fmt = (s) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`;
 
-// Client copy, verbatim from the live page.
-const HEADING_LEAD = 'What women have';
-const HEADING_SCRIPT = 'experienced';
-const HEADING_TAIL = 'at Rise Up Queens';
 
 const card = (v, dupe = false) => `
 <button type="button"${dupe ? ' aria-hidden="true" tabindex="-1"' : ''}
+        data-lightbox
         class="video-facade group relative mr-5 block w-[230px] shrink-0 overflow-hidden rounded-2xl
                ring-1 ring-ink/10 shadow-[0_18px_40px_-24px_rgba(0,0,0,.6)]
                focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-magenta"
@@ -84,30 +85,23 @@ const rail = (items, dir, seconds) => {
 </div>`;
 };
 
-export const testimonialsSection = (site, c, vids) => {
+// headingKey selects a treatment from testimonial-headings.mjs. Kept as a
+// parameter so the options page and the live page render the same section
+// rather than two lookalikes.
+export const testimonialsSection = (site, c, vids, headingKey = 'inline') => {
   const list = vids.wistia.filter(v => v.page === 'home' && /Testimonial/i.test(v.title));
   const half = Math.ceil(list.length / 2);
 
   return `
 <section class="relative overflow-hidden bg-white pb-20 pt-16">
 
-  <!-- Fills the curve the creed band's arch leaves open above, so the dome
-       lands in a wash rather than on bare white. -->
-  <div aria-hidden="true" class="pointer-events-none absolute inset-x-0 top-0 h-48"
-       style="background:radial-gradient(70% 100% at 50% 0%,rgba(232,32,143,.14),transparent 70%),radial-gradient(50% 80% at 85% 0%,rgba(0,185,198,.14),transparent 70%)"></div>
-
   <div class="relative mx-auto max-w-content px-4">
-    <h2 class="max-w-3xl font-display text-3xl font-bold leading-tight text-ink sm:text-[2.6rem]">
-      ${esc(HEADING_LEAD)}
-      <span class="script align-baseline" style="color:${MAGENTA};font-size:1.35em;line-height:.8">${esc(HEADING_SCRIPT)}</span><br>
-      ${esc(HEADING_TAIL)}
-    </h2>
-    <p class="mt-4 font-body text-ink-soft">${list.length} testimonies from the 2025 events. Point at a rail to hold it still.</p>
+    ${renderTestimonialHeading(headingKey)}
   </div>
 
   <div class="relative mt-12 space-y-5">
-    ${rail(list.slice(0, half), 'left', 64)}
-    ${rail(list.slice(half), 'right', 72)}
+    ${rail(list.slice(0, half), 'left', 130)}
+    ${rail(list.slice(half), 'right', 150)}
   </div>
 
   <!-- The rails run past the viewport on both sides; without these they appear

@@ -142,8 +142,94 @@
     return el;
   }
 
+  // Video lightbox.
+  //
+  // Opt-in: a facade carrying data-lightbox opens here, anything else still
+  // swaps itself for an inline player. The testimonial rails need it because
+  // the cards are 230px portraits — playing a talking head at that size is
+  // pointless — and because a card that swapped to a player in place would
+  // then drift off the edge of the screen while it played.
+  //
+  // Built once, lazily, and reused. The iframe is torn down on close so the
+  // video actually stops; leaving it in the DOM keeps audio running.
+  var lb = null;
+
+  function buildLightbox() {
+    var root = document.createElement('div');
+    root.className = 'fixed inset-0 z-[120]';
+    root.style.display = 'none';
+    root.innerHTML =
+      '<div data-lb-backdrop class="absolute inset-0 bg-ink/85 backdrop-blur-sm"></div>' +
+      '<div data-lb-dialog role="dialog" aria-modal="true" tabindex="-1"' +
+      '     class="absolute inset-0 flex items-center justify-center p-4 sm:p-8">' +
+      '  <div class="relative w-full max-w-5xl">' +
+      '    <button type="button" data-lb-close' +
+      '            class="absolute -top-11 right-0 flex h-9 items-center gap-2 rounded-full bg-white/10 px-4' +
+      '                   font-body text-xs font-semibold uppercase tracking-[0.2em] text-white' +
+      '                   ring-1 ring-white/25 transition hover:bg-white/20' +
+      '                   focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">' +
+      '      Close' +
+      '      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>' +
+      '    </button>' +
+      '    <div data-lb-stage class="relative aspect-video w-full overflow-hidden rounded-2xl bg-black ring-1 ring-white/15 shadow-[0_50px_120px_-40px_rgba(0,0,0,.9)]"></div>' +
+      '  </div>' +
+      '</div>';
+    document.body.appendChild(root);
+
+    lb = {
+      root: root,
+      dialog: root.querySelector('[data-lb-dialog]'),
+      stage: root.querySelector('[data-lb-stage]'),
+      close: root.querySelector('[data-lb-close]'),
+      opener: null,
+    };
+
+    root.querySelector('[data-lb-backdrop]').addEventListener('click', closeLightbox);
+    lb.close.addEventListener('click', closeLightbox);
+
+    document.addEventListener('keydown', function (e) {
+      if (root.style.display === 'none') return;
+      if (e.key === 'Escape') { closeLightbox(); return; }
+      // Only two things in here are focusable — the close button and the
+      // player — and the player is a cross-origin iframe we cannot enumerate.
+      // Holding focus on the close button is the honest version of a trap:
+      // Tab never escapes to the page behind.
+      if (e.key === 'Tab') { e.preventDefault(); lb.close.focus(); }
+    });
+
+    return lb;
+  }
+
+  function openLightbox(btn) {
+    var box = lb || buildLightbox();
+    box.opener = btn;
+    box.dialog.setAttribute('aria-label', btn.dataset.title || 'Video');
+    box.stage.innerHTML = '';
+    box.stage.appendChild(iframeFor(btn.dataset.provider, btn.dataset.id, btn.dataset.title, btn.dataset.hash));
+
+    // Compensate for the scrollbar before hiding it, or the page jumps sideways
+    // as the modal opens.
+    var gap = window.innerWidth - document.documentElement.clientWidth;
+    document.body.style.paddingRight = gap > 0 ? gap + 'px' : '';
+    document.body.style.overflow = 'hidden';
+
+    box.root.style.display = '';
+    box.close.focus();
+  }
+
+  function closeLightbox() {
+    if (!lb || lb.root.style.display === 'none') return;
+    lb.root.style.display = 'none';
+    lb.stage.innerHTML = '';           // tears the iframe down, which stops the audio
+    document.body.style.overflow = '';
+    document.body.style.paddingRight = '';
+    if (lb.opener && document.contains(lb.opener)) lb.opener.focus();
+    lb.opener = null;
+  }
+
   document.querySelectorAll('.video-facade').forEach(function (btn) {
     btn.addEventListener('click', function () {
+      if (btn.hasAttribute('data-lightbox')) { openLightbox(btn); return; }
       var wrap = document.createElement('div');
       wrap.className = 'relative aspect-video w-full';
       wrap.appendChild(iframeFor(btn.dataset.provider, btn.dataset.id, btn.dataset.title, btn.dataset.hash));
