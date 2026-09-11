@@ -5,6 +5,7 @@ import { spread } from '../partials/spread.mjs';
 import { ctaSection } from '../partials/cta.mjs';
 import { faithSection } from '../partials/faith.mjs';
 import { testimonialsSection } from '../partials/testimonials.mjs';
+import { closingSection } from '../partials/closing.mjs';
 
 const grid = (cols, items) => `<div class="mt-10 grid gap-6 ${cols}">${items.join('')}</div>`;
 
@@ -46,9 +47,17 @@ export const pages = (site, c, vids) => ([
          'verbatim' here and nothing else changes. -->
     ${testimonialsSection(site, c, vids, 'mirror')}
 
-    ${section({ bg: 'bg-magenta-tint', heading: c.home.founder.heading, body: `
-      <p class="mt-4 max-w-3xl font-body text-lg leading-relaxed text-ink-soft">${esc(c.home.founder.body)}</p>
-      <div class="mt-8">${cta('Meet the team', '/team.html', 'ghost')}</div>` })}`
+    <!-- Meet the Founder used to sit here and has been removed. Its copy is
+         still in content.json as home.founder, and the team page still carries
+         Jessica, so nothing is lost — the homepage simply no longer detours
+         into a bio between the testimonies and the ask.
+
+         That does drop the only link from the homepage to /team.html. The nav
+         still carries Meet the Team, so the page is reachable, but if the
+         footer or this section were ever the intended route in, it needs
+         putting back somewhere. -->
+
+    ${closingSection(site, c)}`
   },
 
   {
