@@ -3,6 +3,7 @@ import { section, videoFacade, card, personCard, cta, faq } from '../partials/co
 import { hero } from '../partials/hero.mjs';
 import { spread } from '../partials/spread.mjs';
 import { ctaSection } from '../partials/cta.mjs';
+import { faithSection } from '../partials/faith.mjs';
 
 const grid = (cols, items) => `<div class="mt-10 grid gap-6 ${cols}">${items.join('')}</div>`;
 
@@ -34,7 +35,9 @@ export const pages = (site, c, vids) => ([
 
     ${section({ bg: 'bg-magenta-tint', heading: c.home.founder.heading, body: `
       <p class="mt-4 max-w-3xl font-body text-lg leading-relaxed text-ink-soft">${esc(c.home.founder.body)}</p>
-      <div class="mt-8">${cta('Meet the team', '/team.html', 'ghost')}</div>` })}`
+      <div class="mt-8">${cta('Meet the team', '/team.html', 'ghost')}</div>` })}
+
+    ${faithSection(site, c)}`
   },
 
   {
