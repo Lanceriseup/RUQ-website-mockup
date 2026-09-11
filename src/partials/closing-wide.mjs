@@ -59,11 +59,18 @@ export const CLOSING_COPY = {
   },
   startsHere: {
     label: 'Your turning point starts here',
-    heading: 'Your turning point',
-    accent: 'starts here',
-    body: 'Three days with women who have been exactly where you are.',
+    heading: 'Your turning point starts here',
+    // Highlighted inside the line rather than appended at the end. The
+    // emphasis belongs on their phrase, not on the words that frame it.
+    highlight: 'turning point',
+    accent: '',
+    // The client's own line, kept as the sub-headline. It is 83 characters,
+    // which is long for a panel this shallow — see the note on the panel
+    // height below.
+    body: 'We’ve helped thousands of women reclaim their voice, freedom, and joy. You\'re next.',
     button: 'Register Now',
-    note: 'Keeps their phrase but turns the question into a statement, which suits a panel that is mostly button. Shortest body of the five.',
+    partialClientCopy: true,
+    note: 'Turns their question into a statement, with their own phrase carrying the emphasis, and keeps their sentence underneath as the sub-headline. The heading is mine; the line below it is theirs word for word.',
   },
   nowYours: {
     label: 'You have read their stories. Now write yours.',
@@ -114,12 +121,37 @@ const button = (site, copy, tone) => {
 </a>`;
 };
 
-// Heading and accent are separate strings rather than a phrase matched inside
-// one, so a wording change cannot silently drop the emphasis.
+// Two ways to emphasise, because the wordings need different things:
+//
+//   accent     a trailing phrase, appended after the heading
+//   highlight  a phrase inside the heading, coloured where it sits
+//
+// The highlight is escaped and split on the escaped text, not matched against
+// the raw string, so a phrase containing a character esc() rewrites still
+// lines up. If it ever fails to match, the heading simply renders plain rather
+// than breaking.
+//
+// Colour is applied to the heading only. At 24px rising to 30.4px bold this is
+// large text and clears 3:1 on every panel here — the tightest is magenta on
+// the paper panel at 3.78:1. The same colours would fail at body size, which
+// is why the sub-headline never takes them.
+const headingHtml = (copy, accentColour) => {
+  const head = esc(copy.heading);
+  const tail = copy.accent ? ` <span style="color:${accentColour}">${esc(copy.accent)}</span>` : '';
+  if (!copy.highlight) return head + tail;
+
+  const hl = esc(copy.highlight);
+  const i = head.indexOf(hl);
+  if (i < 0) return head + tail;
+  return head.slice(0, i)
+    + `<span style="color:${accentColour}">${hl}</span>`
+    + head.slice(i + hl.length) + tail;
+};
+
 const copyBlock = (copy, headTone, bodyTone, accentColour) => `
 <div class="min-w-0">
   <h2 class="font-display text-2xl font-bold leading-tight ${headTone} sm:text-[1.9rem]">
-    ${esc(copy.heading)}${copy.accent ? ` <span style="color:${accentColour}">${esc(copy.accent)}</span>` : ''}
+    ${headingHtml(copy, accentColour)}
   </h2>
   <p class="mt-2.5 max-w-xl font-body text-[15px] leading-relaxed ${bodyTone}">${esc(copy.body)}</p>
 </div>`;

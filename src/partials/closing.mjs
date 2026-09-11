@@ -5,10 +5,11 @@
 // section and the option that was approved cannot drift apart. Every other
 // layout in that file stays one argument away.
 //
-// Wording is `verbatim` — the client's own line from the live homepage. The
-// preview frame for this layout was paired with `comeSee`, which is mine and
-// names Dallas; that pairing was a gallery choice, not a decision about copy,
-// so it is not what ships. Swapping is one string.
+// Wording is `startsHere`: heading "Your turning point starts here" with
+// their phrase highlighted, over their own sentence as the sub-headline.
+//
+// The heading is mine. Their live heading is "What if this is your turning
+// point?" and it remains as the `verbatim` option — one string away.
 //
 // This layout puts the event dates on the stub, and those dates are still
 // contradictory: the live banner says October 9-11, site.json carries
@@ -17,6 +18,6 @@
 import { renderClosingWide } from './closing-wide.mjs';
 
 export const LAYOUT = 'ticketBar';
-export const WORDING = 'verbatim';
+export const WORDING = 'startsHere';
 
 export const closingSection = (site, c) => renderClosingWide(site, c, LAYOUT, WORDING);
