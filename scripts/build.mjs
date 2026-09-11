@@ -41,13 +41,10 @@ ${page.body}
 </main>
 ${footer(site)}
 <script src="/app.js" defer></script>
-<script src="/hero-rotate.js" defer></script>${page.body.includes('cta-motion') ? `
-<!-- Included because this page rendered a closing CTA with an arrival
-     animation. Keyed off the markup rather than a flag: the arrival options
-     start the panel at opacity 0, so forgetting this script would leave the
-     final ask invisible. Tying it to the class that causes the problem means
-     it cannot be forgotten. -->
-<script src="/closing-motion.js" defer></script>` : ''}${page.hero ? `
+<script src="/hero-rotate.js" defer></script>${page.body.includes('data-countdown') ? `
+<!-- Keyed off the attribute that drives it rather than a flag, so a page that
+     renders a countdown cannot ship without the script that fills it in. -->
+<script src="/countdown.js" defer></script>` : ''}${page.hero ? `
 <script src="https://fast.wistia.com/assets/external/E-v1.js" async></script>
 <script src="/vsl.js" defer></script>` : ''}
 </body>
@@ -63,9 +60,9 @@ for (const page of list) {
   fs.writeFileSync(path.join(dist, page.file), shell(page));
 }
 fs.copyFileSync(path.join(ROOT, 'src/styles/app.js'), path.join(dist, 'app.js'));
-fs.copyFileSync(path.join(ROOT, 'src/styles/closing-motion.js'), path.join(dist, 'closing-motion.js'));
 fs.copyFileSync(path.join(ROOT, 'src/styles/hero-rotate.js'), path.join(dist, 'hero-rotate.js'));
 fs.copyFileSync(path.join(ROOT, 'src/styles/vsl.js'), path.join(dist, 'vsl.js'));
+fs.copyFileSync(path.join(ROOT, 'src/styles/countdown.js'), path.join(dist, 'countdown.js'));
 
 // Static assets (hero video, poster) ship as-is.
 const assetsSrc = path.join(ROOT, 'src/assets');

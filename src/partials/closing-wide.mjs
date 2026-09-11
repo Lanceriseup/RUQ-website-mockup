@@ -15,7 +15,6 @@
 // in a column this shallow and pushes the panel taller than the reference.
 // Every alternative is marked on the options page.
 import { esc } from './layout.mjs';
-import { motionClass } from './closing-motion.mjs';
 
 const MAGENTA = '#e8208f';
 const CYAN = '#00b9c6';
@@ -160,8 +159,8 @@ const copyBlock = (copy, headTone, bodyTone, accentColour) => `
 // The shared frame. Every layout is this: a full-width container, a panel
 // inside it, and a glow underneath that is wider than the panel so it reads as
 // light thrown onto the page rather than a shadow.
-const frame = (inner, glow, motion = '') => `
-<section class="relative bg-white py-16 ${motion}">
+const frame = (inner, glow) => `
+<section class="relative bg-white py-16">
   <div class="relative mx-auto max-w-content px-4">
     ${glow ? `<div aria-hidden="true" class="cta-glow pointer-events-none absolute inset-x-8 bottom-2 top-8 rounded-[2rem] blur-2xl" style="background:${glow}"></div>` : ''}
     <div class="relative">${inner}</div>
@@ -179,25 +178,25 @@ const row = (left, right) => `
 // ---------------------------------------------------------------- layouts
 
 const LAYOUTS = {
-  paperGlow: (site, c, copy, motion) => frame(`
+  paperGlow: (site, c, copy) => frame(`
     <div class="cta-panel rounded-[2rem] px-9 py-12 ring-1 ring-ink/[.07] shadow-[0_30px_70px_-40px_rgba(0,0,0,.35)] sm:px-14"
          style="background:#F7F3EF">
       <div style="${DOTS('rgba(28,28,28,.09)')}">
         ${row(copyBlock(copy, 'text-ink', 'text-ink-soft', MAGENTA), button(site, copy, 'magenta'))}
       </div>
     </div>`,
-    `radial-gradient(60% 100% at 50% 100%,rgba(232,32,143,.30),transparent 70%)`, motion),
+    `radial-gradient(60% 100% at 50% 100%,rgba(232,32,143,.30),transparent 70%)`),
 
-  duskGlow: (site, c, copy, motion) => frame(`
+  duskGlow: (site, c, copy) => frame(`
     <div class="cta-panel rounded-[2rem] px-9 py-12 shadow-[0_40px_90px_-45px_rgba(0,0,0,.7)] sm:px-14"
          style="background:#141414">
       <div style="${DOTS('rgba(255,255,255,.10)')}">
         ${row(copyBlock(copy, 'text-white', 'text-white/70', CYAN), button(site, copy, 'magenta'))}
       </div>
     </div>`,
-    `radial-gradient(60% 100% at 50% 100%,rgba(232,32,143,.34),transparent 70%)`, motion),
+    `radial-gradient(60% 100% at 50% 100%,rgba(232,32,143,.34),transparent 70%)`),
 
-  gradientEdge: (site, c, copy, motion) => frame(`
+  gradientEdge: (site, c, copy) => frame(`
     <div class="cta-panel overflow-hidden rounded-[2rem] ring-1 ring-ink/[.08] shadow-[0_30px_70px_-40px_rgba(0,0,0,.3)]"
          style="background:#fff">
       <div class="flex">
@@ -207,9 +206,9 @@ const LAYOUTS = {
         </div>
       </div>
     </div>`,
-    `radial-gradient(55% 100% at 50% 100%,rgba(0,185,198,.24),transparent 70%)`, motion),
+    `radial-gradient(55% 100% at 50% 100%,rgba(0,185,198,.24),transparent 70%)`),
 
-  photoSliver: (site, c, copy, motion) => frame(`
+  photoSliver: (site, c, copy) => frame(`
     <div class="cta-panel relative overflow-hidden rounded-[2rem] shadow-[0_40px_90px_-45px_rgba(0,0,0,.6)]"
          style="background:#141414">
       <!-- The band is 30% wide and the copy column starts at 36%, so the two
@@ -227,9 +226,9 @@ const LAYOUTS = {
         ${row(copyBlock(copy, 'text-white', 'text-white/70', CYAN), button(site, copy, 'magenta'))}
       </div>
     </div>`,
-    `radial-gradient(60% 100% at 50% 100%,rgba(232,32,143,.28),transparent 70%)`, motion),
+    `radial-gradient(60% 100% at 50% 100%,rgba(232,32,143,.28),transparent 70%)`),
 
-  ticketBar: (site, c, copy, motion) => frame(`
+  ticketBar: (site, c, copy) => frame(`
     <div class="cta-panel relative flex flex-col gap-8 rounded-[2rem] px-9 py-12 shadow-[0_40px_90px_-45px_rgba(0,0,0,.6)] md:flex-row md:items-center md:gap-10 sm:px-14"
          style="background:#141414">
       <div class="min-w-0 flex-1" style="${DOTS('rgba(255,255,255,.09)')}">
@@ -246,18 +245,18 @@ const LAYOUTS = {
         <p class="mt-2 font-body text-[9px] uppercase tracking-[0.2em] text-amber-300">Dates unconfirmed</p>
       </div>
     </div>`,
-    `radial-gradient(60% 100% at 50% 100%,rgba(232,32,143,.30),transparent 70%)`, motion),
+    `radial-gradient(60% 100% at 50% 100%,rgba(232,32,143,.30),transparent 70%)`),
 
-  duotoneBand: (site, c, copy, motion) => frame(`
+  duotoneBand: (site, c, copy) => frame(`
     <div class="cta-panel rounded-[2rem] px-9 py-12 shadow-[0_40px_90px_-45px_rgba(232,32,143,.45)] sm:px-14"
          style="background:linear-gradient(115deg,${MAGENTA},#c31c8f 45%,${CYAN})">
       ${row(copyBlock(copy, 'text-white', 'text-white/85', '#ffffff'), button(site, copy, 'white'))}
     </div>`,
-    `radial-gradient(60% 100% at 50% 100%,rgba(0,185,198,.30),transparent 70%)`, motion),
+    `radial-gradient(60% 100% at 50% 100%,rgba(0,185,198,.30),transparent 70%)`),
 };
 
-export const renderClosingWide = (site, c, layoutKey, copyKey = 'verbatim', motionKey = 'none') =>
-  (LAYOUTS[layoutKey] ?? LAYOUTS.paperGlow)(site, c, CLOSING_COPY[copyKey] ?? CLOSING_COPY.verbatim, motionClass(motionKey));
+export const renderClosingWide = (site, c, layoutKey, copyKey = 'verbatim') =>
+  (LAYOUTS[layoutKey] ?? LAYOUTS.paperGlow)(site, c, CLOSING_COPY[copyKey] ?? CLOSING_COPY.verbatim);
 
 // Each layout is previewed with a different wording so the gallery shows both
 // levers at once. They are independent — any pairing works.
