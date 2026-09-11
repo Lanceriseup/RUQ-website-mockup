@@ -100,8 +100,8 @@
     }
   },
   "about": {
-    "heading": "About Rise Up Queens",
-    "lead": "Rise Up Queens is for the woman who knows she has untapped potential. She desires to live in freedom while maximizing her impact within her family and beyond.",
+    "heading": "Who is it for?",
+    "lead": "Rise up Queens is for the woman who knows she has untapped potential. She desires to live in freedom while maximizing her impact within her family and community.",
     "pullquotes": [
       "This is not surface-level empowerment.",
       "It's spirit-led transformation."
@@ -134,7 +134,11 @@
         "reclaim"
       ],
       "sub": "A movement for women who are ready to rise, heal and reclaim."
-    }
+    },
+    "_leadWasParaphrased": "Previously ended \"...family and beyond.\" The live page says \"...family and community.\" Corrected from source.",
+    "_casingNote": "The live page writes \"Rise up Queens\" with a lowercase u in this paragraph, against \"Rise Up Queens\" everywhere else on their site. Preserved verbatim rather than tidied — it is their copy, and it is probably a typo worth raising with them.",
+    "_originalHeading": "About Rise Up Queens",
+    "whoForVideo": "02b33ety61"
   },
   "events": {
     "heading": "Your Path with Rise Up Queens",
