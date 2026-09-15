@@ -92,9 +92,9 @@ export const renderPanel = (key, inner) => (PANEL[key] ?? PANEL.current)(inner);
 // -------------------------------------------------------------------- page
 
 const videoBand = (c, vids) => `
-<div class="mt-12 sm:mt-20">
+<div class="mt-10 sm:mt-20">
   ${watchLabel}
-  <div class="mt-6 grid gap-8 sm:grid-cols-2">
+  <div class="mt-4 grid grid-cols-2 gap-4 sm:mt-6 sm:gap-8">
     ${c.contact.videos.map(id => video(id, vids)).join('')}
   </div>
 </div>`;
@@ -104,7 +104,7 @@ export const renderContactPage = (site, c, vids, opts = {}) => {
   return `
 <div class="relative" style="background:${GROUND}">
   <div aria-hidden="true" class="pointer-events-none absolute inset-0" style="background:${SPOTLIGHT}"></div>
-  <div class="relative mx-auto max-w-content px-4 pb-14 sm:pb-24 pt-44 sm:pt-48">
+  <div class="relative mx-auto max-w-content px-4 pb-10 pt-24 sm:pb-24 sm:pt-48">
 
     <!-- The Rise Up Kings block and the form panel end on the same line.
          Which of the two is doing the work depends on which column is taller,
@@ -125,13 +125,40 @@ export const renderContactPage = (site, c, vids, opts = {}) => {
          No height is measured or hard-coded anywhere, so this survives the
          form gaining a field or the lead gaining a line. lg only: below that
          the grid is one column and there is nothing to align to. -->
-    <div class="grid gap-12 lg:grid-cols-[5fr_7fr] lg:gap-16">
-      <div class="flex h-full flex-col">
-        ${heading(c, { rule })}
-        <div class="mt-8 sm:mt-12">${socials(site, { style: social })}</div>
-        <div class="mt-12 lg:mt-auto lg:pt-12">${partner(site, c, partnerShape)}</div>
-      </div>
-      ${renderPanel(panel, form(c, { idPrefix: 'ct' }))}
+    <!-- Four grid children rather than a left column plus the panel, so the
+         reading order can differ from the column order.
+
+         Collapsed to one column this page used to read heading, socials, Rise
+         Up Kings, FORM, videos — three blocks in front of the only thing on a
+         contact page that does anything, putting the form 652px down. On
+         desktop the form is level with the heading and needs no scrolling at
+         all, so the problem was created purely by the collapse.
+
+         Below lg the order is now heading, form, Rise Up Kings, socials,
+         videos, and the form starts at 293px.
+
+         From lg the explicit col-start/row-start placement rebuilds the
+         shipped two-column layout: heading, socials and Rise Up Kings down the
+         left, the form spanning all three rows on the right. The partner block
+         keeps lg:mt-auto, which is what makes both columns end level — see the
+         note above; the form spanning the rows is what gives that mt-auto the
+         slack it needs. -->
+    <div class="grid gap-8 lg:grid-cols-[5fr_7fr] lg:gap-16">
+      <!-- Centred below sm only. In the desktop two-column layout the heading
+           is the top of a narrow left column and has to hold that column's
+           left edge; collapsed to one column there is no edge to hold, and the
+           form beneath it is full width. The hairline rule is w-full either
+           way, so it needs nothing. -->
+      <div class="order-1 text-center sm:text-left lg:order-none lg:col-start-1 lg:row-start-1">${heading(c, { rule })}</div>
+      <!-- lg:h-full on the wrapper AND on the panel inside it. The panel used
+           to be the grid item itself, so align-items:stretch grew it down to
+           the row and that is what made both columns end level. Wrapping it to
+           give it an order/placement broke that: the WRAPPER stretched and the
+           panel kept its natural height, leaving Rise Up Kings 122px below it.
+           The child selector puts the stretch back on the panel. -->
+      <div class="order-2 lg:order-none lg:col-start-2 lg:row-span-3 lg:row-start-1 lg:h-full lg:[&>div]:h-full">${renderPanel(panel, form(c, { idPrefix: 'ct' }))}</div>
+      <div class="order-3 lg:order-none lg:col-start-1 lg:row-start-3 lg:mt-auto lg:pt-12">${partner(site, c, partnerShape)}</div>
+      <div class="order-4 lg:order-none lg:col-start-1 lg:row-start-2 lg:mt-4">${socials(site, { style: social })}</div>
     </div>
 
     ${videoBand(c, vids)}

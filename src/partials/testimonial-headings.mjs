@@ -73,12 +73,22 @@ export const renderTestimonialHeading = (key) => {
   // sits in a half-width column; this is centred across the full container, so
   // a long script line at a fixed size would run off a phone. The upper bound
   // is 4.5rem, so at desktop the two are identical.
+  //
+  // 11vw and nowrap, matching the struggles and renewal headings: at the old
+  // 7vw floor of 2.5rem the script could still wrap, and a wrapped script line
+  // is what made those two look broken on a phone. With wrapping off it cannot
+  // happen at any width, and the vw figure carries the size instead of a floor.
+  // The 4.5rem ceiling is unchanged, so desktop renders exactly as before.
+  //
+  // The sans line drops to the 11px letter-spaced eyebrow below sm — the same
+  // demotion chosen for the other two headings, so all three read as one system
+  // on a phone rather than one of them shouting.
   return `
 <h2 class="text-center leading-none">
   <span class="relative inline-block">
-    <span class="script block" style="color:${MAGENTA};font-size:clamp(2.5rem,7vw,4.5rem);line-height:.9">${esc(o.script)}</span>
+    <span class="script block" style="color:${MAGENTA};font-size:clamp(2.25rem,11vw,4.5rem);line-height:.9;white-space:nowrap">${esc(o.script)}</span>
     ${swash(MAGENTA)}
   </span>
-  <span class="mt-3 block font-display text-2xl font-bold uppercase tracking-[0.06em] text-ink sm:text-[2.1rem]">${esc(o.sans)}</span>
+  <span class="mt-4 block font-display text-[11px] font-bold uppercase tracking-[0.3em] text-ink-soft sm:mt-3 sm:text-[2.1rem] sm:tracking-[0.06em] sm:text-ink">${esc(o.sans)}</span>
 </h2>`;
 };

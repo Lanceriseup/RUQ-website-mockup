@@ -79,8 +79,21 @@ const orbs = `
 // Painting the ground and the orbs on an absolutely positioned layer keeps the
 // rounded top and the orb clipping, while letting content and its shadows
 // spill past the bottom edge and fade onto the page below.
+// The lift is -mt-6 below sm and the shipped -mt-16 from sm up, and that is a
+// fix rather than a preference.
+//
+// It used to be a flat -mt-16 at every width. The about hero above ends on
+// pb-16 on phones — also 64px — so the two cancelled exactly: zero clearance,
+// and this panel's rounded corner landed on the hero's dates block and cropped
+// the location line under it. From sm the hero carries pb-28 (112px) against
+// the same 64px, which leaves 48px and reads as intended, which is why the
+// collision only ever showed on a phone.
+//
+// A fixed pixel lift under a responsive padding is the actual bug. If either
+// number moves again, they have to be checked together: the lift must always
+// be smaller than the padding above it by whatever gap is wanted.
 const arch = (inner) => `
-<div class="relative z-10 -mt-16">
+<div class="relative z-10 -mt-6 sm:-mt-16">
   <div aria-hidden="true"
        class="absolute inset-0 overflow-hidden rounded-t-[2.5rem] shadow-[0_-26px_60px_-28px_rgba(0,0,0,.5)]"
        style="background:${GROUND}">
@@ -185,12 +198,41 @@ const RENDER = {
     ${extra}`),
 
   overlap: (site, c, headingKey, extra) => arch(`
-    <div class="mx-auto max-w-content px-6 py-14 sm:py-24">
+    <div class="mx-auto max-w-content px-6 py-10 sm:py-24">
       ${head(c, headingKey)}
+
+      <!-- Rows below sm, cards from sm up.
+
+           The overlap device needs a tall photograph to overlap. In a narrow
+           desktop column the white card sits across the bottom third of a 3:4
+           portrait and reads as a caption plate laid on a print. At full phone
+           width that photograph is 456px — nearly a screen on its own — and
+           the card stops reading as an overlap and starts reading as the next
+           block arriving early. Three of them made the section 2310px.
+
+           Shrinking the crop was the alternative and it does work (4:3 took it
+           to 1302px), but the device is the thing that does not survive the
+           width, so below sm the step is laid out as a row instead: a 96px
+           square, the title, the copy, a hairline between. 588px, and the
+           section reads as a summary of what happens after the event.
+
+           Both are rendered; only one is ever displayed. The desktop stagger
+           is untouched by construction. -->
+      <ul class="mt-6 space-y-5 sm:hidden">
+        ${c.about.journey.cards.map(card => `
+        <li class="flex items-start gap-4 border-b border-ink/10 pb-5 last:border-0 last:pb-0">
+          ${img(card, 'h-24 w-24 shrink-0 rounded-xl object-cover')}
+          <div class="min-w-0">
+            <h3 class="font-display text-base font-bold leading-tight text-ink">${esc(card.title)}</h3>
+            <p class="mt-1.5 font-body text-[13px] leading-relaxed text-ink-soft">${bodyHtml(card)}</p>
+          </div>
+        </li>`).join('')}
+      </ul>
+
       <!-- Staggered: the middle column drops, so three equal columns stop
            reading as a table. Removed below md, where the offset would just
            look like uneven spacing. -->
-      <div class="mt-10 sm:mt-16 grid gap-x-8 gap-y-10 sm:gap-y-16 md:grid-cols-3">
+      <div class="mt-10 sm:mt-16 hidden gap-x-8 gap-y-10 sm:grid sm:gap-y-16 md:grid-cols-3">
         ${c.about.journey.cards.map((card, i) => `
         <article class="${i === 1 ? 'md:mt-14' : ''}">
           <div class="relative">

@@ -1,11 +1,36 @@
 import { createServer } from 'node:http';
 import { createReadStream } from 'node:fs';
 import { stat } from 'node:fs/promises';
+import { networkInterfaces } from 'node:os';
 import { extname, join, normalize, resolve, sep } from 'node:path';
 
 const ROOT = resolve(process.argv[2] || "dist");
 const PORT = Number(process.argv[3] || 8765);
-const HOST = '127.0.0.1';
+
+// Loopback by default — the preview is an unfinished site with a noindex
+// header, and it has no business being on the network unless asked.
+//
+// `--lan` opts in, which is what checking a mobile layout on an actual phone
+// requires: a phone cannot reach 127.0.0.1 on this machine, so the server has
+// to answer on the Wi-Fi address instead. Both devices must be on the same
+// network, and Windows Firewall will ask to allow Node the first time.
+const LAN = process.argv.includes('--lan');
+const HOST = LAN ? '0.0.0.0' : '127.0.0.1';
+const DISPLAY_HOST = 'localhost';   // what humans type
+
+// The machine's own address on the Wi-Fi/Ethernet network — what the phone
+// needs. Skips loopback and virtual adapters (Hyper-V, WSL, VPNs) since those
+// are not reachable from another device.
+function lanAddresses() {
+  const out = [];
+  for (const [name, addrs] of Object.entries(networkInterfaces())) {
+    if (/^(vEthernet|Loopback|WSL|VirtualBox|VMware)/i.test(name)) continue;
+    for (const a of addrs || []) {
+      if (a.family === 'IPv4' && !a.internal) out.push({ name, address: a.address });
+    }
+  }
+  return out;
+}
 
 const TYPES = {
   '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8',
@@ -70,5 +95,16 @@ createServer(async (req, res) => {
   createReadStream(file).pipe(res);
 }).listen(PORT, HOST, () => {
   console.log(`RUQ preview serving ${ROOT}`);
-  console.log(`ready: http://${HOST}:${PORT}/`);
+  console.log(`ready: http://${DISPLAY_HOST}:${PORT}/`);
+  if (LAN) {
+    const nets = lanAddresses();
+    if (nets.length) {
+      console.log('on this network (open on your phone):');
+      for (const n of nets) console.log(`  http://${n.address}:${PORT}/   [${n.name}]`);
+    } else {
+      console.log('--lan was passed but no external IPv4 address was found — is Wi-Fi connected?');
+    }
+  } else {
+    console.log('(loopback only — pass --lan to reach it from a phone on the same Wi-Fi)');
+  }
 });

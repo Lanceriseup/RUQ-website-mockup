@@ -25,13 +25,13 @@ export const RUK_GOLD = '#c09761';
 
 // ------------------------------------------------------------------ socials
 
-const SOCIAL_ICONS = {
+export const SOCIAL_ICONS = {
   instagram: '<path d="M12 2.2c3.2 0 3.6 0 4.9.07 1.2.05 1.8.25 2.2.42.6.2 1 .5 1.4 1 .4.4.7.8 1 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c0 1.2-.2 1.8-.4 2.2-.3.6-.6 1-1 1.4-.4.4-.8.7-1.4 1-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2 0-1.8-.2-2.2-.4-.6-.3-1-.6-1.4-1-.4-.4-.7-.8-1-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c0-1.2.2-1.8.4-2.2.3-.6.6-1 1-1.4.4-.4.8-.7 1.4-1 .4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2zm0 1.8c-3.1 0-3.5 0-4.7.07-1.1.05-1.7.24-2.1.4-.5.2-.9.44-1.3.84-.4.4-.64.8-.84 1.3-.16.4-.35 1-.4 2.1C2.6 9.9 2.6 10.3 2.6 12s0 2.1.06 3.3c.05 1.1.24 1.7.4 2.1.2.5.44.9.84 1.3.4.4.8.64 1.3.84.4.16 1 .35 2.1.4 1.2.06 1.6.06 4.7.06s3.5 0 4.7-.06c1.1-.05 1.7-.24 2.1-.4.5-.2.9-.44 1.3-.84.4-.4.64-.8.84-1.3.16-.4.35-1 .4-2.1.06-1.2.06-1.6.06-3.3s0-2.1-.06-3.3c-.05-1.1-.24-1.7-.4-2.1-.2-.5-.44-.9-.84-1.3-.4-.4-.8-.64-1.3-.84-.4-.16-1-.35-2.1-.4C15.5 4 15.1 4 12 4zm0 3.1a4.9 4.9 0 110 9.8 4.9 4.9 0 010-9.8zm0 8.08a3.18 3.18 0 100-6.36 3.18 3.18 0 000 6.36zm6.24-8.28a1.14 1.14 0 11-2.29 0 1.14 1.14 0 012.29 0z"/>',
   facebook: '<path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5 3.66 9.15 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.52 1.49-3.91 3.77-3.91 1.1 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.78-1.63 1.57v1.89h2.78l-.45 2.91h-2.33V22c4.78-.79 8.44-4.94 8.44-9.94z"/>',
   youtube: '<path d="M21.58 7.19a2.5 2.5 0 00-1.77-1.77C18.25 5 12 5 12 5s-6.25 0-7.81.42a2.5 2.5 0 00-1.77 1.77A26 26 0 002 12a26 26 0 00.42 4.81 2.5 2.5 0 001.77 1.77C5.75 19 12 19 12 19s6.25 0 7.81-.42a2.5 2.5 0 001.77-1.77A26 26 0 0022 12a26 26 0 00-.42-4.81zM10 15.02V8.98L15.2 12 10 15.02z"/>',
 };
 
-const SOCIAL_KEYS = [
+export const SOCIAL_KEYS = [
   { key: 'instagram', label: 'Instagram' },
   { key: 'facebook', label: 'Facebook' },
   { key: 'youtube', label: 'YouTube' },
@@ -79,10 +79,13 @@ export const socials = (site, { tone = 'dark', align = 'start', style = 'chip', 
   const icon = (s, size = 21) =>
     `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">${SOCIAL_ICONS[s.key]}</svg>`;
   const href = (s) => `href="${esc(site.social[s.key])}" target="_blank" rel="noopener"`;
+  // Centred below sm, left-aligned from sm — the same reasoning as the heading
+  // above it: in the desktop two-column layout this holds the left column's
+  // edge; collapsed there is no edge to hold.
   const wrap = (inner, gap) => `
-<div class="${align === 'center' ? 'text-center' : ''}">
+<div class="text-center sm:${align === 'center' ? 'text-center' : 'text-left'}">
   ${title}
-  <ul class="${heading ? 'mt-4 ' : ''}flex ${align === 'center' ? 'justify-center' : ''} ${gap}">${inner}</ul>
+  <ul class="${heading ? 'mt-4 ' : ''}flex justify-center ${align === 'center' ? 'sm:justify-center' : 'sm:justify-start'} ${gap}">${inner}</ul>
 </div>`;
 
   // One rounded container split into cells, so the hairline between two cells
@@ -149,12 +152,24 @@ export const socials = (site, { tone = 'dark', align = 'start', style = 'chip', 
       : 'rounded-lg bg-ink/[.04] text-ink ring-1 ring-ink/10 hover:bg-ink/[.08]',
   }[style] || '';
 
+  // 64px below sm, the shipped 48px from sm up.
+  //
+  // On desktop these sit in a narrow left column beside the form and 48px is
+  // the right weight — three quiet outbound links that should not compete with
+  // Submit. Collapsed to one column that argument disappears: the row is
+  // centred under a full-width form, there is nothing beside it to be quiet
+  // against, and 48px reads as an afterthought.
+  //
+  // The glyph steps up with the box. Leaving it at 21px in a 64px square would
+  // just add padding, not size — so each is rendered at both sizes and one is
+  // hidden, because the icon size is an SVG attribute rather than a class.
   return wrap(items.map(s => `
     <li>
-      <a ${href(s)} class="flex h-12 w-12 items-center justify-center transition ${box} ${focus}">
-        <span class="sr-only">${esc(s.label)}</span>${icon(s)}
+      <a ${href(s)} class="flex h-16 w-16 items-center justify-center transition sm:h-12 sm:w-12 ${box} ${focus}">
+        <span class="sr-only">${esc(s.label)}</span>
+        <span class="sm:hidden">${icon(s, 26)}</span><span class="hidden sm:block">${icon(s)}</span>
       </a>
-    </li>`).join(''), 'gap-3');
+    </li>`).join(''), 'gap-4 sm:gap-3');
 };
 
 // --------------------------------------------------------------------- form
@@ -192,7 +207,13 @@ const field = (f, { skin = 'filled', label = 'caps', idPrefix = 'c' } = {}) => {
 <div>
   <label for="${id}" class="block ${labelCls}"${labelStyle ? ` style="${labelStyle}"` : ''}>${esc(f.label)}</label>
   ${f.type === 'textarea'
-    ? `<textarea id="${id}" name="${esc(f.name)}" rows="5" disabled class="${cls} resize-y"></textarea>`
+    // rows stays 5 so desktop is untouched — `rows` is an attribute and cannot
+    // be made responsive, so below sm an explicit height overrides it instead
+    // of guessing at a smaller row count. h-24 is three lines plus the padding.
+    // A 5-row box was chosen so a cramped field would not invite a short
+    // message; at three lines it still reads as a paragraph box, and every
+    // phone browser grows it as you type.
+    ? `<textarea id="${id}" name="${esc(f.name)}" rows="5" disabled class="${cls} h-24 resize-y sm:h-auto"></textarea>`
     : `<input id="${id}" name="${esc(f.name)}" type="${esc(f.type)}" disabled autocomplete="${auto}" class="${cls}">`}
 </div>`;
 };
@@ -211,9 +232,9 @@ export const form = (c, { skin = 'filled', label = 'caps', submit = 'solid', idP
   const o = { skin, label, idPrefix };
   const [btnCls, btnStyle] = SUBMIT_SKIN[submit];
   return `
-<form action="#" method="post" novalidate class="space-y-5">
+<form action="#" method="post" novalidate class="space-y-3 sm:space-y-5">
   ${columns
-    ? `<div class="grid gap-5 sm:grid-cols-2">${field(name, o)}${field(phone, o)}</div>${field(email, o)}`
+    ? `<div class="grid grid-cols-2 gap-4 sm:gap-5">${field(name, o)}${field(phone, o)}</div>${field(email, o)}`
     : `${field(name, o)}${field(phone, o)}${field(email, o)}`}
   ${field(message, o)}
   <button type="submit" disabled
@@ -428,10 +449,10 @@ export const HEADING_RULES = {
 };
 
 export const heading = (c, { align = 'left', size = 'big', rule = 'none' } = {}) => {
-  const sizes = { huge: 'text-5xl sm:text-6xl lg:text-7xl', big: 'text-4xl sm:text-5xl lg:text-6xl', small: 'text-3xl sm:text-4xl lg:text-5xl' };
+  const sizes = { huge: 'text-5xl sm:text-6xl lg:text-7xl', big: 'text-3xl sm:text-5xl lg:text-6xl', small: 'text-3xl sm:text-4xl lg:text-5xl' };
   const centred = align === 'center';
   const h1 = `<h1 class="font-display font-extrabold leading-[.95] text-white ${sizes[size]}">${esc(c.contact.heading)}</h1>`;
-  const lead = (mt) => `<p class="${mt} ${centred ? 'mx-auto ' : ''}max-w-xl font-body text-lg leading-relaxed text-white/70">${esc(c.contact.lead)}</p>`;
+  const lead = (mt) => `<p class="${mt} ${centred ? 'mx-auto ' : ''}max-w-xl font-body text-base leading-relaxed text-white/70 sm:text-lg">${esc(c.contact.lead)}</p>`;
 
   // The vertical bar is a flex sibling, not an absolute element: it has to be
   // the height of the heading AND the lead together, and that height is not

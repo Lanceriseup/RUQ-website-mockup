@@ -29,6 +29,51 @@
     }, { threshold: 0 }).observe(sentinel);
   })();
 
+  // "Read more" on the breakthrough CTA's mission statement.
+  //
+  // Phone-only in effect: the button is sm:hidden and the paragraph carries
+  // sm:line-clamp-none, so from sm up the full statement is visible whether or
+  // not this runs. That matters — the clamp must never be able to hide copy on
+  // a viewport where the control to undo it is not rendered.
+  //
+  // Toggling a class, not the text: line-clamp truncates visually while the
+  // full statement stays in the DOM and the accessibility tree, so a screen
+  // reader reads all of it regardless of this button's state.
+  (function ctaMission() {
+    var btn = document.getElementById('cta-mission-more');
+    var p = document.getElementById('cta-mission');
+    if (!btn || !p) return;
+    var label = btn.querySelector('[data-more-label]');
+    btn.addEventListener('click', function () {
+      var open = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!open));
+      p.classList.toggle('line-clamp-3', open);
+      if (label) label.textContent = open ? 'Read more' : 'Show less';
+    });
+  })();
+
+  // "Read the full statement" on the creed.
+  //
+  // Phone-only in effect: the button is sm:hidden and the list is
+  // `hidden sm:block`, so from sm up the creed is open whether or not this
+  // runs. The control can never be the only route to the content on a viewport
+  // where the control is not rendered.
+  //
+  // See the DISCLOSURE note at the top of faith.mjs before changing this —
+  // hiding the creed was a decision taken deliberately, and only for phones.
+  (function faithBeliefs() {
+    var btn = document.getElementById('faith-beliefs-more');
+    var list = document.getElementById('faith-beliefs');
+    if (!btn || !list) return;
+    var label = btn.querySelector('[data-faith-label]');
+    btn.addEventListener('click', function () {
+      var open = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!open));
+      list.classList.toggle('hidden', open);
+      if (label) label.textContent = open ? 'Read the full statement' : 'Show less';
+    });
+  })();
+
   // Scrolled-state capsule.
   //
   // The tall editorial header just scrolls away on its own. The capsule is a
@@ -44,12 +89,17 @@
     var supportsBlur = window.CSS && CSS.supports &&
       (CSS.supports('backdrop-filter', 'blur(1px)') || CSS.supports('-webkit-backdrop-filter', 'blur(1px)'));
 
-    var bar = cap.firstElementChild;
-    if (supportsBlur && bar) {
-      bar.style.backdropFilter = 'blur(24px) saturate(1.6)';
-      bar.style.webkitBackdropFilter = 'blur(24px) saturate(1.6)';
-    } else if (bar) {
-      bar.style.background = 'rgba(22,22,22,.92)';
+    // Every glass surface, not just the first child: below sm the capsule holds
+    // a second pill and the menu panel it opens, and a panel that did not get
+    // the blur would sit at .65 over live page content with 12px type on it.
+    var glass = cap.querySelectorAll('[data-glass]');
+    for (var i = 0; i < glass.length; i++) {
+      if (supportsBlur) {
+        glass[i].style.backdropFilter = 'blur(24px) saturate(1.6)';
+        glass[i].style.webkitBackdropFilter = 'blur(24px) saturate(1.6)';
+      } else {
+        glass[i].style.background = 'rgba(22,22,22,.92)';
+      }
     }
 
     cap.style.transform = 'translateY(-160%)';
@@ -61,12 +111,43 @@
     var shown = false;
     var ticking = false;
 
+    var toggle = document.getElementById('nav-capsule-toggle');
+    var menu = document.getElementById('nav-capsule-menu');
+
+    function closeMenu() {
+      if (!toggle || !menu) return;
+      toggle.setAttribute('aria-expanded', 'false');
+      menu.hidden = true;
+    }
+
     function show(on) {
       if (on === shown) return;
       shown = on;
       cap.style.transform = on ? 'translateY(0)' : 'translateY(-160%)';
       cap.style.opacity = on ? '1' : '0';
       cap.setAttribute('aria-hidden', on ? 'false' : 'true');
+      // Parked off-screen the capsule is invisible but its links and the burger
+      // were still focusable, which is how a keyboard user ends up tabbing into
+      // a menu they cannot see. `inert` is what aria-hidden alone never did.
+      if ('inert' in cap) cap.inert = !on;
+      // A menu left open as the bar leaves would be open when it comes back.
+      if (!on) closeMenu();
+    }
+
+    if (toggle && menu) {
+      toggle.addEventListener('click', function () {
+        var open = toggle.getAttribute('aria-expanded') === 'true';
+        toggle.setAttribute('aria-expanded', String(!open));
+        menu.hidden = open;
+      });
+      // Tapping the page behind should dismiss it, the way any menu does.
+      document.addEventListener('click', function (e) {
+        if (menu.hidden || cap.contains(e.target)) return;
+        closeMenu();
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && !menu.hidden) { closeMenu(); toggle.focus(); }
+      });
     }
 
     function onScroll() {

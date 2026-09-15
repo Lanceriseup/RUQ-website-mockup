@@ -32,9 +32,9 @@ export const CLOSING_SIZES = {
   },
   snug: {
     label: 'Snug — compact, about 10% up',
-    note: 'Compact proportions with everything nudged up a step: heading 1.8 to 2rem, body 15 to 16px, padding and button in proportion. Keeps the low, wide, button-led look of compact rather than the enlarged-panel look of current.',
-    wrap: 'max-w-content', pad: 'px-5 py-8 sm:px-12 sm:py-10', radius: 'rounded-[1.75rem]',
-    head: 'text-[1.6rem] sm:text-[2rem]', body: 'text-[16px] mt-2.5',
+    note: 'Compact proportions with everything nudged up a step: heading 1.8 to 2rem, body 15 to 16px, padding and button in proportion. Keeps the low, wide, button-led look of compact rather than the enlarged-panel look of current. Below sm it steps down again — this is the shipped size, so it carries the phone pass.',
+    wrap: 'max-w-content', pad: 'px-5 py-6 sm:px-12 sm:py-10', radius: 'rounded-[1.75rem]',
+    head: 'text-[1.45rem] sm:text-[2rem]', body: 'text-[15px] mt-2 sm:text-[16px] sm:mt-2.5',
     btn: 'min-h-[3.25rem] px-8 py-4 text-[14px]', stubDate: 'text-[17px]', stubPad: 'md:pl-10', gap: 'md:gap-9',
   },
   current: {
@@ -150,8 +150,32 @@ const countdownStub = (site) => `
   ${note(site)}
 </div>`;
 
+// Two renderings of the same four facts.
+//
+// From md the stub is a real tear-off: it sits beside the button behind a
+// vertical dashed rule, and stacking label, date, location and note is what
+// makes it read as one.
+//
+// Below md there is no "beside" — the panel is a column, so the tear-off rule
+// turns horizontal and those four lines become four more rows in an already
+// tall stack, each with its own margins, under 24px of padding. Collapsed to a
+// single centred line it keeps every word and the dashed rule, and gives back
+// about 60px.
+const noteInline = (site) => {
+  const n = site.nextEvent.upcoming[0].note;
+  return n ? `<span class="font-bold" style="color:#f0569f"> &middot; ${esc(n)}</span>` : '';
+};
+
 const dateStub = (site, size) => `
-<div class="cta-stub shrink-0 border-t-2 border-dashed pt-6 text-center md:border-t-0 md:border-l-2 ${size.stubPad} md:pt-0 md:text-left"
+<div class="cta-stub border-t-2 border-dashed pt-4 text-center md:hidden"
+     style="border-color:rgba(255,255,255,.28)">
+  <p class="font-body text-[11px] leading-relaxed text-white/70">
+    <span class="font-bold uppercase tracking-[0.2em]" style="color:${CYAN}">Next live event</span>
+    <span class="text-white/40"> &middot; </span><span class="font-display font-bold text-white">${esc(site.nextEvent.dates)}</span>
+    <span class="text-white/40"> &middot; </span>${esc(site.nextEvent.location)}${noteInline(site)}
+  </p>
+</div>
+<div class="cta-stub hidden shrink-0 border-t-2 border-dashed pt-6 text-center md:block md:border-t-0 md:border-l-2 ${size.stubPad} md:pt-0 md:text-left"
      style="border-color:rgba(255,255,255,.28)">
   <p class="font-body text-[10px] font-bold uppercase tracking-[0.35em]" style="color:${CYAN}">Next live event</p>
   <p class="mt-2 font-display ${size.stubDate} font-bold leading-tight text-white">${esc(site.nextEvent.dates)}</p>
@@ -198,13 +222,22 @@ export const closingTicket = (site, c, copy, sizeKey = 'current', motionKey = 'n
            it sticks out by is the entire effect. -->
       <div aria-hidden="true" class="cta-beam pointer-events-none absolute -inset-[2px] overflow-hidden ${size.radius}"></div>
 
-      <div class="cta-panel relative flex flex-col gap-8 ${size.radius} ${size.pad} ${size.gap} shadow-[0_40px_90px_-45px_rgba(0,0,0,.6)] md:flex-row md:items-center"
+      <!-- gap-5 below sm: 32px between three blocks is right in a row, where
+           it is horizontal separation between distinct things. Stacked in a
+           column it is 32px of dead space twice over. -->
+      <div class="cta-panel relative flex flex-col gap-5 ${size.radius} ${size.pad} sm:gap-8 ${size.gap} shadow-[0_40px_90px_-45px_rgba(0,0,0,.6)] md:flex-row md:items-center"
            style="background:#141414">
 
-        <div class="cta-dots min-w-0 flex-1" style="${dots}">
+        <!-- Centred below md, left-aligned from md. In the desktop row the copy
+             is the left-hand column of a three-part ticket and has to align to
+             its own edge; in the phone column it is a two-line heading and one
+             sentence centred over a full-width button, which is what a closing
+             ask looks like on a phone. The stub below is already centred there,
+             so this also stops the panel mixing both alignments. -->
+        <div class="cta-dots min-w-0 flex-1 text-center md:text-left" style="${dots}">
           <div class="cta-copy min-w-0">
             <h2 class="font-display ${size.head} font-bold leading-tight text-white">${headingHtml(copy, motionKey)}</h2>
-            <p class="${size.body} max-w-xl font-body leading-relaxed text-white/70">${esc(copy.body)}</p>
+            <p class="${size.body} mx-auto max-w-xl font-body leading-relaxed text-white/70 md:mx-0">${esc(copy.body)}</p>
           </div>
         </div>
 

@@ -67,7 +67,7 @@ const photo = (m) => `
 // The polaroid plate. White frame, deep shadow, tilted — and straightened by
 // the CSS in tailwind.css when pointed at or focused within.
 const plate = (m, i) => `
-<div class="polaroid-plate overflow-hidden rounded-sm bg-white p-2 pb-3 shadow-[0_24px_50px_-20px_rgba(0,0,0,.85)]">
+<div class="polaroid-plate overflow-hidden rounded-sm bg-white p-1.5 pb-2 shadow-[0_24px_50px_-20px_rgba(0,0,0,.85)] sm:p-2 sm:pb-3">
   ${photo(m)}
 </div>`;
 
@@ -92,21 +92,22 @@ const coach = (m, i, effect) => {
 <figure class="polaroid group mx-auto w-full max-w-[18rem]" style="--tilt:${TILT[i % TILT.length]}deg"
         data-bio-card data-bio-name="${esc(m.name)}" data-bio-role="${esc(m.role)}">
   ${face}
-  <figcaption class="mt-3">
-    <p class="text-center font-display text-base font-semibold leading-tight text-white">${esc(m.name)}</p>
-    <p class="mt-0.5 text-center font-body text-[10px] font-bold uppercase tracking-[0.25em]" style="color:${MAGENTA}">${esc(m.role)}</p>
+  <figcaption class="mt-2 sm:mt-3">
+    <p class="text-center font-display text-[13px] font-semibold leading-tight text-white sm:text-base">${esc(m.name)}</p>
+    <p class="mt-0.5 text-center font-body text-[9px] font-bold uppercase tracking-[0.2em] sm:text-[10px] sm:tracking-[0.25em]" style="color:${MAGENTA}">${esc(m.role)}</p>
 
     ${m.bio ? `
     <!-- w-full, matching the <summary> this replaced. A <summary> is
          block-level, so it filled the card; a <button> is not, and without
          w-full it shrinks to its text and reads as a different control. -->
     <button type="button" data-bio-open aria-expanded="false"
-            class="mt-3 flex w-full items-center justify-center gap-1.5 rounded-full px-3 py-1.5 font-body
-                   text-[10px] font-bold uppercase tracking-[0.2em] text-white/70 ring-1 ring-white/20
+            class="mt-2 flex w-full items-center justify-center gap-1.5 rounded-full px-2 py-1 font-body
+                   text-[9px] font-bold uppercase tracking-[0.15em] text-white/70 ring-1 ring-white/20
                    transition hover:text-white hover:ring-white/40
-                   focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-magenta">
+                   focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-magenta
+                   sm:mt-3 sm:px-3 sm:py-1.5 sm:text-[10px] sm:tracking-[0.2em]">
       Read bio
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true" class="sm:h-3 sm:w-3"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
     </button>
 
     <!-- The bio lives here, in the page, whether the dialog ever opens or not.
@@ -122,9 +123,9 @@ const coach = (m, i, effect) => {
 const leader = (m, i) => `
 <figure class="polaroid group mx-auto w-full max-w-[18rem]" style="--tilt:${TILT[(i + 5) % TILT.length]}deg">
   ${plate(m, i)}
-  <figcaption class="mt-3 text-center">
-    <p class="font-display text-base font-semibold leading-tight text-white">${esc(m.name)}</p>
-    <p class="mt-0.5 font-body text-[10px] font-bold uppercase tracking-[0.25em]" style="color:${CYAN}">${esc(m.role)}</p>
+  <figcaption class="mt-2 text-center sm:mt-3">
+    <p class="font-display text-[13px] font-semibold leading-tight text-white sm:text-base">${esc(m.name)}</p>
+    <p class="mt-0.5 font-body text-[9px] font-bold uppercase tracking-[0.2em] sm:text-[10px] sm:tracking-[0.25em]" style="color:${CYAN}">${esc(m.role)}</p>
   </figcaption>
 </figure>`;
 
@@ -139,7 +140,7 @@ export const teamPage = (site, c, headingKey = 'script', effect = 'lift') => {
        before the foot of the page, so there is no edge for anything to cut. -->
   <div aria-hidden="true" class="pointer-events-none absolute inset-0" style="background:${SPOTLIGHT}"></div>
 
-  <div class="relative mx-auto max-w-content px-4 pb-12 sm:pb-20 pt-44 sm:pt-48">
+  <div class="relative mx-auto max-w-content px-4 pb-12 sm:pb-20 pt-24 sm:pt-48">
 
     ${renderTeamHeading(headingKey, c.team.heading, { tag: 'h1', count: coaches.length })}
 
@@ -148,8 +149,19 @@ export const teamPage = (site, c, headingKey = 'script', effect = 'lift') => {
          becomes 4-up or 2-up when anything around it changes.
 
          items-start, not stretch: an open bio makes one figure much taller
-         than its neighbours, and a stretched row would drag the others with it. -->
-    <div class="mt-10 sm:mt-16 grid items-start gap-x-8 gap-y-9 sm:gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
+         than its neighbours, and a stretched row would drag the others with it.
+
+         Two-up on phones as well, not one. This was "sm:grid-cols-2", so below
+         sm it fell back to a single column of 288px plates — 471px per card,
+         twelve cards, and a 6806px page. Two 173px cards fit comfortably at
+         390px, a face is still perfectly legible at that size, and the grid
+         reads as a contact sheet rather than twelve separate portraits. It
+         took the page to 2045px, a 70% cut, with no change from sm up.
+
+         The card internals step down with it: an 8px white polaroid border is
+         proportionally twice as heavy around a 173px photo as around a 288px
+         one, so the frame, caption and bio button all have phone values. -->
+    <div class="mt-8 sm:mt-16 grid items-start grid-cols-2 gap-x-3 gap-y-6 sm:gap-x-8 sm:gap-y-14 lg:grid-cols-3">
       ${coaches.map((m, i) => coach(m, i, effect)).join('')}
     </div>
 
@@ -157,7 +169,7 @@ export const teamPage = (site, c, headingKey = 'script', effect = 'lift') => {
       ${renderTeamHeading(headingKey, c.team.groups.find(g => g.key === 'leadership').heading, { tag: 'h2', colour: CYAN, count: leaders.length })}
       <!-- Same grid as the coaches above: six people, 3x2, same plate size.
            They differ in what they carry, not in how big they are. -->
-      <div class="mt-8 sm:mt-12 grid items-start gap-x-8 gap-y-9 sm:gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
+      <div class="mt-6 sm:mt-12 grid items-start grid-cols-2 gap-x-3 gap-y-6 sm:gap-x-8 sm:gap-y-14 lg:grid-cols-3">
         ${leaders.map(leader).join('')}
       </div>
     </div>

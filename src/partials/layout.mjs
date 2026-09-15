@@ -20,10 +20,17 @@ export const footer = (site) => `
      section already ends on its own padding (py-24 on the shared section
      component, py-16 on the closing CTA), so nothing needed the margin. -->
 <footer class="bg-ink text-white">
-  <div class="mx-auto grid max-w-content gap-10 px-4 py-9 sm:py-14 sm:grid-cols-2 lg:grid-cols-4">
+  <!-- Centred below sm, left-aligned from sm up.
+
+       The cutoff is sm and not lg on purpose: the grid is one column below sm,
+       two from sm, four from lg. Centring is right for a single stacked column
+       where there is no edge for anything to align to; in the two-column layout
+       at sm the headings and their lists need their own left edge or the two
+       columns stop reading as columns. -->
+  <div class="mx-auto grid max-w-content gap-10 px-4 py-9 text-center sm:py-14 sm:grid-cols-2 sm:text-left lg:grid-cols-4">
     <div class="sm:col-span-2">
-      <img src="${esc(site.assets.logoWhite)}" alt="${esc(site.brand.name)}" width="180" height="56" class="h-12 w-auto object-contain" loading="lazy" decoding="async">
-      <p class="mt-4 max-w-sm font-body text-sm text-white/70">${esc(site.brand.tagline)}</p>
+      <img src="${esc(site.assets.logoWhite)}" alt="${esc(site.brand.name)}" width="180" height="56" class="mx-auto h-12 w-auto object-contain sm:mx-0" loading="lazy" decoding="async">
+      <p class="mx-auto mt-4 max-w-sm font-body text-sm text-white/70 sm:mx-0">${esc(site.brand.tagline)}</p>
     </div>
     <div>
       <h2 class="font-display text-sm font-semibold uppercase tracking-wider">Explore</h2>

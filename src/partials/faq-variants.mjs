@@ -70,11 +70,24 @@ const answerHtml = (f) => {
   return out;
 };
 
-const Q = 'font-display text-lg font-bold leading-snug';
+// 16px below sm, 18px from sm.
+//
+// Measured caveat, because the first version of this note was wrong: in an
+// isolated 342px column the drop to 16px takes the wrap count from four of
+// seven to two. In the page it does NOT — four still wrap — because the FAQs
+// render inside section() from components.mjs, which supplies its own
+// `max-w-content px-4`, and this partial then adds `px-6` inside it. Two sets
+// of gutters leave the questions 310px, not 342px.
+//
+// So 16px is still worth having (shorter line boxes, lighter list), but the
+// three avoided wraps it promises only arrive if that double gutter is dealt
+// with. Dropping the inner px-6 below sm would do it and is not done here,
+// because it would change every other section that calls this partial.
+const Q = 'font-display text-base font-bold leading-snug sm:text-lg';
 const A = 'font-body text-[15px] leading-relaxed text-ink-soft';
 
 const heading = (align = 'center') => `
-<h2 class="font-display text-3xl font-bold text-ink sm:text-4xl${align === 'center' ? ' text-center' : ''}">Frequently Asked Questions</h2>`;
+<h2 class="font-display text-2xl font-bold text-ink sm:text-4xl${align === 'center' ? ' text-center' : ''}">Frequently Asked Questions</h2>`;
 
 const chevron = `
 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"
@@ -83,16 +96,24 @@ const chevron = `
 // ---------------------------------------------------------------- options
 
 const RENDER = {
+  // Shipped. Phone values throughout, restored at sm.
+  //
+  // Worth knowing if this is revisited: the disclosure is not really earning
+  // its keep on this content. See the note on the `open` option below — every
+  // answer is under 170 characters, so closing all seven saves 554px and costs
+  // seven taps, and on a phone a tap also means losing your place in the
+  // scroll. Measured alternatives are at /faq-mobile.html: leaving the first
+  // answer open costs 106px, opening everything costs 554px.
   current: (c) => `
-<div class="mx-auto max-w-content px-6 py-12 sm:py-20">
+<div class="mx-auto max-w-content px-6 py-8 sm:py-20">
   ${heading()}
-  <div class="mx-auto mt-10 max-w-3xl divide-y divide-ink/10 border-y border-ink/10">
+  <div class="mx-auto mt-6 max-w-3xl divide-y divide-ink/10 border-y border-ink/10 sm:mt-10">
     ${c.about.faqs.map(f => `
-    <details class="group/f py-5">
+    <details class="group/f py-3.5 sm:py-5">
       <summary class="flex cursor-pointer list-none items-center justify-between gap-4 ${Q} text-ink">
         ${esc(f.q)}${chevron}
       </summary>
-      <p class="mt-3 ${A}">${answerHtml(f)}</p>
+      <p class="mt-2 ${A} sm:mt-3">${answerHtml(f)}</p>
     </details>`).join('')}
   </div>
 </div>`,

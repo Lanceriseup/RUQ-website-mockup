@@ -57,16 +57,27 @@ export const hero = (site, c, vslFx = 'unfold', vslFeel = 'glide') => {
        style="background:linear-gradient(to bottom,rgba(28,28,28,.68) 0%,rgba(28,28,28,0) 34%,rgba(28,28,28,0) 62%,rgba(28,28,28,.58) 100%)"></div>
 
   <!-- pt clears the overlaid header: 161px now the Register row is gone. -->
-  <div class="relative mx-auto max-w-4xl px-4 pb-20 sm:pb-36 pt-44 text-center sm:pt-52">
+  <div class="relative mx-auto max-w-4xl px-4 pb-20 sm:pb-36 pt-24 text-center sm:pt-52">
 
     <h1 class="text-white">
       <span class="${SANS_LINE}">${esc(c.home.hero.headingBefore)}</span>
 
-      <span class="mt-3 block">
+      <!-- Gaps are mobile-tightened. 12px and 28px were judged at desktop size,
+           where the rotating word is 96px tall and needs that much air to sit
+           apart from the sans lines. On a phone the clamp() bottoms out at
+           44px, so the same margins hold a much smaller word apart and the
+           sentence reads as three stacked lines rather than one thought.
+           8px and 12px below sm; the shipped values return at sm.
+
+           Worth knowing if this is revisited: the closing line needs two rows
+           at any readable size — fitting it on one at 390px would take roughly
+           11px type — so tightening its tracking buys nothing in height. The
+           gaps were the only real saving available without resizing. -->
+      <span class="mt-2 sm:mt-3 block">
         <span class="hero-rotator relative inline-grid" data-swap="fade">${words}</span>
       </span>
 
-      <span class="mt-7 ${SANS_LINE}">${esc(c.home.hero.headingAfter)}</span>
+      <span class="mt-3 sm:mt-7 ${SANS_LINE}">${esc(c.home.hero.headingAfter)}</span>
     </h1>
     <!-- The rotator swaps text under assistive tech, so the sentence is also
          announced once, statically, for screen readers. -->

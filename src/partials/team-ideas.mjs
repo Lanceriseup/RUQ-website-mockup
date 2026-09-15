@@ -113,8 +113,8 @@ const groupLabel = (label) => `
 </div>`;
 
 // Header clearance. In over-hero mode the header is absolutely positioned and
-// takes no space: 153px tall on mobile, 161px from sm. pt-44/sm:pt-48 clears it.
-const HEAD_PAD = 'pb-16 pt-44 sm:pt-48';
+// takes no space: 73px tall on mobile, 161px from sm. pt-24/sm:pt-48 clears it.
+const HEAD_PAD = 'pb-16 pt-24 sm:pt-48';
 
 const pageHead = (c, align = 'left') => `
 <div class="${align === 'center' ? 'mx-auto max-w-2xl text-center' : 'max-w-2xl'}">

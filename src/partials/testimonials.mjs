@@ -34,7 +34,7 @@ const fmt = (s) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`;
 const card = (v, dupe = false) => `
 <button type="button"${dupe ? ' aria-hidden="true" tabindex="-1"' : ''}
         data-lightbox
-        class="video-facade group relative mr-5 block w-[230px] shrink-0 overflow-hidden rounded-2xl
+        class="video-facade group relative mr-3 block w-[170px] shrink-0 overflow-hidden rounded-2xl sm:mr-5 sm:w-[230px]
                ring-1 ring-ink/10 shadow-[0_18px_40px_-24px_rgba(0,0,0,.6)]
                focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-magenta"
         data-provider="wistia" data-id="${esc(v.id)}" data-title="${esc(v.title)}">
@@ -44,13 +44,18 @@ const card = (v, dupe = false) => `
          class="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-105">
     <span aria-hidden="true" class="absolute inset-0"
           style="background:linear-gradient(to top,rgba(0,0,0,.6),transparent 50%)"></span>
-    <span aria-hidden="true" class="absolute inset-0 flex items-center justify-center opacity-0 transition group-hover:opacity-100 group-focus-visible:opacity-100">
-      <span class="flex h-14 w-14 items-center justify-center rounded-full bg-white/95 shadow-[0_10px_30px_-8px_rgba(0,0,0,.6)] transition group-hover:scale-110">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="${MAGENTA}"><path d="M8 5v14l11-7z"/></svg>
+    <!-- The play badge is visible at rest below sm and hover-revealed from sm up.
+         It used to be opacity-0 everywhere, revealed on group-hover — which on a
+         touch screen means never: a phone has no hover state, so these read as
+         plain photographs with a duration badge and nothing saying they play.
+         The one affordance telling you the card is a video was desktop-only. -->
+    <span aria-hidden="true" class="absolute inset-0 flex items-center justify-center transition sm:opacity-0 sm:group-hover:opacity-100 sm:group-focus-visible:opacity-100">
+      <span class="flex h-11 w-11 items-center justify-center rounded-full bg-white/95 shadow-[0_10px_30px_-8px_rgba(0,0,0,.6)] transition sm:h-14 sm:w-14 sm:group-hover:scale-110">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="${MAGENTA}" class="sm:h-[22px] sm:w-[22px]"><path d="M8 5v14l11-7z"/></svg>
       </span>
     </span>
     ${v.seconds ? `
-    <span aria-hidden="true" class="absolute bottom-3 left-3 rounded-full bg-black/60 px-2 py-0.5 font-body text-[11px] font-semibold tabular-nums text-white backdrop-blur-sm">${fmt(v.seconds)}</span>` : ''}
+    <span aria-hidden="true" class="absolute bottom-2 left-2 rounded-full bg-black/60 px-2 py-0.5 font-body text-[10px] font-semibold tabular-nums text-white backdrop-blur-sm sm:bottom-3 sm:left-3 sm:text-[11px]">${fmt(v.seconds)}</span>` : ''}
   </span>
 </button>`;
 
@@ -131,7 +136,7 @@ export const testimonialsSection = (site, c, vids, headingKey = 'verbatim') => {
   const half = Math.ceil(list.length / 2);
 
   return `
-<section class="relative overflow-hidden pb-16 sm:pb-28 pt-10 sm:pt-16" style="background:${GROUND}">
+<section class="relative overflow-hidden pb-10 pt-8 sm:pb-28 sm:pt-16" style="background:${GROUND}">
 
   <!-- Ambient brand light, the same device the struggles spread uses: a warm
        vertical ground with two heavily blurred orbs off the edges.
@@ -183,7 +188,7 @@ export const testimonialsSection = (site, c, vids, headingKey = 'verbatim') => {
     ${renderTestimonialHeading(headingKey)}
   </div>
 
-  <div class="relative mt-8 sm:mt-12 space-y-5">
+  <div class="relative mt-6 space-y-3 sm:mt-12 sm:space-y-5">
     ${rail(list.slice(0, half), 'left', 130)}
     ${rail(list.slice(half), 'right', 150)}
   </div>
