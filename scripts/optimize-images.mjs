@@ -34,6 +34,10 @@ const SURVEY = process.argv.includes('--survey');
 // First match wins.
 const RULES = [
   { test: /^brand\/favicon/, skip: true },
+  // The about hero is a pre-zoomed crop of a 6000px original, already
+  // encoded at 2880px / q82 — it fills a wide screen edge to edge and went
+  // soft at the 1600px cap. Ships exactly as committed.
+  { test: /^photos\/about-hero-group\.jpg$/, skip: true },
   { test: /^posters\//, maxW: 1024, jpeg: 74 },
   { test: /^team\//, maxW: 768, jpeg: 76 },
   { test: /^photos\//, maxW: 1600, jpeg: 76 },

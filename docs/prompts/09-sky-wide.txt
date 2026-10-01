@@ -1,0 +1,41 @@
+========================================================================
+ASSET 09  —  Sky plate — desktop
+========================================================================
+
+Save the result as : sky-wide.jpg
+Size               : 2560 x 1440   (16:9)
+Format             : JPEG
+Used for           : Full-page fixed background (optional — I build this in CSS already)
+
+
+========================================================================
+STEP 1  —  COPY EVERYTHING BELOW THIS LINE INTO THE PROMPT BOX
+========================================================================
+
+Wide-format atmospheric sky photograph shot at golden hour looking upward with no ground and no horizon line. Deep turquoise and pale cyan occupy the top quarter, transitioning through a broad band of soft luminous white haze across the middle, then warming into pale rose pink and deeper magenta toward the bottom edge. Delicate wispy cirrus cloud texture catches light at the edges of each band. No sun disc visible, no lens flare, no birds, no aircraft. Extremely smooth continuous gradient with no banding. Shot on a Hasselblad medium format camera at f/8, ISO 100, dreamy luminous atmosphere, fine film grain, Kodak Ektar 100 colour rendering.
+
+========================================================================
+STEP 2  —  COPY THIS INTO THE "NEGATIVE PROMPT" BOX
+========================================================================
+
+horizon, ground, buildings, trees, mountains, sun, lens flare, birds, aircraft, banding, posterisation, colour steps, text, watermark, vignette, dark corners, storm clouds, dramatic contrast
+
+========================================================================
+MIDJOURNEY USERS — SKIP STEPS 1 AND 2. PASTE THIS ONE LINE INSTEAD
+========================================================================
+
+Wide-format atmospheric sky photograph shot at golden hour looking upward with no ground and no horizon line. Deep turquoise and pale cyan occupy the top quarter, transitioning through a broad band of soft luminous white haze across the middle, then warming into pale rose pink and deeper magenta toward the bottom edge. Delicate wispy cirrus cloud texture catches light at the edges of each band. No sun disc visible, no lens flare, no birds, no aircraft. Extremely smooth continuous gradient with no banding. Shot on a Hasselblad medium format camera at f/8, ISO 100, dreamy luminous atmosphere, fine film grain, Kodak Ektar 100 colour rendering. --no horizon, ground, buildings, trees, mountains, sun, lens flare, birds, aircraft, banding, posterisation, colour steps, text, watermark, vignette, dark corners, storm clouds, dramatic contrast --ar 16:9 --style raw --s 300 --chaos 5 --q 2
+
+========================================================================
+SETTINGS FOR YOUR TOOL
+========================================================================
+
+Gemini / Nano Banana : after the prompt, add — "Landscape 16:9, highest resolution. Perfectly smooth gradient, absolutely no colour banding."
+GPT Image            : size: 1536x1024, quality: high
+Flux 1.1 Pro         : aspect_ratio: 16:9, guidance: 3.5, steps: 50
+Midjourney v7        : --ar 16:9 --style raw --s 300 --chaos 5 --q 2
+
+========================================================================
+Generate 4 versions and pick the best one. Send me the original
+file at full size — I handle the resizing and compression.
+========================================================================

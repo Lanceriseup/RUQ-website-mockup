@@ -48,8 +48,15 @@
 // the same gap.
 import { esc } from './layout.mjs';
 
+// opts.clear: standard (ink) type, but no white bar or border and positioned
+// over the page like overHero — for a light page whose own background should
+// run up behind the header (the team page sky).
 export const header = (site, current, opts = {}) => {
   const onHero = Boolean(opts.overHero);
+  // clear mode is the over-hero header in every respect but colour: same
+  // weight, size, spacing and position, with ink type and a black logo.
+  const clear = !onHero && Boolean(opts.clear);
+  const overLayout = onHero || clear;
 
   const linkBase =
     'flex min-h-11 items-center px-3 font-body text-[12px] uppercase tracking-[0.25em] transition focus-visible:outline-2 focus-visible:outline-offset-2';
@@ -60,7 +67,9 @@ export const header = (site, current, opts = {}) => {
   // where it fades to transparent.
   const linkTone = onHero
     ? 'text-white font-semibold hover:text-cyan focus-visible:outline-white [text-shadow:0_1px_10px_rgba(0,0,0,.7)]'
-    : 'text-ink-soft hover:text-magenta-text focus-visible:outline-magenta';
+    : clear
+      ? 'text-ink font-semibold hover:text-magenta-text focus-visible:outline-magenta'
+      : 'text-ink-soft hover:text-magenta-text focus-visible:outline-magenta';
   const linkActive = onHero ? 'text-cyan' : 'text-magenta-text';
 
   const link = (n) => `<a href="${esc(n.href)}"
@@ -115,9 +124,9 @@ export const header = (site, current, opts = {}) => {
 
   return `
 <header id="site-nav" data-over-hero="${onHero ? '1' : '0'}"
-        class="${onHero ? 'absolute inset-x-0 top-0' : 'relative border-b border-ink-line bg-white'} z-40">
+        class="${overLayout ? 'absolute inset-x-0 top-0' : 'relative border-b border-ink-line bg-white'} z-40">
   ${scrim}
-  <div id="site-nav-panel" class="relative mx-auto max-w-content px-4 pt-4 ${onHero ? 'sm:pt-7' : 'sm:pt-5'}">
+  <div id="site-nav-panel" class="relative mx-auto max-w-content px-4 pt-4 ${overLayout ? 'sm:pt-7' : 'sm:pt-5'}">
     <nav class="flex items-center justify-between gap-4" aria-label="Primary">
       <!-- Phone-only counterweight. The two link groups are hidden below md,
            so justify-between used to pin the wordmark to the left edge — the
@@ -146,7 +155,7 @@ export const header = (site, current, opts = {}) => {
          bar's bottom edge. Interior pages keep 12px underneath, because there
          the header also carries a grey border-b and butting the two together
          reads as an accidental double rule. -->
-    <div id="site-nav-rule" class="mt-3 ${onHero ? '' : 'mb-3'} sm:mt-6 sm:mb-5 h-px w-full bg-gradient-to-r from-transparent via-cyan to-transparent"></div>
+    <div id="site-nav-rule" class="mt-3 ${overLayout ? '' : 'mb-3'} sm:mt-6 sm:mb-5 h-px w-full bg-gradient-to-r from-transparent via-cyan to-transparent"></div>
   </div>
 
   <ul id="navMain" hidden

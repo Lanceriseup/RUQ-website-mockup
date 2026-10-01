@@ -1,0 +1,61 @@
+========================================================================
+ASSET 18  —  Illustration — two women talking
+========================================================================
+
+Save the result as : illo-talk.png
+Size               : 1600 x 1200   (4:3)
+Format             : PNG or JPEG — see "after you generate it"
+Used for           : Mockup 3 — the struggles / connection section
+
+
+========================================================================
+STEP 1  —  COPY EVERYTHING BELOW THIS LINE INTO THE PROMPT BOX
+========================================================================
+
+Two women seated facing each other on simple flat shapes, leaning in close. One is speaking with one hand open and expressive; the other listens with her head tilted and a hand resting gently on the speaker's forearm. One wears coral, the other cyan. Two mugs sit on the ground between them as simple flat shapes. Warm, intimate, unhurried.
+
+Flat vector illustration in a paper-cut collage style, as though each shape were scissor-cut from coloured paper and layered. Bold uniform dark charcoal outlines around every shape. Completely flat colour fills with absolutely no gradients, no shading, no highlights, no texture and no drop shadows. Limited palette of hot magenta pink, turquoise cyan, warm coral, soft golden yellow, cream and dark charcoal. Exaggerated friendly storybook proportions with slightly small heads, long simple limbs and expressive hands. Faces drawn simply with minimal features — dots and single curved lines, no rendered detail. Modern editorial children's-book illustration, warm and optimistic, in the spirit of Duolingo and Mailchimp brand art.
+
+The entire background is one perfectly flat solid warm cream colour, hex #f5f1e4, filling the whole canvas edge to edge with no gradient, no vignette, no texture, no shadow cast onto it and no border. The illustration must never use pure white or that exact cream anywhere inside itself — use pale yellow or light coral for any light areas instead — so the background can be keyed out cleanly.
+
+========================================================================
+STEP 2  —  COPY THIS INTO THE "NEGATIVE PROMPT" BOX
+========================================================================
+
+photograph, photorealistic, 3d render, clay render, gradient, gradient mesh, soft shading, airbrush, drop shadow, inner shadow, glow, bevel, texture, noise, grain, watercolour, sketchy lines, cross-hatching, pencil, painterly, anime, manga, chibi, cartoon mascot, detailed faces, realistic faces, text, letters, words, watermark, logo, signature, frame, border, background scenery, landscape, room interior, furniture, white background, patterned background, extra limbs, extra fingers, deformed hands, melted shapes
+
+========================================================================
+MIDJOURNEY USERS — SKIP STEPS 1 AND 2. PASTE THIS ONE LINE INSTEAD
+========================================================================
+
+Two women seated facing each other on simple flat shapes, leaning in close. One is speaking with one hand open and expressive; the other listens with her head tilted and a hand resting gently on the speaker's forearm. One wears coral, the other cyan. Two mugs sit on the ground between them as simple flat shapes. Warm, intimate, unhurried. Flat vector illustration in a paper-cut collage style, as though each shape were scissor-cut from coloured paper and layered. Bold uniform dark charcoal outlines around every shape. Completely flat colour fills with absolutely no gradients, no shading, no highlights, no texture and no drop shadows. Limited palette of hot magenta pink, turquoise cyan, warm coral, soft golden yellow, cream and dark charcoal. Exaggerated friendly storybook proportions with slightly small heads, long simple limbs and expressive hands. Faces drawn simply with minimal features — dots and single curved lines, no rendered detail. Modern editorial children's-book illustration, warm and optimistic, in the spirit of Duolingo and Mailchimp brand art. The entire background is one perfectly flat solid warm cream colour, hex #f5f1e4, filling the whole canvas edge to edge with no gradient, no vignette, no texture, no shadow cast onto it and no border. The illustration must never use pure white or that exact cream anywhere inside itself — use pale yellow or light coral for any light areas instead — so the background can be keyed out cleanly. --no photograph, photorealistic, 3d render, clay render, gradient, gradient mesh, soft shading, airbrush, drop shadow, inner shadow, glow, bevel, texture, noise, grain, watercolour, sketchy lines, cross-hatching, pencil, painterly, anime, manga, chibi, cartoon mascot, detailed faces, realistic faces, text, letters, words, watermark, logo, signature, frame, border, background scenery, landscape, room interior, furniture, white background, patterned background, extra limbs, extra fingers, deformed hands, melted shapes --ar 4:3 --style raw --s 200 --chaos 5 --q 2
+
+========================================================================
+SETTINGS FOR YOUR TOOL
+========================================================================
+
+Gemini / Nano Banana : after the prompt, add — "Landscape 4:3, highest resolution. Flat vector paper-cut illustration. Solid flat cream background, no gradient."
+GPT Image            : size: 1536x1024, quality: high
+Flux 1.1 Pro         : aspect_ratio: 4:3, guidance: 3.5, steps: 40
+Midjourney v7        : --ar 4:3 --style raw --s 200 --chaos 5 --q 2
+
+========================================================================
+AFTER YOU GENERATE IT
+========================================================================
+
+NO CUT-OUT WORK NEEDED on these five. The background is flat cream and
+I key it out in code, so just send the file as it comes out.
+
+COMPOSITION — Keep a clear cream margin on all four sides.
+
+REJECT a version if it has any of these, because they break the system:
+  - gradients or soft shading anywhere (the style is strictly flat)
+  - a drop shadow under the figures
+  - detailed or realistic faces
+  - a patterned, white or scenic background instead of flat cream
+  - pure white used inside the illustration (it keys out with the background)
+
+========================================================================
+Generate 4 versions and pick the best one. Send me the original
+file at full size — I handle the resizing and compression.
+========================================================================

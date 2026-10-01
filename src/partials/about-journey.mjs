@@ -100,6 +100,7 @@ const arch = (inner) => `
     ${orbs}
   </div>
   <span aria-hidden="true" class="absolute left-1/2 top-4 z-20 h-1.5 w-16 -translate-x-1/2 rounded-full bg-ink/15"></span>
+  <!--journey-opening-->
   <div class="relative">${inner}</div>
 </div>`;
 
@@ -300,5 +301,9 @@ const RENDER = {
 // The extra slot renders INSIDE the arch, beneath the cards. Anything passed
 // there sits on the journey’s own ground instead of opening a new section
 // with a new background, which is what produced the visible seam.
-export const renderJourney = (site, c, key, headingKey = 'current', extra = '') =>
-  (RENDER[key] ?? RENDER.plates)(site, c, headingKey, extra);
+//
+// The opening slot renders at the TOP of the arch, above the journey heading,
+// on the same ground — the about page puts the founder feature there, so the
+// panel that lifts over the hero opens on Jessica.
+export const renderJourney = (site, c, key, headingKey = 'current', extra = '', opening = '') =>
+  (RENDER[key] ?? RENDER.plates)(site, c, headingKey, extra).replace('<!--journey-opening-->', opening);

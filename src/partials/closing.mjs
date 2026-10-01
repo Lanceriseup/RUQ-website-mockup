@@ -27,14 +27,31 @@
 // before launch, one way or the other.
 import { CLOSING_COPY } from './closing-wide.mjs';
 import { closingTicket } from './closing-ticket.mjs';
+import { eventPanel } from './cta.mjs';
+
+export { closingTicket };
 
 export const WORDING = 'startsHere';
 export const SIZE = 'snug';
 export const MOTION = 'rimGlow';
 
-// ground defaults to 'white', which is right on the homepage where this opens
-// its own section. The about page nests it inside the journey arch and passes
-// 'inherit', so the ticket floats on that section's ground instead of laying a
-// white band over it.
-export const closingSection = (site, c, ground = 'white') =>
-  closingTicket(site, c, CLOSING_COPY[WORDING], SIZE, MOTION, ground);
+// SHIPPING: the closing CTA is now the same dark event panel as the
+// breakthrough CTA (cta.mjs eventPanel) — same photo, labelled dates, button
+// and pink pulse — carrying the startsHere wording and its sub-line. The
+// ticket above is kept for /closing-panel.html and the other galleries, which
+// import WORDING / SIZE and closingTicket directly.
+//
+// ground: 'white' on the homepage, where this opens its own section;
+// 'inherit' on the about page, where it floats on the journey section's
+// ground. The panel carries no background either way, so only the padding
+// differs.
+export const closingSection = (site, c, ground = 'white') => {
+  const copy = CLOSING_COPY[WORDING];
+  return eventPanel(site, {
+    id: ground === 'white' ? 'closing' : 'closing-about',
+    title: copy.heading,
+    phrase: copy.highlight,
+    body: copy.body,
+    pad: ground === 'white' ? 'bg-white py-10 sm:py-16' : 'py-8 sm:py-12',
+  });
+};

@@ -1,0 +1,47 @@
+========================================================================
+ASSET 01  —  Cut-out — confident, arms folded
+========================================================================
+
+Save the result as : cutout-1.png
+Size               : 1400 x 2100   (2:3)
+Format             : PNG with transparency
+Used for           : Floats to the right of the hero headline
+
+
+========================================================================
+STEP 1  —  COPY EVERYTHING BELOW THIS LINE INTO THE PROMPT BOX
+========================================================================
+
+Full-length studio photograph of a confident woman in her late thirties, warm genuine smile with eyes engaged with the camera, arms loosely folded, weight on one hip, relaxed and open posture. Wearing an elegant cream silk blouse and soft blush wide-leg trousers, minimal gold jewellery. Hair worn down, smooth and controlled with no flyaway strands. Photographed head to mid-calf, full body in frame with even margin above and below. Lit with a large softbox key at 45 degrees camera left about one metre from subject, a white bounce fill camera right at a 1:2 ratio so shadows stay open, and a hard rim light behind camera right separating her hair and shoulder cleanly from the background. Flat evenly lit seamless pale grey studio backdrop with no gradient, no vignette and no shadow cast onto it. Shot on a Canon EOS R5 with an 85mm lens at f/5.6, ISO 100, tack sharp from head to foot, photorealistic, natural skin texture with visible pores, neutral colour balance, true skin tones.
+
+========================================================================
+STEP 2  —  COPY THIS INTO THE "NEGATIVE PROMPT" BOX
+========================================================================
+
+blurred edges, motion blur, hair flyaways, wind, backlit halo, shadow on backdrop, gradient background, busy background, props, furniture, text, watermark, logo, cropped limbs, extra fingers, deformed hands, distorted face, plastic skin, waxy skin, oversaturated, heavy retouching, teal and orange grade
+
+========================================================================
+MIDJOURNEY USERS — SKIP STEPS 1 AND 2. PASTE THIS ONE LINE INSTEAD
+========================================================================
+
+Full-length studio photograph of a confident woman in her late thirties, warm genuine smile with eyes engaged with the camera, arms loosely folded, weight on one hip, relaxed and open posture. Wearing an elegant cream silk blouse and soft blush wide-leg trousers, minimal gold jewellery. Hair worn down, smooth and controlled with no flyaway strands. Photographed head to mid-calf, full body in frame with even margin above and below. Lit with a large softbox key at 45 degrees camera left about one metre from subject, a white bounce fill camera right at a 1:2 ratio so shadows stay open, and a hard rim light behind camera right separating her hair and shoulder cleanly from the background. Flat evenly lit seamless pale grey studio backdrop with no gradient, no vignette and no shadow cast onto it. Shot on a Canon EOS R5 with an 85mm lens at f/5.6, ISO 100, tack sharp from head to foot, photorealistic, natural skin texture with visible pores, neutral colour balance, true skin tones. --no blurred edges, motion blur, hair flyaways, wind, backlit halo, shadow on backdrop, gradient background, busy background, props, furniture, text, watermark, logo, cropped limbs, extra fingers, deformed hands, distorted face, plastic skin, waxy skin, oversaturated, heavy retouching, teal and orange grade --ar 2:3 --style raw --s 150 --chaos 4 --q 2
+
+========================================================================
+SETTINGS FOR YOUR TOOL
+========================================================================
+
+Gemini / Nano Banana : after the prompt, add — "Portrait orientation, 2:3 aspect ratio, highest resolution available. Plain flat light grey background for clean background removal."
+GPT Image            : size: 1024x1536, quality: high  (then upscale to 1400 x 2100)
+Flux 1.1 Pro         : aspect_ratio: 2:3, guidance: 3.0, steps: 40, raw: true
+Midjourney v7        : --ar 2:3 --style raw --s 150 --chaos 4 --q 2
+
+========================================================================
+AFTER YOU GENERATE IT
+========================================================================
+
+Remove the background and export PNG-24 with alpha. remove.bg, Photoshop Select Subject then Refine Hair, or Canva BG Remover all handle hair well. PNG-8 will fringe the edges — do not use it.
+
+========================================================================
+Generate 4 versions and pick the best one. Send me the original
+file at full size — I handle the resizing and compression.
+========================================================================

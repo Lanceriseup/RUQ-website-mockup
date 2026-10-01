@@ -12,6 +12,18 @@
       "headingAfter": "woman that God has designed you to be.",
       "sub": "Become the passionate, connected and joyful woman that God designed you to be."
     },
+    "freedom": {
+      "_source": "Supplied by Lance on 2026-10-01 as a mockup of the section before Common Struggles.",
+      "eyebrow": "Rise Up Queens presents",
+      "logo": "/assets/brand/freedom-logo.png",
+      "logoWhite": "/assets/brand/freedom-logo-white.png",
+      "tagline": [
+        "Unapologetic.",
+        "Free.",
+        "Feminine."
+      ],
+      "body": "Freedom isn’t a conference to attend; it’s a turning point to walk through. In three days, you’ll identify what’s really kept you stuck, experience breakthrough alongside women who get it, and leave with clarity, freedom, and a faith that feels alive again."
+    },
     "painPoints": {
       "heading": "Common struggles women in marriage have:",
       "_source": "Verbatim from riseupqueens.com. An earlier pass paraphrased items 5 and 6 and used a different heading.",
@@ -38,8 +50,8 @@
     "renewal": {
       "_source": "Verbatim from riseupqueens.com home page.",
       "heading": "Join us to experience healing and renewal",
-      "photo": "/assets/photos/queens-waving.jpg",
-      "photoAlt": "The full room of women at a Rise Up Queens event",
+      "photo": "/assets/photos/queens-waving-booth.jpg",
+      "photoAlt": "Women in tiaras waving in front of the Rise Up Queens backdrop",
       "items": [
         {
           "title": "Rediscover Your True Identity",
@@ -75,6 +87,10 @@
     },
     "faith": {
       "_source": "Verbatim from riseupqueens.com home page.",
+      "_source2": "script, heading and toggle from the client mockup of 2026-10-01.",
+      "script": "What We Believe",
+      "heading": "Statement of Faith",
+      "toggle": "Read our full statement of faith",
       "mission": "Rise Up Queens is a Christian movement built on the unshakable truth of the Gospel. We believe salvation through Jesus is the starting point for true freedom, and the journey doesn’t stop there. Our mission is to lead women into a life-changing relationship with God, where they receive His grace and walk boldly in their sanctification, growing in strength, identity, and purpose every day.",
       "label": "Statement of Faith",
       "title": "Rise Up Queens Statement of Faith",
@@ -88,6 +104,17 @@
         "God desires all people to be saved and this only comes through repentance and faith in Jesus Christ as Savior and Lord – salvation comes by grace through faith alone, not by works.",
         "The Holy Spirit indwells all believers to give spiritual life, to guide personal and spiritual growth."
       ]
+    },
+    "nlb": {
+      "_source": "Client mockup supplied 2026-10-02. Link to be confirmed by Lance.",
+      "eyebrow": "Looking to start now? · Explore courses",
+      "script": "Find Freedom",
+      "headline": "Even if your body hasn’t healed yet.",
+      "question": "Have you ever felt trapped in a body that won’t cooperate: sick, exhausted, and out of answers?",
+      "cta": "Explore No Longer Bound",
+      "url": "#",
+      "_url": "PLACEHOLDER — Lance to supply the No Longer Bound link.",
+      "_eyebrow": "Removed from the banner on request (2026-10-02); kept here in case it is wanted back."
     },
     "closing": {
       "_source": "riseupqueens.com homepage, fetched 2026-09-11. Sits after Meet the Founder, last section before the footer.",
@@ -154,6 +181,31 @@
     "_casingNote": "The live page writes \"Rise up Queens\" with a lowercase u in this paragraph, against \"Rise Up Queens\" everywhere else on their site. Preserved verbatim rather than tidied — it is their copy, and it is probably a typo worth raising with them.",
     "_originalHeading": "About Rise Up Queens",
     "whoForVideo": "02b33ety61",
+    "founder": {
+      "_source": "Copy from the client mockup supplied 2026-10-02.",
+      "name": "Jessica Lewis",
+      "role": "Founder, Rise Up Queens",
+      "eyebrow": "Meet our founder",
+      "photo": "/assets/team/jessica-lewis.jpg",
+      "cutout": "/assets/team/jessica-lewis-cutout.webp",
+      "signature": "/assets/brand/signature-jl-ink.png",
+      "signatureLight": "/assets/brand/signature-jl-white.png",
+      "intro": "Jessica Lewis is a Christian marriage coach, speaker, and founder of Rise Up Queens, a transformational movement for high-achieving women who are tired of carrying it all and long to live in their God-given femininity.",
+      "quote": "The real battle wasn’t just what happened to me: it was who I had become.",
+      "body": "That journey led her to discover the power of biblical femininity, emotional healing, and raw vulnerability, and now she helps other women do the same, guiding them into deeper intimacy, restored identity, and spiritual freedom."
+    },
+    "whoFor": {
+      "_source": "Client mockup supplied 2026-10-02.",
+      "heading": "Who is it for?",
+      "body": "Rise Up Queens is for the woman who knows she has untapped potential, and desires to live in freedom while maximizing her impact within her family and community.",
+      "statement": [
+        "This is not surface-level empowerment.",
+        "It’s Spirit-led transformation."
+      ],
+      "video": "/assets/video/ruq-promo.mp4",
+      "poster": "/assets/video/ruq-promo-poster.jpg",
+      "videoTitle": "Rise Up Queens promo"
+    },
     "journey": {
       "_source": "riseupqueens.com/about/, fetched 2026-09-12. Verbatim, including the mixed straight and curly apostrophes, which are theirs.",
       "heading": "The journey doesn’t end after the first event…",
@@ -165,19 +217,22 @@
         {
           "title": "Private Community App",
           "body": "Stay connected, share your wins, and walk with women who truly get it. This is your space to keep the momentum going.",
-          "photo": "/assets/photos/gallery-1-2.jpg"
+          "photo": "/assets/photos/journey-selfie.jpg",
+          "_photoSource": "RUQ-42.jpg (supplied 2026-10-02), cropped 3:4 from the 6532px original"
         },
         {
           "title": "Bi-Weekly Women’s Calls",
           "body": "Every other week, join live teachings designed to help you deepen your transformation and stay aligned with your calling.",
-          "photo": "/assets/photos/gallery-3-2.jpg"
+          "photo": "/assets/photos/journey-embrace.jpg",
+          "_photoSource": "RUQ-40.jpg (supplied 2026-10-02), cropped 3:4 from the 6532px original"
         },
         {
           "title": "Continue the Journey",
           "body": "Take the next step on your path of transformation at one of our events designed to help you go further.",
           "linkText": "the next step on your path",
           "linkUrl": "https://go.riseupqueens.com/3dayevent",
-          "photo": "/assets/photos/gallery-2-2.jpg"
+          "photo": "/assets/photos/journey-cheer.jpg",
+          "_photoSource": "RUQ-47.jpg (supplied 2026-10-02), cropped 3:4 from the 6532px original"
         }
       ],
       "close": "Don’t let another day go by disconnected from who you were created to be. There’s a seat for you, and a woman you haven’t met yet on the other side of saying yes.",
@@ -203,7 +258,17 @@
       }
     ],
     "_faqsNote": "The four questions previously here were written during the first extraction pass and were not the client's. These seven are verbatim from riseupqueens.com/about/, fetched 2026-09-12. The old four are kept above in case any of the wording is wanted.",
-    "_pullquotesNote": "NOT RENDERED. Removed from the page on request. Kept because it is the client's copy from their live about page."
+    "_pullquotesNote": "NOT RENDERED. Removed from the page on request. Kept because it is the client's copy from their live about page.",
+    "closingCta": {
+      "_source": "Client mockup supplied 2026-10-02.",
+      "script": "Ready to take the first step?",
+      "heading": "Join us at Freedom",
+      "body": "Come as you are. Leave renewed. Freedom is our introductory 3-day experience, built to help you rediscover who God designed you to be.",
+      "primary": "Register for Freedom",
+      "secondary": "Explore Courses",
+      "secondaryUrl": "#",
+      "_secondaryUrl": "PLACEHOLDER — courses link to be supplied."
+    }
   },
   "events": {
     "heading": "Your Path with Rise Up Queens",
@@ -356,6 +421,85 @@
         "group": "coach"
       },
       {
+        "name": "Cyndi Cucchi",
+        "role": "Community Coach",
+        "group": "community",
+        "photo": "/assets/team/cyndi-cucchi.jpg",
+        "bio": [
+          "Cyndi Cucchi has a natural gift for helping people feel seen, heard, and deeply known. Her warmth and authenticity create space for honest conversations, the kind where real transformation begins. Residing in Florida, Cyndi spent years in public education before becoming a homeschool mom and helping lay the foundation of her family’s business alongside her husband. Today, she walks alongside women as they move from striving and perfectionism into freedom in Christ, discovering lives marked by peace, purpose, and joy. Having walked through infertility and adoption herself, she holds a tender place in her heart for women navigating those journeys. She believes true freedom begins when women stop trying to be perfect and start living fully surrendered. At home, she is the wife of her high school sweetheart of 26 years and a mom of five, three girls bookended by two boys. She believes the most meaningful moments happen not on a stage, but around the table, in the everyday moments where faith is lived and hearts are changed."
+        ],
+        "_source": "Bio and photo supplied by Lance, 2026-10-02 (bio transcribed from the client screenshot)."
+      },
+      {
+        "name": "Leticia Huddleston",
+        "role": "Community Coach",
+        "group": "community",
+        "photo": "/assets/team/leticia-huddleston.jpg",
+        "bio": [
+          "Leticia is a coach, wife and mom to four adventurous boys. The Lord is everything to her. From an early age, He became her refuge, her protector, her best friend, and the only place she consistently felt safe. Raised in a chaotic home marked by dysfunction, trauma, and survival, Leticia learned early how to live guarded: to distrust, suppress emotion, avoid conflict, and hold a tight grip on life in an effort to stay in control. It wasn’t until walking through seasons of deep pain, including divorce and a wilderness season of isolation, that everything began to shift. In that place, God drew her close, teaching her how to rest, rebuild trust, and live anchored in Him rather than in fear or her past. Through that journey, Leticia discovered that true freedom isn’t found in striving or control but in surrender, identity, and walking in the authority given through Christ. Now, Leticia walks alongside women who feel stuck, unworthy, unseen, and exhausted from carrying it all. Her coaching blends deep emotional awareness with biblical truth, creating a space that is both safe and transformative. She helps women create safety within themselves, rebuild trust, and step into a life marked by confidence, clarity, and peace: where they are no longer controlled by fear, but anchored in who they are in Christ."
+        ],
+        "_source": "Bio and photo supplied by Lance, 2026-10-02 (bio transcribed from the client screenshot)."
+      },
+      {
+        "name": "Rachele Johnson",
+        "role": "Community Coach",
+        "group": "community",
+        "photo": "/assets/team/rachele-johnson.jpg",
+        "bio": [],
+        "_pending": "bio still to be supplied.",
+        "_source": "Bio and photo supplied by Lance, 2026-10-02 (bio transcribed from the client screenshot)."
+      },
+      {
+        "name": "Lauren Swan",
+        "role": "Community Coach",
+        "group": "community",
+        "photo": null,
+        "bio": [
+          "Lauren Swan is a Christ-centered life coach who helps women move from breakthrough moments into lasting transformation. After experiencing the impact of Rise Up Queens in her own life, Lauren felt called to walk alongside women as they continue their healing, deepen their relationship with God, and stay anchored in the freedom they’ve found. Known for her empathy and spiritual discernment, Lauren creates a space where women feel safe to be fully seen and honest without judgment. She gently uncovers what’s beneath the surface and helps women recognize the patterns and beliefs keeping them stuck. Her approach is both compassionate and direct: she meets women where they are and calls them forward into truth, identity, and aligned action. With a background in education, psychology, coaching, and business ownership, Lauren connects deeply with women navigating leadership, family, and high levels of responsibility, especially those ready to lay down the pressure of holding it all together and step into greater freedom and authenticity. Her coaching is rooted in biblical truth and led by the Holy Spirit, with a focus on awareness, alignment, and lasting change. Lauren lives in Green Bay, Wisconsin with her husband Daniel and their four children, and is honored to serve as part of the RUQ community."
+        ],
+        "_pending": "photo still to be supplied.",
+        "_source": "Bio and photo supplied by Lance, 2026-10-02 (bio transcribed from the client screenshot)."
+      },
+      {
+        "name": "Courtenay Burkholder",
+        "role": "Community Coach",
+        "group": "community",
+        "photo": "/assets/team/courtenay-burkholder.jpg",
+        "bio": [
+          "Courtenay is a wife of 20 years, a mom of four, and a coach with a deep heart for women walking through healing, personal growth, and restoration. After experiencing great loss, she understands what it’s like to carry pain quietly, how it can shape your marriage, your identity, and your relationship with God. Through her own journey, she’s experienced the freedom that comes from surrender, forgiveness, and letting God meet her in the hard places. Now, Courtenay is passionate about walking alongside women in all seasons of life as they process their stories, let go of what’s been weighing them down, and step into who they were created to be. She creates spaces where women can be real, feel supported, and experience true connection, with themselves, with others, and with God. Through coaching, community, and Rise Up Queens events, she invites women into that work every day. In this season of life, you’ll find Courtenay traveling with her family in a motorhome, homeschooling, exploring new places, and making memories along the way."
+        ],
+        "_source": "Bio and photo supplied by Lance, 2026-10-02 (bio transcribed from the client screenshot)."
+      },
+      {
+        "name": "Lorena Mora",
+        "role": "Community Coach",
+        "group": "community",
+        "photo": null,
+        "bio": [],
+        "_pending": "photo and bio still to be supplied.",
+        "_source": "Bio and photo supplied by Lance, 2026-10-02 (bio transcribed from the client screenshot)."
+      },
+      {
+        "name": "Adrianna Lewis",
+        "role": "Inner Healing Prayer Lead",
+        "group": "specialized",
+        "photo": "/assets/team/adrianna-lewis.jpg",
+        "bio": [
+          "Adrianna Lewis is a faith-based life and mindset coach devoted to helping women rise out of survival mode and step into the life God created for them. After becoming a mother at 17 and walking through addiction that led to homelessness and deep despair, Adrianna now lives in true freedom through Christ. Her life is a testament to what’s possible when you surrender, heal, and allow God to rebuild you from the inside out. Through her faith and her journey with Rise Up Queens, Adrianna didn’t just overcome anxiety, depression, fear, and control, she learned how to uproot what was driving them. That inner transformation gave her clarity, direction, and the confidence to fully walk in her God-given purpose. Now, she helps women who feel stuck, overwhelmed, or disconnected from themselves break free from emotional health struggles, rediscover their identity in Christ and gain clear vision for their life. Adrianna is known for guiding women beyond surface-level change into deep, lasting transformation, where healing happens at the root, not just the symptoms. If you’re ready to stop feeling lost and start living with clarity, peace, and purpose, Adrianna will walk with you every step of the way."
+        ],
+        "_source": "Bio and photo supplied by Lance, 2026-10-02 (bio transcribed from the client screenshot)."
+      },
+      {
+        "name": "Jessica Barajas",
+        "role": "Rise Up Queens Español Coach",
+        "group": "specialized",
+        "photo": "/assets/team/jessica-barajas.jpg",
+        "bio": [
+          "JB has lived the life you want to break free from. You’ve spent your life being the one who holds it all together while feeling like the one who was never quite chosen. That quiet ache and the feeling of being unseen even in a crowded room, of being unprotected in your own life ends here! I don’t do surface-level fixes. We go into the fire, to the very root of the shame that has tried to silence you, and we burn it away. This is about more than inspiration; it’s about a Holy Spirit-led reclamation of your soul. I’ve walked through the flames and come out free, and I’m reaching back to pull you through. When you are in this room, you are finally seen. You are finally known. And you are finally ready to walk in the terrifyingly beautiful power of who God says you are."
+        ],
+        "_source": "Bio and photo supplied by Lance, 2026-10-02 (bio transcribed from the client screenshot)."
+      },
+      {
         "name": "Jayden Ngoi",
         "role": "RUQ Event Manager",
         "photo": "/assets/team/jayden-ngoi.jpg",
@@ -396,16 +540,32 @@
     "groups": [
       {
         "key": "coach",
-        "heading": "RUQ Coaches"
+        "heading": "Coaches",
+        "_previousHeading": "RUQ Coaches"
+      },
+      {
+        "key": "community",
+        "heading": "Community Coaches"
+      },
+      {
+        "key": "specialized",
+        "heading": "Specialized Roles"
       },
       {
         "key": "leadership",
-        "heading": "Leadership Team",
-        "_originalHeading": "Leadership"
+        "heading": "Operations Team",
+        "_originalHeading": "Leadership",
+        "_previousHeading": "Leadership Team"
       }
     ],
     "_originalHeading": "Rise Up Queens Coaches",
-    "_leadNote": "No longer rendered on the page — removed on request. Kept because pages.mjs uses it as the meta description."
+    "_leadNote": "No longer rendered on the page — removed on request. Kept because pages.mjs uses it as the meta description.",
+    "intro": {
+      "_source": "Client mockup supplied 2026-10-02.",
+      "script": "The women behind it",
+      "heading": "Meet the team",
+      "lead": "Rise Up Queens is carried forward by a growing team of coaches and staff, each called to walk alongside women on their journey toward freedom."
+    }
   },
   "freeResource": {
     "heading": "Free Resource",

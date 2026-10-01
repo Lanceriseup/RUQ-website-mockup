@@ -1,4 +1,10 @@
-// Mission + Statement of Faith. Manuscript treatment.
+// Mission + Statement of Faith.
+//
+// SHIPPING: "Heaven's light" — see faithSection at the foot of this file. The
+// notes below describe the earlier manuscript treatment (faithPlate and the
+// wave shell), which the comparison pages still render.
+//
+// Manuscript treatment.
 //
 // The creed is set as a printed document rather than a web component: serif
 // throughout, drop cap, two columns, hanging numerals, hairline rules, on a
@@ -49,6 +55,30 @@
 import { esc } from './layout.mjs';
 
 const MAGENTA = '#e8208f';
+
+// The mission statement now opens the plate. It used to sit in the
+// breakthrough CTA as a lead-in, but it belongs with the creed — moved here as
+// a holding position; the copy itself is due an edit.
+//
+// Phrases lifted straight out of the sentence, nothing reworded. If the copy
+// changes and a phrase no longer matches, it renders unhighlighted rather
+// than breaking.
+const MISSION_HIGHLIGHTS = [
+  // Without the leading "the": the article highlighted on its own at the end
+  // of a line read as a stray coloured word.
+  'unshakable truth of the Gospel',
+  'true freedom',
+  'strength, identity, and purpose',
+];
+
+// magenta-deep #b81870, not the #dc1e88 the CTA used. That cleared 4.5:1 on
+// white, but the parchment is darker than white and takes it to about 4.1:1;
+// the deeper shade keeps body-size highlights above 4.5:1 here.
+const missionHtml = (c) => MISSION_HIGHLIGHTS.reduce((out, phrase) => {
+  const e = esc(phrase);
+  return out.split(e).join(`<strong class="font-semibold" style="color:#b81870">${e}</strong>`);
+}, esc(c.home.faith.mission));
+
 export const FAITH_PHOTO = '/assets/photos/faith-bg.jpg';
 export const FAITH_IMG_FILTER = 'grayscale contrast-125 brightness-90';
 export const FAITH_SCRIM = 'rgba(28,28,28,.78)';
@@ -132,6 +162,15 @@ export const faithPlate = (c) => `
   <p class="text-center font-body text-[11px] uppercase tracking-[0.4em] text-ink-soft">${esc(c.home.faith.title)}</p>
   <div aria-hidden="true" class="mx-auto mt-5 h-px w-24" style="background:${MAGENTA}"></div>
 
+  <!-- The mission, as the plate's opening statement: centred and a step larger
+       than the creed, so it reads as the summary the beliefs then unpack.
+       Upright, not italic: the site loads Cormorant's 400/500/600 roman only,
+       so italic would be a synthesised slant. The highlights are
+       font-semibold for the same reason — 600 is a loaded weight. -->
+  <p class="mx-auto mt-6 max-w-3xl text-center text-[1.15rem] leading-[1.45] text-ink sm:text-[1.4rem] sm:leading-[1.45]">${missionHtml(c)}</p>
+
+  <div aria-hidden="true" class="my-5 h-px w-full sm:my-7" style="background:rgba(28,28,28,.18)"></div>
+
   <!-- Drop cap scaled with the body: at 3.5rem it still spans about three
        lines of 1.2rem/1.5 text, which is what makes it read as a drop cap
        rather than a large first letter.
@@ -140,7 +179,7 @@ export const faithPlate = (c) => `
        first two lines and leaves them about 25 characters each, so the opening
        of the creed becomes its most awkwardly set passage — the opposite of
        what a drop cap is for. -->
-  <p class="mt-6 text-[1.05rem] leading-[1.45] text-ink
+  <p class="text-[1.05rem] leading-[1.45] text-ink
             sm:text-[1.2rem] sm:leading-[1.5]
             sm:first-letter:float-left sm:first-letter:mr-3 sm:first-letter:mt-1
             sm:first-letter:text-[3.5rem] sm:first-letter:font-semibold sm:first-letter:leading-[.8]
@@ -174,41 +213,71 @@ export const faithPlate = (c) => `
 </div>`;
 
 // ---------------------------------------------------------------- section
+//
+// "Heaven's light" — chosen from /faith-e-options.html (E1), the client's
+// structure in this site's own design: a pink script "What We Believe", the
+// title between two fine rules, the mission, and one control that opens the
+// full statement on a white page.
+//
+// Ground: the brand-tinted sky (teal above, blush at the horizon) drifting
+// very slowly. It is masked to transparent at the top and bottom, so it rises
+// out of the white above and settles into the white below with no edge. A
+// soft white pool behind the copy keeps the type on near-white whatever part
+// of the sky sits under it.
+//
+// The mission is split at its first full stop: the lead sentence set large in
+// serif, the rest as body copy. Nothing is reworded.
+//
+// The creed is always in the DOM. It is collapsed with a 0fr → 1fr grid row,
+// so it opens to its natural height, and the region is inert while closed so
+// keyboard and screen-reader users are not walked through hidden text. app.js
+// toggles it. Styles are .fs-* in tailwind.css.
+//
+// The parchment plate above (faithPlate) is no longer used here; it stays
+// exported for the comparison pages that still render it.
+const ROMAN = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X'];
 
-export const faithSection = (site, c) => `
-<section class="relative">
+const missionParts = (c) => {
+  const marked = MISSION_HIGHLIGHTS.reduce(
+    (t, p) => t.split(esc(p)).join(`<mark>${esc(p)}</mark>`), esc(c.home.faith.mission));
+  const cut = marked.indexOf('. ') + 1;
+  return cut > 0
+    ? { lead: marked.slice(0, cut), rest: marked.slice(cut).trim() }
+    : { lead: marked, rest: '' };
+};
 
-  <!-- Decoration only: clipping stays off the <section> itself, because
-       overflow-hidden on an ancestor silently kills position: sticky and the
-       content column may want it later. -->
-  <div aria-hidden="true" class="absolute inset-0 overflow-hidden">
-    <img src="${FAITH_PHOTO}" alt="" loading="lazy" decoding="async"
-         class="absolute inset-0 h-full w-full object-cover ${FAITH_IMG_FILTER}">
-    <div class="absolute inset-0" style="background:${FAITH_SCRIM}"></div>
+export const faithSection = (site, c) => {
+  const f = c.home.faith;
+  const { lead, rest } = missionParts(c);
+  return `
+<section id="faith" class="fs" data-fs>
+  <div class="fs-sky" aria-hidden="true">
+    <img src="/assets/photos/sky-wide.jpg" alt="" loading="lazy" decoding="async">
   </div>
 
-  ${waveEdge(WAVE.H, topLayers, false)}
-  ${waveEdge(WAVE.H, bottomLayers, true)}
+  <div class="fs-in">
+    <p class="fs-script">${esc(f.script)}</p>
+    <h2 class="fs-title"><i aria-hidden="true"></i><span>${esc(f.heading)}</span><i aria-hidden="true"></i></h2>
+    <p class="fs-lead">${lead}</p>
+    ${rest ? `<p class="fs-rest">${rest}</p>` : ''}
 
-  <!-- Content paints after the waves, so the plate stays clear of the crests.
-
-       py-28 at EVERY width, with no mobile override — that is not an oversight,
-       it is the constraint. The tinted band's deepest point is
-       MID_BAND * H + AMP = 0.60 * 110 + 19 = 103px, and py-28 is 112px, so
-       this is the smallest padding that lets the band be seen at all.
-
-       Anything smaller hides the wave behind the plate. This shipped as py-16
-       (64px), which already buried 39px of it; the mobile compaction pass took
-       it to py-10 (40px) and buried 63px, which is when it became obvious.
-       Both were wrong for the same reason.
-
-       So: if this section needs to be shorter on a phone, the wave has to get
-       smaller — H, AMP and PERIODS scale together, and the clearance follows
-       from the formula above. Do not reach for the padding. There is a costed
-       comparison of that alternative at /faith-shell.html. -->
-  <div class="relative py-28">
-    <div class="mx-auto max-w-4xl px-6">
-      ${faithPlate(c)}
+    <div class="fs-acc" data-fs-acc>
+      <button type="button" class="fs-btn" aria-expanded="false" aria-controls="fs-creed">
+        <span>${esc(f.toggle)}</span>
+        <i class="fs-chev" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg></i>
+      </button>
+      <div class="fs-region" id="fs-creed" role="region" aria-label="${esc(f.title)}" inert>
+        <div class="fs-region-in">
+          <div class="fs-page">
+            <p class="fs-sub">${esc(f.title)}</p>
+            <p class="fs-intro">${esc(f.intro)}</p>
+            <ol class="fs-list">
+              ${f.beliefs.map((b, i) => `<li style="--i:${i}"><span class="fs-n" aria-hidden="true">${ROMAN[i] || i + 1}</span><span>${esc(b)}</span></li>`).join('\n              ')}
+            </ol>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>`;
+};

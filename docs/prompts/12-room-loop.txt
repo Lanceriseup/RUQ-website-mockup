@@ -1,0 +1,42 @@
+========================================================================
+ASSET 12  —  Video loop — the room
+========================================================================
+
+Save the result as : room-loop.mp4
+Size               : 1920 x 1080   (16:9)
+Format             : H.264 MP4, no audio, under 3 MB
+Used for           : The Event page header
+
+
+========================================================================
+STEP 1  —  COPY EVERYTHING BELOW THIS LINE INTO THE PROMPT BOX
+========================================================================
+
+A room full of seated women, filmed from the back. Very subtle natural movement only — shoulders shifting, heads turning slightly, a hand rising somewhere in the crowd. Warm stage light holds steady. Camera completely static, locked off on a tripod. No pan, no tilt, no zoom. Slow, ambient, observational, seamless loop where the final frame matches the first.
+
+========================================================================
+STEP 2  —  COPY THIS INTO THE "NEGATIVE PROMPT" BOX
+========================================================================
+
+camera pan, camera tilt, camera zoom, camera shake, dolly, parallax, rack focus, fast motion, morphing, warping, flickering, colour shift, text, watermark, people standing up, people leaving, fast movement, morphing faces, warping bodies, extra limbs
+
+========================================================================
+SETTINGS FOR YOUR TOOL
+========================================================================
+
+Gemini / Nano Banana : after the prompt, add — "Use Veo. 5 seconds, 16:9, locked-off camera, seamless loop."
+GPT Image            : n/a — use Higgsfield, Runway Gen-3, Kling or Luma
+Flux 1.1 Pro         : n/a
+
+========================================================================
+AFTER YOU GENERATE IT
+========================================================================
+
+Feed asset 8, or your existing queens-waving.jpg, in as the first frame. Target 5 seconds. Then encode:
+
+ffmpeg -i raw.mp4 -an -c:v libx264 -crf 30 -preset slow -pix_fmt yuv420p -g 60 -vf scale=1920:-2 -movflags +faststart room-loop.mp4
+
+========================================================================
+Generate 4 versions and pick the best one. Send me the original
+file at full size — I handle the resizing and compression.
+========================================================================

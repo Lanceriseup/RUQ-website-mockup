@@ -34,7 +34,7 @@ const shell = (page) => `<!doctype html>
 </head>
 <body class="bg-white font-body text-ink antialiased">
 <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-white focus:px-4 focus:py-2 focus:ring-2 focus:ring-magenta">Skip to content</a>
-${header(site, page.href, { overHero: Boolean(page.overHero ?? page.hero), scrim: page.navScrim !== false })}
+${header(site, page.href, { overHero: Boolean(page.overHero ?? page.hero), scrim: page.navScrim !== false, clear: Boolean(page.navClear) })}
 ${capsule(site, page.href)}
 <main id="main">
 ${page.body}
@@ -47,7 +47,9 @@ ${footer(site)}
 <script src="/bio-modal.js" defer></script>` : ''}${page.body.includes('data-countdown') ? `
 <!-- Keyed off the attribute that drives it rather than a flag, so a page that
      renders a countdown cannot ship without the script that fills it in. -->
-<script src="/countdown.js" defer></script>` : ''}${page.hero ? `
+<script src="/countdown.js" defer></script>` : ''}${page.body.includes('data-vsl-id') ? `
+<!-- Keyed off the VSL mount, so any page with the shared player (homepage,
+     about) gets Wistia and vsl.js, and no other page pays for them. -->
 <script src="https://fast.wistia.com/assets/external/E-v1.js" async></script>
 <script src="/vsl.js" defer></script>` : ''}
 </body>
