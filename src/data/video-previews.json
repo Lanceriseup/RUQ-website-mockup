@@ -1,0 +1,66 @@
+{
+  "_note": "Preview MP4s for the testimonial rails (centre stage). Written by scripts/fetch-previews.mjs from Wistia’s media JSON — re-run `npm run previews` if a video is added or re-uploaded.",
+  "fetched": "2026-10-01",
+  "media": {
+    "3o3hkzk09m": {
+      "url": "https://embed-ssl.wistia.com/deliveries/c0653df2dff1b5f93f9900c892fc415538423323.mp4",
+      "small": "https://embed-ssl.wistia.com/deliveries/8eae6c882b130937d516cd63787debe539f293fe.mp4",
+      "width": 640,
+      "height": 360
+    },
+    "ak49jjz1wc": {
+      "url": "https://embed-ssl.wistia.com/deliveries/01d17573dd37e772f3b624b1dba582d719eab9d1.mp4",
+      "small": "https://embed-ssl.wistia.com/deliveries/9ea6163498182e3d4c3a8ca63afaa8fcb3ab39ff.mp4",
+      "width": 640,
+      "height": 360
+    },
+    "2i9nkpdat4": {
+      "url": "https://embed-ssl.wistia.com/deliveries/4205bad2c5eb50676da390fb883f5aea03cc4762.mp4",
+      "small": "https://embed-ssl.wistia.com/deliveries/a68ca10edf6d4861431f0b00d259f2476b90d156.mp4",
+      "width": 640,
+      "height": 360
+    },
+    "6nnw8iosa8": {
+      "url": "https://embed-ssl.wistia.com/deliveries/8ecf2d4a59297921eb04b2e79e90be3c6df16cb7.mp4",
+      "small": "https://embed-ssl.wistia.com/deliveries/811f206202aff5e4f05c2887872e983772eeba10.mp4",
+      "width": 640,
+      "height": 360
+    },
+    "bz9k6c1jzw": {
+      "url": "https://embed-ssl.wistia.com/deliveries/2665563400d02873d47d4b75edddf928df3cb719.mp4",
+      "small": "https://embed-ssl.wistia.com/deliveries/8f5cc484d5a558649748063706455fb9a6395001.mp4",
+      "width": 640,
+      "height": 360
+    },
+    "l6zw36vomg": {
+      "url": "https://embed-ssl.wistia.com/deliveries/8b162b575cb1542058b356852ee3fbcc7346f689.mp4",
+      "small": "https://embed-ssl.wistia.com/deliveries/ff2c8a61ddbb694942da2f60f78142c32f48f044.mp4",
+      "width": 640,
+      "height": 360
+    },
+    "xansbpxve4": {
+      "url": "https://embed-ssl.wistia.com/deliveries/62393798e235d9789d9dfaafedb6c5bcbe67356c.mp4",
+      "small": "https://embed-ssl.wistia.com/deliveries/1b587d777973378731e1b999ee4e646b917b777f.mp4",
+      "width": 640,
+      "height": 360
+    },
+    "t2m3f63dex": {
+      "url": "https://embed-ssl.wistia.com/deliveries/3a7ddadc325cdcb053fc531d27dae210bc14d0cf.mp4",
+      "small": "https://embed-ssl.wistia.com/deliveries/af74452d2ba4bb9be00df4b3a5df962628899486.mp4",
+      "width": 640,
+      "height": 360
+    },
+    "o6df5uvw2n": {
+      "url": "https://embed-ssl.wistia.com/deliveries/b90a2e3a9df587dea10ee2f8b8bccf719fa46e45.mp4",
+      "small": "https://embed-ssl.wistia.com/deliveries/1a29e60c3d01a7519213bc5f9593f310678da338.mp4",
+      "width": 640,
+      "height": 360
+    },
+    "iac7316zx8": {
+      "url": "https://embed-ssl.wistia.com/deliveries/c48d2cadedf17c36ca7b279fc29f0aeeb74c9d33.mp4",
+      "small": "https://embed-ssl.wistia.com/deliveries/9708a2e89a0e15c2165c6a8c257b6b87754c85d2.mp4",
+      "width": 640,
+      "height": 360
+    }
+  }
+}

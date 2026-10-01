@@ -2,22 +2,23 @@ import { esc } from '../partials/layout.mjs';
 import { section, videoFacade, card, personCard, cta, faq } from '../partials/components.mjs';
 import { hero } from '../partials/hero.mjs';
 import { spread } from '../partials/spread.mjs';
+import { freedomSection } from '../partials/freedom.mjs';
 import { ctaSection } from '../partials/cta.mjs';
 import { faithSection } from '../partials/faith.mjs';
 import { testimonialsSection } from '../partials/testimonials.mjs';
+import { nlbSection } from '../partials/nlb.mjs';
 import { closingSection } from '../partials/closing.mjs';
 import { teamPage } from '../partials/team.mjs';
 import { aboutHero } from '../partials/about-hero.mjs';
 import { renderJourney } from '../partials/about-journey.mjs';
+import { founderSection } from '../partials/founder.mjs';
+import { whoForSection } from '../partials/whofor.mjs';
+import { aboutLights } from '../partials/about-lights.mjs';
+import { aboutCta } from '../partials/about-cta.mjs';
 import { renderFaqs } from '../partials/faq-variants.mjs';
-import { renderContactPage } from '../partials/contact.mjs';
+import { contactLight } from '../partials/contact-light.mjs';
 
 const grid = (cols, items) => `<div class="mt-10 grid gap-6 ${cols}">${items.join('')}</div>`;
-
-// Chosen: a full-width hairline under the heading, the crest as a faint
-// watermark behind the Rise Up Kings block, square social tiles, and the
-// glass form panel that was approved. Options at /contact-styles.html.
-const CONTACT_OPTS = { rule: 'hair', partnerShape: 'watermark', panel: 'current', social: 'tile' };
 
 export const pages = (site, c, vids) => ([
   {
@@ -36,10 +37,15 @@ export const pages = (site, c, vids) => ([
     <div class="relative z-10 -mt-16 overflow-hidden rounded-t-[2.5rem] shadow-[0_-26px_60px_-28px_rgba(0,0,0,.5)]
                 before:absolute before:left-1/2 before:top-4 before:z-20 before:h-1.5 before:w-16
                 before:-translate-x-1/2 before:rounded-full before:bg-ink/15">
-      ${spread(site, c)}
+      <!-- Freedom opens the panel, so the handle above sits on its blush
+           ground and its wave hands over to the struggles below. -->
+      ${freedomSection(c)}
+      <!-- The breakthrough CTA closes the spread on the spread's own ground.
+           As a separate section after this panel it met it on a straight
+           line: the panel is z-10, so it covered the top of the CTA's glow,
+           and the spread's corner glows stopped dead at its bottom edge. -->
+      ${spread(site, c, ctaSection(site, c))}
     </div>
-
-    ${ctaSection(site, c)}
 
     <!-- The creed sits directly under the breakthrough CTA, matching the live
          page's order: the ask, then what the movement stands on. -->
@@ -57,6 +63,9 @@ export const pages = (site, c, vids) => ([
          'verbatim' here and nothing else changes. -->
     ${testimonialsSection(site, c, vids, 'mirror')}
 
+    <!-- No Longer Bound, as an ad-sized banner. See nlb.mjs. -->
+    ${nlbSection(c)}
+
     <!-- Meet the Founder used to sit here and has been removed. Its copy is
          still in content.json as home.founder, and the team page still carries
          Jessica, so nothing is lost — the homepage simply no longer detours
@@ -73,8 +82,8 @@ export const pages = (site, c, vids) => ([
   {
     file: 'about.html', href: '/about.html',
     title: `About — ${site.brand.name}`, desc: c.about.lead,
-    // overHero, not hero: the header renders over the photograph. The hero
-    // flag would also pull in the Wistia player, and this page has no video.
+    // overHero: the header renders over the photograph. The Wistia player
+    // loads because the hero renders the shared VSL — see build.mjs.
     overHero: true,
     body: `
     ${aboutHero(site, c)}
@@ -86,7 +95,7 @@ export const pages = (site, c, vids) => ([
 
          It sits directly under the third card, which ends on "take the next
          step on your path" — so the ticket is that step. -->
-    ${renderJourney(site, c, 'overlap', 'stacked', closingSection(site, c, 'inherit'))}
+    ${renderJourney(site, c, 'overlap', 'stacked', aboutCta(site, c), aboutLights() + founderSection(c) + whoForSection(c))}
 
     <!-- The two pullquotes used to sit here and are removed. Their copy stays
          in content.json as about.pullquotes. -->
@@ -152,15 +161,10 @@ export const pages = (site, c, vids) => ([
   {
     file: 'team.html', href: '/team.html',
     title: `Meet the Team — ${site.brand.name}`, desc: c.team.lead,
-    // overHero, not hero: the page needs the header rendered over it rather
-    // than above it, because its standard mode is white with a bottom border
-    // and the top of this page is black. `hero` would also pull in the Wistia
-    // player, which this page has no use for.
-    overHero: true,
-    // No scrim. It exists to hold white nav type over a bright video frame;
-    // this page is near-black at the top, so it buys nothing and instead lays
-    // 80% ink over the first 288px of the page, which greys out the heading.
-    navScrim: false,
+    // The page is light now, so the header uses its ink type — but in
+    // "clear" mode: no white bar, positioned over the page, so the sky the
+    // page opens on runs up behind it to the very top. See team.mjs.
+    navClear: true,
     body: teamPage(site, c)
   },
 
@@ -177,19 +181,16 @@ export const pages = (site, c, vids) => ([
   {
     file: 'contact.html', href: '/contact.html',
     title: `Contact — ${site.brand.name}`, desc: c.contact.lead,
-    // Same pair of flags as the team page, and for the same reasons: the
-    // header renders over a page that is near-black at the top, and the scrim
-    // exists to hold white nav type over a bright video frame. Here it would
-    // only lay 80% ink over the first 288px and grey the heading out.
-    overHero: true,
-    navScrim: false,
+    // Light, L1 "Sky" (contact-light.mjs). Like the team page, the header is
+    // in "clear" mode — ink type, no bar — so the sky runs up behind it.
+    navClear: true,
     // The form on this page is DISABLED, deliberately and not as an oversight.
     // There is no endpoint — the live page posts to a Brizy handler, the
     // Jotform routes were reported broken, and the plan of record was MOS into
     // Ontraport. A form that looks live and posts nowhere swallows real
-    // enquiries in silence, so the fields stay disabled and say so until one of
-    // those is wired. See contact-parts.mjs.
-    body: renderContactPage(site, c, vids, CONTACT_OPTS)
+    // enquiries in silence, so the fields stay disabled until one of those is
+    // wired. See contact-parts.mjs.
+    body: contactLight(site, c, vids, 'sky')
   },
 
   {

@@ -1,0 +1,48 @@
+========================================================================
+ASSET 15  —  Cathedral Light — video loop
+========================================================================
+
+Save the result as : cathedral-loop.mp4
+Size               : 1920 x 1080   (16:9)
+Format             : H.264 MP4, no audio, under 3 MB
+Used for           : Mockup 1 (Midnight) — behind the homepage hero
+
+
+========================================================================
+STEP 1  —  COPY EVERYTHING BELOW THIS LINE INTO THE PROMPT BOX
+========================================================================
+
+Fine dust motes drift slowly and continuously through steep shafts of light in a vast dark interior. The beams themselves brighten and dim almost imperceptibly, as though the light source behind them is breathing. The magenta glow at the right edge pulses very gently. Nothing else in the frame moves. Camera completely static, locked off on a tripod. No pan, no tilt, no zoom, no parallax. Extremely slow, serene, hypnotic, seamless loop where the final frame matches the first.
+
+========================================================================
+STEP 2  —  COPY THIS INTO THE "NEGATIVE PROMPT" BOX
+========================================================================
+
+camera pan, camera tilt, camera zoom, camera shake, dolly, parallax, rack focus, fast motion, morphing, warping, flickering, colour shift, strobing, text, watermark, people, figures, birds
+
+========================================================================
+SETTINGS FOR YOUR TOOL
+========================================================================
+
+Gemini / Nano Banana : after the prompt, add — "Use Veo. 5 seconds, 16:9, locked-off camera, seamless loop. Dust drifting through light beams, nothing else moving."
+GPT Image            : n/a — use Higgsfield, Runway Gen-3, Kling or Luma
+Flux 1.1 Pro         : n/a
+
+========================================================================
+AFTER YOU GENERATE IT
+========================================================================
+
+Feed asset 13 in as the first frame. Target 5 seconds.
+
+Dark footage compresses badly and bands in the shadows, so encode a little
+richer than the sky loop:
+
+ffmpeg -i raw.mp4 -an -c:v libx264 -crf 26 -preset slow -pix_fmt yuv420p \
+  -g 60 -vf scale=1920:-2 -movflags +faststart cathedral-loop.mp4
+
+If it lands over 3 MB, raise -crf to 28 before you shorten the clip.
+
+========================================================================
+Generate 4 versions and pick the best one. Send me the original
+file at full size — I handle the resizing and compression.
+========================================================================

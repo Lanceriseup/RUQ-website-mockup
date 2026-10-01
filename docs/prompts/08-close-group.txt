@@ -1,0 +1,41 @@
+========================================================================
+ASSET 08  —  Close-up — small group, seated
+========================================================================
+
+Save the result as : close-group.jpg
+Size               : 2400 x 1600   (3:2)
+Format             : JPEG
+Used for           : The Event page gallery
+
+
+========================================================================
+STEP 1  —  COPY EVERYTHING BELOW THIS LINE INTO THE PROMPT BOX
+========================================================================
+
+Candid documentary photograph of five women of mixed ages and ethnicities seated in a loose circle on conference chairs, leaning in toward one another, one speaking with her hands while the others listen intently. Notebooks and paper coffee cups rest on the floor between them. Soft diffused daylight from large windows camera left, warm neutral tones. Shot from standing height slightly above the group on a Sony A7 IV with a 35mm lens at f/2.8, ISO 500, focus on the speaking woman, moderate depth of field so all five read clearly with the room falling away behind. Photojournalism, natural skin texture, no retouching, Kodak Portra 400 colour rendering, fine grain.
+
+========================================================================
+STEP 2  —  COPY THIS INTO THE "NEGATIVE PROMPT" BOX
+========================================================================
+
+posed, looking at camera, smiling for the camera, stock photo, studio lighting, flash, harsh shadows, text, watermark, logo, deformed hands, extra fingers, distorted faces, plastic skin, oversaturated, HDR, teal and orange grade, cluttered foreground, posed group photo, everyone looking at camera, arranged symmetrically, empty chairs, clutter
+
+========================================================================
+MIDJOURNEY USERS — SKIP STEPS 1 AND 2. PASTE THIS ONE LINE INSTEAD
+========================================================================
+
+Candid documentary photograph of five women of mixed ages and ethnicities seated in a loose circle on conference chairs, leaning in toward one another, one speaking with her hands while the others listen intently. Notebooks and paper coffee cups rest on the floor between them. Soft diffused daylight from large windows camera left, warm neutral tones. Shot from standing height slightly above the group on a Sony A7 IV with a 35mm lens at f/2.8, ISO 500, focus on the speaking woman, moderate depth of field so all five read clearly with the room falling away behind. Photojournalism, natural skin texture, no retouching, Kodak Portra 400 colour rendering, fine grain. --no posed, looking at camera, smiling for the camera, stock photo, studio lighting, flash, harsh shadows, text, watermark, logo, deformed hands, extra fingers, distorted faces, plastic skin, oversaturated, HDR, teal and orange grade, cluttered foreground, posed group photo, everyone looking at camera, arranged symmetrically, empty chairs, clutter --ar 3:2 --style raw --s 250 --chaos 10 --q 2
+
+========================================================================
+SETTINGS FOR YOUR TOOL
+========================================================================
+
+Gemini / Nano Banana : after the prompt, add — "Landscape 3:2, highest resolution. Documentary photojournalism, not a posed group photo."
+GPT Image            : size: 1536x1024, quality: high
+Flux 1.1 Pro         : aspect_ratio: 3:2, guidance: 2.5, steps: 40, raw: true
+Midjourney v7        : --ar 3:2 --style raw --s 250 --chaos 10 --q 2
+
+========================================================================
+Generate 4 versions and pick the best one. Send me the original
+file at full size — I handle the resizing and compression.
+========================================================================

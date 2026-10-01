@@ -129,7 +129,9 @@ const leader = (m, i) => `
   </figcaption>
 </figure>`;
 
-export const teamPage = (site, c, headingKey = 'script', effect = 'lift') => {
+// The dark plum page this replaced. Kept for /bio-effects.html and
+// /team-headings.html, which compared bio effects and headings on it.
+export const teamPageDark = (site, c, headingKey = 'script', effect = 'lift') => {
   const coaches = c.team.members.filter(m => m.group === 'coach');
   const leaders = c.team.members.filter(m => m.group === 'leadership');
 
@@ -174,5 +176,77 @@ export const teamPage = (site, c, headingKey = 'script', effect = 'lift') => {
       </div>
     </div>
   </div>
+</div>`;
+};
+
+// Shared with the light-page option galleries (build-team-light2.mjs), so the
+// previews render the real polaroid cards and their bio "lift" — not copies.
+export { coach as coachCard, leader as leaderCard };
+
+// ------------------------------------------------------------- light page
+//
+// SHIPPING: Meet the Team, light — "Heaven's light", chosen from
+// /team-light2-options.html (G1), with the sky run all the way up behind the
+// header and the community coaches at the coaches' size.
+//
+// The cards and the bio entrance are unchanged: coach() and leader() above,
+// the "lift" dialog from bio-modal.js. Only the ground, the layout and the
+// caption colours (dark type on a light ground, in tailwind.css under
+// .team-light) are new.
+//
+//   intro         the client's "The women behind it" / MEET THE TEAM / lead
+//   Coaches       3-up
+//   Community     3-up, the same size as the coaches
+//   Specialized   two, side by side, on a warm band
+//   Leadership    the same polaroids, small, six across
+//
+// The header is in its "clear" mode (pages.mjs navClear): ink type, no white
+// bar, positioned over the page, so the sky starts at the very top. The intro
+// carries the padding that clears it — 73px of bar on phones, 161px from sm.
+//
+// People without a photograph yet get /assets/team/placeholder.jpg, and
+// anyone in a bio-carrying group without a bio gets "Bio coming soon." — so a
+// new coach can be added to content.json before their assets arrive.
+const PLACEHOLDER = '/assets/team/placeholder.jpg';
+const ready = (m) => ({
+  ...m,
+  photo: m.photo || PLACEHOLDER,
+  bio: m.group === 'leadership' ? m.bio : (m.bio && m.bio.length ? m.bio : ['Bio coming soon.']),
+});
+
+export const teamPage = (site, c, headingKey = 'script', effect = 'lift') => {
+  const group = (key) => c.team.members.filter(m => m.group === key).map(ready);
+  const heading = (key) => c.team.groups.find(g => g.key === key).heading;
+  const h2 = (key, colour) => renderTeamHeading(headingKey, heading(key), { tag: 'h2', colour });
+  const coachGrid = (list, offset = 0) => `
+    <div class="tl-grid">${list.map((m, i) => coach(m, i + offset, effect)).join('')}</div>`;
+  const intro = c.team.intro;
+  const specialized = group('specialized');
+  const community = group('community');
+
+  return `
+<div class="team-light ${effectClass(effect)}">
+  <div class="tl-sky" aria-hidden="true"><img src="/assets/photos/sky-wide.jpg" alt="" decoding="async"></div>
+
+  <div class="tl-intro">
+    <p class="tl-intro-script">${esc(intro.script)}</p>
+    <h1 class="tl-intro-h">${esc(intro.heading)}</h1>
+    <p class="tl-intro-lead">${esc(intro.lead)}</p>
+  </div>
+
+  <section class="tl-sec">${h2('coach', MAGENTA)}${coachGrid(group('coach'))}</section>
+
+  ${community.length ? `<section class="tl-sec">${h2('community', MAGENTA)}${coachGrid(community, 6)}</section>` : ''}
+
+  ${specialized.length ? `
+  <section class="tl-sec tl-band">
+    ${h2('specialized', '#00a3af')}
+    <div class="tl-grid tl-pair">${specialized.map((m, i) => coach(m, i + 3, effect)).join('')}</div>
+  </section>` : ''}
+
+  <section class="tl-sec">
+    ${h2('leadership', '#00a3af')}
+    <div class="tl-grid tl-ops">${group('leadership').map(leader).join('')}</div>
+  </section>
 </div>`;
 };

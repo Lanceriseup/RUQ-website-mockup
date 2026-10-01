@@ -1,0 +1,41 @@
+========================================================================
+ASSET 07  —  Close-up — mid-laugh portrait
+========================================================================
+
+Save the result as : close-laugh.jpg
+Size               : 1800 x 2250   (4:5)
+Format             : JPEG
+Used for           : Pillar 3 — "Live with Lasting Freedom & Passion"
+
+
+========================================================================
+STEP 1  —  COPY EVERYTHING BELOW THIS LINE INTO THE PROMPT BOX
+========================================================================
+
+Candid documentary photograph of a woman in her thirties caught mid-laugh, head tipped slightly back, eyes crinkled almost closed, one hand half-raised toward her chest, completely unguarded genuine joy. Photographed from chest up. Soft warm afternoon light from a window to camera right wraps across her cheek and catches loose strands of hair. Background is a deeply out-of-focus indoor event space in warm neutral tones. Shot on a Sony A7 IV with an 85mm lens at f/1.4, ISO 400, focus on her near eye, very shallow depth of field. Photojournalism, natural skin texture with visible pores and fine lines, no retouching, Kodak Portra 400 colour rendering, fine grain, true skin tones.
+
+========================================================================
+STEP 2  —  COPY THIS INTO THE "NEGATIVE PROMPT" BOX
+========================================================================
+
+posed smile, looking at camera, stock photo, studio lighting, flash, beauty retouching, airbrushed skin, plastic skin, text, watermark, logo, deformed teeth, distorted face, oversaturated, HDR, teal and orange grade
+
+========================================================================
+MIDJOURNEY USERS — SKIP STEPS 1 AND 2. PASTE THIS ONE LINE INSTEAD
+========================================================================
+
+Candid documentary photograph of a woman in her thirties caught mid-laugh, head tipped slightly back, eyes crinkled almost closed, one hand half-raised toward her chest, completely unguarded genuine joy. Photographed from chest up. Soft warm afternoon light from a window to camera right wraps across her cheek and catches loose strands of hair. Background is a deeply out-of-focus indoor event space in warm neutral tones. Shot on a Sony A7 IV with an 85mm lens at f/1.4, ISO 400, focus on her near eye, very shallow depth of field. Photojournalism, natural skin texture with visible pores and fine lines, no retouching, Kodak Portra 400 colour rendering, fine grain, true skin tones. --no posed smile, looking at camera, stock photo, studio lighting, flash, beauty retouching, airbrushed skin, plastic skin, text, watermark, logo, deformed teeth, distorted face, oversaturated, HDR, teal and orange grade --ar 4:5 --style raw --s 200 --chaos 8 --q 2
+
+========================================================================
+SETTINGS FOR YOUR TOOL
+========================================================================
+
+Gemini / Nano Banana : after the prompt, add — "Portrait 4:5, highest resolution. Documentary photojournalism, not a stock photo. Keep real skin texture, no beauty retouching."
+GPT Image            : size: 1024x1536, quality: high
+Flux 1.1 Pro         : aspect_ratio: 4:5, guidance: 2.5, steps: 45, raw: true
+Midjourney v7        : --ar 4:5 --style raw --s 200 --chaos 8 --q 2
+
+========================================================================
+Generate 4 versions and pick the best one. Send me the original
+file at full size — I handle the resizing and compression.
+========================================================================

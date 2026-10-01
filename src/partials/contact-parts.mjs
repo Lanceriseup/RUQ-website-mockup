@@ -184,6 +184,10 @@ const FIELD_SKIN = {
   outline: 'rounded-full border border-white/25 bg-transparent text-white placeholder:text-white/25 focus:border-cyan focus:ring-2 focus:ring-cyan/30',
   soft: 'rounded-2xl border-0 bg-white/[.07] text-white placeholder:text-white/30 focus:bg-white/[.11] focus:ring-2 focus:ring-magenta/40',
   light: 'rounded-xl border border-ink/20 bg-white text-ink placeholder:text-ink/35 focus:border-magenta focus:ring-2 focus:ring-magenta/30',
+  // Light-page skins: a blush-tinted well, and a single ruled line like
+  // writing paper.
+  blush: 'rounded-xl border border-transparent bg-[#fbf1f5] text-ink placeholder:text-ink/35 focus:border-magenta focus:bg-white focus:ring-2 focus:ring-magenta/25',
+  line: 'rounded-none border-0 border-b border-ink/25 bg-transparent px-0 text-ink placeholder:text-ink/30 focus:border-magenta focus:ring-0',
 };
 
 // Each entry is [class, inlineStyle]. Keeping the two apart rather than
@@ -198,7 +202,7 @@ const LABEL_SKIN = {
 
 const field = (f, { skin = 'filled', label = 'caps', idPrefix = 'c' } = {}) => {
   const id = `${idPrefix}-${f.name}`;
-  const pad = skin === 'underline' ? 'py-3' : skin === 'outline' ? 'px-5 py-3' : 'px-4 py-3';
+  const pad = skin === 'underline' || skin === 'line' ? 'py-3' : skin === 'outline' ? 'px-5 py-3' : 'px-4 py-3';
   const cls = `mt-2 w-full ${pad} font-body text-[15px] transition focus:outline-none
                disabled:cursor-not-allowed ${FIELD_SKIN[skin]}`;
   const [labelCls, labelStyle] = LABEL_SKIN[label];

@@ -22,8 +22,33 @@
 // badge read off a video still is not a source to caption a real person from,
 // so the cards carry a duration and nothing else. First names have to come
 // from the client.
+import fs from 'node:fs';
 import { esc } from './layout.mjs';
 import { renderTestimonialHeading } from './testimonial-headings.mjs';
+
+// SHUFFLE — chosen from /testimonial-random-options.html (R1), replacing the
+// original centre stage. In each rail a random on-screen card plays a silent
+// preview in place and lifts slightly for about 7 seconds, then hands off to
+// another random card; the two rails switch half a beat apart, so there are
+// always two playing and always a different woman. data-cs-mode on the
+// section selects this ("centre" brings the old behaviour back). A tap still
+// opens the full video with sound in the lightbox.
+//
+// This is the one exception to click-to-load on the page, at the client's
+// request. app.js keeps it cheap: a card has no <video> until it first takes
+// centre stage, only two ever play, nothing plays while the section is off
+// screen, and reduced motion or Save-Data turn it off entirely — the rails
+// are then exactly what they were.
+//
+// Previews are the 640px MP4 rendition from video-previews.json (written by
+// `npm run previews`), looping a 6-second window from a quarter of the way
+// in, past any title card. A card with no preview simply never plays.
+const PREVIEWS = (() => {
+  try { return JSON.parse(fs.readFileSync(new URL('../data/video-previews.json', import.meta.url), 'utf8')).media || {}; }
+  catch { return {}; }
+})();
+const previewAttrs = (v) => PREVIEWS[v.id]
+  ? ` data-preview="${esc(PREVIEWS[v.id].url)}" data-seconds="${v.seconds || 30}"` : '';
 
 const MAGENTA = '#e8208f';
 
@@ -37,7 +62,7 @@ const card = (v, dupe = false) => `
         class="video-facade group relative mr-3 block w-[170px] shrink-0 overflow-hidden rounded-2xl sm:mr-5 sm:w-[230px]
                ring-1 ring-ink/10 shadow-[0_18px_40px_-24px_rgba(0,0,0,.6)]
                focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-magenta"
-        data-provider="wistia" data-id="${esc(v.id)}" data-title="${esc(v.title)}">
+        data-provider="wistia" data-id="${esc(v.id)}" data-title="${esc(v.title)}"${previewAttrs(v)}>
   <span class="sr-only">Play ${esc(v.title)}</span>
   <span class="relative block aspect-[4/5] w-full">
     <img src="${poster(v.id)}" alt="" aria-hidden="true" loading="lazy" decoding="async"
@@ -136,7 +161,7 @@ export const testimonialsSection = (site, c, vids, headingKey = 'verbatim') => {
   const half = Math.ceil(list.length / 2);
 
   return `
-<section class="relative overflow-hidden pb-10 pt-8 sm:pb-28 sm:pt-16" style="background:${GROUND}">
+<section id="testimonials" data-centre-stage data-cs-mode="shuffle" class="relative overflow-hidden pb-10 pt-8 sm:pb-28 sm:pt-16" style="background:${GROUND}">
 
   <!-- Ambient brand light, the same device the struggles spread uses: a warm
        vertical ground with two heavily blurred orbs off the edges.

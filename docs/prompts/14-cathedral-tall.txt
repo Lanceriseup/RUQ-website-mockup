@@ -1,0 +1,49 @@
+========================================================================
+ASSET 14  —  Cathedral Light — hero plate, mobile
+========================================================================
+
+Save the result as : cathedral-tall.jpg
+Size               : 1200 x 2133   (9:16)
+Format             : JPEG
+Used for           : Mockup 1 (Midnight) — homepage hero on phones
+
+
+========================================================================
+STEP 1  —  COPY EVERYTHING BELOW THIS LINE INTO THE PROMPT BOX
+========================================================================
+
+Tall vertical photograph of a vast dark abstract interior space in near-darkness, composed so two broad volumetric shafts of light fall steeply from the top right of the frame down toward the lower centre. Fine dust and atmospheric haze hang in the beams so each shaft reads as a solid column of light. Architecture is suggested rather than described, with no recognisable religious features of any kind. The upper third and the left edge of the frame stay deep charcoal and near-black empty haze with no detail. A warm magenta-pink glow bleeds in from the lower right edge, and a faint cool turquoise-cyan rim light grazes the left. Shot on a Canon EOS R5 with a 35mm lens at f/2.8, ISO 1600, long exposure on a tripod, shallow contrast with shadows lifted so detail survives in the blacks rather than clipping, soft natural film grain, muted desaturated palette apart from the single magenta glow.
+
+========================================================================
+STEP 2  —  COPY THIS INTO THE "NEGATIVE PROMPT" BOX
+========================================================================
+
+people, figures, silhouettes, crowds, furniture, chairs, pews, altar, cross, crucifix, stained glass, religious iconography, statues, text, letters, watermark, logo, lens flare star burst, blown highlights, crushed blacks with no detail, colour banding, HDR, oversaturated, teal and orange grade, clutter, dust spots on lens
+
+========================================================================
+MIDJOURNEY USERS — SKIP STEPS 1 AND 2. PASTE THIS ONE LINE INSTEAD
+========================================================================
+
+Tall vertical photograph of a vast dark abstract interior space in near-darkness, composed so two broad volumetric shafts of light fall steeply from the top right of the frame down toward the lower centre. Fine dust and atmospheric haze hang in the beams so each shaft reads as a solid column of light. Architecture is suggested rather than described, with no recognisable religious features of any kind. The upper third and the left edge of the frame stay deep charcoal and near-black empty haze with no detail. A warm magenta-pink glow bleeds in from the lower right edge, and a faint cool turquoise-cyan rim light grazes the left. Shot on a Canon EOS R5 with a 35mm lens at f/2.8, ISO 1600, long exposure on a tripod, shallow contrast with shadows lifted so detail survives in the blacks rather than clipping, soft natural film grain, muted desaturated palette apart from the single magenta glow. --no people, figures, silhouettes, crowds, furniture, chairs, pews, altar, cross, crucifix, stained glass, religious iconography, statues, text, letters, watermark, logo, lens flare star burst, blown highlights, crushed blacks with no detail, colour banding, HDR, oversaturated, teal and orange grade, clutter, dust spots on lens --ar 9:16 --style raw --s 250 --chaos 8 --q 2
+
+========================================================================
+SETTINGS FOR YOUR TOOL
+========================================================================
+
+Gemini / Nano Banana : after the prompt, add — "Portrait 9:16, highest resolution. The upper third must stay dark and empty — a headline sits there. Lift the shadows so the blacks keep detail."
+GPT Image            : size: 1024x1536, quality: high  (then upscale to 1200 x 2133)
+Flux 1.1 Pro         : aspect_ratio: 9:16, guidance: 3.0, steps: 45, raw: true
+Midjourney v7        : --ar 9:16 --style raw --s 250 --chaos 8 --q 2
+
+========================================================================
+AFTER YOU GENERATE IT
+========================================================================
+
+Generate this SEPARATELY. Do not crop it from asset 13 — the clear zone moves
+from the left half (desktop) to the upper third (mobile), and a crop would put
+the headline straight over a light shaft.
+
+========================================================================
+Generate 4 versions and pick the best one. Send me the original
+file at full size — I handle the resizing and compression.
+========================================================================

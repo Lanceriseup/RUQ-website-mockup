@@ -1,0 +1,47 @@
+========================================================================
+ASSET 03  —  Cut-out — seated, hands in lap
+========================================================================
+
+Save the result as : cutout-3.png
+Size               : 1400 x 2100   (2:3)
+Format             : PNG with transparency
+Used for           : Beside the founder card
+
+
+========================================================================
+STEP 1  —  COPY EVERYTHING BELOW THIS LINE INTO THE PROMPT BOX
+========================================================================
+
+Full-length studio photograph of a Latina woman in her mid forties seated on a simple pale wooden stool, back straight, hands resting together in her lap, calm warm half-smile looking slightly off camera to the left. Wearing a soft dusty rose knit sweater and ivory tailored trousers. Shoulder-length dark hair worn smooth with a clean silhouette. Full body visible including the stool and both feet flat on the floor. Lit with a large softbox key at 45 degrees camera left, white bounce fill camera right at a 1:2 ratio, hard rim light behind camera right separating hair and shoulder from the background. Flat evenly lit seamless pale grey studio backdrop, no gradient, no shadow on the backdrop. Shot on a Canon EOS R5 with an 85mm lens at f/5.6, ISO 100, tack sharp, photorealistic, natural skin texture, neutral colour balance, true skin tones.
+
+========================================================================
+STEP 2  —  COPY THIS INTO THE "NEGATIVE PROMPT" BOX
+========================================================================
+
+blurred edges, motion blur, hair flyaways, wind, backlit halo, shadow on backdrop, gradient background, busy background, props, furniture, text, watermark, logo, cropped limbs, extra fingers, deformed hands, distorted face, plastic skin, waxy skin, oversaturated, heavy retouching, teal and orange grade, ornate chair, patterned upholstery, cluttered props
+
+========================================================================
+MIDJOURNEY USERS — SKIP STEPS 1 AND 2. PASTE THIS ONE LINE INSTEAD
+========================================================================
+
+Full-length studio photograph of a Latina woman in her mid forties seated on a simple pale wooden stool, back straight, hands resting together in her lap, calm warm half-smile looking slightly off camera to the left. Wearing a soft dusty rose knit sweater and ivory tailored trousers. Shoulder-length dark hair worn smooth with a clean silhouette. Full body visible including the stool and both feet flat on the floor. Lit with a large softbox key at 45 degrees camera left, white bounce fill camera right at a 1:2 ratio, hard rim light behind camera right separating hair and shoulder from the background. Flat evenly lit seamless pale grey studio backdrop, no gradient, no shadow on the backdrop. Shot on a Canon EOS R5 with an 85mm lens at f/5.6, ISO 100, tack sharp, photorealistic, natural skin texture, neutral colour balance, true skin tones. --no blurred edges, motion blur, hair flyaways, wind, backlit halo, shadow on backdrop, gradient background, busy background, props, furniture, text, watermark, logo, cropped limbs, extra fingers, deformed hands, distorted face, plastic skin, waxy skin, oversaturated, heavy retouching, teal and orange grade, ornate chair, patterned upholstery, cluttered props --ar 2:3 --style raw --s 150 --chaos 4 --q 2
+
+========================================================================
+SETTINGS FOR YOUR TOOL
+========================================================================
+
+Gemini / Nano Banana : after the prompt, add — "Portrait orientation, 2:3 aspect ratio, highest resolution available. Plain flat light grey background for clean background removal."
+GPT Image            : size: 1024x1536, quality: high  (then upscale to 1400 x 2100)
+Flux 1.1 Pro         : aspect_ratio: 2:3, guidance: 3.0, steps: 40, raw: true
+Midjourney v7        : --ar 2:3 --style raw --s 150 --chaos 4 --q 2
+
+========================================================================
+AFTER YOU GENERATE IT
+========================================================================
+
+Same as asset 1 — remove background, export PNG-24 with alpha.
+
+========================================================================
+Generate 4 versions and pick the best one. Send me the original
+file at full size — I handle the resizing and compression.
+========================================================================

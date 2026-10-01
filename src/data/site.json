@@ -38,12 +38,12 @@
       "href": "/index.html"
     },
     {
-      "label": "Meet the team",
-      "href": "/team.html"
-    },
-    {
       "label": "About",
       "href": "/about.html"
+    },
+    {
+      "label": "Meet the team",
+      "href": "/team.html"
     },
     {
       "label": "Contact",
@@ -56,6 +56,8 @@
     "logoParent": "/assets/brand/logo-ruk.png",
     "favicon": "/assets/brand/favicon-180.png",
     "heroPoster": "/assets/photos/queens-waving.jpg",
+    "aboutHero": "/assets/photos/about-hero-group.jpg",
+    "_aboutHero": "About page hero background: the full group at a Deeper event (deeper-attendees.jpg, supplied 2026-10-02). Separate from heroPoster, which the CTA panels also use.",
     "pattern": "/assets/brand/pattern.png",
     "heroVideoLegacy": {
       "url": "https://riseupqueens.com/wp-content/uploads/2025/06/RUQ-broll-Montage-720.mov",

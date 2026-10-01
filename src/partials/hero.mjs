@@ -10,7 +10,6 @@
 // The header no longer carries a Register link — this button is the page's
 // single primary action until the hero scrolls away and the capsule takes over.
 import { esc } from './layout.mjs';
-import { stageClass } from './vsl-open.mjs';
 
 // Both sans lines of the headline — the one above the rotating word and the
 // one below — share this. They are two halves of a single sentence, so they
@@ -19,13 +18,78 @@ import { stageClass } from './vsl-open.mjs';
 const SANS_LINE =
   'block font-display text-base font-bold uppercase leading-snug tracking-[0.2em] text-white sm:text-2xl';
 
-export const hero = (site, c, vslFx = 'unfold', vslFeel = 'glide') => {
+// The VSL player, shared by the homepage and about heroes so the two cannot
+// drift: same 16:9 frame, same bloom, same muted autoplay and the same
+// "Tap for sound" badge. vsl.js mounts the Wistia player into the one
+// [data-vsl-id] on the page, and build.mjs loads it whenever that attribute is
+// present. `gap` is the space above it, which each hero tunes for phones.
+export const vslPlayer = (id, gap = 'mt-10 sm:mt-16') => `
+    <!-- VSL: full 16:9 frame with a cyan spotlight.
+         Plays muted and looping on load; clicking unmutes and restarts. See
+         vsl.js — the Wistia player is mounted into the div below. -->
+    <div class="relative mx-auto ${gap} max-w-4xl" data-vsl-id="${esc(id)}">
+
+      <!-- Cyan bloom. Deliberately restrained: wider and more diffuse than a
+           tight halo, at low alpha, so it reads as the frame sitting in light
+           rather than as a glow effect applied to it. Scales and fades rather
+           than animating blur, so it composites. -->
+      <div aria-hidden="true" class="vsl-bloom pointer-events-none absolute -inset-x-28 -inset-y-20 -z-10 blur-3xl"
+           style="background:radial-gradient(50% 50% at 50% 50%,rgba(0,185,198,.3),transparent 74%)"></div>
+
+      <!-- Full 16:9 from the start, at the column's full width. This used to
+           sit at 41.84% (1/2.39) and unfold to 9/16 on the first real view,
+           which hid a quarter of the picture until sound was turned on.
+           Chosen from /vsl-size-options.html (option A). The inline padding
+           overrides the 2.39:1 default on .vsl-frame. -->
+      <div data-vsl-stage class="vsl-stage relative overflow-hidden ring-1 ring-cyan/40 shadow-[0_0_100px_-20px_rgba(0,185,198,.48),0_40px_90px_-45px_rgba(0,0,0,.85)]">
+        <div class="vsl-frame relative h-0 w-full overflow-hidden" style="padding-bottom:56.25%">
+        <div class="absolute inset-0 [&>div]:h-full [&>div]:w-full">
+          <div class="wistia_embed wistia_async_${esc(id)} videoFoam=true h-full w-full">&nbsp;</div>
+        </div>
+
+        <!-- Vignette, over the player but not catching clicks. -->
+        <div aria-hidden="true" class="pointer-events-none absolute inset-0 z-10"
+             style="box-shadow:inset 0 0 140px 40px rgba(0,0,0,.72)"></div>
+
+        </div>
+
+        <button type="button" class="vsl-sound absolute bottom-4 right-4 z-20 flex min-h-11 items-center gap-2 rounded-full bg-ink/70 px-4 font-body text-[11px] font-bold uppercase tracking-[0.15em] text-white backdrop-blur transition hover:bg-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan">
+          <svg class="vsl-icon-muted" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5zM22 9l-6 6M16 9l6 6"/></svg>
+          <svg class="vsl-icon-on hidden" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5zM15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>
+          <span class="vsl-label">Tap for sound</span>
+        </button>
+      </div>
+    </div>`;
+
+// The two event dates under the Register button, shared by the homepage and
+// about heroes. Each date carries a small label in a brand hue, so a visitor
+// can tell the next event from the one after it at a glance; the second date
+// is no longer dimmed. Chosen from /dates-options.html (option B, without the
+// "limited spots" note). Pink is the magenta tint #f0569f rather than
+// magenta itself, which reads too dark at 10px on ink.
+const PIN = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true" class="opacity-80"><path d="M12 21s-7-6.1-7-11.5a7 7 0 0 1 14 0C19 14.9 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>';
+
+export const eventDates = (site) => {
   const [first, second] = site.nextEvent.upcoming;
+  const one = (e, label, tone) => `
+        <div>
+          <p class="font-display text-[10px] font-extrabold uppercase tracking-[0.18em] ${tone} sm:text-[11px]">${label}</p>
+          <p class="mt-1.5 font-display text-base font-bold leading-snug text-white sm:text-xl">${esc(e.dates)}</p>
+          <p class="mt-1 flex items-center justify-center gap-[5px] font-body text-[11px] font-bold uppercase tracking-[0.18em] text-white/70 sm:text-xs">${PIN}${esc(e.location)}</p>
+        </div>`;
+  return `
+      <div class="flex items-stretch gap-[18px] text-center sm:gap-10">${one(first, 'Next event', 'text-[#f0569f]')}
+        <div aria-hidden="true" class="w-px bg-white/25"></div>${one(second, 'Also coming', 'text-cyan')}
+      </div>`;
+};
+
+export const hero = (site, c) => {
 
   // Duotone: the word is transparent and filled by a magenta-to-cyan gradient,
-  // with a second, wider highlight gradient travelling across it. See .sheen
-  // in tailwind.css — it also carries the no-background-clip fallback and is
-  // held still under prefers-reduced-motion.
+  // with a highlight band that sweeps across once each time a word arrives,
+  // so every word gets the same pass. See .sheen and .hero-rotator in
+  // tailwind.css — they also carry the no-background-clip fallback and hold
+  // still under prefers-reduced-motion.
   //
   // clamp() rather than breakpoints: the word has to scale smoothly because
   // "passionate" is nearly twice the width of "joyful", and a step change at a
@@ -83,43 +147,7 @@ export const hero = (site, c, vslFx = 'unfold', vslFeel = 'glide') => {
          announced once, statically, for screen readers. -->
     <p class="sr-only">${esc(c.home.hero.headingBefore)} ${esc(c.home.hero.rotatingWords.join(', '))} ${esc(c.home.hero.headingAfter)}</p>
 
-    <!-- VSL: cinema letterbox with a cyan spotlight.
-         Plays muted and looping on load; clicking unmutes and restarts. See
-         vsl.js — the Wistia player is mounted into the div below. -->
-    <div class="relative mx-auto mt-10 sm:mt-16 max-w-4xl" data-vsl-id="${esc(c.home.vsl.wistiaId)}">
-
-      <!-- Cyan bloom. Deliberately restrained: wider and more diffuse than a
-           tight halo, at low alpha, so it reads as the frame sitting in light
-           rather than as a glow effect applied to it. Scales and fades rather
-           than animating blur, so it composites. -->
-      <div aria-hidden="true" class="vsl-bloom pointer-events-none absolute -inset-x-28 -inset-y-20 -z-10 blur-3xl"
-           style="background:radial-gradient(50% 50% at 50% 50%,rgba(0,185,198,.3),transparent 74%)"></div>
-
-      <!-- The frame opens on the first real view — see vsl.js. Same stage as
-           the about hero: a percentage-padding box at 41.84% (1/2.39) that
-           grows to 56.25% (9/16), giving back the quarter of the picture the
-           crop hides. videoFoam already sizes the player to the container's
-           width from the video's own 16:9, so the extra height reveals footage
-           that was there all along rather than stretching anything. -->
-      <div data-vsl-stage class="${stageClass(vslFx, vslFeel)} relative overflow-hidden ring-1 ring-cyan/40 shadow-[0_0_100px_-20px_rgba(0,185,198,.48),0_40px_90px_-45px_rgba(0,0,0,.85)]">
-        <div class="vsl-frame relative h-0 w-full overflow-hidden">
-        <div class="absolute inset-0 [&>div]:h-full [&>div]:w-full">
-          <div class="wistia_embed wistia_async_${esc(c.home.vsl.wistiaId)} videoFoam=true h-full w-full">&nbsp;</div>
-        </div>
-
-        <!-- Vignette, over the player but not catching clicks. -->
-        <div aria-hidden="true" class="pointer-events-none absolute inset-0 z-10"
-             style="box-shadow:inset 0 0 140px 40px rgba(0,0,0,.72)"></div>
-
-        </div>
-
-        <button type="button" class="vsl-sound absolute bottom-4 right-4 z-20 flex min-h-11 items-center gap-2 rounded-full bg-ink/70 px-4 font-body text-[11px] font-bold uppercase tracking-[0.15em] text-white backdrop-blur transition hover:bg-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan">
-          <svg class="vsl-icon-muted" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5zM22 9l-6 6M16 9l6 6"/></svg>
-          <svg class="vsl-icon-on hidden" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5zM15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>
-          <span class="vsl-label">Tap for sound</span>
-        </button>
-      </div>
-    </div>
+    ${vslPlayer(c.home.vsl.wistiaId)}
 
     <!-- Divided: action first, then the two dates either side of a hairline.
          The rule does the organising instead of boxes, which is what keeps
@@ -134,17 +162,7 @@ export const hero = (site, c, vslFx = 'unfold', vslFeel = 'glide') => {
               class="transition-transform group-hover:translate-x-1"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </a>
 
-      <div class="flex items-stretch gap-5 text-center">
-        <div>
-          <p class="font-display text-sm font-bold text-white">${esc(first.dates)}</p>
-          <p class="mt-0.5 font-body text-[11px] uppercase tracking-[0.15em] text-white/50">${esc(first.location)}</p>
-        </div>
-        <div aria-hidden="true" class="w-px bg-white/20"></div>
-        <div>
-          <p class="font-display text-sm font-bold text-white/70">${esc(second.dates)}</p>
-          <p class="mt-0.5 font-body text-[11px] uppercase tracking-[0.15em] text-white/40">${esc(second.location)}</p>
-        </div>
-      </div>
+      ${eventDates(site)}
     </div>
   </div>
 </section>`;

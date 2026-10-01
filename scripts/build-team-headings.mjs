@@ -7,7 +7,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { TEAM_HEADINGS } from '../src/partials/team-headings.mjs';
-import { teamPage } from '../src/partials/team.mjs';
+import { teamPageDark } from '../src/partials/team.mjs';
 import { header, footer, esc } from '../src/partials/layout.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -24,7 +24,7 @@ const wrap = (key) => `<!doctype html><html lang="en"><head><meta charset="utf-8
 <link rel="stylesheet" href="/styles.css"><style>body{margin:0}</style></head>
 <body style="background:#0b0b0b">
 ${header(site, '/team.html', { overHero: true, scrim: false })}
-${teamPage(site, content, key)}
+${teamPageDark(site, content, key)}
 ${footer(site)}
 <script src="/app.js" defer></script>
 </body></html>`;

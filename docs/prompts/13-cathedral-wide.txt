@@ -1,0 +1,55 @@
+========================================================================
+ASSET 13  —  Cathedral Light — hero plate, desktop
+========================================================================
+
+Save the result as : cathedral-wide.jpg
+Size               : 2560 x 1440   (16:9)
+Format             : JPEG
+Used for           : Mockup 1 (Midnight) — full-bleed homepage hero
+
+
+========================================================================
+STEP 1  —  COPY EVERYTHING BELOW THIS LINE INTO THE PROMPT BOX
+========================================================================
+
+Vast dark abstract interior space photographed in near-darkness, with three broad volumetric shafts of light falling at a steep angle from tall unseen windows high on the right-hand side. Fine dust and atmospheric haze hang in the beams so each shaft reads as a solid column of light. The architecture is suggested rather than described — a hint of a far wall and an immense empty floor, no recognisable religious features of any kind. The entire left half of the frame is deep charcoal and near-black empty haze with no detail and no light. A warm magenta-pink glow bleeds in from the far right edge as though a sign is burning just out of shot, and a faint cool turquoise-cyan rim light grazes the architecture on the left. Shot on a Canon EOS R5 with a 35mm lens at f/2.8, ISO 1600, long exposure on a tripod, cinematic anamorphic framing, shallow contrast with the shadows deliberately lifted so detail survives in the blacks rather than clipping to pure black, soft natural film grain, muted desaturated palette apart from the single magenta glow.
+
+========================================================================
+STEP 2  —  COPY THIS INTO THE "NEGATIVE PROMPT" BOX
+========================================================================
+
+people, figures, silhouettes, crowds, furniture, chairs, pews, altar, cross, crucifix, stained glass, religious iconography, statues, text, letters, watermark, logo, lens flare star burst, blown highlights, crushed blacks with no detail, colour banding, HDR, oversaturated, teal and orange grade, clutter, dust spots on lens
+
+========================================================================
+MIDJOURNEY USERS — SKIP STEPS 1 AND 2. PASTE THIS ONE LINE INSTEAD
+========================================================================
+
+Vast dark abstract interior space photographed in near-darkness, with three broad volumetric shafts of light falling at a steep angle from tall unseen windows high on the right-hand side. Fine dust and atmospheric haze hang in the beams so each shaft reads as a solid column of light. The architecture is suggested rather than described — a hint of a far wall and an immense empty floor, no recognisable religious features of any kind. The entire left half of the frame is deep charcoal and near-black empty haze with no detail and no light. A warm magenta-pink glow bleeds in from the far right edge as though a sign is burning just out of shot, and a faint cool turquoise-cyan rim light grazes the architecture on the left. Shot on a Canon EOS R5 with a 35mm lens at f/2.8, ISO 1600, long exposure on a tripod, cinematic anamorphic framing, shallow contrast with the shadows deliberately lifted so detail survives in the blacks rather than clipping to pure black, soft natural film grain, muted desaturated palette apart from the single magenta glow. --no people, figures, silhouettes, crowds, furniture, chairs, pews, altar, cross, crucifix, stained glass, religious iconography, statues, text, letters, watermark, logo, lens flare star burst, blown highlights, crushed blacks with no detail, colour banding, HDR, oversaturated, teal and orange grade, clutter, dust spots on lens --ar 16:9 --style raw --s 250 --chaos 8 --q 2
+
+========================================================================
+SETTINGS FOR YOUR TOOL
+========================================================================
+
+Gemini / Nano Banana : after the prompt, add — "Landscape 16:9, highest resolution. The left half of the frame must stay almost entirely empty and dark — a headline will sit there. Lift the shadows so the blacks keep detail instead of clipping."
+GPT Image            : size: 1536x1024, quality: high  (then upscale to 2560 x 1440)
+Flux 1.1 Pro         : aspect_ratio: 16:9, guidance: 3.0, steps: 45, raw: true
+Midjourney v7        : --ar 16:9 --style raw --s 250 --chaos 8 --q 2
+
+========================================================================
+AFTER YOU GENERATE IT
+========================================================================
+
+CLEAR ZONE — the left half must stay dark and empty. That is where the headline
+and buttons sit. If the generation puts a light shaft through the left half,
+reject it and try again.
+
+SHADOWS — reject any version where the dark areas are pure black with no
+texture. White type over dead black looks cheap; over lifted shadows with grain
+it looks cinematic.
+
+Generate 4 and pick on those two criteria before you judge how pretty it is.
+
+========================================================================
+Generate 4 versions and pick the best one. Send me the original
+file at full size — I handle the resizing and compression.
+========================================================================

@@ -23,7 +23,7 @@ import { esc } from './layout.mjs';
 const MAGENTA = '#e8208f';
 const CYAN = '#00b9c6';
 
-const swash = (colour) => `
+export const swash = (colour) => `
 <svg aria-hidden="true" class="pointer-events-none absolute left-0 w-full" viewBox="0 0 300 20" fill="none"
      preserveAspectRatio="none" style="bottom:-.02em;height:.28em;overflow:visible">
   <path d="M4 13 C 60 5, 110 4, 158 7 S 250 13, 296 8" stroke="${colour}" stroke-width="3"
@@ -105,7 +105,10 @@ const plate = (src, alt, objectPos = '', aspect = 'aspect-[4/5]') => `
        ${objectPos ? `style="object-position:${objectPos}"` : ''}>
 </div>`;
 
-export const spread = (site, c) => `
+// tail: markup that closes the spread on its own ground. The breakthrough CTA
+// is passed in here rather than following as its own section, so it shares
+// this gradient and its glows instead of meeting them on a straight edge.
+export const spread = (site, c, tail = '') => `
 <div class="relative" style="background:linear-gradient(180deg,#ffffff,#FDF6F1 55%,#ffffff)">
 
   <div aria-hidden="true" class="pointer-events-none absolute inset-0 overflow-hidden">
@@ -125,7 +128,7 @@ export const spread = (site, c) => `
 
        Heading is centred below sm only; the list stays left-aligned at every
        width, because six centred sentences would be ragged on both edges. -->
-  <section class="relative mx-auto max-w-content px-6 pb-8 sm:pb-12 pt-10 sm:pt-24">
+  <section id="struggles" class="relative mx-auto max-w-content px-6 pb-8 sm:pb-12 pt-10 sm:pt-24">
     <!-- Three grid children, same device as the renewal section below: below lg
          "order" puts them in reading order — heading, photograph, list — and
          from lg the explicit col-start/row-start rebuilds the shipped spread,
@@ -138,7 +141,14 @@ export const spread = (site, c) => `
          Row gap is zeroed at lg and the list carries its own lg:mt-12, because
          the grid gap would otherwise land between heading and list where the
          shipped spacing is 48px. Column gap is untouched. -->
-    <div class="grid gap-y-6 sm:gap-y-10 lg:grid-cols-[6fr_6fr] lg:gap-x-14 lg:gap-y-0">
+    <!-- lg:grid-rows-[auto_1fr]: the plate spans both rows and is taller than
+         heading + list, and a grid shares a spanning item's surplus across
+         every auto row — so the heading row grew and pushed item 01 well
+         below the heading. Giving the surplus to row two keeps the list 48px
+         under the heading; the space left beside the plate below item 06 is
+         where the renewal plate's lift (lg:-mt-24) already rises into.
+         Chosen from /struggles-gap-options.html (option B). -->
+    <div class="st-grid grid gap-y-6 sm:gap-y-10 lg:grid-cols-[6fr_6fr] lg:grid-rows-[auto_1fr] lg:gap-x-14 lg:gap-y-0">
       <div class="order-1 lg:order-none lg:col-start-1 lg:row-start-1">
         <div class="border-b border-ink/10 pb-4 text-center sm:text-left">
           ${dualHeading('Common struggles', 'women in marriage have', MAGENTA, 'text-ink', true, '4.5rem', { fluid: true, eyebrow: true, min: '2.25rem', vw: '14.5vw' })}
@@ -151,11 +161,11 @@ export const spread = (site, c) => `
            3:2 below lg for the same reason as the other plate — 4:5 is a
            portrait ratio chosen so the two match each other across the spread,
            and on a phone they are never side by side. -->
-      <div class="relative z-10 order-2 lg:order-none lg:col-start-2 lg:row-span-2 lg:row-start-1">
-        ${plate('/assets/photos/gallery-1-2.jpg', 'Women together at a Rise Up Queens event', '', 'aspect-[3/2] lg:aspect-[4/5]')}
+      <div class="st-plate relative z-10 order-2 lg:order-none lg:col-start-2 lg:row-span-2 lg:row-start-1">
+        ${plate('/assets/photos/deeper-embrace.jpg', 'Two women embracing at a Rise Up Queens event', '58% center', 'aspect-[3/2] lg:aspect-[4/5]')}
       </div>
 
-      <div class="order-3 lg:order-none lg:col-start-1 lg:row-start-2 lg:mt-12">
+      <div class="st-list order-3 lg:order-none lg:col-start-1 lg:row-start-2 lg:mt-12">
         <ul class="space-y-4 sm:space-y-8">
           ${c.home.painPoints.items.map((t, i) => `
           <li class="flex gap-4 sm:gap-6">
@@ -202,7 +212,13 @@ export const spread = (site, c) => `
            so a landscape crop also discards less of the original frame than
            the portrait one does. object-position holds the focal point high,
            because the faces sit in the upper two thirds. -->
-      <div class="order-2 lg:order-none lg:col-start-1 lg:row-span-2 lg:row-start-1 lg:-mt-24">
+      <!-- The lift starts at xl, not lg. Since the struggles list was moved up
+           under its heading, the space below item 06 is what this lift rises
+           into — but between 1024 and 1279px the struggles column is narrow
+           enough that item 06 wraps to two lines, and a fixed 6rem lift then
+           lands on its second line. From xl the container is at its full
+           72rem and every item is one line, so the lift clears it. -->
+      <div class="order-2 lg:order-none lg:col-start-1 lg:row-span-2 lg:row-start-1 xl:-mt-24">
         ${plate(c.home.renewal.photo, c.home.renewal.photoAlt, 'center 32%', 'aspect-[3/2] lg:aspect-[4/5]')}
       </div>
       <!-- Centred below sm, matching the struggles heading opposite it. The
@@ -228,4 +244,5 @@ export const spread = (site, c) => `
       </div>
     </div>
   </section>
+  ${tail}
 </div>`;

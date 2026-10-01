@@ -29,26 +29,323 @@
     }, { threshold: 0 }).observe(sentinel);
   })();
 
-  // "Read more" on the breakthrough CTA's mission statement.
+  // Freedom section arrival: one class starts the rise, the highlights and the
+  // wave line (see .fr in tailwind.css). Without IntersectionObserver it is
+  // shown at once — the copy must never depend on the animation running.
+  (function freedom() {
+    var s = document.querySelector('[data-fr]');
+    if (!s) return;
+    if (!('IntersectionObserver' in window)) { s.classList.add('is-in'); return; }
+    var io = new IntersectionObserver(function (entries) {
+      if (!entries[0].isIntersecting) return;
+      s.classList.add('is-in');
+      io.disconnect();
+    }, { threshold: 0.25 });
+    io.observe(s);
+  })();
+
+  // Testimonials — centre stage. See the note at the top of
+  // testimonials.mjs for why this one section plays video unprompted.
   //
-  // Phone-only in effect: the button is sm:hidden and the paragraph carries
-  // sm:line-clamp-none, so from sm up the full statement is visible whether or
-  // not this runs. That matters — the clamp must never be able to hide copy on
-  // a viewport where the control to undo it is not rendered.
+  // Every 300ms the playing cards are re-checked; how they are chosen is set
+  // by data-cs-mode (see below). A card's <video> is created the first time
+  // it is picked and reused after that; losing the stage pauses it.
+  // Only cards carrying data-preview take part. The comparison pages set
+  // data-tp on the section to run their own version, so this steps aside.
+  (function centreStage() {
+    var sec = document.querySelector('[data-centre-stage]');
+    if (!sec || sec.hasAttribute('data-tp')) return;
+    var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var saveData = navigator.connection && navigator.connection.saveData;
+    if (reduced || saveData || !('IntersectionObserver' in window)) return;
+
+    var rails = [].slice.call(sec.querySelectorAll('.rail'));
+    var current = rails.map(function () { return null; });
+    var visible = false;
+    var timer = null;
+
+    function video(card) {
+      var v = card.querySelector('.cs-video');
+      if (v) return v;
+      var box = card.querySelector('span.relative.block') || card;
+      v = document.createElement('video');
+      v.className = 'cs-video';
+      v.muted = true; v.playsInline = true; v.preload = 'none';
+      v.setAttribute('aria-hidden', 'true');
+      v.src = card.getAttribute('data-preview');
+      // Loop a 6-second window from a quarter of the way in.
+      var start = Math.floor((+card.getAttribute('data-seconds') || 30) * 0.25);
+      v.addEventListener('loadedmetadata', function () { v.currentTime = start; });
+      v.addEventListener('timeupdate', function () { if (v.currentTime > start + 6 || v.currentTime < start - 0.5) v.currentTime = start; });
+      v.addEventListener('playing', function () { v.classList.add('is-on'); });
+      box.appendChild(v);
+      var tag = document.createElement('span');
+      tag.className = 'cs-tag'; tag.setAttribute('aria-hidden', 'true');
+      tag.innerHTML = '<i></i>Playing';
+      card.appendChild(tag);
+      return v;
+    }
+
+    function set(card, on) {
+      if (!card) return;
+      card.classList.toggle('is-playing', on);
+      var v = video(card);
+      if (on) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+      else { v.pause(); v.classList.remove('is-on'); }
+    }
+
+    // data-cs-mode on the section picks how the playing cards are chosen:
+    //   centre    (default) the card nearest the middle of each rail
+    //   shuffle   a random on-screen card in each rail, held HOLD ms, the two
+    //             rails switching half a hold apart so something always changes
+    //   anywhere  two random on-screen cards from either rail, switched together
+    // A random pick that drifts towards the edge fades hands off early.
+    var mode = sec.getAttribute('data-cs-mode') || 'centre';
+    var HOLD = 7000;
+    var due = [0, 0];
+    var started = 0;
+    // The last few women shown, so the same face doesn't come straight back.
+    var recent = [];
+
+    // A card keeps playing until it reaches the edge, but new picks come from
+    // the middle stretch, so each has room to drift for its whole hold.
+    function onScreen(c, inset) {
+      var b = c.getBoundingClientRect(), w = window.innerWidth;
+      return b.left > w * inset && b.right < w * (1 - inset);
+    }
+    function pool(i) {
+      var cards = [].slice.call((i == null ? sec : rails[i]).querySelectorAll('.video-facade[data-preview]'));
+      var busy = current.filter(Boolean).map(function (c) { return c.getAttribute('data-id'); });
+      cards = cards.filter(function (c) { return busy.indexOf(c.getAttribute('data-id')) < 0; });
+      var fresh = cards.filter(function (c) { return recent.indexOf(c.getAttribute('data-id')) < 0; });
+      var zones = [[fresh, 0.14], [cards, 0.14], [fresh, 0.04], [cards, 0.04]];
+      for (var z = 0; z < zones.length; z++) {
+        var hit = zones[z][0].filter(function (c) { return onScreen(c, zones[z][1]); });
+        if (hit.length) return hit;
+      }
+      return [];
+    }
+    function pick(list, avoid) {
+      // Keep two picks apart, so they never sit side by side or stacked.
+      var ok = list.filter(function (c) {
+        return !avoid || Math.abs(c.getBoundingClientRect().left - avoid.getBoundingClientRect().left) > c.offsetWidth * 1.5;
+      });
+      list = ok.length ? ok : list;
+      var c = list.length ? list[Math.floor(Math.random() * list.length)] : null;
+      if (c) { recent.push(c.getAttribute('data-id')); if (recent.length > 4) recent.shift(); }
+      return c;
+    }
+    function swap(slot, card) {
+      set(current[slot], false);
+      current[slot] = card;
+      set(card, true);
+      if (card) { card.style.setProperty('--cs-hold', HOLD + 'ms'); }
+    }
+
+    function tick() {
+      if (mode === 'centre') {
+        var mid = window.innerWidth / 2;
+        rails.forEach(function (rail, i) {
+          var best = null, gap = Infinity;
+          rail.querySelectorAll('.video-facade[data-preview]').forEach(function (c) {
+            var b = c.getBoundingClientRect();
+            var d = Math.abs(b.left + b.width / 2 - mid);
+            if (d < gap) { gap = d; best = c; }
+          });
+          if (best !== current[i]) { set(current[i], false); set(best, true); current[i] = best; }
+        });
+        return;
+      }
+      var t = Date.now() - started;
+      if (mode === 'shuffle') {
+        rails.forEach(function (_, i) {
+          var c = current[i];
+          if (t >= due[i] || (c && !onScreen(c, 0.01))) {
+            var other = current[1 - i];
+            current[i] = null;
+            set(c, false);
+            swap(i, pick(pool(i), other));
+            // Both rows start together; the second's first turn is half a
+            // hold, which puts the two half a beat apart from then on.
+            due[i] = t + (t < 1000 && i === 1 ? HOLD / 2 : HOLD);
+          }
+        });
+        return;
+      }
+      // anywhere
+      var gone = current.some(function (c) { return !c || !onScreen(c, 0.01); });
+      if (t >= due[0] || gone) {
+        var old = current.slice();
+        current = [null, null];
+        old.forEach(function (c) { set(c, false); });
+        var first = pick(pool());
+        current[0] = first; set(first, true);
+        if (first) first.style.setProperty('--cs-hold', HOLD + 'ms');
+        var second = pick(pool(), first);
+        current[1] = second; set(second, true);
+        if (second) second.style.setProperty('--cs-hold', HOLD + 'ms');
+        due[0] = t + HOLD;
+      }
+    }
+
+    new IntersectionObserver(function (entries) {
+      visible = entries[0].isIntersecting;
+      if (visible && !timer) {
+        started = Date.now();
+        due = [0, 0];
+        tick(); timer = setInterval(tick, 300);
+      }
+      if (!visible && timer) {
+        clearInterval(timer); timer = null;
+        current.forEach(function (c) { set(c, false); });
+        current = rails.map(function () { return null; });
+      }
+    }, { threshold: 0.15 }).observe(sec);
+  })();
+
+  // About event lights: span the layer from just above #whofor to the closing
+  // CTA, in the journey panel's coordinates. Re-measured as images and fonts
+  // settle and on resize, since both change those positions.
+  (function aboutLights() {
+    var L = document.querySelector('[data-al]');
+    if (!L) return;
+    var host = L.offsetParent || L.parentNode;
+    function place() {
+      var w = document.getElementById('whofor');
+      var c = document.getElementById('closing-about');
+      if (!w || !c) return;
+      var h = host.getBoundingClientRect().top;
+      var top = w.getBoundingClientRect().top - h - 80;
+      var bottom = c.getBoundingClientRect().top - h + 40;
+      L.style.top = top + 'px';
+      L.style.height = Math.max(0, bottom - top) + 'px';
+    }
+    place();
+    window.addEventListener('load', place);
+    window.addEventListener('resize', place);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(place);
+  })();
+
+  // "Who is it for?" (about page). See whofor.mjs.
+  //   - the promo plays muted only while on screen (it is preload="none", so
+  //     nothing loads until then); reduced motion / Save-Data never autoplay
+  //   - "Tap for sound" unmutes and restarts it with controls
+  //   - .is-watching while it plays with sound; on pause or at the end,
+  //     .is-back for the length of the return animation
+  (function whoFor() {
+    var s = document.querySelector('[data-wh]');
+    if (!s) return;
+    var box = s.querySelector('[data-wh-video]');
+    var v = box && box.querySelector('video');
+    var btn = box && box.querySelector('.wh-snd');
+    if (!v || !btn) return;
+    var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var saveData = navigator.connection && navigator.connection.saveData;
+    var back = null;
+
+    function watching(on) {
+      if (on === s.classList.contains('is-watching')) return;
+      s.classList.toggle('is-watching', on);
+      clearTimeout(back);
+      if (on) { s.classList.remove('is-back'); return; }
+      s.classList.add('is-back');
+      back = setTimeout(function () { s.classList.remove('is-back'); }, 850);
+    }
+
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        if (entries[0].isIntersecting) s.classList.add('is-in');
+      }, { threshold: 0.25 }).observe(s);
+      if (!reduced && !saveData) {
+        new IntersectionObserver(function (entries) {
+          if (!v.muted) return;   // once she is watching with sound, leave it to her
+          if (entries[0].isIntersecting) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+          else v.pause();
+        }, { threshold: 0.2 }).observe(box);
+      }
+    } else {
+      s.classList.add('is-in');
+    }
+
+    // The button, or a click anywhere on the video, starts it with sound.
+    // After that the native controls own the clicks (play / pause).
+    function withSound() {
+      if (box.classList.contains('is-on')) return;
+      v.muted = false; v.loop = false; v.controls = true;
+      try { v.currentTime = 0; } catch (e) {}
+      box.classList.add('is-on');
+      var p = v.play(); if (p && p.catch) p.catch(function () {});
+      watching(true);
+    }
+    btn.addEventListener('click', function (e) { e.stopPropagation(); withSound(); });
+    box.addEventListener('click', withSound);
+    v.addEventListener('play', function () { if (!v.muted) watching(true); });
+    v.addEventListener('pause', function () { if (!v.muted) watching(false); });
+    v.addEventListener('ended', function () { watching(false); });
+  })();
+
+  // Founder feature (about page): the signature writes itself in on arrival.
+  (function founder() {
+    var s = document.querySelector('[data-jl]');
+    if (!s) return;
+    if (!('IntersectionObserver' in window)) { s.classList.add('is-in'); return; }
+    var io = new IntersectionObserver(function (entries) {
+      if (!entries[0].isIntersecting) return;
+      s.classList.add('is-in');
+      io.disconnect();
+    }, { threshold: 0.3 });
+    io.observe(s);
+  })();
+
+  // No Longer Bound banner: break the chains once, on arrival. Without
+  // IntersectionObserver it is shown complete straight away.
+  (function nlbBanner() {
+    var s = document.querySelector('[data-nl]');
+    if (!s) return;
+    if (!('IntersectionObserver' in window)) { s.classList.add('is-in'); return; }
+    var io = new IntersectionObserver(function (entries) {
+      if (!entries[0].isIntersecting) return;
+      s.classList.add('is-in');
+      io.disconnect();
+    }, { threshold: 0.5 });
+    io.observe(s);
+  })();
+
+  // Statement of Faith: "Read our full statement of faith".
   //
-  // Toggling a class, not the text: line-clamp truncates visually while the
-  // full statement stays in the DOM and the accessibility tree, so a screen
-  // reader reads all of it regardless of this button's state.
-  (function ctaMission() {
-    var btn = document.getElementById('cta-mission-more');
-    var p = document.getElementById('cta-mission');
-    if (!btn || !p) return;
-    var label = btn.querySelector('[data-more-label]');
-    btn.addEventListener('click', function () {
-      var open = btn.getAttribute('aria-expanded') === 'true';
-      btn.setAttribute('aria-expanded', String(!open));
-      p.classList.toggle('line-clamp-3', open);
-      if (label) label.textContent = open ? 'Read more' : 'Show less';
+  // The region is collapsed by CSS (a 0fr grid row) and carries `inert` in the
+  // markup, so while closed it is skipped by keyboard and assistive tech but
+  // stays in the DOM for search and print. Opening removes inert and lets the
+  // row grow to its natural height. If this never runs the button simply does
+  // nothing — the mission above it is complete on its own.
+  (function faithStatement() {
+    document.querySelectorAll('[data-fs-acc]').forEach(function (acc) {
+      var btn = acc.querySelector('.fs-btn');
+      var region = acc.querySelector('.fs-region');
+      if (!btn || !region) return;
+      // data-settled lifts the region's clip so the page's shadow is not cut
+      // off square — but only once the row has finished growing, because the
+      // clip is what hides the page while it opens. Set on transitionend,
+      // with a timer as the fallback for when no transition runs (reduced
+      // motion) or the event is missed.
+      var settle = null;
+      function settled() { clearTimeout(settle); if (acc.hasAttribute('data-open')) acc.setAttribute('data-settled', ''); }
+      region.addEventListener('transitionend', function (e) { if (e.target === region) settled(); });
+
+      btn.addEventListener('click', function () {
+        var open = !acc.hasAttribute('data-open');
+        // Re-clip before closing, so the page folds away inside the region.
+        acc.removeAttribute('data-settled');
+        acc.toggleAttribute('data-open', open);
+        btn.setAttribute('aria-expanded', String(open));
+        if (open) {
+          region.removeAttribute('inert');
+          clearTimeout(settle);
+          settle = setTimeout(settled, 900);
+        } else {
+          region.setAttribute('inert', '');
+        }
+      });
     });
   })();
 
