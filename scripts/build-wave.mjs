@@ -22,7 +22,13 @@ const dist = path.join(ROOT, 'dist');
 const home = fs.readFileSync(path.join(dist, 'index.html'), 'utf8');
 // The shipped wave is two SVGs (the fill, then the ribbon); both are swapped.
 const WAVE = /<svg class="fr-wave"[\s\S]*?<\/svg>\s*<svg class="fr-wave fr-ribbon"[\s\S]*?<\/svg>/;
-if (!WAVE.test(home)) throw new Error('build-wave: the Freedom wave was not found in dist/index.html');
+// The brush-stroke Freedom section this review page was built on was replaced
+// by the memory wall (2026-10-10), so the wave is no longer on the homepage.
+// Skip rather than fail the build; the page built before then stays in dist.
+if (!WAVE.test(home)) {
+  console.log('build-wave: skipped — the Freedom section it reviews is no longer on the homepage');
+  process.exit(0);
+}
 
 // The crest shared by every option — the same curve the section ships with.
 const CREST = 'M0 72 C 260 18, 520 18, 760 58 C 1000 98, 1200 112, 1440 46';

@@ -47,6 +47,7 @@
 // bar alone and the page looks identical, just with a smaller logo floating in
 // the same gap.
 import { esc } from './layout.mjs';
+import { subMenu, drawerSub } from './nav-sub.mjs';
 
 // opts.clear: standard (ink) type, but no white bar or border and positioned
 // over the page like overHero — for a light page whose own background should
@@ -72,7 +73,12 @@ export const header = (site, current, opts = {}) => {
       : 'text-ink-soft hover:text-magenta-text focus-visible:outline-magenta';
   const linkActive = onHero ? 'text-cyan' : 'text-magenta-text';
 
-  const link = (n) => `<a href="${esc(n.href)}"
+  // A nav item with children renders as a submenu (see nav-sub.mjs).
+  const submenu = opts.submenu || site.navSubmenu || 'card';
+  const link = (n) => n.children ? subMenu(n, current, {
+      style: submenu, onHero,
+      triggerClass: `${linkBase} ${linkTone}`, activeClass: linkActive,
+    }) : `<a href="${esc(n.href)}"
       class="${linkBase} ${linkTone} ${current === n.href ? linkActive : ''}"
       ${current === n.href ? 'aria-current="page"' : ''}>${esc(n.label)}</a>`;
 
@@ -160,8 +166,12 @@ export const header = (site, current, opts = {}) => {
 
   <ul id="navMain" hidden
       class="md:hidden ${onHero ? 'bg-ink/95 backdrop-blur' : 'border-t border-ink-line bg-white'} px-6 py-4">
-    ${site.nav.map(n => `<li><a href="${esc(n.href)}"
-      class="flex min-h-11 items-center font-body text-[12px] uppercase tracking-[0.25em] ${onHero ? 'text-white' : 'text-ink'}">${esc(n.label)}</a></li>`).join('')}
+    ${site.nav.map(n => {
+      const cls = `flex min-h-11 items-center font-body text-[12px] uppercase tracking-[0.25em] ${onHero ? 'text-white' : 'text-ink'}`;
+      return n.children
+        ? drawerSub(n, current, { linkClass: cls })
+        : `<li><a href="${esc(n.href)}" class="${cls}">${esc(n.label)}</a></li>`;
+    }).join('')}
   </ul>
 </header>`;
 };

@@ -18,9 +18,33 @@
 // Copy is content.json about.founder. Styles are .jl-* in tailwind.css.
 import { esc } from './layout.mjs';
 
-export const founderSection = (c) => {
+// A link from the founder to the Team page, in one of four styles. The About
+// page ships 'paired' (B), chosen 2026-10-10 from /founder-team-options.html. null renders none. Styles are .jt-* in
+// tailwind.css.
+//   pill    filled magenta pill under the signature, like the site's buttons
+//   paired  signature and an outlined pill side by side on one line
+//   faces   a small card: overlapping team portraits and a line about them
+//   link    an uppercase text link with a gradient underline that draws on
+const ARROW = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+const teamCta = (c, style) => {
+  const href = '/team.html';
+  const others = (c.team.members || []).filter(m => m.name !== c.about.founder.name && m.photo);
+  if (style === 'pill') return `<a class="jt-pill" href="${href}">Meet the Team ${ARROW}</a>`;
+  if (style === 'paired') return `<a class="jt-out" href="${href}">Meet the Team ${ARROW}</a>`;
+  if (style === 'faces') return `
+      <a class="jt-faces" href="${href}">
+        <span class="jt-stack" aria-hidden="true">${others.slice(0, 5).map(m => `<img src="${esc(m.photo)}" alt="" width="44" height="44" loading="lazy" decoding="async">`).join('')}<b>+${Math.max(0, others.length - 5)}</b></span>
+        <span class="jt-txt"><b>Meet the Team</b><span>The coaches and leaders who serve beside Jessica</span></span>
+        <i class="jt-go" aria-hidden="true">${ARROW}</i>
+      </a>`;
+  if (style === 'link') return `<a class="jt-link" href="${href}"><span>Meet the women who serve beside her</span> ${ARROW}</a>`;
+  return '';
+};
+
+export const founderSection = (c, cta = null) => {
   const f = c.about.founder;
   if (!f) return '';
+  const sig = `<img class="jl-sig" src="${esc(f.signature)}" alt="Signed, ${esc(f.name)}" width="486" height="179" loading="lazy" decoding="async">`;
   return `
 <section id="founder" class="jl" data-jl>
   <span class="jl-wm" aria-hidden="true">${esc(f.name.split(' ')[0])}</span>
@@ -37,7 +61,7 @@ export const founderSection = (c) => {
       <p class="jl-p">${esc(f.intro)}</p>
       <blockquote class="jl-q"><span class="jl-qm" aria-hidden="true">“</span>${esc(f.quote)}</blockquote>
       <p class="jl-p">${esc(f.body)}</p>
-      <img class="jl-sig" src="${esc(f.signature)}" alt="Signed, ${esc(f.name)}" width="486" height="179" loading="lazy" decoding="async">
+      ${cta === 'paired' ? `<div class="jt-row">${sig}${teamCta(c, cta)}</div>` : `${sig}${teamCta(c, cta)}`}
     </div>
   </div>
 </section>`;

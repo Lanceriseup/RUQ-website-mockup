@@ -111,9 +111,9 @@
       "script": "Find Freedom",
       "headline": "Even if your body hasn’t healed yet.",
       "question": "Have you ever felt trapped in a body that won’t cooperate: sick, exhausted, and out of answers?",
-      "cta": "Explore No Longer Bound",
-      "url": "#",
-      "_url": "PLACEHOLDER — Lance to supply the No Longer Bound link.",
+      "cta": "Explore Courses",
+      "url": "/courses.html",
+      "_url": "Was the No Longer Bound site (https://nolongerbound.riseupqueens.com/, supplied by Lance 2026-10-04) with the button \"Explore No Longer Bound\"; changed 2026-10-10 to send to the Courses page, where No Longer Bound is listed.",
       "_eyebrow": "Removed from the banner on request (2026-10-02); kept here in case it is wanted back."
     },
     "closing": {
@@ -230,7 +230,7 @@
           "title": "Continue the Journey",
           "body": "Take the next step on your path of transformation at one of our events designed to help you go further.",
           "linkText": "the next step on your path",
-          "linkUrl": "https://go.riseupqueens.com/3dayevent",
+          "linkUrl": "/register.html",
           "photo": "/assets/photos/journey-cheer.jpg",
           "_photoSource": "RUQ-47.jpg (supplied 2026-10-02), cropped 3:4 from the 6532px original"
         }
@@ -599,6 +599,8 @@
       }
     ],
     "submit": "Submit",
+    "email": "support@riseupqueens.com",
+    "_email": "Supplied by Lance 2026-10-10 at the client's request, to be shown on the Contact page.",
     "socialHeading": "Find Us On Socials",
     "videos": [
       "MsKV8OsY2pg",
@@ -615,5 +617,495 @@
   "thankYou": {
     "heading": "Thank You, Queen!",
     "lead": "Your message has been received — we're so glad you reached out."
+  },
+  "explore": {
+    "_source": "Copy supplied by Lance as page screenshots, 2026-10-04 (Courses, Masterclasses, Events, Coaching, Free resource). Descriptions, durations and coach blurbs that the screenshots left as placeholders are the client's own copy from the live site. The screenshots' internal caveats are kept, word for word where possible, in each page's `review` list, which the designs show as a small preview note rather than as page copy.",
+    "courses": {
+      "eyebrow": "Courses",
+      "heading": "Continue your journey.",
+      "lead": "A transformational journey with intentional steps. Improve relationships, increase confidence and break through to new levels.",
+      "_lead": "The screenshot's lead was a note about the catalog, not page copy. This is the client's own Events lead from the live site; replace when approved copy arrives.",
+      "featured": {
+        "label": "Course 01",
+        "name": "No Longer Bound",
+        "script": "Find Freedom",
+        "headline": "Even if your body hasn’t healed yet.",
+        "question": "Have you ever felt trapped in a body that won’t cooperate: sick, exhausted, and out of answers?",
+        "cta": "Open course website",
+        "url": "https://nolongerbound.riseupqueens.com/",
+        "_body": "“Explore the current No Longer Bound course on its existing website.” removed on request (2026-10-04).",
+        "_label": "“Course 01” pill removed from the Courses page on request (2026-10-04); kept for the unused drafts."
+      },
+      "more": {
+        "label": "Catalog planning",
+        "name": "More to explore",
+        "body": "Additional courses will appear here once they are approved.",
+        "_removed": "Removed from the Courses page on request (2026-10-04). Kept here because the unused couture and pathway drafts still read it."
+      },
+      "grow": {
+        "heading": "More ways to grow",
+        "lead": "Explore the other journeys already present on the current RUQ website.",
+        "links": [
+          {
+            "label": "Masterclass waitlists",
+            "href": "/masterclasses.html",
+            "blurb": "Twelve- and eight-week journeys, one topic at a time."
+          },
+          {
+            "label": "Events",
+            "href": "/events.html",
+            "blurb": "Freedom, the 3-day event where the journey begins."
+          },
+          {
+            "label": "1:1 Coaching",
+            "href": "/coaching.html",
+            "blurb": "Personal coaching matched to where you are right now."
+          },
+          {
+            "label": "Free resource",
+            "href": "/free-resource.html",
+            "blurb": "A no-cost place to start."
+          }
+        ]
+      },
+      "review": [
+        "Proposed page — content approval pending. Not linked from the nav or footer yet.",
+        "No Longer Bound appears first, following the existing catalog request. Further course descriptions, images, order, pricing, and purchase flows need approval.",
+        "The No Longer Bound link opens the existing course website. This preview does not enroll anyone or process a payment."
+      ]
+    },
+    "masterclasses": {
+      "heading": "Masterclasses",
+      "lead": "Each topic is designed to meet you where you’re at — and walk with you into the next.",
+      "items": [
+        {
+          "key": "control",
+          "name": "Control",
+          "duration": "3 months (12 weeks)",
+          "blurb": "A 12-week journey to identify and release patterns of inappropriate control, exploring what drives them and what freedom looks like instead."
+        },
+        {
+          "key": "freedom",
+          "name": "Walking in Freedom",
+          "duration": "3 months (12 weeks)",
+          "blurb": "A 12-week journey to live fully in the grace and power of your identity in Christ through spiritual exploration and practice."
+        },
+        {
+          "key": "body",
+          "name": "Body Image",
+          "duration": "2 months (8 weeks)",
+          "blurb": "An 8-week journey to rewrite the story you’ve believed about your body and explore the roots of how you see yourself."
+        }
+      ],
+      "form": {
+        "heading": "Join a waitlist",
+        "fields": [
+          {
+            "name": "name",
+            "label": "Name",
+            "type": "text",
+            "autocomplete": "name"
+          },
+          {
+            "name": "phone",
+            "label": "Phone",
+            "type": "tel",
+            "autocomplete": "tel"
+          },
+          {
+            "name": "email",
+            "label": "Email",
+            "type": "email",
+            "autocomplete": "email"
+          }
+        ],
+        "submit": "Join the {name} waitlist"
+      },
+      "review": [
+        "Proposed page — content approval pending.",
+        "The current website offers three separate waitlists. Each keeps its own fields (Name, Phone, Email — all required); nobody can join a waitlist from this preview.",
+        "Class availability, follow-up messaging, and backend list assignments need verification before launch.",
+        "The live site calls the second class “The Freedom Masterclass”; the supplied copy says “Walking in Freedom”. Confirm the name."
+      ]
+    },
+    "events": {
+      "heading": "Upcoming events",
+      "lead": "Explore the Freedom event journey.",
+      "dates": [
+        {
+          "name": "Freedom",
+          "month": "May 2027",
+          "dates": "May 5–7, 2027",
+          "location": "Denton, Texas",
+          "startsAt": "2027-05-05T09:00:00-05:00",
+          "price": "$1,995",
+          "priceNote": "single-payment option",
+          "cta": "View registration",
+          "url": "/register.html"
+        },
+        {
+          "name": "Freedom",
+          "month": "September 2027",
+          "dates": "Sept. 29 – Oct. 1, 2027",
+          "location": "Location to be announced",
+          "startsAt": "2027-09-29T09:00:00-05:00",
+          "cta": "View registration",
+          "url": "/register.html"
+        }
+      ],
+      "beyond": {
+        "heading": "Beyond Freedom",
+        "lead": "Your path with Rise Up Queens continues.",
+        "journeys": [
+          {
+            "name": "Deeper",
+            "blurb": "Go further with a guided continuation of the Freedom experience.",
+            "url": "https://go.riseupkings.com/deeper",
+            "cta": "Open current Deeper page"
+          },
+          {
+            "name": "Life By Design",
+            "blurb": "Design the life and rhythms you actually want to live.",
+            "url": "https://go.riseupkings.com/lifebydesign",
+            "cta": "Open current Life By Design page"
+          },
+          {
+            "name": "Elevate",
+            "blurb": "Amplify your marital bond with Elevate, a 4-day seminar for couples.",
+            "url": "https://go.riseupkings.com/elevate",
+            "cta": "Open current Elevate page"
+          },
+          {
+            "name": "Elevate International",
+            "blurb": "Start your next adventure — a 4-day marriage retreat abroad for couples.",
+            "url": null,
+            "cta": null
+          },
+          {
+            "name": "Coaches Academy",
+            "blurb": "Train to coach and carry the work to others.",
+            "url": "https://go.riseupkings.com/RUKCoachesAcademy",
+            "cta": "Open current Coaches Academy page"
+          },
+          {
+            "name": "1:1 Coaching",
+            "blurb": "Personal coaching matched to where you are right now.",
+            "url": "/coaching.html",
+            "cta": "Meet the coaches",
+            "internal": true
+          }
+        ]
+      },
+      "info": {
+        "heading": "Get more information about Freedom",
+        "lead": "Leave your first name and email.",
+        "fields": [
+          {
+            "name": "first",
+            "label": "First name",
+            "type": "text",
+            "autocomplete": "given-name"
+          },
+          {
+            "name": "email",
+            "label": "Email",
+            "type": "email",
+            "autocomplete": "email"
+          }
+        ],
+        "submit": "Get more info"
+      },
+      "watch": {
+        "heading": "Explore the current event journey",
+        "lead": "Media linked from the current Events page.",
+        "videos": [
+          {
+            "name": "Freedom",
+            "provider": "vimeo",
+            "id": "1086084555",
+            "hash": "0e115aa7af",
+            "poster": "/assets/photos/event-8.jpg"
+          },
+          {
+            "name": "Deeper",
+            "provider": "vimeo",
+            "id": "1061346133",
+            "hash": "34076b029f",
+            "poster": "/assets/photos/deeper-embrace.jpg"
+          },
+          {
+            "name": "Life By Design",
+            "provider": "wistia",
+            "id": "yc0csspter",
+            "poster": "/assets/posters/yc0csspter.jpg"
+          },
+          {
+            "name": "Elevate",
+            "provider": "vimeo",
+            "id": "1038654048",
+            "hash": "66dbd24982",
+            "poster": "/assets/photos/gallery-2-1.jpg"
+          },
+          {
+            "name": "Elevate International",
+            "provider": "vimeo",
+            "id": "928259217",
+            "hash": "d17c7856ba",
+            "poster": "/assets/photos/gallery-1-2.jpg"
+          }
+        ]
+      },
+      "review": [
+        "Proposed page — content approval pending.",
+        "Dates and the $1,995 single-payment price match the current public registration page; fulfillment, availability, policies, and future pricing still require an operational review.",
+        "site.json still says Dallas for both dates — the supplied copy says Plano (October) and Denton (May). Confirm, then update site.json so the homepage agrees.",
+        "Registration links open the live registration page. This preview cannot reserve a place or accept payment.",
+        "The legacy Elevate International registration button points to a video instead of checkout; its approved registration destination is still needed. The legacy 1:1 link points to Coaches Academy, so it goes to the Coaching page here.",
+        "The info form’s post-submission destination was not verified; this preview collects nothing and promises no email.",
+        "Dates and registration destinations shown within older videos may be outdated; they are not new offers. The Vimeo embeds showed an error in the supplied screenshots — check their privacy settings."
+      ]
+    },
+    "coaching": {
+      "heading": "Coaching",
+      "lead": "Personal coaching with a Rise Up Queens coach, matched to where you are right now.",
+      "coaches": [
+        {
+          "name": "Molly Rhodes",
+          "first": "Molly",
+          "photo": "/assets/team/molly-rhodes.jpg",
+          "url": "https://riseupkings.jotform.com/252175505688970"
+        },
+        {
+          "name": "Becky Hilty",
+          "first": "Becky",
+          "photo": "/assets/team/becky-hilty.jpg",
+          "url": "https://riseupkings.jotform.com/252175297130960"
+        },
+        {
+          "name": "Christy Tijerina",
+          "first": "Christy",
+          "photo": "/assets/team/christy-tijerina.jpg",
+          "url": "https://riseupkings.jotform.com/252174769947979"
+        },
+        {
+          "name": "Natasha Seguin-Congrove",
+          "first": "Natasha",
+          "photo": "/assets/team/natasha-seguin-congrove.jpg",
+          "url": "https://riseupkings.jotform.com/252174778831971"
+        }
+      ],
+      "cta": "Open {first}’s coaching form",
+      "videosHeading": "Coaching conversations",
+      "videos": [
+        {
+          "name": "Coaching conversation 1",
+          "provider": "youtube",
+          "id": "i3bB3FfIKY0",
+          "poster": "/assets/posters/yt-i3bB3FfIKY0.jpg"
+        },
+        {
+          "name": "Coaching conversation 2",
+          "provider": "youtube",
+          "id": "x7UWrpfR-8w",
+          "poster": "/assets/posters/yt-x7UWrpfR-8w.jpg"
+        }
+      ],
+      "review": [
+        "Proposed page — content approval pending.",
+        "Each coach links to their current coach-specific Jotform, matched name-to-form from the live 1-on-1 Coaching page on 2026-10-04. Those pages are live, not test forms — do not submit a coaching request as part of preview testing.",
+        "Coach descriptions are the client’s own copy from the live page."
+      ]
+    },
+    "freeResource": {
+      "heading": "Free resource",
+      "lead": "A no-cost place to start.",
+      "pending": {
+        "heading": "Resource content pending",
+        "body": "The approved resource, final copy, delivery destination, and any form requirements still need to be supplied or verified."
+      },
+      "review": [
+        "Proposed page — content approval pending.",
+        "This page keeps the free-resource journey visible in the draft without inventing a download or promising delivery. No file is available to download from this preview, and nothing will be emailed."
+      ]
+    }
+  },
+  "register": {
+    "_source": "Copy supplied by Lance as page screenshots, 2026-10-05 (the Freedom registration page). The screenshots' internal caveats (non-interactive mockup, processor verification, hosted-route notes) are kept in `review` and are not page copy. Design only for now: the form posts nowhere, and card fields are placeholders for Ontraport's hosted card frame, never real inputs.",
+    "eyebrow": "Rise Up Queens · Freedom",
+    "title": "3-Day Full Intensive Event",
+    "dates": [
+      {
+        "key": "may",
+        "label": "May 5–7, 2027",
+        "city": "Denton, TX",
+        "startsAt": "2027-05-05T09:00:00-05:00",
+        "_details": "Venue, daily times and arrival details for May were not supplied."
+      },
+      {
+        "key": "sep",
+        "label": "Sept. 29 – Oct. 1, 2027",
+        "city": "Location TBA",
+        "startsAt": "2027-09-29T09:00:00-05:00",
+        "_details": "Dates set 2026-10-09. City, venue, daily times and arrival details not supplied yet."
+      }
+    ],
+    "selectLabel": "Select your date",
+    "details": [
+      {
+        "key": "location",
+        "label": "Location"
+      },
+      {
+        "key": "included",
+        "label": "What’s included",
+        "body": "Your event ticket includes the training, materials, and lunches while in the sessions."
+      },
+      {
+        "key": "travel",
+        "label": "Hotel & travel",
+        "body": "Once registered, we’ll send you a link to book a discounted hotel rate. As we get closer to the event, we’ll follow up with more on what to expect and what to pack.",
+        "note": "Airfare and hotel are not included in your ticket price. The closest airports are DFW and Dallas Love Field."
+      },
+      {
+        "key": "attendance",
+        "label": "Attendance",
+        "body": "If for some reason you can’t attend all sessions, we’d ask that you wait and join us at a future event — each day builds on the ones before it."
+      }
+    ],
+    "experience": {
+      "heading": "What you’ll experience",
+      "items": [
+        {
+          "title": "Rediscover your true identity",
+          "body": "Leave behind fear, doubt, and comparison as you step into your God-given worth."
+        },
+        {
+          "title": "Reignite love and intimacy",
+          "body": "With yourself, God, and the people who matter most."
+        },
+        {
+          "title": "Walk away with unshakable peace",
+          "body": "Overflowing joy, and the courage to pursue your purpose."
+        }
+      ]
+    },
+    "form": {
+      "contact": {
+        "heading": "Contact information",
+        "fields": [
+          {
+            "name": "first",
+            "label": "First name",
+            "type": "text",
+            "autocomplete": "given-name",
+            "half": true
+          },
+          {
+            "name": "last",
+            "label": "Last name",
+            "type": "text",
+            "autocomplete": "family-name",
+            "half": true
+          },
+          {
+            "name": "email",
+            "label": "Email",
+            "type": "email",
+            "autocomplete": "email"
+          },
+          {
+            "name": "phone",
+            "label": "Phone",
+            "type": "tel",
+            "autocomplete": "tel"
+          }
+        ]
+      },
+      "payment": {
+        "heading": "Payment details",
+        "secure": "Secure card payment",
+        "fields": [
+          "Card number",
+          "CVC",
+          "Expiration month",
+          "Expiration year"
+        ]
+      },
+      "billing": {
+        "heading": "Billing address",
+        "fields": [
+          {
+            "name": "street",
+            "label": "Street address",
+            "type": "text",
+            "autocomplete": "address-line1",
+            "half": true
+          },
+          {
+            "name": "street2",
+            "label": "Street address 2",
+            "type": "text",
+            "autocomplete": "address-line2",
+            "half": true
+          },
+          {
+            "name": "city",
+            "label": "City",
+            "type": "text",
+            "autocomplete": "address-level2",
+            "half": true
+          },
+          {
+            "name": "state",
+            "label": "State",
+            "type": "select",
+            "autocomplete": "address-level1",
+            "half": true
+          },
+          {
+            "name": "zip",
+            "label": "ZIP / Postal code",
+            "type": "text",
+            "autocomplete": "postal-code",
+            "half": true
+          },
+          {
+            "name": "country",
+            "label": "Country",
+            "type": "select",
+            "autocomplete": "country-name",
+            "half": true
+          }
+        ]
+      },
+      "event": {
+        "heading": "Event choice",
+        "label": "RUQ 3-Day Event"
+      },
+      "coupon": {
+        "label": "Coupon code",
+        "button": "Apply"
+      },
+      "total": {
+        "label": "Total due today",
+        "amount": "$1,995.00"
+      },
+      "submit": "Complete registration",
+      "_submit": "The source button read “Checkout disabled — design preview”; “Complete registration” is a placeholder label — confirm.",
+      "secureNote": "Payments are processed securely."
+    },
+    "help": {
+      "text": "Have questions, or want to set up a payment plan? Email",
+      "email": "support@riseupqueens.com"
+    },
+    "review": [
+      "Non-interactive checkout mockup: no registration, charge, or email is created. Dates, venue, inclusions, and price are supplied draft copy awaiting approval.",
+      "Card fields are display-only placeholders; the live checkout uses Ontraport's separate hosted payment frame.",
+      "Billing-address and event-choice requirements need processor configuration verification.",
+      "Source design shows $1,995.00. Pricing and payment-plan wording require approval.",
+      "Production checkout retains its hosted card controls, coupon processing, event values 1083/1238, and UTM/referral/affiliate attribution. Final receipt, CRM tags and email delivery still need end-to-end verification.",
+      "The current Ontraport registration page is https://go.riseupqueens.com/3dayevent.",
+      "The screenshots included a “View the sample confirmation design” link; no confirmation page exists yet in this build."
+    ]
   }
 }

@@ -108,7 +108,19 @@ const plate = (src, alt, objectPos = '', aspect = 'aspect-[4/5]') => `
 // tail: markup that closes the spread on its own ground. The breakthrough CTA
 // is passed in here rather than following as its own section, so it shares
 // this gradient and its glows instead of meeting them on a straight edge.
-export const spread = (site, c, tail = '') => `
+// o: plate sizing on desktop (lg and up), for /plate-size-options.html. The
+// defaults are the shipped spread: option B, "narrower column", chosen
+// 2026-10-10 after the client found the photos too big. The text takes 7 of
+// 12 columns and each plate 5, so the plates are 437 x 546 at 1440px instead
+// of 524 x 655. The renewal plate's xl lift was dropped with it: the shorter
+// struggles plate no longer leaves room beside item 06 for it to rise into. Phones are unaffected: below lg both plates
+// are 3:2 whatever is passed.
+//   stCols / rnCols  the two sections' column split (text and plate)
+//   aspect           the plates' lg ratio
+//   lift             the renewal plate's rise into the struggles section
+export const spread = (site, c, tail = '', o = {}) => {
+  const L = { stCols: 'lg:grid-cols-[7fr_5fr]', rnCols: 'lg:grid-cols-[5fr_7fr]', aspect: 'lg:aspect-[4/5]', lift: '', ...o };
+  return `
 <div class="relative" style="background:linear-gradient(180deg,#ffffff,#FDF6F1 55%,#ffffff)">
 
   <div aria-hidden="true" class="pointer-events-none absolute inset-0 overflow-hidden">
@@ -148,7 +160,7 @@ export const spread = (site, c, tail = '') => `
          under the heading; the space left beside the plate below item 06 is
          where the renewal plate's lift (lg:-mt-24) already rises into.
          Chosen from /struggles-gap-options.html (option B). -->
-    <div class="st-grid grid gap-y-6 sm:gap-y-10 lg:grid-cols-[6fr_6fr] lg:grid-rows-[auto_1fr] lg:gap-x-14 lg:gap-y-0">
+    <div class="st-grid grid gap-y-6 sm:gap-y-10 ${L.stCols} lg:grid-rows-[auto_1fr] lg:gap-x-14 lg:gap-y-0">
       <div class="order-1 lg:order-none lg:col-start-1 lg:row-start-1">
         <div class="border-b border-ink/10 pb-4 text-center sm:text-left">
           ${dualHeading('Common struggles', 'women in marriage have', MAGENTA, 'text-ink', true, '4.5rem', { fluid: true, eyebrow: true, min: '2.25rem', vw: '14.5vw' })}
@@ -162,7 +174,7 @@ export const spread = (site, c, tail = '') => `
            portrait ratio chosen so the two match each other across the spread,
            and on a phone they are never side by side. -->
       <div class="st-plate relative z-10 order-2 lg:order-none lg:col-start-2 lg:row-span-2 lg:row-start-1">
-        ${plate('/assets/photos/deeper-embrace.jpg', 'Two women embracing at a Rise Up Queens event', '58% center', 'aspect-[3/2] lg:aspect-[4/5]')}
+        ${plate('/assets/photos/deeper-embrace.jpg', 'Two women embracing at a Rise Up Queens event', '58% center', `aspect-[3/2] ${L.aspect}`)}
       </div>
 
       <div class="st-list order-3 lg:order-none lg:col-start-1 lg:row-start-2 lg:mt-12">
@@ -195,7 +207,7 @@ export const spread = (site, c, tail = '') => `
        56px row gap would otherwise land between heading and list where today
        there is 40px. Column gap is untouched. -->
   <section class="relative mx-auto max-w-content px-6 pb-14 sm:pb-24">
-    <div class="grid gap-8 sm:gap-14 lg:grid-cols-[6fr_6fr] lg:gap-x-14 lg:gap-y-0">
+    <div class="grid gap-8 sm:gap-14 ${L.rnCols} lg:gap-x-14 lg:gap-y-0">
       <!-- The lift is lg-only, and that is a fix rather than a preference.
            It used to read "-mt-20 lg:-mt-24", with no breakpoint on the first
            value, so it applied at every width. Up here that is the magazine
@@ -218,8 +230,8 @@ export const spread = (site, c, tail = '') => `
            enough that item 06 wraps to two lines, and a fixed 6rem lift then
            lands on its second line. From xl the container is at its full
            72rem and every item is one line, so the lift clears it. -->
-      <div class="order-2 lg:order-none lg:col-start-1 lg:row-span-2 lg:row-start-1 xl:-mt-24">
-        ${plate(c.home.renewal.photo, c.home.renewal.photoAlt, 'center 32%', 'aspect-[3/2] lg:aspect-[4/5]')}
+      <div class="order-2 lg:order-none lg:col-start-1 lg:row-span-2 lg:row-start-1 ${L.lift}">
+        ${plate(c.home.renewal.photo, c.home.renewal.photoAlt, 'center 32%', `aspect-[3/2] ${L.aspect}`)}
       </div>
       <!-- Centred below sm, matching the struggles heading opposite it. The
            items below stay left-aligned: centring a heading is one thing,
@@ -246,3 +258,4 @@ export const spread = (site, c, tail = '') => `
   </section>
   ${tail}
 </div>`;
+};

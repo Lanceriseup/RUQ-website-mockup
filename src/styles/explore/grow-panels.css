@@ -1,0 +1,270 @@
+/* G1 — Expanding panels ("More ways to grow", Courses page).
+   Mobile first: stacked photo cards. From 900px: a row of four tall panels,
+   the active one opens wide, the rest fold to slim numbered columns. */
+.xp-luminous .gp{
+  --gp-mag:#e8208f; --gp-magt:#c4157a; --gp-teal:#00b9c6; --gp-tealt:#00838d;
+  --gp-ink:#1c1c1c; --gp-soft:#5a5a5a; --gp-r:22px;
+  --gp-ease:cubic-bezier(.22,.8,.16,1);
+  position:relative; padding:0 0 56px; margin-top:72px;
+}
+.xp-luminous .gp-wrap{position:relative;max-width:76rem;margin:0 auto;padding:0 16px}
+@media(min-width:640px){.xp-luminous .gp-wrap{padding:0 24px}}
+@media(min-width:1024px){
+  .xp-luminous .gp{margin-top:120px;padding-bottom:80px}
+  .xp-luminous .gp-wrap{padding:0 32px}
+}
+
+/* soft luminous bloom behind the row */
+.xp-luminous .gp-glow{position:absolute;inset:18% 4% -4%;z-index:0;pointer-events:none;border-radius:50%;
+  background:radial-gradient(40% 50% at 25% 55%,rgba(232,32,143,.16),transparent 70%),radial-gradient(40% 50% at 78% 50%,rgba(0,185,198,.16),transparent 70%);
+  filter:blur(30px)}
+
+/* ---------- heading */
+.xp-luminous .gp-head{position:relative;z-index:1;display:grid;gap:30px;margin:0 0 28px}
+.xp-luminous .gp-h2{margin:0;font:800 clamp(1.85rem,6.4vw,3rem)/1.05 Montserrat,sans-serif;letter-spacing:-.02em;color:var(--gp-ink)}
+.xp-luminous .gp-script{display:inline-block;font-family:'Julietta Messie',cursive;font-weight:400;font-style:normal;font-synthesis:none;
+  font-size:1.62em;line-height:.6;letter-spacing:0;color:var(--gp-mag);vertical-align:-.12em;padding:0 .08em;
+  -webkit-font-smoothing:antialiased}
+.xp-luminous .gp-lead{margin:0;max-width:30rem;font:400 1.0625rem/1.6 Lato,sans-serif;color:var(--gp-soft)}
+@media(min-width:900px){
+  .xp-luminous .gp-head{grid-template-columns:auto minmax(0,24rem);justify-content:space-between;align-items:end;gap:32px;margin-bottom:64px}
+  .xp-luminous .gp-lead{position:relative;padding-left:22px}
+  .xp-luminous .gp-lead::before{content:"";position:absolute;left:0;top:.35em;bottom:.35em;width:2px;border-radius:2px;background:linear-gradient(var(--gp-mag),var(--gp-teal))}
+}
+
+/* ---------- rail (mobile: stacked cards) */
+.xp-luminous .gp-rail{position:relative;z-index:1;list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.xp-luminous .gp-item{position:relative;min-width:0;border-radius:var(--gp-r);
+  box-shadow:0 28px 50px -30px rgba(120,20,80,.45),0 14px 28px -18px rgba(0,90,100,.28)}
+.xp-luminous .gp-panel{position:relative;display:block;height:228px;overflow:hidden;border-radius:inherit;
+  color:#fff;text-decoration:none;isolation:isolate;background:linear-gradient(160deg,#6a1d55,#2a1226 60%,#14303a);-webkit-tap-highlight-color:transparent}
+@media(min-width:640px){.xp-luminous .gp-panel{height:250px}}
+/* fine gradient edge */
+.xp-luminous .gp-panel::after{content:"";position:absolute;inset:0;z-index:4;border-radius:inherit;padding:1px;pointer-events:none;
+  background:linear-gradient(150deg,rgba(255,255,255,.75),rgba(255,255,255,.12) 38%,rgba(232,32,143,.55) 72%,rgba(0,185,198,.7));
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;
+  mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0)}
+.xp-luminous .gp-media{position:absolute;inset:0;z-index:0;overflow:hidden}
+.xp-luminous .gp-img{display:block;width:100%;height:100%;object-fit:cover;transform:scale(1.02);
+  transition:transform 1.4s var(--gp-ease),filter .9s var(--gp-ease)}
+.xp-luminous .gp-shade{position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(24,10,22,0) 34%,rgba(24,10,22,.42) 60%,rgba(24,10,22,.86) 100%),
+             radial-gradient(70% 55% at 0% 100%,rgba(24,10,22,.45),rgba(24,10,22,0) 70%)}
+.xp-luminous .gp-num,.xp-luminous .gp-fold{display:none}
+.xp-luminous .gp-body{position:absolute;z-index:2;left:20px;right:84px;bottom:20px;display:flex;flex-direction:column;gap:6px}
+.xp-luminous .gp-tag{display:inline-flex;align-items:center;gap:10px;font:700 11.5px/1 Montserrat,sans-serif;letter-spacing:.22em;color:rgba(255,255,255,.92)}
+.xp-luminous .gp-tag i{display:block;width:28px;height:2px;border-radius:2px;background:linear-gradient(90deg,var(--gp-mag),var(--gp-teal))}
+.xp-luminous .gp-gift{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;
+  background:linear-gradient(135deg,var(--gp-mag),var(--gp-teal));color:#fff}
+.xp-luminous .gp-gift .xp-ic{width:14px;height:14px}
+.xp-luminous .gp-title{margin:4px 0 0;font:800 1.45rem/1.12 Montserrat,sans-serif;letter-spacing:-.01em;color:#fff;text-shadow:0 2px 18px rgba(0,0,0,.25)}
+.xp-luminous .gp-blurb{font:400 1rem/1.5 Lato,sans-serif;color:rgba(255,255,255,.94);max-width:26rem;text-shadow:0 1px 12px rgba(20,6,18,.55)}
+.xp-luminous .gp-go{position:absolute;z-index:3;right:18px;bottom:20px;display:grid;place-items:center;width:52px;height:52px;border-radius:50%;
+  background:#fff;color:var(--gp-magt);box-shadow:0 10px 24px -8px rgba(0,0,0,.45);
+  transition:background .45s var(--gp-ease),color .45s var(--gp-ease),transform .6s var(--gp-ease)}
+.xp-luminous .gp-go .xp-ic{width:20px;height:20px;transition:transform .5s var(--gp-ease)}
+.xp-luminous .gp-panel:hover .gp-go{background:linear-gradient(135deg,var(--gp-mag),#b3127a);color:#fff}
+.xp-luminous .gp-panel:hover .gp-go .xp-ic{transform:translateX(3px)}
+.xp-luminous .gp-panel:focus-visible{outline:3px solid var(--gp-tealt);outline-offset:4px}
+.xp-luminous .gp-panel:focus-visible .gp-go{box-shadow:0 0 0 3px #fff,0 0 0 6px var(--gp-magt)}
+
+/* ---------- desktop: expanding row */
+@media(min-width:900px){
+  .xp-luminous .gp{--gp-r:28px}
+  .xp-luminous .gp-rail{display:flex;gap:12px;height:clamp(520px,44vw,580px)}
+  .xp-luminous .gp-item{flex:1 1 0;transition:flex-grow .85s var(--gp-ease),box-shadow .85s var(--gp-ease)}
+  .xp-luminous .gp-item.is-active{flex-grow:6;
+    box-shadow:0 46px 80px -40px rgba(140,20,95,.55),0 22px 40px -26px rgba(0,100,110,.4)}
+  /* no JS: hover and focus still open a panel */
+  .xp-luminous .gp-rail:not(.gp-js):has(.gp-item:hover,.gp-item:focus-within) .gp-item{flex-grow:1}
+  .xp-luminous .gp-rail:not(.gp-js) .gp-item:is(:hover,:focus-within){flex-grow:6}
+
+  .xp-luminous .gp-panel{height:100%}
+  .xp-luminous .gp-img{transform:scale(1.14);filter:saturate(.75) brightness(.92)}
+  .xp-luminous .gp-shade{transition:opacity .8s var(--gp-ease)}
+  /* folded tint: deep plum wash so the vertical title reads */
+  .xp-luminous .gp-panel::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+    background:linear-gradient(180deg,rgba(40,12,36,.5),rgba(40,12,36,.28) 30%,rgba(40,12,36,.55) 62%,rgba(24,8,22,.92));
+    transition:opacity .8s var(--gp-ease)}
+  .xp-luminous .gp-num{display:block;position:absolute;z-index:2;top:26px;left:0;right:0;text-align:center;
+    font:800 15px/1 Montserrat,sans-serif;letter-spacing:.12em;color:#fff;transition:opacity .45s ease}
+  .xp-luminous .gp-num::after{content:"";display:block;width:18px;height:2px;margin:12px auto 0;border-radius:2px;background:linear-gradient(90deg,var(--gp-mag),var(--gp-teal))}
+  .xp-luminous .gp-fold{display:block;position:absolute;z-index:2;left:50%;bottom:30px;
+    writing-mode:vertical-rl;transform:translateX(-50%) rotate(180deg);white-space:nowrap;
+    font:700 1.1rem/1 Montserrat,sans-serif;letter-spacing:.04em;color:#fff;text-shadow:0 2px 12px rgba(0,0,0,.35);
+    transition:opacity .45s ease}
+  .xp-luminous .gp-body{left:36px;bottom:36px;right:auto;width:min(26rem,calc(100% - 140px));min-width:20rem;gap:10px}
+  .xp-luminous .gp-title{font-size:clamp(1.9rem,2.6vw,2.4rem)}
+  .xp-luminous .gp-blurb{font-size:1.0625rem}
+  .xp-luminous .gp-go{right:32px;bottom:36px;width:60px;height:60px}
+
+  /* folded state */
+  .xp-luminous .gp-item:not(.is-active) .gp-body,
+  .xp-luminous .gp-item:not(.is-active) .gp-go{opacity:0;pointer-events:none}
+  .xp-luminous .gp-item:not(.is-active) .gp-body{transform:translateY(16px)}
+  .xp-luminous .gp-item:not(.is-active) .gp-go{transform:scale(.6)}
+  .xp-luminous .gp-item:not(.is-active) .gp-shade{opacity:0}
+  .xp-luminous .gp-body,.xp-luminous .gp-go{transition:opacity .35s ease,transform .5s var(--gp-ease)}
+  .xp-luminous .gp-item:not(.is-active):hover .gp-fold{color:#ffd6ec}
+
+  /* open state */
+  .xp-luminous .gp-item.is-active .gp-panel::before{opacity:0}
+  .xp-luminous .gp-item.is-active .gp-num,
+  .xp-luminous .gp-item.is-active .gp-fold{opacity:0}
+  .xp-luminous .gp-item.is-active .gp-img{filter:none;animation:gp-drift 16s ease-in-out .3s infinite alternate}
+  .xp-luminous .gp-item.is-active .gp-body,
+  .xp-luminous .gp-item.is-active .gp-go{transition:opacity .6s ease .32s,transform .8s var(--gp-ease) .28s}
+  .xp-luminous .gp-item.is-active .gp-body .gp-title{animation:gp-rise .9s var(--gp-ease) .3s both}
+  .xp-luminous .gp-item.is-active .gp-body .gp-blurb{animation:gp-rise .9s var(--gp-ease) .42s both}
+  /* no-JS mirror of the open state */
+  .xp-luminous .gp-rail:not(.gp-js):has(.gp-item:hover,.gp-item:focus-within) .gp-item.is-active:not(:hover,:focus-within) :is(.gp-body,.gp-go){opacity:0}
+
+  /* entrance: panels rise in one after another */
+  .xp-anim .xp-luminous .gp-rail[data-xp-rv]{opacity:1;transform:none;transition:none}
+  .xp-anim .xp-luminous .gp-rail[data-xp-rv] .gp-panel{clip-path:inset(100% 0 0 0 round 28px);transition:clip-path 1.2s var(--gp-ease) calc(var(--i)*110ms + 120ms)}
+  .xp-anim .xp-luminous .gp-rail[data-xp-rv].is-in .gp-panel{clip-path:inset(0 0 0 0 round 28px)}
+}
+@keyframes gp-drift{
+  0%{transform:scale(1.04) translate3d(0,0,0)}
+  100%{transform:scale(1.12) translate3d(-1.6%,-1.2%,0)}
+}
+@keyframes gp-rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+@media(min-width:900px) and (hover:hover){
+  .xp-luminous .gp-item:not(.is-active) .gp-panel:hover .gp-img{transform:scale(1.18)}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .xp-luminous .gp *,.xp-luminous .gp *::before,.xp-luminous .gp *::after,.xp-luminous .gp-item{
+    transition:none !important;animation:none !important}
+  .xp-anim .xp-luminous .gp-rail[data-xp-rv] .gp-panel{clip-path:none}
+  .xp-luminous .gp-panel:hover .gp-go .xp-ic{transform:none}
+}
+
+/* frosted number chip + a light sheen that sweeps the photo as a panel opens */
+.xp-luminous .gp-tag{align-self:flex-start;padding:7px 12px 7px 13px;border-radius:999px;
+  background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.32);
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.xp-luminous .gp-gift{margin:-4px -7px -4px 0}
+.xp-luminous .gp-go{box-shadow:0 10px 24px -8px rgba(0,0,0,.45),0 0 0 6px rgba(255,255,255,.14)}
+@media(min-width:900px){
+  .xp-luminous .gp-media::after{content:"";position:absolute;inset:-10% -60%;pointer-events:none;opacity:0;
+    background:linear-gradient(105deg,transparent 42%,rgba(255,255,255,.22) 50%,rgba(255,214,236,.12) 54%,transparent 62%);
+    transform:translateX(-60%)}
+  .xp-luminous .gp-item.is-active .gp-media::after{animation:gp-sheen 1.5s var(--gp-ease) .35s both}
+}
+@keyframes gp-sheen{0%{opacity:0;transform:translateX(-60%)}20%{opacity:1}100%{opacity:0;transform:translateX(60%)}}
+@media(prefers-reduced-motion:reduce){.xp-luminous .gp-media::after{display:none}}
+
+/* ================================================================ options
+   Heading (.gp-h-*) and marker (.gp-m-*) variants — see panels.mjs. */
+
+/* ---------- heading: hero — centred kicker, huge script "grow" with a swash
+   that draws itself, lead in serif italic (echoes the page's own hero) */
+.xp-luminous .gp-head--hero{display:block;max-width:46rem;margin:0 auto 36px;text-align:center}
+.xp-luminous .gp-head--hero .gp-h2{line-height:1}
+.xp-luminous .gp-kicker{display:block;font:700 12.5px/1.2 Montserrat,sans-serif;letter-spacing:.34em;text-transform:uppercase;color:var(--gp-tealt)}
+.xp-luminous .gp-big{position:relative;display:inline-block;margin-top:4px}
+.xp-luminous .gp-big-w{display:block;padding:0 .12em;font-family:'Julietta Messie',cursive;font-weight:400;font-synthesis:none;-webkit-font-smoothing:antialiased;
+  font-size:clamp(5rem,17vw,9.5rem);line-height:1;letter-spacing:0;color:var(--gp-mag)}
+.xp-luminous .gp-swash{position:absolute;left:6%;width:88%;bottom:.02em;height:.16em;overflow:visible;font-size:clamp(5rem,17vw,9.5rem)}
+.xp-luminous .gp-swash path{fill:none;stroke:var(--gp-mag);stroke-width:3;stroke-linecap:round;vector-effect:non-scaling-stroke;
+  stroke-dasharray:1;stroke-dashoffset:0;transition:stroke-dashoffset 1.5s cubic-bezier(.45,0,.2,1) .45s}
+.xp-anim .xp-luminous .gp-head--hero:not(.is-in) .gp-swash path{stroke-dashoffset:1}
+.xp-luminous .gp-head--hero .gp-lead{max-width:34rem;margin:clamp(34px,4.6vw,56px) auto 0;padding:0;font:italic 500 clamp(1.25rem,2.1vw,1.55rem)/1.45 'Cormorant Garamond',Georgia,serif;color:#4a4a4a}
+.xp-luminous .gp-head--hero .gp-lead::before{display:none}
+@media(min-width:900px){.xp-luminous .gp-head--hero{display:block;margin-bottom:56px}.xp-luminous .gp-kicker{font-size:13.5px}}
+
+/* ---------- heading: stack — two big lines, "grow" in a slowly moving
+   magenta-to-teal gradient; lead under a short gradient rule */
+.xp-luminous .gp-head--stack .gp-h2{font-size:clamp(2.7rem,9.5vw,5.6rem);line-height:.95;letter-spacing:-.04em}
+.xp-luminous .gp-line{display:block}
+.xp-luminous .gp-grad{color:var(--gp-mag);padding-right:.04em}
+@supports ((-webkit-background-clip:text) or (background-clip:text)){
+  .xp-luminous .gp-grad{background:linear-gradient(100deg,#e8208f 0%,#a24bcf 30%,#00b9c6 55%,#e8208f 85%) 0 0/240% 100%;
+    -webkit-background-clip:text;background-clip:text;color:transparent;animation:gp-gradmove 9s linear infinite}
+}
+@keyframes gp-gradmove{to{background-position:-240% 0}}
+.xp-luminous .gp-head--stack .gp-lead{position:relative;padding:22px 0 0;font-size:1.125rem;color:#4a4a4a}
+.xp-luminous .gp-head--stack .gp-lead::before{content:"";position:absolute;left:0;top:0;bottom:auto;width:56px;height:2px;border-radius:2px;
+  background:linear-gradient(90deg,var(--gp-mag),var(--gp-teal))}
+.xp-luminous .gp-head--stack .gp-line{transition:opacity .9s ease,transform 1s cubic-bezier(.22,.8,.16,1)}
+.xp-luminous .gp-head--stack .gp-line+.gp-line{transition-delay:.15s}
+.xp-anim .xp-luminous .gp-head--stack:not(.is-in) .gp-line{opacity:0;transform:translateY(.35em)}
+@media(min-width:900px){
+  .xp-luminous .gp-head--stack{grid-template-columns:auto minmax(0,22rem);align-items:end}
+  .xp-luminous .gp-head--stack .gp-lead{padding:22px 0 10px}
+}
+
+/* ---------- heading: ghost — a giant outlined GROW behind, centred in front */
+.xp-luminous .gp-head--ghost{display:block;position:relative;padding-top:clamp(40px,7vw,96px);margin-bottom:36px;text-align:center}
+.xp-luminous .gp-ghost{position:absolute;left:50%;top:0;z-index:0;transform:translateX(-50%);white-space:nowrap;pointer-events:none;
+  font:800 clamp(6.5rem,26vw,17.5rem)/.82 Montserrat,sans-serif;letter-spacing:-.045em;text-transform:uppercase;
+  color:transparent;-webkit-text-stroke:1.5px rgba(232,32,143,.26);
+  background:linear-gradient(180deg,rgba(232,32,143,.07),rgba(0,185,198,.02) 70%,transparent);-webkit-background-clip:text;background-clip:text;
+  transition:letter-spacing 1.6s cubic-bezier(.22,.8,.16,1),opacity 1.2s ease}
+.xp-anim .xp-luminous .gp-head--ghost:not(.is-in) .gp-ghost{letter-spacing:.12em;opacity:0}
+.xp-luminous .gp-head--ghost .gp-h2{position:relative;z-index:1;font-size:clamp(2.1rem,6.6vw,3.6rem)}
+.xp-luminous .gp-head--ghost .gp-lead{position:relative;z-index:1;max-width:32rem;margin:clamp(30px,3.4vw,40px) auto 0;padding:0}
+.xp-luminous .gp-head--ghost .gp-lead::before{display:none}
+@media(min-width:900px){.xp-luminous .gp-head--ghost{display:block;margin-bottom:60px}}
+
+/* ---------- heading: serif — Cormorant with "grow" in gradient italic; the
+   lead as small tracked capitals */
+.xp-luminous .gp-head--serif .gp-h2{font:500 clamp(2.8rem,8vw,5rem)/1 'Cormorant Garamond',Georgia,serif;letter-spacing:-.01em}
+.xp-luminous .gp-head--serif em{font-style:italic;font-weight:500;color:var(--gp-mag);padding-right:.08em}
+@supports ((-webkit-background-clip:text) or (background-clip:text)){
+  .xp-luminous .gp-head--serif em{background:linear-gradient(100deg,#e8208f,#b0359f 50%,#00a7b3);-webkit-background-clip:text;background-clip:text;color:transparent}
+}
+.xp-luminous .gp-head--serif .gp-lead{max-width:24rem;font:600 12.5px/1.95 Montserrat,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#555}
+@media(min-width:900px){.xp-luminous .gp-head--serif{align-items:center}}
+
+/* ---------- markers: shared resets */
+.xp-luminous .gp:not(.gp-m-current) .gp-num::after{display:none}
+.xp-luminous .gp:not(.gp-m-current) .gp-tag{padding:0;border:0;border-radius:0;background:none;-webkit-backdrop-filter:none;backdrop-filter:none}
+
+/* serif: italic serif numerals */
+.xp-luminous .gp-num--serif{font:italic 500 2.6rem/1 'Cormorant Garamond',Georgia,serif !important;letter-spacing:0 !important;top:22px !important}
+.xp-luminous .gp-m-serif .gp-num--serif::after{display:block;content:"";width:1px;height:30px;margin:12px auto 0;background:linear-gradient(rgba(255,255,255,.9),rgba(255,255,255,0))}
+.xp-luminous .gp-tag--serif{font:italic 500 2.6rem/.9 'Cormorant Garamond',Georgia,serif;letter-spacing:0;color:#fff;text-shadow:0 2px 16px rgba(0,0,0,.3)}
+@media(min-width:900px){.xp-luminous .gp-tag--serif{font-size:4.2rem;margin-bottom:-6px}}
+
+/* outline: big outlined numerals; a giant outlined watermark when open */
+.xp-luminous .gp-num--outline{font:800 3.3rem/1 Montserrat,sans-serif !important;letter-spacing:-.05em !important;top:16px !important;
+  color:transparent !important;-webkit-text-stroke:1.25px rgba(255,255,255,.88)}
+.xp-luminous .gp-wm{position:absolute;z-index:2;right:16px;top:8px;pointer-events:none;font:800 4.6rem/1 Montserrat,sans-serif;letter-spacing:-.05em;
+  color:transparent;-webkit-text-stroke:1.25px rgba(255,255,255,.7)}
+@media(min-width:900px){
+  .xp-luminous .gp-wm{right:30px;top:14px;font-size:clamp(9rem,13vw,12.5rem);-webkit-text-stroke:1.5px rgba(255,255,255,.6);
+    opacity:0;transform:translateY(24px);transition:opacity .5s ease,transform .9s cubic-bezier(.22,.8,.16,1)}
+  .xp-luminous .gp-item.is-active .gp-wm{opacity:1;transform:none;transition-delay:.3s}
+}
+
+/* medal: a frosted medallion whose gradient ring shows the step */
+@property --gp-p{syntax:'<number>';inherits:false;initial-value:1}
+.xp-luminous .gp-num--medal,.xp-luminous .gp-tag--medal b{display:grid;place-items:center;border-radius:50%;
+  font:800 16px/1 Montserrat,sans-serif;letter-spacing:0;color:#fff;
+  background:radial-gradient(closest-side,rgba(34,10,30,.62) 80%,transparent 82%),
+             conic-gradient(from -90deg,#f15aab,#00c2cf calc(var(--gp-p) * 360deg),rgba(255,255,255,.3) 0);
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.xp-luminous .gp-num--medal{--gp-p:var(--p);left:50% !important;right:auto !important;top:22px !important;width:50px;height:50px;transform:translateX(-50%)}
+.xp-luminous .gp-tag--medal{display:inline-flex;align-items:center;gap:12px}
+.xp-luminous .gp-tag--medal b{--gp-p:var(--p);width:54px;height:54px;font-size:18px}
+.xp-luminous .gp-tag--medal em{font:700 11.5px/1 Montserrat,sans-serif;font-style:normal;letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.9)}
+@keyframes gp-ring{from{--gp-p:0}to{--gp-p:var(--p)}}
+@media(min-width:900px){.xp-luminous .gp-item.is-active .gp-tag--medal b{animation:gp-ring 1.3s cubic-bezier(.45,0,.2,1) .35s both}}
+
+/* icons: no numbers — an icon for each path */
+.xp-luminous .gp-num--icon,.xp-luminous .gp-tag--icon{display:grid;place-items:center;border-radius:50%;color:#fff}
+.xp-luminous .gp-num--icon{left:50% !important;right:auto !important;top:22px !important;width:50px;height:50px;transform:translateX(-50%);
+  background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.38);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.xp-luminous .gp-num--icon svg{width:22px;height:22px}
+.xp-luminous .gp-tag--icon{width:54px;height:54px;border-radius:50% !important;
+  background:linear-gradient(135deg,rgba(232,32,143,.9),rgba(0,185,198,.9)) !important;box-shadow:0 0 0 1px rgba(255,255,255,.4) inset,0 10px 24px -10px rgba(0,0,0,.5)}
+.xp-luminous .gp-tag--icon svg{width:25px;height:25px}
+
+@media(prefers-reduced-motion:reduce){
+  .xp-anim .xp-luminous .gp-head--hero:not(.is-in) .gp-swash path{stroke-dashoffset:0}
+  .xp-anim .xp-luminous .gp-head--stack:not(.is-in) .gp-line,.xp-anim .xp-luminous .gp-head--ghost:not(.is-in) .gp-ghost{opacity:1;transform:none;letter-spacing:-.045em}
+  .xp-luminous .gp-grad{animation:none}
+}

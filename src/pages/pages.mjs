@@ -2,12 +2,11 @@ import { esc } from '../partials/layout.mjs';
 import { section, videoFacade, card, personCard, cta, faq } from '../partials/components.mjs';
 import { hero } from '../partials/hero.mjs';
 import { spread } from '../partials/spread.mjs';
-import { freedomSection } from '../partials/freedom.mjs';
+import { freedomPhoto } from '../partials/freedom-photo.mjs';
 import { ctaSection } from '../partials/cta.mjs';
 import { faithSection } from '../partials/faith.mjs';
 import { testimonialsSection } from '../partials/testimonials.mjs';
 import { nlbSection } from '../partials/nlb.mjs';
-import { closingSection } from '../partials/closing.mjs';
 import { teamPage } from '../partials/team.mjs';
 import { aboutHero } from '../partials/about-hero.mjs';
 import { renderJourney } from '../partials/about-journey.mjs';
@@ -16,7 +15,9 @@ import { whoForSection } from '../partials/whofor.mjs';
 import { aboutLights } from '../partials/about-lights.mjs';
 import { aboutCta } from '../partials/about-cta.mjs';
 import { renderFaqs } from '../partials/faq-variants.mjs';
-import { contactLight } from '../partials/contact-light.mjs';
+import { contactPhoto } from '../partials/contact-photo.mjs';
+import { explorePage } from '../partials/explore/index.mjs';
+import { register as registerPage } from '../partials/register/split.mjs';
 
 const grid = (cols, items) => `<div class="mt-10 grid gap-6 ${cols}">${items.join('')}</div>`;
 
@@ -34,12 +35,15 @@ export const pages = (site, c, vids) => ([
          that lifts it over the hero. The two sections are one argument — six
          problems, then three answers — so they are designed together, with the
          photographic plates overlapping the boundary between them. -->
-    <div class="relative z-10 -mt-16 overflow-hidden rounded-t-[2.5rem] shadow-[0_-26px_60px_-28px_rgba(0,0,0,.5)]
-                before:absolute before:left-1/2 before:top-4 before:z-20 before:h-1.5 before:w-16
-                before:-translate-x-1/2 before:rounded-full before:bg-ink/15">
-      <!-- Freedom opens the panel, so the handle above sits on its blush
-           ground and its wave hands over to the struggles below. -->
-      ${freedomSection(c)}
+    <!-- The panel's grab-handle bar was removed 2026-10-10 at the client's
+         request; the rounded top edge alone carries the lift. -->
+    <div class="relative z-10 -mt-16 overflow-hidden rounded-t-[2.5rem] shadow-[0_-26px_60px_-28px_rgba(0,0,0,.5)]">
+      <!-- Freedom opens the panel, and its wave hands over to the struggles
+           below. -->
+      <!-- Memory wall, chosen 2026-10-10 from /freedom-wall-options.html: the
+           polaroids and note on W2's sky, with W1's torn paper edge. The
+           earlier brush-stroke design is still in freedom.mjs. -->
+      ${freedomPhoto(site, c, 'memory')}
       <!-- The breakthrough CTA closes the spread on the spread's own ground.
            As a separate section after this panel it met it on a straight
            line: the panel is z-10, so it covered the top of the CTA's glow,
@@ -76,12 +80,14 @@ export const pages = (site, c, vids) => ([
          footer or this section were ever the intended route in, it needs
          putting back somewhere. -->
 
-    ${closingSection(site, c)}`
+    <!-- The closing "What if this is your turning point?" panel was removed
+         2026-10-10 at the client's request; No Longer Bound now closes the
+         page at that panel's width. closing.mjs is kept for the review pages. -->`
   },
 
   {
     file: 'about.html', href: '/about.html',
-    title: `About — ${site.brand.name}`, desc: c.about.lead,
+    title: 'About Rise Up Queens', desc: c.about.lead,
     // overHero: the header renders over the photograph. The Wistia player
     // loads because the hero renders the shared VSL — see build.mjs.
     overHero: true,
@@ -95,7 +101,7 @@ export const pages = (site, c, vids) => ([
 
          It sits directly under the third card, which ends on "take the next
          step on your path" — so the ticket is that step. -->
-    ${renderJourney(site, c, 'overlap', 'stacked', aboutCta(site, c), aboutLights() + founderSection(c) + whoForSection(c))}
+    ${renderJourney(site, c, 'overlap', 'stacked', aboutCta(site, c), aboutLights() + founderSection(c, 'paired') + whoForSection(c))}
 
     <!-- The two pullquotes used to sit here and are removed. Their copy stays
          in content.json as about.pullquotes. -->
@@ -181,8 +187,8 @@ export const pages = (site, c, vids) => ([
   {
     file: 'contact.html', href: '/contact.html',
     title: `Contact — ${site.brand.name}`, desc: c.contact.lead,
-    // Light, L1 "Sky" (contact-light.mjs). Like the team page, the header is
-    // in "clear" mode — ink type, no bar — so the sky runs up behind it.
+    // The header is in "clear" mode — ink type, no bar — so the washed photo
+    // runs up behind it.
     navClear: true,
     // The form on this page is DISABLED, deliberately and not as an oversight.
     // There is no endpoint — the live page posts to a Brizy handler, the
@@ -190,7 +196,33 @@ export const pages = (site, c, vids) => ([
     // Ontraport. A form that looks live and posts nowhere swallows real
     // enquiries in silence, so the fields stay disabled until one of those is
     // wired. See contact-parts.mjs.
-    body: contactLight(site, c, vids, 'sky')
+    // Photo-led G1 "Daylight" with the overlapping arc panel, chosen
+    // 2026-10-10 from /contact-glass-options.html. The sky design (L1) stays
+    // in contact-light.mjs.
+    body: contactPhoto(site, c, vids, 'gday')
+  },
+
+  {
+    // Courses — NEW (2026-10-05). In the footer and, since 2026-10-09, the
+    // header nav.
+    file: 'courses.html', href: '/courses.html',
+    title: `Courses — ${site.brand.name}`, desc: c.explore.courses.lead,
+    navClear: true,
+    body: explorePage(site, c, vids, 'courses', 'luminous')
+  },
+
+  {
+    // Freedom registration — NEW. Design R3 "split screen", chosen 2026-10-05
+    // from /register-options.html. Every Register button on the site points
+    // here (site.nextEvent.ctaUrl, site.funnels.threeDayEvent).
+    // DESIGN ONLY: the form posts nowhere and the card fields are display
+    // boxes standing in for Ontraport's hosted card frame — it must be wired
+    // to Ontraport before launch, or the buttons pointed back at
+    // https://go.riseupqueens.com/3dayevent.
+    file: 'register.html', href: '/register.html',
+    title: `Register for Freedom — ${site.brand.name}`, desc: `${c.register.title} · ${c.register.dates[0].label} · ${c.register.dates[0].city}`,
+    navClear: true,
+    body: registerPage(site, c)
   },
 
   {

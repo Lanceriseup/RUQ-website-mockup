@@ -1,0 +1,187 @@
+/* G3 — Horizontal glide: "More ways to grow" on the Courses page.
+   Markup + script: src/partials/explore/grow/glide.mjs. Every selector scoped
+   under .xp-luminous .gg, own classes prefixed gg-.
+
+   Mobile first: a native, swipeable row that snaps card by card. From 1024px
+   with a fine pointer and motion allowed, the script adds .gg--glide: the
+   section grows tall, the stage sticks and the track glides with the scroll. */
+
+/* The page wrapper clips its drifting orbs with overflow:hidden, which turns
+   it into a scroll container and kills position:sticky inside it. overflow:clip
+   clips identically (so the orbs still can't cause sideways scroll) but is not
+   a scroll container, so sticky works. Only on pages holding this section. */
+.xp-luminous .xl:has(.gg){overflow:clip}
+
+.xp-luminous .gg{
+  --gg-ink:#1c1c1c; --gg-soft:#5a5a5a; --gg-mag:#e8208f; --gg-magt:#c4157a; --gg-cyan:#00b9c6; --gg-teal:#00838d;
+  --gg-grad:linear-gradient(100deg,#e8208f,#00b9c6);
+  --gg-ease:cubic-bezier(.2,.7,.2,1);
+  --gg-g:16px;                       /* side gutter */
+  position:relative;margin-top:72px;padding-bottom:16px;color:var(--gg-ink)}
+@media(min-width:640px){.xp-luminous .gg{--gg-g:24px}}
+@media(min-width:1024px){.xp-luminous .gg{--gg-g:32px;margin-top:120px;padding-bottom:0}}
+
+/* ------------------------------------------------------------ heading */
+.xp-luminous .gg-head{max-width:76rem;margin:0 auto;padding:0 var(--gg-g)}
+.xp-luminous .gg-h2{margin:0;font:800 clamp(1.9rem,7.4vw,2.6rem)/1.02 Montserrat,sans-serif;letter-spacing:-.035em;color:var(--gg-ink)}
+.xp-luminous .gg-h2-sans{white-space:nowrap}
+.xp-luminous .gg-h2-script{display:inline-block;font-family:'Julietta Messie',cursive;font-weight:400;font-synthesis:none;font-style:normal;
+  -webkit-font-smoothing:antialiased;letter-spacing:0;color:var(--gg-mag);font-size:1.6em;line-height:.8;
+  transform:translateY(.08em);padding-right:.1em}
+.xp-luminous .gg-lead{margin:30px 0 0;max-width:30rem;font:400 16px/1.65 Lato,sans-serif;color:var(--gg-soft)}
+@media(min-width:640px){.xp-luminous .gg-lead{font-size:17px}}
+.xp-luminous .gg-index{display:none}
+
+/* ------------------------------------------------------------ the row */
+.xp-luminous .gg-view{position:relative;margin-top:26px;overflow-x:auto;overflow-y:hidden;
+  scroll-snap-type:x mandatory;scroll-padding-inline:var(--gg-g);overscroll-behavior-x:contain;
+  scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.xp-luminous .gg-view::-webkit-scrollbar{display:none}
+.xp-luminous .gg-track{display:flex;gap:14px;margin:0;padding:10px var(--gg-g) 30px;list-style:none;width:max-content}
+.xp-luminous .gg-item{flex:0 0 auto;width:min(82vw,400px);scroll-snap-align:start}
+@media(min-width:640px){.xp-luminous .gg-track{gap:20px}.xp-luminous .gg-item{width:min(60vw,420px)}}
+
+/* ------------------------------------------------------------ the card */
+.xp-luminous .gg-card{position:relative;isolation:isolate;display:block;height:clamp(400px,118vw,500px);overflow:hidden;
+  border-radius:26px;color:var(--gg-ink);text-decoration:none;background:#f4e9ec;
+  box-shadow:0 0 0 1px rgba(255,255,255,.75),0 30px 60px -32px rgba(110,24,72,.42),0 10px 24px -18px rgba(28,28,28,.25);
+  transform-origin:50% 62%;-webkit-tap-highlight-color:transparent}
+@media(min-width:640px){.xp-luminous .gg-card{height:520px}}
+.xp-luminous .gg-card:focus-visible{outline:3px solid var(--gg-magt);outline-offset:5px}
+
+.xp-luminous .gg-media{position:absolute;inset:0;z-index:-1;overflow:hidden}
+.xp-luminous .gg-media img{width:100%;height:100%;object-fit:cover;
+  transform:translate3d(calc(var(--px,0) * 1px),0,0) scale(1.1);transition:scale .9s var(--gg-ease)}
+/* a soft blush tint at the top, a deeper wine scrim behind the glass */
+.xp-luminous .gg-media::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(232,32,143,.10) 0%,rgba(232,32,143,0) 30%,rgba(40,8,28,0) 48%,rgba(40,8,28,.42) 100%)}
+
+/* the free resource: a luminous gradient with a gift */
+.xp-luminous .gg-media-gift{background:
+  radial-gradient(120% 80% at 18% 8%,rgba(255,255,255,.34),rgba(255,255,255,0) 52%),
+  linear-gradient(155deg,#ef3d9f 0%,#c4157a 38%,#00a3b0 100%);background:radial-gradient(120% 80% at 18% 8%,rgba(255,255,255,.34),rgba(255,255,255,0) 52%),linear-gradient(155deg in oklab,#f0479f 0%,#c4157a 40%,#00b0bc 100%)}
+.xp-luminous .gg-media-gift::after{background:linear-gradient(180deg,rgba(40,8,28,0) 50%,rgba(40,8,28,.22) 100%)}
+.xp-luminous .gg-gift-orb{position:absolute;border-radius:50%;pointer-events:none}
+.xp-luminous .gg-gift-orb-a{width:70%;aspect-ratio:1;right:-22%;top:-12%;background:radial-gradient(circle,rgba(255,255,255,.38),rgba(255,255,255,0) 66%);animation:gg-float 9s ease-in-out infinite alternate}
+.xp-luminous .gg-gift-orb-b{width:90%;aspect-ratio:1;right:-34%;bottom:-18%;background:radial-gradient(circle,rgba(70,230,238,.55),rgba(70,230,238,0) 66%);animation:gg-float 12s ease-in-out infinite alternate-reverse}
+.xp-luminous .gg-gift-ring{position:absolute;left:50%;top:36%;width:62%;aspect-ratio:1;translate:-50% -50%;border-radius:50%;
+  border:1px solid rgba(255,255,255,.4);box-shadow:0 0 0 22px rgba(255,255,255,.06),0 0 0 46px rgba(255,255,255,.04)}
+.xp-luminous .gg-gift-ic{position:absolute;left:50%;top:36%;translate:-50% -50%;display:grid;place-items:center;width:128px;height:128px;border-radius:50%;
+  color:#fff;background:rgba(255,255,255,.18);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.55),0 24px 50px -20px rgba(60,10,50,.55)}
+.xp-luminous .gg-gift-ic svg{width:60px;height:60px;stroke-width:1.3;transition:transform .6s var(--gg-ease)}
+@keyframes gg-float{to{transform:translate3d(-12%,10%,0) scale(1.08)}}
+
+.xp-luminous .gg-num{position:absolute;left:16px;top:16px;display:inline-flex;align-items:baseline;gap:2px;padding:7px 12px 6px;border-radius:999px;
+  font:800 13px/1 Montserrat,sans-serif;letter-spacing:.12em;color:var(--gg-ink);
+  background:rgba(255,255,255,.82);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);box-shadow:0 6px 18px -10px rgba(28,28,28,.4)}
+.xp-luminous .gg-num span{font-weight:600;font-size:10.5px;color:var(--gg-soft)}
+
+.xp-luminous .gg-body{position:absolute;left:12px;right:12px;bottom:12px;display:block;padding:20px 76px 20px 20px;border-radius:19px;
+  background:rgba(255,255,255,.86);-webkit-backdrop-filter:blur(16px) saturate(1.4);backdrop-filter:blur(16px) saturate(1.4);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.7),0 18px 40px -24px rgba(60,10,40,.5)}
+.xp-luminous .gg-title{margin:0;font:800 20px/1.15 Montserrat,sans-serif;letter-spacing:-.02em;color:var(--gg-ink)}
+.xp-luminous .gg-blurb{display:block;margin-top:7px;font:400 15px/1.5 Lato,sans-serif;color:var(--gg-soft)}
+.xp-luminous .gg-go{position:absolute;right:16px;top:50%;translate:0 -50%;display:grid;place-items:center;width:48px;height:48px;border-radius:50%;
+  color:#fff;background:linear-gradient(135deg,#e8208f,#b81870);box-shadow:0 10px 22px -10px rgba(184,24,112,.8);
+  transition:transform .45s var(--gg-ease),background .45s var(--gg-ease)}
+.xp-luminous .gg-go svg{width:18px;height:18px;transition:transform .45s var(--gg-ease)}
+.xp-luminous .gg-card-gift .gg-go{background:linear-gradient(135deg,#00a9b5,#00838d);box-shadow:0 10px 22px -10px rgba(0,110,118,.8)}
+
+@media(hover:hover){
+  .xp-luminous .gg-card:hover .gg-media img{scale:1.06}
+  .xp-luminous .gg-card:hover .gg-go{transform:scale(1.08)}
+  .xp-luminous .gg-card:hover .gg-go svg{transform:translateX(3px)}
+  .xp-luminous .gg-card:hover .gg-gift-ic svg{transform:rotate(-8deg) scale(1.06)}
+}
+.xp-luminous .gg-card:focus-visible .gg-go svg{transform:translateX(3px)}
+
+/* ------------------------------------------------------------ progress */
+.xp-luminous .gg-foot{display:flex;align-items:center;gap:14px;max-width:76rem;margin:0 auto;padding:0 var(--gg-g)}
+.xp-luminous .gg-count{flex:none;font:800 12px/1 Montserrat,sans-serif;letter-spacing:.14em;color:var(--gg-soft)}
+.xp-luminous .gg-count b{font-weight:800;color:var(--gg-magt);font-size:14px;margin-right:3px}
+.xp-luminous .gg-bar{position:relative;flex:1;height:2px;border-radius:2px;background:rgba(28,28,28,.1)}
+.xp-luminous .gg-fill{position:absolute;left:0;top:0;bottom:0;width:calc(3% + 97% * var(--gg-p,0));border-radius:inherit;background:var(--gg-grad)}
+.xp-luminous .gg-fill::after{content:"";position:absolute;right:-5px;top:50%;width:10px;height:10px;margin-top:-5px;border-radius:50%;
+  background:#00b9c6;box-shadow:0 0 0 4px rgba(0,185,198,.18)}
+.xp-luminous .gg-ticks{display:none}
+.xp-luminous .gg-hint{flex:none;font:700 11px/1 Montserrat,sans-serif;letter-spacing:.22em;text-transform:uppercase;color:var(--gg-teal)}
+.xp-luminous .gg-hint-s{display:none}
+
+/* ------------------------------------------------------------ desktop */
+@media(min-width:1024px){
+  /* Columns: gutter (lines up with the 76rem wrap) | pinned heading | cards
+     to the right edge of the window. */
+  .xp-luminous .gg-grid{--gl:calc(max(0px,(100% - 76rem) / 2) + var(--gg-g));
+    display:grid;grid-template-columns:var(--gl) minmax(17rem,21rem) minmax(0,1fr);grid-template-rows:auto auto;align-items:center}
+  .xp-luminous .gg-head{grid-column:2;grid-row:1 / span 2;align-self:center;max-width:none;margin:0;padding:0 8px 0 0;position:relative;z-index:2}
+  .xp-luminous .gg-h2{font-size:clamp(2.3rem,3.3vw,3rem)}
+  .xp-luminous .gg-h2-sans{display:block}
+  .xp-luminous .gg-h2-script{display:block;width:max-content;font-size:2.15em;margin:.02em 0 0 -.04em;padding-bottom:.56em}
+  .xp-luminous .gg-lead{margin-top:6px;font-size:17px}
+
+  .xp-luminous .gg-index{display:grid;gap:2px;margin:30px 0 0;padding:0;list-style:none;counter-reset:none}
+  .xp-luminous .gg-index li{position:relative;display:flex;align-items:baseline;gap:14px;padding:8px 0;
+    font:700 14px/1.3 Montserrat,sans-serif;letter-spacing:-.005em;color:#8a8a8a;transition:color .5s var(--gg-ease)}
+  .xp-luminous .gg-index li span{flex:none;width:22px;font-size:11px;letter-spacing:.12em;color:#9a9a9a;transition:color .5s var(--gg-ease)}
+  .xp-luminous .gg-index li::after{content:"";position:absolute;left:36px;bottom:3px;width:28px;height:2px;border-radius:2px;background:var(--gg-grad);
+    transform:scaleX(0);transform-origin:0 50%;transition:transform .6s var(--gg-ease)}
+  .xp-luminous .gg-index li.is-on{color:var(--gg-ink)}
+  .xp-luminous .gg-index li.is-on span{color:var(--gg-magt)}
+  .xp-luminous .gg-index li.is-on::after{transform:scaleX(1)}
+
+  .xp-luminous .gg-view{grid-column:3;grid-row:1;margin:0;
+    -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 56px);mask-image:linear-gradient(90deg,transparent 0,#000 56px)}
+  .xp-luminous .gg-track{gap:28px;padding:34px var(--gl) 34px 64px}
+  .xp-luminous .gg-view{scroll-padding-inline:64px var(--gl)}
+  .xp-luminous .gg-item{width:clamp(340px,30vw,460px)}
+  .xp-luminous .gg-card{height:clamp(400px,calc(100vh - 290px),560px);border-radius:30px}
+  .xp-luminous .gg-body{left:14px;right:14px;bottom:14px;padding:24px 88px 24px 24px;border-radius:21px}
+  .xp-luminous .gg-title{font-size:24px}
+  .xp-luminous .gg-blurb{font-size:16px}
+  .xp-luminous .gg-go{right:20px;width:54px;height:54px}
+  .xp-luminous .gg-num{left:20px;top:20px}
+
+  .xp-luminous .gg-foot{grid-column:3;grid-row:2;max-width:none;margin:0;padding:6px var(--gl) 0 64px;gap:18px}
+  .xp-luminous .gg-ticks{position:absolute;inset:0;display:flex;justify-content:space-between}
+  .xp-luminous .gg-ticks i{width:6px;height:6px;margin-top:-2px;border-radius:50%;background:#fff;box-shadow:0 0 0 1px rgba(28,28,28,.18)}
+  .xp-luminous .gg-fill{z-index:1}
+
+  /* --- the glide (script-driven) --- */
+  .xp-luminous .gg--glide .gg-stage{position:sticky;top:0;height:100vh;display:flex;align-items:center;padding:84px 0 24px}
+  .xp-luminous .gg--glide .gg-grid{width:100%}
+  .xp-luminous .gg--glide .gg-view{overflow:clip;overflow-clip-margin:0;scroll-snap-type:none}
+  .xp-luminous .gg--glide .gg-track{will-change:transform}
+  .xp-luminous .gg--glide .gg-card{transform:scale(calc(.9 + .1 * var(--f,1)))}
+  /* cards out of focus recede: the photo fades towards blush (the glass and
+     its text stay crisp). Fading the image itself, not a veil over it, so no
+     edge of the moving photo can show past the veil. */
+  .xp-luminous .gg--glide .gg-media:not(.gg-media-gift){background:#fcefef}
+  .xp-luminous .gg--glide .gg-media img{opacity:calc(1 - (1 - var(--f,1)) * .48);transition:scale .9s var(--gg-ease),opacity .4s var(--gg-ease)}
+  .xp-luminous .gg--glide .gg-media-gift::before{content:"";position:absolute;inset:0;pointer-events:none;
+    background:rgba(253,240,240,.92);opacity:calc((1 - var(--f,1)) * .45);transition:opacity .4s var(--gg-ease)}
+  .xp-luminous .gg--glide .gg-card:hover .gg-media img,.xp-luminous .gg--glide .gg-card:focus-visible .gg-media img{opacity:1}
+  .xp-luminous .gg--glide .gg-card:hover .gg-media-gift::before,.xp-luminous .gg--glide .gg-card:focus-visible .gg-media-gift::before{opacity:0}
+  .xp-luminous .gg--glide .gg-hint-s{display:inline}
+  .xp-luminous .gg--glide .gg-hint-w{display:none}
+}
+@media(min-width:1024px) and (max-height:760px){
+  .xp-luminous .gg--glide .gg-stage{padding-top:76px}
+  .xp-luminous .gg-index{display:none}
+}
+
+/* ------------------------------------------------------------ motion */
+@media(prefers-reduced-motion:reduce){
+  .xp-luminous .gg-gift-orb{animation:none}
+  .xp-luminous .gg-media img,.xp-luminous .gg-go,.xp-luminous .gg-go svg,.xp-luminous .gg-gift-ic svg,.xp-luminous .gg-index li,.xp-luminous .gg-index li::after{transition:none}
+  .xp-luminous .gg-view{scroll-behavior:auto}
+}
+
+/* Mouse users without the glide (e.g. reduced motion on a desktop) get a
+   slim, visible scrollbar on the row, so it doesn't rely on trackpad swipes. */
+@media(hover:hover) and (pointer:fine){
+  .xp-luminous .gg:not(.gg--glide) .gg-view{scrollbar-width:thin;scrollbar-color:rgba(196,21,122,.45) transparent}
+  .xp-luminous .gg:not(.gg--glide) .gg-view::-webkit-scrollbar{display:block;height:6px}
+  .xp-luminous .gg:not(.gg--glide) .gg-view::-webkit-scrollbar-thumb{border-radius:6px;background:rgba(196,21,122,.45)}
+  .xp-luminous .gg:not(.gg--glide) .gg-hint{display:none}
+}

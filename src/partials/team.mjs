@@ -240,7 +240,7 @@ export const teamPage = (site, c, headingKey = 'script', effect = 'lift') => {
 
   ${specialized.length ? `
   <section class="tl-sec tl-band">
-    ${h2('specialized', '#00a3af')}
+    ${h2('specialized', MAGENTA)}
     <div class="tl-grid tl-pair">${specialized.map((m, i) => coach(m, i + 3, effect)).join('')}</div>
   </section>` : ''}
 

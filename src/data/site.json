@@ -11,26 +11,27 @@
     "copyright": "© Copyright 2025. Dallas, TX. All Rights Reserved."
   },
   "nextEvent": {
-    "_verify": "CONFLICTING ON LIVE SITE — confirm with Jayden before launch.",
-    "dates": "October 15–17, 2026",
+    "_verify": "Dates set by Lance 2026-10-09: May 5–7, 2027 and Sept. 29 – Oct. 1, 2027 (October 2026 removed). Locations still to confirm.",
+    "dates": "May 5–7, 2027",
     "location": "Dallas, TX",
     "ctaText": "Register Now",
-    "ctaUrl": "https://go.riseupqueens.com/3dayevent",
+    "ctaUrl": "/register.html",
     "upcoming": [
-      {
-        "dates": "October 15–17, 2026",
-        "location": "Dallas, TX",
-        "note": "LIMITED SPOTS",
-        "startsAt": "2026-10-15T09:00:00-05:00"
-      },
       {
         "dates": "May 5–7, 2027",
         "location": "Dallas, TX",
-        "note": "",
+        "note": "LIMITED SPOTS",
         "startsAt": "2027-05-05T09:00:00-05:00"
+      },
+      {
+        "dates": "Sept. 29 – Oct. 1, 2027",
+        "location": "Dallas, TX",
+        "note": "",
+        "startsAt": "2027-09-29T09:00:00-05:00"
       }
     ],
-    "_startsAt_note": "ISO start times, needed for the countdown treatment. 9am CST matches the welcome-email times observed on the live site. CONFIRM with Jayden along with the dates themselves."
+    "_startsAt_note": "ISO start times, needed for the countdown treatment. 9am CST matches the welcome-email times observed on the live site. CONFIRM with Jayden along with the dates themselves.",
+    "_ctaUrl": "Every Register button on the site reads this. Points at the redesigned registration page (2026-10-05), which is DESIGN ONLY until its form is wired to Ontraport; the live Ontraport page is https://go.riseupqueens.com/3dayevent."
   },
   "nav": [
     {
@@ -39,17 +40,29 @@
     },
     {
       "label": "About",
-      "href": "/about.html"
+      "children": [
+        {
+          "label": "About Rise Up Queens",
+          "href": "/about.html"
+        },
+        {
+          "label": "Meet the Team",
+          "href": "/team.html"
+        }
+      ]
     },
     {
-      "label": "Meet the team",
-      "href": "/team.html"
+      "label": "Courses",
+      "href": "/courses.html"
     },
     {
       "label": "Contact",
       "href": "/contact.html"
     }
   ],
+  "navSubmenu": "card",
+  "announceBar": "marquee",
+  "_announceBar": "Next-event banner above the header on every page (src/partials/announce.mjs), reading nextEvent.upcoming[0]. Style chosen 2026-10-10 from /announce-options.html: C, marquee. Set to null to remove it.",
   "assets": {
     "_note": "All local. Nothing here depends on riseupqueens.com any more. Re-fetch from the live site with: npm run fetch:assets",
     "logoWhite": "/assets/brand/logo-ruq-white.png",
@@ -127,11 +140,12 @@
     "_note": "The contact page links all three. The YouTube channel is Talk Marriage To Me, which is Jessica's channel rather than a Rise Up Queens one — worth confirming that is intended before it goes in the footer too."
   },
   "funnels": {
-    "threeDayEvent": "https://go.riseupqueens.com/3dayevent",
+    "threeDayEvent": "/register.html",
     "deeper": "https://go.riseupkings.com/deeper",
     "elevate": "https://go.riseupkings.com/elevate",
     "lifeByDesign": "https://go.riseupkings.com/lifebydesign",
-    "coachesAcademy": "https://go.riseupkings.com/RUKCoachesAcademy"
+    "coachesAcademy": "https://go.riseupkings.com/RUKCoachesAcademy",
+    "_threeDayEvent": "Was https://go.riseupqueens.com/3dayevent (Ontraport); now the redesigned registration page, as above."
   },
   "jotform": {
     "_warning": "Jayden reported these stopped working (Aug 12 meeting); migration to MOS forms → Ontraport was planned. VERIFY before wiring.",
@@ -169,6 +183,10 @@
       "href": "/masterclasses.html"
     },
     {
+      "label": "Courses",
+      "href": "/courses.html"
+    },
+    {
       "label": "1-on-1 Coaching",
       "href": "/coaching.html"
     },
@@ -177,6 +195,6 @@
       "href": "/free-resource.html"
     }
   ],
-  "_nav_note": "nav = header (4 items, matches the live site). footerNav = every page, so the ones not in the header stay reachable and crawlable.",
+  "_nav_note": "nav = header: two items either side of the wordmark. An item with children renders as a submenu (src/partials/nav-sub.mjs) in the style named by navSubmenu; About holds About Rise Up Queens and Meet the Team, and Courses joined the header to keep it two-and-two (chosen 2026-10-09 from /about-menu-options.html, option A 'card'). footerNav = every page, so the ones not in the header stay reachable and crawlable.",
   "_navVariant_note": "Live header is design G (editorial hairline), implemented in src/partials/nav.mjs. It has two modes: overHero (white type on the video, homepage) and standard (ink on white, interior pages). The A-D and E-I exploration sets remain for reference and are shown only on /nav-options.html and /nav-hero.html."
 }
