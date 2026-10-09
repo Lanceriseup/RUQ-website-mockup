@@ -1,0 +1,521 @@
+/* Direction B — Luminous (sky & glass).
+   Markup: src/partials/explore/luminous.mjs. Plain CSS, every selector scoped
+   under .xp-luminous, own classes prefixed xl-. Sits beside the approved light
+   pages (Contact "sky", Meet the Team): the same sky photograph fading into a
+   warm blush ground, the same pink brush script and swash. */
+
+.xp-luminous{
+  --xl-ink:#1c1c1c; --xl-body:#474747; --xl-soft:#5a5a5a;
+  --xl-mag:#e8208f; --xl-magt:#c8177c; --xl-deep:#b81870;
+  --xl-cyan:#00b9c6; --xl-teal:#00838d; --xl-tealt:#00737c;
+  --xl-grad:linear-gradient(100deg,#e8208f,#00b9c6);
+  --xl-btn:linear-gradient(100deg,#d81b84 0%,#c0187a 45%,#a5145f 100%);
+  --xl-ease:cubic-bezier(.2,.7,.2,1);
+  background:#fff;
+}
+.xp-luminous *,.xp-luminous *::before,.xp-luminous *::after{box-sizing:border-box}
+.xp-luminous img{display:block;max-width:100%}
+
+/* ------------------------------------------------------------ page shell */
+.xp-luminous .xl{position:relative;overflow:hidden;color:var(--xl-ink);
+  background:linear-gradient(180deg,#fffdfb 0%,#fdf4f2 30%,#fffaf8 55%,#f7fbfb 80%,#fff 100%);
+  font-family:Lato,system-ui,sans-serif}
+.xp-luminous .xl::after{content:"";position:absolute;left:0;right:0;bottom:0;height:220px;pointer-events:none;background:linear-gradient(rgba(255,255,255,0),#fff)}
+.xp-luminous .xl-in{position:relative;z-index:1;padding-bottom:88px}
+@media(min-width:1024px){.xp-luminous .xl-in{padding-bottom:136px}}
+.xp-luminous .xl-defs{position:absolute;width:0;height:0;overflow:hidden}
+
+/* The sky, as on Contact: up behind the clear nav, fading into the ground. */
+.xp-luminous .xl-sky{position:absolute;left:0;right:0;top:0;height:760px;pointer-events:none;
+  -webkit-mask-image:linear-gradient(#000 0%,#000 36%,transparent 100%);mask-image:linear-gradient(#000 0%,#000 36%,transparent 100%)}
+@media(min-width:640px){.xp-luminous .xl-sky{height:980px}}
+.xp-luminous .xl-sky picture,.xp-luminous .xl-sky img{display:block;width:100%;height:100%}
+.xp-luminous .xl-sky img{object-fit:cover;object-position:50% 30%;opacity:.74}
+.xp-luminous .xl-sky::after{content:"";position:absolute;inset:0;
+  background:radial-gradient(58% 46% at 50% 30%,rgba(255,255,255,.78),rgba(255,255,255,0) 76%)}
+
+/* Drifting light: soft radial gradients, no filter, transform-only motion. */
+.xp-luminous .xl-orbs{position:absolute;inset:0;pointer-events:none;z-index:0}
+.xp-luminous .xl-orb{position:absolute;width:30rem;height:30rem;border-radius:50%;will-change:transform}
+@media(min-width:1024px){.xp-luminous .xl-orb{width:46rem;height:46rem}}
+.xp-luminous .xl-orb-m1{left:-14rem;top:420px;background:radial-gradient(circle,rgba(232,32,143,.20),rgba(232,32,143,0) 66%);animation:xl-drift-a 26s ease-in-out infinite alternate}
+.xp-luminous .xl-orb-t1{right:-15rem;top:90px;background:radial-gradient(circle,rgba(0,185,198,.20),rgba(0,185,198,0) 66%);animation:xl-drift-b 32s ease-in-out infinite alternate}
+.xp-luminous .xl-orb-m2{right:-16rem;top:40%;background:radial-gradient(circle,rgba(232,32,143,.15),rgba(232,32,143,0) 66%);animation:xl-drift-b 36s ease-in-out infinite alternate}
+.xp-luminous .xl-orb-t2{left:-16rem;top:60%;background:radial-gradient(circle,rgba(0,185,198,.16),rgba(0,185,198,0) 66%);animation:xl-drift-a 30s ease-in-out infinite alternate}
+.xp-luminous .xl-orb-m3{left:28%;top:80%;background:radial-gradient(circle,rgba(232,32,143,.12),rgba(232,32,143,0) 66%);animation:xl-drift-b 40s ease-in-out infinite alternate}
+@keyframes xl-drift-a{0%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(7rem,-4rem,0) scale(1.1)}100%{transform:translate3d(-3rem,5rem,0) scale(.94)}}
+@keyframes xl-drift-b{0%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(-6rem,5rem,0) scale(1.08)}100%{transform:translate3d(4rem,-3rem,0) scale(.96)}}
+@keyframes xl-spin{to{transform:rotate(360deg)}}
+
+/* ------------------------------------------------------------ layout */
+.xp-luminous .xl-sec{position:relative;margin-top:72px}
+@media(min-width:1024px){.xp-luminous .xl-sec{margin-top:120px}}
+.xp-luminous .xl-sec-hero{margin-top:0;padding:112px 16px 0;text-align:center}
+@media(min-width:640px){.xp-luminous .xl-sec-hero{padding:184px 24px 0}}
+.xp-luminous .xl-sec-hero + .xl-sec{margin-top:56px}
+@media(min-width:1024px){.xp-luminous .xl-sec-hero + .xl-sec{margin-top:80px}}
+.xp-luminous .xl-wrap{max-width:76rem;margin-left:auto;margin-right:auto;padding-left:16px;padding-right:16px}
+@media(min-width:640px){.xp-luminous .xl-wrap{padding-left:24px;padding-right:24px}}
+@media(min-width:1024px){.xp-luminous .xl-wrap{padding-left:32px;padding-right:32px}}
+
+/* ------------------------------------------------------------ type */
+.xp-luminous .xl-h1{margin:0;line-height:1;font-weight:400}
+.xp-luminous .xl-scriptwrap{position:relative;display:inline-block;padding-bottom:.08em}
+/* swash() carries Tailwind position classes; restate them here so the page
+   never depends on another stylesheet's utilities. */
+.xp-luminous .xl-scriptwrap > svg{position:absolute;left:0;width:100%;pointer-events:none}
+.xp-luminous .xl-hero{--fs:min(5rem,calc((100vw - 40px) / (var(--n,8) * .40)))}
+@media(min-width:640px){.xp-luminous .xl-hero{--fs:min(7.5rem,calc((100vw - 64px) / (var(--n,8) * .40)))}}
+.xp-luminous .xl-script{display:block;color:var(--xl-mag);line-height:.9;white-space:nowrap;font-size:var(--fs)}
+.xp-luminous .xl-h1-sub{display:block;margin-top:30px;font:800 clamp(1.35rem,4.6vw,2.5rem)/1.1 Montserrat,sans-serif;
+  letter-spacing:.05em;text-transform:uppercase;color:var(--xl-ink)}
+.xp-luminous .xl-lead{margin:22px auto 0;max-width:36rem;font:400 16px/1.7 Lato,sans-serif;color:var(--xl-body)}
+@media(min-width:640px){.xp-luminous .xl-lead{font-size:18px;margin-top:26px}}
+/* script-only headings: clear the descenders (the g of Upcoming, Coaching) */
+.xp-luminous .xl-hero-solo .xl-lead{margin-top:max(26px,calc(var(--fs) * .46))}
+
+.xp-luminous .xl-eyebrow{margin:0;font:700 11.5px/1.3 Montserrat,sans-serif;letter-spacing:.24em;text-transform:uppercase;color:var(--xl-teal)}
+.xp-luminous .xl-h2{margin:0;font:500 clamp(2rem,4.6vw,3.1rem)/1.08 'Cormorant Garamond',Georgia,serif;letter-spacing:-.005em;color:var(--xl-ink)}
+.xp-luminous .xl-h2s{margin:0;font-weight:400;line-height:1;font-size:clamp(2.6rem,10vw,4.6rem)}
+.xp-luminous .xl-h2s .script{display:block;font-size:inherit;line-height:.95;color:var(--xl-mag);white-space:nowrap}
+.xp-luminous .xl-swash{position:absolute;left:0;bottom:-.2em;width:100%;height:auto;overflow:visible;pointer-events:none}
+.xp-luminous .xl-head{max-width:46rem;margin:0 auto 40px;text-align:center}
+@media(min-width:1024px){.xp-luminous .xl-head{margin-bottom:56px}}
+.xp-luminous .xl-sublead{margin:26px auto 0;max-width:36rem;font:400 17px/1.7 Lato,sans-serif;color:var(--xl-body)}
+.xp-luminous .xl-head .xl-h2 + .xl-sublead{margin-top:14px}
+.xp-luminous .xl-sublead-left{margin-left:0;margin-top:14px}
+.xp-luminous .xl-rule{height:1px;width:72px;margin:26px 0;background:var(--xl-grad)}
+.xp-luminous .xl-rule-c{margin:22px auto}
+
+/* ------------------------------------------------------------ glass */
+.xp-luminous .xl-glass,.xp-luminous .xl-ticket{position:relative;border-radius:28px;
+  background:linear-gradient(150deg,rgba(255,255,255,.80),rgba(255,255,255,.54));
+  -webkit-backdrop-filter:blur(22px) saturate(1.5);backdrop-filter:blur(22px) saturate(1.5);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.95),inset 0 0 0 1px rgba(255,255,255,.5),
+    0 50px 90px -52px rgba(184,24,112,.38),0 24px 48px -34px rgba(0,90,100,.28)}
+/* the fine pink-to-teal edge, following the corners */
+.xp-luminous .xl-glass::before,.xp-luminous .xl-ticket::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;pointer-events:none;z-index:3;
+  background:linear-gradient(135deg,rgba(232,32,143,.62),rgba(255,255,255,.15) 36%,rgba(255,255,255,.15) 64%,rgba(0,185,198,.62));
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;
+  mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude}
+@supports not ((-webkit-backdrop-filter:blur(1px)) or (backdrop-filter:blur(1px))){
+  .xp-luminous .xl-glass,.xp-luminous .xl-ticket{background:rgba(255,255,255,.95)}
+}
+
+/* ------------------------------------------------------------ buttons & links */
+.xp-luminous .xl-btn{position:relative;isolation:isolate;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  min-height:50px;padding:12px 26px;border-radius:999px;text-align:center;text-decoration:none;
+  font:700 12.5px/1.25 Montserrat,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#fff;
+  background:var(--xl-btn);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 16px 32px -14px rgba(232,32,143,.7),0 6px 18px -10px rgba(0,185,198,.55);
+  transition:transform .35s var(--xl-ease),box-shadow .35s var(--xl-ease)}
+.xp-luminous .xl-btn::after{content:"";position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.4) 50%,transparent 70%);transform:translateX(-120%);transition:transform .8s var(--xl-ease)}
+.xp-luminous .xl-btn:hover{transform:translateY(-2px);box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 22px 40px -14px rgba(232,32,143,.8),0 10px 26px -10px rgba(0,185,198,.65)}
+.xp-luminous .xl-btn:hover::after{transform:translateX(120%)}
+.xp-luminous .xl-btn .xp-ic{transition:transform .35s var(--xl-ease)}
+.xp-luminous .xl-btn:hover .xp-ic{transform:translateX(3px)}
+.xp-luminous .xl-btn-lg{min-height:56px;padding:14px 32px}
+.xp-luminous .xl-btn-sm{min-height:46px;padding:11px 18px;font-size:11.5px;letter-spacing:.08em}
+.xp-luminous .xl-btn-ghost{color:var(--xl-deep);border:1.5px solid transparent;
+  background:linear-gradient(rgba(255,255,255,.9),rgba(255,255,255,.9)) padding-box,var(--xl-grad) border-box;
+  box-shadow:0 14px 30px -18px rgba(184,24,112,.45)}
+.xp-luminous .xl-btn-ghost::after{background:linear-gradient(110deg,transparent 30%,rgba(232,32,143,.12) 50%,transparent 70%)}
+.xp-luminous .xl-textlink{display:inline-block;padding:13px 0;align-self:flex-start;text-decoration:none;
+  font:700 12px/1.3 Montserrat,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--xl-deep);transition:color .25s}
+.xp-luminous .xl-textlink .xp-ic{margin-left:8px;vertical-align:-.2em;transition:transform .3s var(--xl-ease)}
+.xp-luminous .xl-textlink:hover{color:#8e1257}
+.xp-luminous .xl-textlink:hover .xp-ic{transform:translateX(4px)}
+.xp-luminous .xl-nw{white-space:nowrap}
+.xp-luminous a:focus-visible,.xp-luminous button:focus-visible{outline:3px solid var(--xl-teal);outline-offset:3px}
+
+.xp-luminous .xl-chip-label{display:inline-flex;align-items:center;gap:10px;margin:0;padding:8px 16px 8px 12px;border-radius:999px;
+  background:rgba(255,255,255,.75);box-shadow:inset 0 0 0 1px rgba(0,131,141,.22);
+  font:700 11.5px/1.2 Montserrat,sans-serif;letter-spacing:.22em;text-transform:uppercase;color:var(--xl-teal)}
+.xp-luminous .xl-dot{width:8px;height:8px;border-radius:50%;background:var(--xl-grad);box-shadow:0 0 0 4px rgba(232,32,143,.14)}
+
+/* ------------------------------------------------------------ courses */
+/* No Longer Bound: the mark alone, in No Longer Bound's gold (the homepage
+   banner's palette) rather than Rise Up Queens pink. The card redefines the
+   page's gradient tokens, so its glass edge, rule, dot and button all turn
+   gold without separate rules.
+
+   The mark is four layers stacked in one box. The "before" states only apply
+   while explore.js is animating (html.xp-anim) and the card has not arrived,
+   so without JS, or with reduced motion, the mark simply shows complete. The
+   ring draws itself round with a conic mask (needs @property; without it the
+   ring just appears). It carries no drop-shadow: the mask would clip the
+   shadow to the image box and show its straight edge — .xl-nbm-glow is the
+   halo instead. */
+@property --xl-ring{syntax:'<angle>';inherits:false;initial-value:360deg}
+.xp-luminous .xl-nb{
+  --nb-gold:#b7873e; --nb-deep:#8f6a2e; --nb-ink:#6e5020; --nb-light:#e2c48a; --nb-cream:#fbf4e8;
+  --xl-grad:linear-gradient(100deg,#d9b06a,#9a7234);
+  --xl-btn:linear-gradient(100deg,#a87b37 0%,#916a2d 50%,#7a5823 100%);
+  position:relative;overflow:hidden;display:grid;gap:4px;padding:20px 20px 36px}
+.xp-luminous .xl-nb::after{content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;
+  background:radial-gradient(60% 70% at 18% 40%,rgba(243,214,160,.32),transparent 70%)}
+.xp-luminous .xl-nb>*{position:relative;z-index:1}
+@media(min-width:640px){.xp-luminous .xl-nb{padding:28px 40px 44px}}
+@media(min-width:1024px){.xp-luminous .xl-nb{grid-template-columns:1.02fr 1fr;gap:56px;align-items:center;padding:48px 64px 48px 40px}}
+
+/* The glass, warmed: a cream-tinted, more opaque fill so the page's pink
+   light does not wash through it, a gold edge in place of pink-to-teal, and
+   gold shadows. */
+.xp-luminous .xl-glass.xl-nb{background:linear-gradient(150deg,rgba(255,253,248,.94),rgba(253,247,236,.86));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.95),inset 0 0 0 1px rgba(255,255,255,.5),
+    0 50px 90px -52px rgba(143,106,46,.45),0 24px 48px -34px rgba(110,80,32,.25)}
+.xp-luminous .xl-glass.xl-nb::before{background:linear-gradient(135deg,rgba(201,154,77,.75),rgba(255,255,255,.2) 36%,rgba(255,255,255,.2) 64%,rgba(201,154,77,.75))}
+
+/* copy, in gold */
+.xp-luminous .xl-nb-copy{text-align:center}
+@media(min-width:1024px){.xp-luminous .xl-nb-copy{text-align:left}}
+.xp-luminous .xl-nb-name{margin:0;font:800 clamp(2rem,5vw,3.2rem)/1.04 Montserrat,sans-serif;letter-spacing:-.015em;color:var(--xl-ink)}
+.xp-luminous .xl-nb-script{margin:14px 0 0;font-size:clamp(2.5rem,7vw,3.6rem);line-height:1;color:var(--nb-gold)}
+.xp-luminous .xl-nb-headline{margin:14px 0 0;font:italic 500 clamp(1.45rem,2.6vw,2rem)/1.25 'Cormorant Garamond',Georgia,serif;color:var(--xl-ink)}
+.xp-luminous .xl-nb-q{margin:14px 0 0;font:400 17px/1.7 Lato,sans-serif;color:#54514a}
+.xp-luminous .xl-nb .xl-rule{margin:24px auto}
+@media(min-width:1024px){.xp-luminous .xl-nb .xl-rule{margin:24px 0}}
+.xp-luminous .xl-nb-body{margin:0 0 26px;font:400 15px/1.65 Lato,sans-serif;color:var(--xl-soft)}
+.xp-luminous .xl-nb .xl-btn{box-shadow:inset 0 1px 0 rgba(255,255,255,.3),0 18px 36px -16px rgba(122,88,35,.85)}
+.xp-luminous .xl-nb .xl-btn:hover{box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 24px 42px -16px rgba(122,88,35,1)}
+.xp-luminous .xl-nb .xl-btn:focus-visible{outline-color:var(--nb-deep)}
+
+/* the stage and the mark */
+.xp-luminous .xl-nb-stage{position:relative;display:grid;place-items:center;width:100%;max-width:520px;aspect-ratio:1;margin:0 auto}
+.xp-luminous .xl-nb-stage>*{grid-area:1/1}
+.xp-luminous .xl-nbm{position:relative;z-index:2;width:96%;aspect-ratio:900/522}
+.xp-luminous .xl-nbm img{position:absolute;inset:0;width:100%;height:100%;max-width:none;
+  transition:transform 1.3s cubic-bezier(.22,1,.36,1),opacity 1.1s ease}
+.xp-luminous .xl-nbm-glow{position:absolute;left:28%;top:-6%;width:44%;aspect-ratio:1;border-radius:50%;
+  background:radial-gradient(closest-side,rgba(226,184,110,.55),rgba(226,184,110,0));transform:scale(1.5);transition:opacity 1.6s ease .5s}
+.xp-luminous .xl-nbm-ring{-webkit-mask:conic-gradient(from -90deg at 50% 46%,#000 var(--xl-ring),transparent 0);mask:conic-gradient(from -90deg at 50% 46%,#000 var(--xl-ring),transparent 0);
+  transition:--xl-ring 1.5s cubic-bezier(.45,0,.2,1),transform 1.3s cubic-bezier(.22,1,.36,1)}
+.xp-luminous .xl-nbm-left{transform:translateX(-6%) rotate(-4deg)}
+.xp-luminous .xl-nbm-right{transform:translateX(6%) rotate(4deg)}
+.xp-luminous .xl-nbm-bits{transform:scale(1.35)}
+/* before arrival */
+.xp-anim .xp-luminous .xl-nb:not(.is-in) .xl-nbm-ring{--xl-ring:0deg}
+.xp-anim .xp-luminous .xl-nb:not(.is-in) .xl-nbm-left{transform:translateX(9%)}
+.xp-anim .xp-luminous .xl-nb:not(.is-in) .xl-nbm-right{transform:translateX(-9%)}
+.xp-anim .xp-luminous .xl-nb:not(.is-in) .xl-nbm-bits{opacity:0;transform:scale(.6)}
+.xp-anim .xp-luminous .xl-nb:not(.is-in) .xl-nbm-glow{opacity:0}
+.xp-anim .xp-luminous .xl-nb:not(.is-in) .xl-nb-script{clip-path:inset(-30% 100% -30% -12%)}
+/* the sequence: ring draws, chains break, fragments scatter, script writes */
+.xp-luminous .xl-nb{--nb-t:0s}
+.xp-luminous .xl-nb.is-in .xl-nbm-ring{transition-delay:var(--nb-t)}
+.xp-luminous .xl-nb.is-in .xl-nbm-left,.xp-luminous .xl-nb.is-in .xl-nbm-right{transition-delay:calc(var(--nb-t) + 1.05s)}
+.xp-luminous .xl-nb.is-in .xl-nbm-bits{transition-delay:calc(var(--nb-t) + 1.2s)}
+.xp-luminous .xl-nb-script{clip-path:inset(-30% -8% -30% -12%);transition:clip-path 1.4s cubic-bezier(.45,0,.2,1) calc(var(--nb-t) + 1.5s)}
+/* at rest: the freed chains drift and the glow breathes */
+.xp-luminous .xl-nb.is-in .xl-nbm-left{animation:xl-nb-l 6s ease-in-out calc(var(--nb-t) + 2.6s) infinite alternate}
+.xp-luminous .xl-nb.is-in .xl-nbm-right{animation:xl-nb-r 6.5s ease-in-out calc(var(--nb-t) + 2.6s) infinite alternate}
+.xp-luminous .xl-nb.is-in .xl-nbm-bits{animation:xl-nb-bits 7s ease-in-out calc(var(--nb-t) + 2.8s) infinite alternate}
+.xp-luminous .xl-nb.is-in .xl-nbm-glow{animation:xl-nb-glow 5s ease-in-out calc(var(--nb-t) + 2.4s) infinite alternate}
+@keyframes xl-nb-l{from{transform:translateX(-6%) rotate(-4deg)}to{transform:translateX(-8%) translateY(1.5%) rotate(-6deg)}}
+@keyframes xl-nb-r{from{transform:translateX(6%) rotate(4deg)}to{transform:translateX(8%) translateY(1.5%) rotate(6deg)}}
+@keyframes xl-nb-bits{from{transform:scale(1.35)}to{transform:scale(1.45) translateY(-1.5%)}}
+@keyframes xl-nb-glow{from{opacity:.75;transform:scale(1.5)}to{opacity:1;transform:scale(1.7)}}
+@keyframes xl-nb-spin{to{transform:rotate(360deg)}}
+
+/* the cream disc most variants sit on */
+.xp-luminous .xl-nb-disc{width:74%;aspect-ratio:1;border-radius:50%;
+  background:radial-gradient(circle at 50% 40%,#fffaf1 0,#fbefdc 58%,#f3dfbd 100%);
+  box-shadow:0 40px 80px -40px rgba(143,106,46,.6),inset 0 0 0 1px rgba(255,255,255,.95),inset 0 -14px 30px -10px rgba(183,135,62,.25)}
+.xp-luminous .xl-nb-disc-soft{width:80%;background:radial-gradient(closest-side,#fffaf1 0,#fbefdc 55%,rgba(251,239,220,0) 100%);box-shadow:none}
+
+/* B1 — orbit */
+.xp-luminous .xl-nb-orbit{width:90%;aspect-ratio:1;border-radius:50%;border:1.5px dashed rgba(183,135,62,.5);animation:xl-nb-spin 60s linear infinite}
+.xp-luminous .xl-nb-orbit-2{width:62%;border:1px dotted rgba(143,106,46,.45);animation-duration:45s;animation-direction:reverse}
+.xp-luminous .xl-nb-orbit::after{content:"";position:absolute;left:50%;top:-5px;width:9px;height:9px;margin-left:-4.5px;border-radius:50%;
+  background:#d9a955;box-shadow:0 0 12px 2px rgba(217,169,85,.75)}
+.xp-luminous .xl-nb-orbit-2::after{width:7px;height:7px;margin-left:-3.5px;top:-4px;background:#f3dba8;box-shadow:0 0 10px 2px rgba(226,196,138,.9)}
+.xp-anim .xp-luminous .xl-nb--orbit:not(.is-in) .xl-nb-orbit{opacity:0;transform:scale(.85)}
+.xp-luminous .xl-nb--orbit .xl-nb-orbit{transition:opacity 1.2s ease .2s}
+
+/* B2 — sunburst: rays bloom in and turn; a shimmer sweeps the gold ring */
+.xp-luminous .xl-nb-rays{width:100%;aspect-ratio:1;border-radius:50%;
+  background:repeating-conic-gradient(from 0deg,rgba(217,169,85,.30) 0 3deg,rgba(217,169,85,0) 3deg 15deg);
+  -webkit-mask:radial-gradient(closest-side,transparent 34%,#000 46%,rgba(0,0,0,.6) 70%,transparent 100%);mask:radial-gradient(closest-side,transparent 34%,#000 46%,rgba(0,0,0,.6) 70%,transparent 100%);
+  animation:xl-nb-spin 90s linear infinite;transition:opacity 1.4s ease,scale 1.6s cubic-bezier(.22,1,.36,1)}
+.xp-anim .xp-luminous .xl-nb--rays:not(.is-in) .xl-nb-rays{opacity:0;scale:.55}
+.xp-luminous .xl-nb--rays .xl-nb-disc{width:64%}
+.xp-luminous .xl-nb-shimmer{position:absolute;inset:0;z-index:3;pointer-events:none;
+  background:linear-gradient(110deg,transparent 35%,rgba(255,250,235,.95) 48%,transparent 60%) 150% 0/220% 100% no-repeat;
+  -webkit-mask:url(/assets/nlb/mark-ring.png) center/100% 100% no-repeat;mask:url(/assets/nlb/mark-ring.png) center/100% 100% no-repeat}
+.xp-luminous .xl-nb--rays.is-in .xl-nb-shimmer{animation:xl-nb-sheen 5.5s ease-in-out 2.8s infinite}
+@keyframes xl-nb-sheen{0%{background-position:150% 0}45%,100%{background-position:-60% 0}}
+/* the chains spring apart */
+.xp-luminous .xl-nb--rays .xl-nbm-left,.xp-luminous .xl-nb--rays .xl-nbm-right{transition-timing-function:cubic-bezier(.3,1.7,.45,1)}
+
+/* B3 — gold dust: the chains burst apart, dust rises, sparkles twinkle */
+.xp-luminous .xl-nb-dust{position:absolute;inset:6%;pointer-events:none}
+.xp-luminous .xl-nb-dust i{position:absolute;bottom:16%;width:var(--s);aspect-ratio:1;border-radius:50%;
+  background:radial-gradient(circle,#fff3d0 0,#d9a955 60%,rgba(217,169,85,0) 100%);opacity:0;
+  animation:xl-nb-rise var(--dur) linear var(--dl) infinite}
+@keyframes xl-nb-rise{0%{opacity:0;transform:translateY(0) translateX(0)}12%{opacity:.95}70%{opacity:.6}100%{opacity:0;transform:translateY(-260%) translateX(10px)}}
+.xp-luminous .xl-nb-sparks{position:absolute;inset:0;z-index:3;pointer-events:none}
+.xp-luminous .xl-nb-sparks i{position:absolute;width:5%;aspect-ratio:1;color:#d9a955;opacity:0;animation:xl-nb-twinkle 3.6s ease-in-out infinite}
+.xp-luminous .xl-nb-sparks svg{display:block;width:100%;height:100%;fill:currentColor;filter:drop-shadow(0 0 4px rgba(255,236,190,.9))}
+.xp-luminous .xl-nb-sparks i:nth-child(1){left:30%;top:6%;animation-delay:3s}
+.xp-luminous .xl-nb-sparks i:nth-child(2){left:66%;top:12%;width:3.6%;animation-delay:3.9s}
+.xp-luminous .xl-nb-sparks i:nth-child(3){left:72%;top:66%;width:4.4%;animation-delay:4.6s}
+.xp-luminous .xl-nb-sparks i:nth-child(4){left:24%;top:70%;width:3.4%;animation-delay:5.3s}
+.xp-luminous .xl-nb-sparks i:nth-child(5){left:50%;top:-2%;width:3%;animation-delay:6s}
+@keyframes xl-nb-twinkle{0%,100%{opacity:0;transform:scale(.4) rotate(0)}50%{opacity:1;transform:scale(1) rotate(45deg)}}
+.xp-luminous .xl-nb--dust .xl-nbm-left,.xp-luminous .xl-nb--dust .xl-nbm-right,.xp-luminous .xl-nb--dust .xl-nbm-bits{transition-duration:.9s;transition-timing-function:cubic-bezier(.16,1.4,.3,1)}
+.xp-luminous .xl-nb--dust.is-in .xl-nbm-bits{animation-name:xl-nb-burst}
+@keyframes xl-nb-burst{from{transform:scale(1.35)}to{transform:scale(1.5) translateY(-2%)}}
+
+/* B4 — arch: the keyline draws first, then the mark animates inside */
+.xp-luminous .xl-nb--arch{--nb-t:1.1s}
+.xp-luminous .xl-nb-arch{position:relative;width:76%;aspect-ratio:400/480;overflow:hidden;border-radius:999px 999px 26px 26px;
+  background:radial-gradient(120% 70% at 50% 18%,#fffaf1 0,#fbefdc 60%,#f3dfbd 100%);box-shadow:0 44px 80px -44px rgba(143,106,46,.65)}
+.xp-luminous .xl-nb-arch-line{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.xp-luminous .xl-nb-arch-line path{fill:none;stroke:#c99a4d;stroke-width:2;vector-effect:non-scaling-stroke;stroke-dasharray:1;stroke-dashoffset:0;
+  transition:stroke-dashoffset 1.6s cubic-bezier(.45,0,.2,1)}
+.xp-luminous .xl-nb-arch-line path+path{stroke:rgba(201,154,77,.45);stroke-width:1;transition-delay:.25s}
+.xp-anim .xp-luminous .xl-nb--arch:not(.is-in) .xl-nb-arch-line path{stroke-dashoffset:1}
+.xp-luminous .xl-nb-arch-sweep{position:absolute;left:0;right:0;top:-40%;height:40%;
+  background:linear-gradient(180deg,transparent,rgba(255,252,240,.85),transparent)}
+.xp-luminous .xl-nb--arch.is-in .xl-nb-arch-sweep{animation:xl-nb-sweep 7s ease-in-out 3.8s infinite}
+@keyframes xl-nb-sweep{0%{transform:translateY(0)}55%,100%{transform:translateY(350%)}}
+
+@media (prefers-reduced-motion: reduce){
+  .xp-luminous .xl-nbm img,.xp-luminous .xl-nbm-glow,.xp-luminous .xl-nb-orbit,.xp-luminous .xl-nb-rays,.xp-luminous .xl-nb-shimmer,
+  .xp-luminous .xl-nb-arch-sweep,.xp-luminous .xl-nb-arch-line path,.xp-luminous .xl-nb-script{animation:none !important;transition:none !important}
+  .xp-luminous .xl-nb-dust,.xp-luminous .xl-nb-sparks{display:none}
+}
+
+/* ------------------------------------------------------------ masterclasses */
+.xp-luminous .xl-classes{list-style:none;margin:0;padding:0;display:grid;gap:20px}
+@media(min-width:900px){.xp-luminous .xl-classes{grid-template-columns:repeat(3,1fr);gap:24px}}
+.xp-luminous .xl-class{display:flex;flex-direction:column;padding:30px 26px 22px;overflow:hidden}
+@media(min-width:1024px){.xp-luminous .xl-class{padding:38px 34px 26px}}
+.xp-luminous .xl-class::after{content:"";position:absolute;right:-30%;top:-30%;width:75%;aspect-ratio:1;border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle,rgba(0,185,198,.16),rgba(0,185,198,0) 68%)}
+.xp-luminous .xl-class:nth-child(2)::after{background:radial-gradient(circle,rgba(232,32,143,.14),rgba(232,32,143,0) 68%)}
+.xp-luminous .xl-class-num{display:block;font:500 92px/.85 'Cormorant Garamond',Georgia,serif;letter-spacing:-.02em;
+  background:linear-gradient(135deg,#e8208f 10%,#f37db5 50%,#00b9c6 95%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.xp-luminous .xl-pill{display:inline-flex;align-items:center;gap:8px;align-self:flex-start;margin:24px 0 0;padding:8px 14px;border-radius:999px;
+  background:rgba(0,185,198,.1);box-shadow:inset 0 0 0 1px rgba(0,131,141,.18);font:700 12px/1.2 Montserrat,sans-serif;letter-spacing:.05em;color:var(--xl-tealt)}
+.xp-luminous .xl-class-name{margin:18px 0 0;font:700 24px/1.2 Montserrat,sans-serif;color:var(--xl-ink)}
+.xp-luminous .xl-class-blurb{flex:1;margin:12px 0 0;font:400 16px/1.7 Lato,sans-serif;color:var(--xl-body)}
+.xp-luminous .xl-class .xl-textlink{margin-top:10px}
+@media(max-width:639px){.xp-luminous .xl-class-num{font-size:68px}.xp-luminous .xl-pill{margin-top:16px}.xp-luminous .xl-journey{padding:22px 22px 12px}.xp-luminous .xl-journey-quiet{padding-bottom:22px}.xp-luminous .xl-journey-n{font-size:32px}.xp-luminous .xl-btn{letter-spacing:.1em;padding-left:22px;padding-right:22px}}
+
+.xp-luminous .xl-panel{padding:16px 16px 28px}
+@media(min-width:640px){.xp-luminous .xl-panel{padding:24px 24px 36px}}
+.xp-luminous .xl-wl{display:grid;gap:28px}
+@media(min-width:1024px){.xp-luminous .xl-wl{grid-template-columns:5fr 7fr;gap:56px;align-items:center;padding:28px 56px 28px 28px}}
+.xp-luminous .xl-wl-art{position:relative}
+.xp-luminous .xl-wl-art::before{content:"";position:absolute;inset:12% -5% -4% 10%;border-radius:50%;background:var(--xl-grad);opacity:.38;filter:blur(30px);pointer-events:none}
+.xp-luminous .xl-wl-photo{position:relative;aspect-ratio:16/10;border-radius:22px;overflow:hidden;box-shadow:0 0 0 5px rgba(255,255,255,.85),0 30px 60px -36px rgba(80,40,10,.6)}
+@media(min-width:1024px){.xp-luminous .xl-wl-photo{aspect-ratio:4/5;border-radius:999px 999px 28px 28px}}
+.xp-luminous .xl-wl-photo img{width:100%;height:100%;object-fit:cover;object-position:50% 30%}
+.xp-luminous .xl-wl .xp-field:last-child{grid-column:1/-1}
+.xp-luminous .xl-wl-form{padding:0 6px}
+@media(min-width:640px){.xp-luminous .xl-wl-form{padding:0 12px}}
+.xp-luminous .xl-h2s-left{text-align:left;margin-bottom:34px;font-size:clamp(2.6rem,9vw,4rem)}
+@media(max-width:639px){.xp-luminous .xl-h2s-left{text-align:center;display:block}.xp-luminous .xl-wl-form .xl-h2s-left .xl-scriptwrap{margin:0 auto}}
+
+/* ------------------------------------------------------------ forms (shared markup) */
+.xp-luminous .xp-label{font:700 11px/1.3 Montserrat,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#3b3b3b}
+.xp-luminous .xp-req{font-size:0;letter-spacing:0}
+.xp-luminous .xp-req::after{content:"*";margin-left:3px;font-size:12px;color:var(--xl-deep)}
+.xp-luminous .xp-input{min-height:52px;padding:0 18px;border-radius:16px;border:1px solid rgba(255,255,255,.95);
+  background:linear-gradient(180deg,rgba(255,255,255,.72),rgba(255,247,251,.62));
+  box-shadow:inset 0 1px 3px rgba(28,28,28,.06),0 0 0 1px rgba(200,23,124,.14);
+  font:400 16px Lato,sans-serif;color:var(--xl-ink)}
+.xp-luminous .xp-input::placeholder{color:#767676;opacity:1}
+.xp-luminous .xp-input:disabled{opacity:1;color:#767676;-webkit-text-fill-color:#767676}
+.xp-luminous .xp-input:disabled::placeholder{color:#767676;-webkit-text-fill-color:#767676}
+.xp-luminous .xl-submit{display:flex;align-items:center;justify-content:center;width:100%;min-height:56px;margin-top:22px;padding:12px 24px;border:0;border-radius:999px;
+  background:var(--xl-btn);color:#fff;font:700 12.5px/1.25 Montserrat,sans-serif;letter-spacing:.14em;text-transform:uppercase;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.3),0 16px 32px -16px rgba(232,32,143,.65)}
+.xp-luminous .xl-submit:disabled{opacity:.9}
+.xp-luminous .xp-fnote{justify-content:center;text-align:center;color:var(--xl-soft)}
+.xp-luminous .xp-fnote .xp-ic{color:var(--xl-teal)}
+.xp-luminous .xp-picker .xp-label{display:block;margin-bottom:12px}
+.xp-luminous .xp-chips{gap:10px}
+.xp-luminous .xp-chip span{padding:0 20px;border-radius:999px;background:rgba(255,255,255,.72);box-shadow:inset 0 0 0 1px rgba(200,23,124,.28);
+  font:700 13px/1.2 Montserrat,sans-serif;color:#3b3b3b;transition:background .3s,color .3s,box-shadow .3s}
+.xp-luminous .xp-chip:hover span{box-shadow:inset 0 0 0 1px rgba(200,23,124,.6)}
+.xp-luminous .xp-chip input:checked + span{background:var(--xl-btn);color:#fff;box-shadow:0 12px 24px -12px rgba(232,32,143,.7)}
+.xp-luminous .xp-chip input:focus-visible + span{outline:3px solid var(--xl-teal);outline-offset:2px}
+
+/* ------------------------------------------------------------ events */
+.xp-luminous .xl-dates{position:relative}
+.xp-luminous .xl-ticket{display:grid;overflow:hidden;border-radius:32px;
+  --xl-notch:radial-gradient(circle 15px at 0 300px,transparent 14.5px,#000 15px),radial-gradient(circle 15px at 100% 300px,transparent 14.5px,#000 15px);
+  -webkit-mask:var(--xl-notch);-webkit-mask-composite:source-in;mask:var(--xl-notch);mask-composite:intersect}
+@media(min-width:1024px){
+  .xp-luminous .xl-ticket{grid-template-columns:42% 58%;
+    --xl-notch:radial-gradient(circle 18px at 42% 0,transparent 17.5px,#000 18px),radial-gradient(circle 18px at 42% 100%,transparent 17.5px,#000 18px)}
+}
+/* a coloured glow under the ticket (the mask clips its own shadow) */
+.xp-luminous .xl-dates::before{content:"";position:absolute;left:12%;right:12%;top:60px;height:420px;border-radius:40px;pointer-events:none;
+  background:linear-gradient(90deg,rgba(232,32,143,.42),rgba(0,185,198,.36));filter:blur(48px);opacity:.75}
+.xp-luminous .xl-ticket-media{position:relative;height:300px;overflow:hidden}
+@media(min-width:640px){.xp-luminous .xl-ticket-media{height:380px}
+  .xp-luminous .xl-ticket{--xl-notch:radial-gradient(circle 15px at 0 380px,transparent 14.5px,#000 15px),radial-gradient(circle 15px at 100% 380px,transparent 14.5px,#000 15px)}}
+@media(min-width:1024px){.xp-luminous .xl-ticket-media{height:auto;min-height:520px}
+  .xp-luminous .xl-ticket{--xl-notch:radial-gradient(circle 18px at 42% 0,transparent 17.5px,#000 18px),radial-gradient(circle 18px at 42% 100%,transparent 17.5px,#000 18px)}}
+.xp-luminous .xl-ticket-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 28%}
+.xp-luminous .xl-ticket-shade{position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(112,8,64,.82),rgba(112,8,64,.25) 45%,rgba(112,8,64,0) 70%),linear-gradient(135deg,rgba(0,185,198,.22),rgba(0,185,198,0) 50%)}
+.xp-luminous .xl-ticket-tag{position:absolute;left:24px;right:24px;bottom:22px;color:#fff}
+@media(min-width:1024px){.xp-luminous .xl-ticket-tag{left:40px;bottom:36px}}
+.xp-luminous .xl-ticket-name{margin:0;font-size:clamp(4rem,12vw,6.5rem);line-height:.9;color:#fff;text-shadow:0 4px 30px rgba(80,0,40,.35)}
+.xp-luminous .xl-ticket-month{margin:10px 0 0;font:700 12.5px/1.2 Montserrat,sans-serif;letter-spacing:.3em;text-transform:uppercase;color:#fff}
+.xp-luminous .xl-ticket-perf{display:none}
+.xp-luminous .xl-ticket-body{position:relative;display:flex;flex-direction:column;justify-content:center;padding:30px 22px 28px;border-top:2px dashed rgba(184,24,112,.22)}
+@media(min-width:640px){.xp-luminous .xl-ticket-body{padding:36px 36px 34px}}
+@media(min-width:1024px){.xp-luminous .xl-ticket-body{padding:52px 56px 44px;border-top:0;border-left:2px dashed rgba(184,24,112,.22)}}
+.xp-luminous .xl-ticket-top{display:flex;flex-wrap:wrap;align-items:center;gap:10px 28px}
+.xp-luminous .xl-ticket-days{margin:0;font:800 clamp(3.6rem,12vw,6.25rem)/.9 Montserrat,sans-serif;letter-spacing:-.045em;
+  background:linear-gradient(135deg,#e8208f 15%,#00b9c6 95%);-webkit-background-clip:text;background-clip:text;color:transparent;padding-bottom:.06em}
+.xp-luminous .xl-ticket-when p{display:flex;align-items:center;gap:10px;margin:0}
+.xp-luminous .xl-ticket-when .xp-ic{color:var(--xl-teal)}
+.xp-luminous .xl-ticket-dates{font:700 17px/1.35 Montserrat,sans-serif;color:var(--xl-ink)}
+.xp-luminous .xl-ticket-loc{margin-top:8px!important;font:400 16px/1.4 Lato,sans-serif;color:var(--xl-body)}
+.xp-luminous .xl-cd{margin-top:30px;gap:10px}
+.xp-luminous .xl-cd-box{flex:1;max-width:104px;padding:14px 4px 12px;border-radius:18px;background:rgba(255,255,255,.72);
+  box-shadow:inset 0 1px 0 #fff,inset 0 0 0 1px rgba(255,255,255,.8),0 0 0 1px rgba(0,131,141,.12),0 14px 30px -20px rgba(0,90,100,.45)}
+.xp-luminous .xl-cd .xp-cd-n{font:700 clamp(24px,6vw,34px)/1 Montserrat,sans-serif;color:var(--xl-ink)}
+.xp-luminous .xl-cd .xp-cd-u{margin-top:6px;font:700 10px/1 Montserrat,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--xl-tealt)}
+.xp-luminous .xl-ticket-buy{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px 28px;margin-top:30px;padding-top:26px;border-top:1px solid rgba(28,28,28,.08)}
+.xp-luminous .xl-price{margin:0;display:flex;flex-direction:column}
+.xp-luminous .xl-price-n{font:800 40px/1 Montserrat,sans-serif;letter-spacing:-.02em;color:var(--xl-ink)}
+.xp-luminous .xl-price-note{margin-top:8px;font:700 11px/1.3 Montserrat,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--xl-soft)}
+@media(max-width:639px){.xp-luminous .xl-ticket-buy .xl-btn{width:100%}}
+
+.xp-luminous .xl-date{display:grid;gap:18px;margin-top:24px;padding:24px 22px;align-items:center}
+@media(min-width:768px){.xp-luminous .xl-date{grid-template-columns:auto 1fr auto;gap:28px;padding:24px 32px 24px 24px}}
+.xp-luminous .xl-date-cal{display:flex;flex-direction:column;align-items:center;justify-content:center;width:96px;height:96px;border-radius:24px;
+  border:1.5px solid transparent;background:linear-gradient(rgba(255,255,255,.92),rgba(255,255,255,.92)) padding-box,var(--xl-grad) border-box;
+  font:700 10.5px/1 Montserrat,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--xl-tealt)}
+.xp-luminous .xl-date-cal b{margin:6px 0;font:800 24px/1 Montserrat,sans-serif;letter-spacing:-.03em;color:var(--xl-deep)}
+.xp-luminous .xl-date-name{margin:6px 0 0;font:700 22px/1.2 Montserrat,sans-serif;color:var(--xl-ink)}
+.xp-luminous .xl-date-meta{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;margin:8px 0 0;font:400 15.5px/1.4 Lato,sans-serif;color:var(--xl-body)}
+.xp-luminous .xl-date-meta .xp-ic{color:var(--xl-teal)}
+.xp-luminous .xl-sep{width:4px;height:4px;margin:0 6px;border-radius:50%;background:rgba(28,28,28,.25)}
+
+.xp-luminous .xl-journeys{list-style:none;margin:0;padding:0;display:grid;gap:16px}
+@media(min-width:640px){.xp-luminous .xl-journeys{grid-template-columns:1fr 1fr;gap:20px}}
+@media(min-width:1024px){.xp-luminous .xl-journeys{grid-template-columns:repeat(3,1fr);gap:24px}}
+.xp-luminous .xl-journey{display:flex;flex-direction:column;padding:28px 26px 18px}
+.xp-luminous .xl-journey-quiet{padding-bottom:28px}
+.xp-luminous .xl-journey-n{display:block;align-self:flex-start;font:400 40px/1 Montserrat,sans-serif;letter-spacing:-.03em;
+  background:linear-gradient(135deg,#e8208f,#00b9c6);-webkit-background-clip:text;background-clip:text;color:transparent}
+.xp-luminous .xl-journey-name{margin:14px 0 0;font:700 20px/1.25 Montserrat,sans-serif;color:var(--xl-ink)}
+.xp-luminous .xl-journey-blurb{flex:1;margin:8px 0 0;font:400 15.5px/1.65 Lato,sans-serif;color:var(--xl-body)}
+.xp-luminous .xl-journey .xl-textlink{margin-top:6px}
+
+.xp-luminous .xl-info{position:relative;overflow:hidden;border-radius:32px;padding:150px 12px 12px;
+  box-shadow:0 50px 90px -50px rgba(60,20,60,.5)}
+@media(min-width:640px){.xp-luminous .xl-info{padding:200px 24px 24px}}
+@media(min-width:1024px){.xp-luminous .xl-info{padding:72px 56px}}
+.xp-luminous .xl-info-bg{position:absolute;inset:0}
+.xp-luminous .xl-info-bg img{width:100%;height:100%;object-fit:cover;object-position:50% 45%}
+.xp-luminous .xl-info-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(232,32,143,.38),rgba(255,255,255,.05) 55%,rgba(0,185,198,.4))}
+.xp-luminous .xl-info-card{max-width:60rem;margin:0 auto;padding:28px 20px 24px;background:linear-gradient(150deg,rgba(255,255,255,.88),rgba(255,255,255,.76))}
+@media(min-width:640px){.xp-luminous .xl-info-card{padding:40px 40px 32px}}
+@media(min-width:1024px){.xp-luminous .xl-info-card{display:grid;grid-template-columns:5fr 6fr;gap:48px;align-items:center;padding:48px 52px}}
+.xp-luminous .xl-info-copy{text-align:center;margin-bottom:24px}
+@media(min-width:1024px){.xp-luminous .xl-info-copy{text-align:left;margin-bottom:0}}
+.xp-luminous .xl-info-script{margin:0 0 6px;font-size:clamp(2.6rem,8vw,3.4rem);line-height:1;color:var(--xl-mag)}
+.xp-luminous .xl-info-copy .xl-h2{font-size:clamp(1.9rem,3.4vw,2.6rem)}
+.xp-luminous .xl-info-copy .xl-sublead-left{margin-left:auto;margin-right:auto}
+@media(min-width:1024px){.xp-luminous .xl-info-copy .xl-sublead-left{margin-left:0}}
+
+.xp-luminous .xl-vids{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.xp-luminous .xl-vid-big{grid-column:1/-1}
+@media(min-width:1024px){
+  .xp-luminous .xl-vids{grid-template-columns:repeat(4,1fr);gap:20px}
+  .xp-luminous .xl-vid-big{grid-column:1/3;grid-row:1/3}
+  .xp-luminous .xl-vid-big .xp-video-frame{height:100%;aspect-ratio:auto}
+}
+.xp-luminous .xl-vids-2{grid-template-columns:1fr}
+@media(min-width:640px){.xp-luminous .xl-vids-2{grid-template-columns:1fr 1fr;gap:24px}}
+.xp-luminous .xl-ar{aspect-ratio:16/9}
+.xp-luminous .xl-video{border-radius:20px}
+.xp-luminous .xl-video .xp-video-frame{border-radius:20px;background:#2a1a26;
+  box-shadow:0 0 0 1px rgba(255,255,255,.7),0 30px 60px -34px rgba(60,20,50,.6)}
+.xp-luminous .xl-vid-big,.xp-luminous .xl-vid-big .xp-video-frame{border-radius:28px}
+.xp-luminous .xl-video-shade{position:absolute;inset:0;background:linear-gradient(to top,rgba(40,8,32,.6),rgba(40,8,32,0) 55%)}
+.xp-luminous .xl-play{position:absolute;left:50%;top:50%;display:grid;place-items:center;width:58px;height:58px;margin:-29px 0 0 -29px;border-radius:50%;
+  background:rgba(255,255,255,.28);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);box-shadow:inset 0 0 0 1px rgba(255,255,255,.65);
+  transition:transform .45s var(--xl-ease)}
+.xp-luminous .xl-play-core{display:grid;place-items:center;width:42px;height:42px;border-radius:50%;color:#fff;background:var(--xl-btn);box-shadow:0 8px 20px -6px rgba(232,32,143,.7)}
+.xp-luminous .xl-play-core svg{width:18px;height:18px;margin-left:2px}
+.xp-luminous .xl-vid-big .xl-play{width:92px;height:92px;margin:-46px 0 0 -46px}
+.xp-luminous .xl-vid-big .xl-play-core{width:66px;height:66px}
+.xp-luminous .xl-vid-big .xl-play-core svg{width:26px;height:26px}
+.xp-luminous .xl-video:hover .xl-play{transform:scale(1.1)}
+.xp-luminous .xl-video-name{position:absolute;left:12px;bottom:12px;max-width:calc(100% - 24px);padding:7px 12px;border-radius:999px;
+  background:rgba(28,14,24,.42);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+  font:700 11px/1.2 Montserrat,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media(min-width:1024px){.xp-luminous .xl-vid-big .xl-video-name{left:22px;bottom:22px;padding:9px 16px;font-size:12.5px}}
+@media(max-width:639px){
+  .xp-luminous .xl-vids:not(.xl-vids-2) .xl-video:not(.xl-vid-big) .xl-play{width:46px;height:46px;margin:-23px 0 0 -23px}
+  .xp-luminous .xl-vids:not(.xl-vids-2) .xl-video:not(.xl-vid-big) .xl-play-core{width:34px;height:34px}
+  .xp-luminous .xl-vids:not(.xl-vids-2) .xl-video:not(.xl-vid-big) .xl-video-name{left:8px;bottom:8px;padding:5px 9px;font-size:9.5px;letter-spacing:.08em}
+}
+
+/* ------------------------------------------------------------ coaching */
+.xp-luminous .xl-coaches{list-style:none;margin:0;padding:0;display:grid;gap:20px}
+@media(min-width:1024px){.xp-luminous .xl-coaches{grid-template-columns:1fr 1fr;gap:28px}}
+.xp-luminous .xl-coach{display:grid;gap:22px;padding:30px 22px 26px;text-align:center}
+@media(min-width:640px){.xp-luminous .xl-coach{grid-template-columns:156px 1fr;gap:28px;align-items:center;padding:32px 34px 32px 32px;text-align:left}}
+.xp-luminous .xl-coach-photo{position:relative;width:170px;aspect-ratio:4/5;margin:0 auto}
+@media(min-width:640px){.xp-luminous .xl-coach-photo{width:100%}}
+.xp-luminous .xl-coach-photo::before{content:"";position:absolute;inset:8% -6% -8%;border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle,rgba(232,32,143,.28),rgba(0,185,198,.14) 50%,rgba(255,255,255,0) 72%)}
+/* the halo: a gradient band that slowly circles the arch */
+.xp-luminous .xl-coach-halo{position:absolute;inset:-5px;border-radius:999px 999px 30px 30px;overflow:hidden}
+.xp-luminous .xl-coach-halo::before{content:"";position:absolute;left:-50%;top:-50%;width:200%;height:200%;
+  background:conic-gradient(from 0deg,#e8208f,#f9a8d0,#00b9c6,#bdf0f3,#e8208f);animation:xl-spin 10s linear infinite}
+.xp-luminous .xl-coach-photo img{position:relative;background:#2b1d16;width:100%;height:100%;object-fit:cover;object-position:50% 18%;
+  border-radius:999px 999px 26px 26px;box-shadow:0 0 0 3px #fff}
+.xp-luminous .xl-coach-name{margin:8px 0 0;font:700 22px/1.2 Montserrat,sans-serif;color:var(--xl-ink)}
+.xp-luminous .xl-coach-blurb{margin:12px 0 22px;font:italic 500 20px/1.45 'Cormorant Garamond',Georgia,serif;color:#363636}
+
+/* ------------------------------------------------------------ free resource */
+.xp-luminous .xl-free .xl-in{min-height:820px;padding-bottom:120px}
+@media(min-width:1024px){.xp-luminous .xl-free .xl-in{min-height:960px}}
+.xp-luminous .xl-pending{max-width:42rem;margin:0 auto;padding:48px 24px 44px;text-align:center}
+@media(min-width:640px){.xp-luminous .xl-pending{padding:64px 64px 56px}}
+.xp-luminous .xl-gift{position:relative;width:132px;height:132px;margin:0 auto 28px;display:grid;place-items:center}
+.xp-luminous .xl-gift-core{position:relative;z-index:1;display:grid;place-items:center;width:84px;height:84px;border-radius:50%;color:#fff;
+  background:linear-gradient(135deg,#e8208f,#c0187a 50%,#00b9c6);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.45),0 22px 44px -16px rgba(232,32,143,.75),0 0 0 8px rgba(255,255,255,.6);
+  animation:xl-float 5s ease-in-out infinite}
+.xp-luminous .xl-gift-core svg{width:36px;height:36px}
+.xp-luminous .xl-gift::before{content:"";position:absolute;inset:-40px;border-radius:50%;background:radial-gradient(circle,rgba(232,32,143,.22),rgba(0,185,198,.12) 45%,rgba(255,255,255,0) 70%)}
+.xp-luminous .xl-spark{position:absolute;width:10px;height:10px;border-radius:50%;background:#fff;box-shadow:0 0 0 3px rgba(232,32,143,.25),0 0 14px 4px rgba(255,255,255,.9);animation:xl-twinkle 3.6s ease-in-out infinite}
+.xp-luminous .xl-spark-1{left:2px;top:22px}
+.xp-luminous .xl-spark-2{right:-6px;top:8px;width:7px;height:7px;box-shadow:0 0 0 3px rgba(0,185,198,.3),0 0 12px 3px #fff;animation-delay:1.2s}
+.xp-luminous .xl-spark-3{right:4px;bottom:16px;width:6px;height:6px;animation-delay:2.1s}
+.xp-luminous .xl-spark-4{left:-10px;bottom:30px;width:6px;height:6px;box-shadow:0 0 0 3px rgba(0,185,198,.3),0 0 12px 3px #fff;animation-delay:.6s}
+@keyframes xl-twinkle{0%,100%{transform:scale(.6);opacity:.4}50%{transform:scale(1.15);opacity:1}}
+.xp-luminous .xl-gift-ring{position:absolute;inset:14px;border-radius:50%;border:1.5px solid rgba(232,32,143,.55);animation:xl-ripple 4.8s ease-out infinite}
+.xp-luminous .xl-gift-ring-2{border-color:rgba(0,185,198,.6);animation-delay:2.4s}
+@keyframes xl-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes xl-ripple{0%{transform:scale(.7);opacity:0}25%{opacity:1}100%{transform:scale(1.5);opacity:0}}
+.xp-luminous .xl-pending-body{max-width:30rem;margin:0 auto;font:400 16.5px/1.75 Lato,sans-serif;color:var(--xl-body)}
+
+/* ------------------------------------------------------------ preview notes */
+.xp-luminous .xp-review-luminous{position:relative;z-index:1}
+.xp-luminous .xp-review-luminous ul{border-style:solid;border-color:rgba(0,131,141,.22);background:rgba(240,250,251,.7)}
+
+/* ------------------------------------------------------------ reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .xp-luminous .xl-orb,.xp-luminous .xl-coach-halo::before,.xp-luminous .xl-gift-core,.xp-luminous .xl-gift-ring,.xp-luminous .xl-spark{animation:none}
+  .xp-luminous .xl-gift-ring{opacity:.5;transform:scale(1.15)}
+  .xp-luminous .xl-gift-ring-2{transform:scale(1.4);opacity:.3}
+  .xp-luminous .xl-btn,.xp-luminous .xl-btn::after,.xp-luminous .xl-play,
+  .xp-luminous .xl-btn .xp-ic,.xp-luminous .xl-textlink .xp-ic{transition:none}
+  .xp-luminous .xl-btn:hover,.xp-luminous .xl-video:hover .xl-play{transform:none}
+  .xp-luminous .xl-btn::after{display:none}
+}

@@ -1,0 +1,56 @@
+/* Explore pages — behaviour and structure shared by every direction.
+   Colour, type and layout belong to the direction files (couture.css,
+   luminous.css, pathway.css); this file only makes the shared markup from
+   src/partials/explore/shared.mjs work. Plain CSS, outside Tailwind's layers,
+   so none of it is purged. */
+
+/* Reveal on scroll. Hidden only once explore.js has confirmed it will reveal
+   (html.xp-anim), so without JS nothing is ever stuck invisible. */
+.xp-anim [data-xp-rv]{opacity:0;transform:translateY(22px);
+  transition:opacity .9s cubic-bezier(.2,.7,.2,1) var(--d,0ms),transform .9s cubic-bezier(.2,.7,.2,1) var(--d,0ms)}
+.xp-anim [data-xp-rv].is-in{opacity:1;transform:none}
+
+.xp-ic{display:inline-block;flex:none;vertical-align:-.15em}
+
+/* Video facade */
+.xp-video{display:block;width:100%;padding:0;border:0;background:none;cursor:pointer;text-align:left;color:inherit;font:inherit}
+.xp-video-frame{position:relative;display:block;width:100%;overflow:hidden}
+.xp-video-frame>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+.xp-video:hover .xp-video-frame>img{transform:scale(1.045)}
+
+/* Forms */
+.xp-form{margin:0}
+.xp-fgrid{display:grid;gap:14px 16px}
+@media(min-width:640px){.xp-fgrid-2{grid-template-columns:1fr 1fr}}
+.xp-field{display:flex;flex-direction:column;gap:6px;min-width:0}
+.xp-input{width:100%;min-height:48px;font:inherit}
+.xp-input:disabled{cursor:not-allowed}
+.xp-submit{cursor:not-allowed;font:inherit}
+.xp-fnote{display:flex;align-items:center;gap:8px;margin:12px 0 0;font-size:12.5px;line-height:1.4}
+
+/* Masterclass picker: real radios, visually replaced by the chip but still
+   focusable and announced. */
+.xp-picker{border:0;margin:0 0 18px;padding:0;min-width:0}
+.xp-chips{display:flex;flex-wrap:wrap;gap:8px}
+.xp-chip{position:relative;cursor:pointer}
+.xp-chip input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
+.xp-chip span{display:inline-flex;align-items:center;min-height:44px}
+
+/* Countdown */
+.xp-cd{display:flex;gap:10px}
+.xp-cd-box{display:flex;flex-direction:column;align-items:center}
+.xp-cd-n{font-variant-numeric:tabular-nums}
+
+/* Preview notes */
+.xp-review{max-width:72rem;margin:0 auto;padding:0 16px 48px;font:13px/1.55 Lato,system-ui,sans-serif;color:#5a5a5a}
+.xp-review summary{display:inline-flex;align-items:center;gap:8px;min-height:44px;cursor:pointer;list-style:none;
+  font:700 11px/1 Montserrat,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#00838d}
+.xp-review summary::-webkit-details-marker{display:none}
+.xp-review-dot{width:8px;height:8px;border-radius:50%;background:#00b9c6;box-shadow:0 0 0 4px rgba(0,185,198,.18)}
+.xp-review-n{display:inline-grid;place-items:center;min-width:20px;height:20px;padding:0 6px;border-radius:99px;background:rgba(0,185,198,.12);letter-spacing:0}
+.xp-review ul{margin:6px 0 0;padding:16px 20px 16px 36px;border:1px dashed rgba(0,131,141,.35);border-radius:14px;background:rgba(229,248,250,.55)}
+.xp-review li+li{margin-top:6px}
+
+@media (prefers-reduced-motion: reduce){
+  .xp-video:hover .xp-video-frame>img{transform:none}
+}

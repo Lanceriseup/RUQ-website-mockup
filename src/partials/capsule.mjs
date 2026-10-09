@@ -32,6 +32,7 @@
 // has scrolled away by the time this exists — toggling it would open a menu
 // 800px up the page.
 import { esc } from './layout.mjs';
+import { subMenu, drawerSub } from './nav-sub.mjs';
 
 export const capsule = (site, current) => `
 <div id="nav-capsule" aria-hidden="true"
@@ -50,7 +51,11 @@ export const capsule = (site, current) => `
        hyphen at all, so no comment anywhere in this project should quote one. -->
   <nav data-glass class="pointer-events-auto hidden sm:flex items-center gap-1 rounded-full border border-white/20 px-3 py-1.5 shadow-[0_20px_45px_-20px_rgba(0,0,0,.65)]"
        style="background:rgba(22,22,22,.65)" aria-label="Primary, condensed">
-    ${site.nav.map(n => `<a href="${esc(n.href)}"
+    ${site.nav.map(n => n.children ? subMenu(n, current, {
+      style: 'glass',
+      triggerClass: 'flex min-h-11 items-center rounded-full px-4 font-body text-[12px] font-semibold uppercase tracking-[0.2em] text-white/85 transition hover:bg-white/10 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white',
+      activeClass: 'bg-white/15 text-white',
+    }) : `<a href="${esc(n.href)}"
       class="flex min-h-11 items-center rounded-full px-4 font-body text-[12px] font-semibold uppercase tracking-[0.2em] text-white/85 transition hover:bg-white/10 hover:text-white
              ${current === n.href ? 'bg-white/15 text-white' : ''}
              focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
@@ -91,7 +96,10 @@ export const capsule = (site, current) => `
        class="pointer-events-auto mt-2 w-56 overflow-hidden rounded-2xl border border-white/20 shadow-[0_20px_45px_-20px_rgba(0,0,0,.65)] sm:hidden"
        style="background:rgba(22,22,22,.65)">
     <ul class="p-2">
-      ${site.nav.map(n => `<li><a href="${esc(n.href)}"
+      ${site.nav.map(n => n.children ? drawerSub(n, current, {
+        linkClass: 'flex min-h-11 items-center rounded-xl px-4 font-body text-[12px] font-semibold uppercase tracking-[0.2em] text-white/85 transition hover:bg-white/10 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white',
+        ruleClass: 'border-white/25',
+      }) : `<li><a href="${esc(n.href)}"
         class="flex min-h-11 items-center rounded-xl px-4 font-body text-[12px] font-semibold uppercase tracking-[0.2em] text-white/85 transition hover:bg-white/10 hover:text-white ${current === n.href ? 'bg-white/15 text-white' : ''} focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
         ${current === n.href ? 'aria-current="page"' : ''}>${esc(n.label)}</a></li>`).join('')}
       <li class="px-2 pb-1 pt-2">

@@ -1,0 +1,169 @@
+/* Announcement banner (src/partials/announce.mjs). Published as /announce.css.
+   Every animation here is decorative and stops under prefers-reduced-motion;
+   the copy never depends on one running. */
+
+/* The over-hero header is absolutely positioned at the top of the page, so on
+   its own it would sit on top of the bar. announce.js writes the bar's height
+   to --ann-h and the header moves down by exactly that. Only the absolute
+   header: the standard one is in flow and is pushed down already. */
+#site-nav.absolute { top: var(--ann-h, 0px); }
+
+.ann-wrap { position: relative; z-index: 45; }
+.ann {
+  --m: #e8208f; --c: #00b9c6; --ink: #141414;
+  position: relative; display: block; overflow: hidden; isolation: isolate;
+  text-decoration: none; color: #fff;
+  font-family: Montserrat, ui-sans-serif, system-ui, sans-serif;
+}
+.ann:focus-visible { outline: 2px solid var(--c); outline-offset: -4px; }
+.ann-row {
+  position: relative; z-index: 2; display: flex; align-items: center; justify-content: center;
+  gap: 18px; max-width: 72rem; margin: 0 auto; padding: 0 16px; min-height: 46px;
+}
+.ann-script { font-family: 'Julietta Messie', cursive; font-weight: 400; letter-spacing: 0; line-height: 1; }
+.ann-date { font-weight: 800; font-size: 12px; letter-spacing: .22em; text-transform: uppercase; white-space: nowrap; }
+.ann-arrow { flex: none; transition: transform .25s cubic-bezier(.22,1,.36,1); }
+.ann:hover .ann-arrow { transform: translateX(4px); }
+.ann-cta { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; white-space: nowrap; }
+
+/* ── A · Aurora ─────────────────────────────────────────────────────────── */
+.ann-aurora { background: var(--ink); }
+.ann-aurora::before, .ann-aurora::after {          /* gradient hairlines */
+  content: ""; position: absolute; left: 0; right: 0; height: 1px; z-index: 3;
+  background: linear-gradient(90deg, transparent, var(--m) 30%, var(--c) 70%, transparent);
+}
+.ann-aurora::before { top: 0; opacity: .55; }
+.ann-aurora::after { bottom: 0; }
+.ann-glow {
+  position: absolute; inset: -60% -10%; z-index: 1; filter: blur(28px); opacity: .55;
+  background:
+    radial-gradient(30% 90% at 20% 50%, var(--m), transparent 70%),
+    radial-gradient(28% 90% at 80% 50%, var(--c), transparent 70%),
+    radial-gradient(20% 80% at 50% 50%, #7a4fd0, transparent 70%);
+  animation: ann-drift 14s ease-in-out infinite alternate;
+}
+@keyframes ann-drift {
+  0%   { transform: translateX(-12%) scaleX(1); }
+  50%  { transform: translateX(6%) scaleX(1.15); }
+  100% { transform: translateX(12%) scaleX(.95); }
+}
+.ann-badge {
+  display: inline-flex; align-items: center; gap: 8px; padding: 5px 12px; border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.28); background: rgba(255,255,255,.08); backdrop-filter: blur(6px);
+  font-weight: 800; font-size: 10px; letter-spacing: .22em; text-transform: uppercase; white-space: nowrap;
+}
+.ann-pulse { position: relative; width: 7px; height: 7px; border-radius: 50%; background: var(--c); }
+.ann-pulse::after {
+  content: ""; position: absolute; inset: 0; border-radius: 50%; background: var(--c);
+  animation: ann-ping 1.8s cubic-bezier(0,0,.2,1) infinite;
+}
+@keyframes ann-ping { 75%, 100% { transform: scale(2.6); opacity: 0; } }
+.ann-aurora .ann-script { font-size: 30px; margin-top: 4px; text-shadow: 0 0 18px rgba(232,32,143,.7); }
+.ann-aurora .ann-cta {
+  padding-bottom: 2px;
+  background: linear-gradient(90deg, var(--m), var(--c)) left bottom / 100% 1px no-repeat;
+}
+
+/* ── B · Countdown ──────────────────────────────────────────────────────── */
+.ann-count { background: linear-gradient(90deg, #120f14, #1c1420 50%, #0f1618); }
+.ann-count::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px;
+  background: linear-gradient(90deg, var(--m), var(--c));
+}
+.ann-count .ann-row { justify-content: space-between; min-height: 54px; }
+.ann-what { display: inline-flex; align-items: baseline; gap: 14px; }
+.ann-count .ann-script { font-size: 28px; color: #fff; }
+.ann-count .ann-date { color: rgba(255,255,255,.85); }
+.ann-cd { display: inline-flex; align-items: center; gap: 6px; font-variant-numeric: tabular-nums; }
+.ann-cd-box {
+  display: inline-flex; align-items: baseline; gap: 5px; padding: 6px 10px; border-radius: 10px;
+  background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.04));
+  border: 1px solid rgba(255,255,255,.14); box-shadow: inset 0 1px 0 rgba(255,255,255,.12);
+}
+.ann-cd-box b { font-weight: 800; font-size: 16px; letter-spacing: .02em; }
+.ann-cd-box i { font-style: normal; font-weight: 700; font-size: 9px; letter-spacing: .18em; text-transform: uppercase; color: rgba(255,255,255,.6); }
+.ann-cd-sep { color: var(--m); font-weight: 800; }
+.ann-btn {
+  display: inline-flex; align-items: center; gap: 8px; padding: 9px 18px; border-radius: 999px;
+  background: var(--m); color: #fff; font-weight: 800; font-size: 11px; letter-spacing: .2em; text-transform: uppercase;
+  box-shadow: 0 0 0 1px rgba(255,255,255,.15) inset, 0 8px 26px -6px rgba(232,32,143,.8);
+  transition: background .2s, box-shadow .2s;
+}
+.ann-count:hover .ann-btn { background: #ff3aa4; box-shadow: 0 0 0 1px rgba(255,255,255,.25) inset, 0 10px 34px -4px rgba(232,32,143,1); }
+
+/* ── C · Marquee ────────────────────────────────────────────────────────── */
+.ann-marquee {
+  background: linear-gradient(90deg, var(--m), #b03cc0 35%, #4f7fd8 65%, var(--c), var(--m));
+  background-size: 300% 100%; animation: ann-hue 18s linear infinite;
+}
+@keyframes ann-hue { to { background-position: 300% 0; } }
+.ann-marquee::after {                       /* soft fade at both edges */
+  content: ""; position: absolute; inset: 0; z-index: 3; pointer-events: none;
+  background: linear-gradient(90deg, rgba(0,0,0,.18), transparent 12%, transparent 88%, rgba(0,0,0,.18));
+}
+.ann-track { position: relative; z-index: 2; display: flex; width: max-content; animation: ann-scroll 38s linear infinite; }
+.ann-marquee:hover .ann-track, .ann-marquee:focus-visible .ann-track { animation-play-state: paused; }
+@keyframes ann-scroll { to { transform: translateX(-50%); } }
+.ann-run { display: flex; align-items: center; gap: 26px; padding-right: 26px; min-height: 44px; }
+.ann-word { font-weight: 800; font-size: 12px; letter-spacing: .26em; text-transform: uppercase; white-space: nowrap; text-shadow: 0 1px 8px rgba(0,0,0,.25); }
+.ann-marquee .ann-script { font-size: 28px; margin-top: 4px; white-space: nowrap; text-shadow: 0 2px 12px rgba(0,0,0,.25); }
+.ann-spark { flex: none; color: rgba(255,255,255,.9); }
+
+/* ── D · Editorial ──────────────────────────────────────────────────────── */
+.ann-edit { background: #fbf3ef; color: #1c1c1c; border-bottom: 1px solid #efe0d8; }
+.ann-edit::before {
+  content: ""; position: absolute; left: 0; right: 0; top: 0; height: 2px; z-index: 3;
+  background: linear-gradient(90deg, var(--m), var(--c));
+}
+.ann-edit .ann-row { min-height: 50px; gap: 16px; }
+.ann-serif { font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-weight: 500; font-size: 18px; color: #5a5a5a; white-space: nowrap; }
+.ann-rule { width: 28px; height: 1px; background: #d8c3b8; flex: none; }
+.ann-edit .ann-script { font-size: 32px; margin-top: 4px; color: var(--m); }
+.ann-edit .ann-date { color: #1c1c1c; }
+.ann-edit .ann-cta {
+  padding: 7px 14px; border: 1px solid #1c1c1c; border-radius: 999px; color: #1c1c1c;
+  transition: background .2s, color .2s;
+}
+.ann-edit:hover .ann-cta { background: #1c1c1c; color: #fff; }
+.ann-sweep {
+  position: absolute; top: 0; bottom: 0; left: -30%; width: 22%; z-index: 1; pointer-events: none;
+  background: linear-gradient(100deg, transparent, rgba(255,255,255,.95) 45%, rgba(255,220,238,.7) 55%, transparent);
+  animation: ann-sweep 7s ease-in-out infinite;
+}
+@keyframes ann-sweep { 0%, 55% { transform: translateX(0); } 100% { transform: translateX(650%); } }
+
+/* ── Phones ──────────────────────────────────────────────────────────────
+   The bar has 358px at 390. Each style drops its least important piece
+   first, and the date never goes. */
+@media (max-width: 639px) {
+  .ann-row { gap: 12px; min-height: 42px; }
+  .ann-date { font-size: 11px; letter-spacing: .16em; }
+  .ann-aurora .ann-cta, .ann-edit .ann-serif, .ann-edit .ann-rule { display: none; }
+  .ann-aurora .ann-script { font-size: 26px; }
+  .ann-aurora .ann-row::after { content: ""; width: 16px; height: 14px; flex: none;
+    background: currentColor; -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E") center / contain no-repeat;
+            mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E") center / contain no-repeat; }
+  .ann-count .ann-row { min-height: 50px; gap: 8px; }
+  .ann-count .ann-what { flex-direction: column; align-items: flex-start; gap: 0; }
+  .ann-count .ann-script { font-size: 22px; }
+  .ann-count .ann-date { font-size: 10px; letter-spacing: .14em; }
+  .ann-count .ann-sm { display: none; }
+  .ann-cd { gap: 3px; }
+  .ann-cd-box { padding: 4px 6px; gap: 3px; border-radius: 8px; }
+  .ann-cd-box b { font-size: 13px; }
+  .ann-cd-box i { font-size: 8px; letter-spacing: .1em; }
+  .ann-btn { padding: 8px 10px; font-size: 0; gap: 0; }
+  .ann-edit .ann-row { min-height: 46px; }
+  .ann-edit .ann-script { font-size: 28px; }
+  .ann-edit .ann-cta { padding: 6px 12px; font-size: 10px; letter-spacing: .16em; }
+  .ann-long { display: none; }
+  .ann-run { gap: 18px; padding-right: 18px; min-height: 40px; }
+  .ann-track { animation-duration: 30s; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ann-glow, .ann-pulse::after, .ann-marquee, .ann-sweep { animation: none; }
+  .ann-sweep { display: none; }
+  .ann-track { animation: none; justify-content: center; width: auto; }
+  .ann-track > .ann-run + .ann-run, .ann-run > :nth-child(n+7) { display: none; }
+}

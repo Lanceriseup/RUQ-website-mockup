@@ -15,6 +15,52 @@
     });
   });
 
+  // Header submenus (nav-sub.mjs). Click toggles; on pointer devices hover
+  // opens too, with a short close delay so the pointer can cross the gap to
+  // the panel. Escape and a click outside close it. Opening one closes any
+  // other, so the header and the capsule never both hold an open panel.
+  (function navSub() {
+    var subs = [].slice.call(document.querySelectorAll('[data-nav-sub]'));
+    if (!subs.length) return;
+    var hover = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    function set(sub, open) {
+      sub.toggleAttribute('data-open', open);
+      sub.querySelector('[data-nav-sub-toggle]').setAttribute('aria-expanded', String(open));
+    }
+    function closeAll(except) { subs.forEach(function (s) { if (s !== except) set(s, false); }); }
+    subs.forEach(function (sub) {
+      var btn = sub.querySelector('[data-nav-sub-toggle]');
+      var timer;
+      btn.addEventListener('click', function () {
+        var open = !sub.hasAttribute('data-open');
+        closeAll(sub); set(sub, open);
+      });
+      if (hover) {
+        sub.addEventListener('mouseenter', function () { clearTimeout(timer); closeAll(sub); set(sub, true); });
+        sub.addEventListener('mouseleave', function () { timer = setTimeout(function () { set(sub, false); }, 220); });
+      }
+      sub.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && sub.hasAttribute('data-open')) { set(sub, false); btn.focus(); }
+      });
+      sub.addEventListener('focusout', function (e) {
+        if (!sub.contains(e.relatedTarget)) set(sub, false);
+      });
+    });
+    document.addEventListener('click', function (e) {
+      subs.forEach(function (s) { if (!s.contains(e.target)) set(s, false); });
+    });
+  })();
+
+  // Phone drawer accordions (drawerSub in nav-sub.mjs).
+  document.querySelectorAll('[data-nav-acc-toggle]').forEach(function (btn) {
+    var list = document.getElementById(btn.getAttribute('aria-controls'));
+    btn.addEventListener('click', function () {
+      var open = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!open));
+      list.hidden = open;
+    });
+  });
+
   // Scroll-morph header — only used by the variant F review page, kept so the
   // /nav-hero.html comparison stays honest. Harmless on the live site, where
   // no #morphNav exists.

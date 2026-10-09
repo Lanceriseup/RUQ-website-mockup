@@ -15,7 +15,13 @@ const dist = path.join(ROOT, 'dist');
 const home = fs.readFileSync(path.join(dist, 'index.html'), 'utf8');
 // Matches the shipped credit (a div since option C) or the original line.
 const EYE = /<(p|div) class="fr-eye[^"]*">[\s\S]*?<\/\1>/;
-if (!EYE.test(home)) throw new Error('build-eyebrow: the Freedom eyebrow was not found in dist/index.html');
+// The brush-stroke Freedom section this review page was built on was replaced
+// by the memory wall (2026-10-10). Skip rather than fail the build; the page
+// built before then stays in dist.
+if (!EYE.test(home)) {
+  console.log('build-eyebrow: skipped — the Freedom section it reviews is no longer on the homepage');
+  process.exit(0);
+}
 
 const PINK = '/assets/brand/stroke-hook-lightpink.svg';
 const TEAL = '/assets/brand/stroke-hook-teal.svg';

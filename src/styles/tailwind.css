@@ -1,3 +1,11 @@
+/* Explore pages (Courses, Masterclasses, Events, Coaching, Free resource):
+   the markup every design direction shares. Plain CSS, imported first because
+   @import must lead the file; every rule is class-scoped, so preflight below
+   does not override it. Each direction ships its own stylesheet
+   (src/styles/explore/<direction>.css -> /xp-<direction>.css), linked by the
+   page that uses it — see explore/index.mjs. */
+@import "./explore/base.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -791,7 +799,7 @@
   /* About — Jessica Lewis feature. Markup in founder.mjs; app.js adds .is-in. */
   .jl { position: relative; overflow: hidden; padding: clamp(80px, 9vw, 128px) 24px clamp(40px, 5vw, 72px); color: #1c1c1c; }
   .jl-wm { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); white-space: nowrap; pointer-events: none;
-    font: 900 clamp(140px, 22vw, 360px)/1 Montserrat, sans-serif; letter-spacing: -.03em; text-transform: uppercase;
+    font: 900 clamp(140px, 22vw, 360px)/1 Lato, sans-serif; letter-spacing: -.02em; text-transform: uppercase;
     color: transparent; -webkit-text-stroke: 1.5px rgba(232,32,143,.12); }
   .jl-grid { position: relative; max-width: 70rem; margin: 0 auto; display: grid; gap: 56px; align-items: center; }
   @media (min-width: 900px) { .jl-grid { grid-template-columns: .85fr 1fr; gap: 80px; } }
@@ -806,11 +814,14 @@
   .jl-clip img { position: absolute; left: 50%; top: -16%; width: 94%; height: auto; transform: translateX(-50%); }
 
   .jl-script { font: 400 clamp(34px, 3.4vw, 48px)/1 'Julietta Messie', cursive; color: #e8208f; }
-  .jl-name { margin-top: 4px; font: 600 clamp(40px, 4.6vw, 64px)/1.02 'Cormorant Garamond', Georgia, serif; }
+  /* Lato throughout (the client's font, 2026-10-10), set as in the client's
+     own About page: the name in Lato Black, the quote in Lato Light italic
+     in teal. Only the script stays. */
+  .jl-name { margin-top: 6px; font: 900 clamp(36px, 4vw, 54px)/1.05 Lato, sans-serif; letter-spacing: -.01em; }
   .jl-role { margin-top: 8px; font: 700 11px/1.4 Lato, sans-serif; letter-spacing: .3em; text-transform: uppercase; color: #00838d; }
   .jl-p { margin-top: 18px; max-width: 36rem; font: 400 clamp(15.5px, 1.2vw, 17px)/1.75 Lato, sans-serif; color: #3a3a3a; }
-  .jl-q { position: relative; margin-top: 26px; max-width: 34rem; font: 500 clamp(28px, 3vw, 40px)/1.3 'Cormorant Garamond', Georgia, serif; }
-  .jl-qm { position: absolute; left: -.48em; top: -.42em; font-size: 3.4em; line-height: 1; color: #e8208f; opacity: .25; }
+  .jl-q { position: relative; margin-top: 26px; max-width: 34rem; font: italic 300 clamp(22px, 2.3vw, 30px)/1.4 Lato, sans-serif; color: #00737c; }
+  .jl-qm { position: absolute; left: -.5em; top: -.3em; font: normal 900 3.2em/1 Lato, sans-serif; color: #e8208f; opacity: .25; }
   .jl-sig { display: block; width: 170px; height: auto; margin-top: 22px;
     clip-path: inset(-10% 100% -10% -5%); transition: clip-path 1.8s cubic-bezier(.45,0,.2,1) .4s; }
   .jl.is-in .jl-sig { clip-path: inset(-10% -5% -10% -5%); }
@@ -823,10 +834,48 @@
   }
   @media (prefers-reduced-motion: reduce) { .jl-sig { clip-path: none; transition: none; } }
 
+  /* Founder → Team link (founder.mjs teamCta). Lato, the client's font. */
+  .jt-pill, .jt-out, .jt-link, .jt-faces { font-family: Lato, sans-serif; text-decoration: none; }
+  .jt-pill svg, .jt-out svg, .jt-link svg, .jt-go svg { transition: transform .25s cubic-bezier(.22,1,.36,1); }
+  .jt-pill:hover svg, .jt-out:hover svg, .jt-link:hover svg, .jt-faces:hover .jt-go svg { transform: translateX(4px); }
+  .jt-pill { display: inline-flex; align-items: center; gap: 10px; min-height: 48px; margin-top: 26px; padding: 0 28px; border-radius: 999px;
+    background: #e8208f; color: #fff; font-weight: 700; font-size: 13px; letter-spacing: .2em; text-transform: uppercase;
+    box-shadow: 0 16px 34px -16px rgba(232,32,143,.9); transition: background .2s; }
+  .jt-pill:hover { background: #b81870; }
+  .jt-row { display: flex; align-items: center; flex-wrap: wrap; gap: 18px 36px; margin-top: 22px; }
+  .jt-row .jl-sig { margin-top: 0; }
+  .jt-out { display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 26px; border-radius: 999px;
+    color: #c41a7a; background: #fff; font-weight: 700; font-size: 13px; letter-spacing: .2em; text-transform: uppercase;
+    box-shadow: inset 0 0 0 1.5px rgba(232,32,143,.55), 0 14px 30px -20px rgba(232,32,143,.7); transition: background .2s, color .2s; }
+  .jt-out:hover { background: #e8208f; color: #fff; }
+  .jt-faces { display: flex; align-items: center; gap: 16px; max-width: 36rem; margin-top: 26px; padding: 12px 16px 12px 12px; border-radius: 20px;
+    background: #fff; color: #1c1c1c; box-shadow: 0 0 0 1px rgba(28,28,28,.07), 0 22px 44px -28px rgba(28,28,28,.45); transition: transform .25s, box-shadow .25s; }
+  .jt-faces:hover { transform: translateY(-2px); box-shadow: 0 0 0 1px rgba(232,32,143,.25), 0 26px 50px -26px rgba(232,32,143,.45); }
+  .jt-stack { display: flex; flex: none; align-items: center; }
+  .jt-stack img, .jt-stack b { width: 44px; height: 44px; border-radius: 50%; border: 2px solid #fff; object-fit: cover; object-position: center 20%; }
+  .jt-stack > * + * { margin-left: -12px; }
+  .jt-stack b { display: grid; place-items: center; background: linear-gradient(135deg, #e8208f, #00b9c6); color: #fff; font-size: 12px; font-weight: 900; }
+  .jt-txt { display: flex; flex-direction: column; gap: 2px; min-width: 0; text-align: left; }
+  .jt-txt b { font-weight: 900; font-size: 15px; letter-spacing: .02em; }
+  .jt-txt span { font-size: 13px; line-height: 1.4; color: #5a5a5a; }
+  .jt-go { display: grid; place-items: center; flex: none; width: 36px; height: 36px; margin-left: auto; border-radius: 50%; background: #e8208f; color: #fff; }
+  .jt-link { display: inline-flex; align-items: center; gap: 10px; margin-top: 24px; padding-bottom: 6px; color: #00737c;
+    font-weight: 900; font-size: 13px; letter-spacing: .2em; text-transform: uppercase;
+    background: linear-gradient(90deg, #e8208f, #00b9c6) left bottom / 36% 2px no-repeat; transition: background-size .45s cubic-bezier(.22,1,.36,1), color .2s; }
+  .jt-link:hover { background-size: 100% 2px; color: #c41a7a; }
+  .jt-pill:focus-visible, .jt-out:focus-visible, .jt-link:focus-visible, .jt-faces:focus-visible { outline: 2px solid #e8208f; outline-offset: 4px; }
+  @media (max-width: 899px) {
+    .jt-row { justify-content: center; }
+    .jt-faces { margin-left: auto; margin-right: auto; }
+  }
+  @media (max-width: 479px) { .jt-txt span { display: none; } .jt-link { font-size: 11.5px; letter-spacing: .14em; } }
+
   /* No Longer Bound banner. Markup in nlb.mjs; app.js adds .is-in. Its own
      palette (NLB gold #B7873E, gold-dark #8F6A2E, cream #FAF7F1/#F1E8D9). */
-  .nl { position: relative; padding: clamp(28px, 4vw, 48px) 16px; color: #201F1E; }
-  .nl-card { position: relative; overflow: hidden; max-width: 72rem; margin: 0 auto; padding: 30px clamp(24px, 4vw, 52px); border-radius: 26px;
+  .nl { position: relative; padding: clamp(28px, 4vw, 48px) 16px clamp(56px, 7vw, 96px); color: #201F1E; }   /* last section before the footer: more air below */
+  /* Same width, padding and corner as the event panel (cta.mjs) it replaced
+     at the foot of the page: 84rem, 36px by 48px, 2rem radius. */
+  .nl-card { position: relative; overflow: hidden; max-width: 84rem; margin: 0 auto; padding: 40px 48px; border-radius: 2rem;
     background: radial-gradient(70% 140% at 12% 50%, #fff 0%, #FAF7F1 45%, #F1E8D9 100%);
     box-shadow: inset 0 0 0 1px rgba(183,135,62,.28), 0 30px 60px -36px rgba(143,106,46,.55); }
   .nl-row { display: flex; align-items: center; gap: clamp(18px, 3vw, 40px); }
@@ -885,16 +934,18 @@
   .fs-in { position: relative; z-index: 1; max-width: 56rem; margin: 0 auto; padding: 0 20px; }
   .fs-script { font: 400 clamp(42px, 4.8vw, 66px)/1 'Julietta Messie', cursive; color: #e8208f; }
   .fs-title { display: flex; align-items: center; justify-content: center; gap: 18px; margin-top: 10px;
-    font: 600 clamp(16px, 1.6vw, 20px)/1.2 'Cormorant Garamond', Georgia, serif; letter-spacing: .42em; text-transform: uppercase; }
+    font: 700 clamp(13px, 1.25vw, 16px)/1.2 Lato, sans-serif; letter-spacing: .42em; text-transform: uppercase; }
   .fs-title span { padding-left: .42em; }   /* balances the tracking after the last letter */
   .fs-title i { width: clamp(30px, 6vw, 70px); height: 1px; background: linear-gradient(90deg, transparent, rgba(28,28,28,.45)); }
   .fs-title i:last-child { transform: scaleX(-1); }
   .fs mark { background: none; color: inherit; }
-  .fs-lead { max-width: 44rem; margin: 28px auto 0; font: 500 clamp(22px, 2.5vw, 32px)/1.35 'Cormorant Garamond', Georgia, serif; }
+  /* Lato throughout (the client's font, 2026-10-10); only the script stays.
+     Lato sets larger than Cormorant at the same size, so sizes came down. */
+  .fs-lead { max-width: 44rem; margin: 28px auto 0; font: 300 clamp(20px, 2.1vw, 28px)/1.4 Lato, sans-serif; }
   /* Highlights are teal here, not pink — the pink is the script's. #00737c
      rather than brand teal: #00b9c6 is 2.4:1 on white and the pale sky is
      lighter still; this clears 4.5:1 at every size. */
-  .fs-lead mark { font-weight: 600; color: #00737c; }
+  .fs-lead mark { font-weight: 700; color: #00737c; }
   .fs-rest { max-width: 38rem; margin: 16px auto 0; font: 400 clamp(15.5px, 1.2vw, 17px)/1.75 Lato, sans-serif; color: #2b2b2b; }
   /* From 760px the lead and the paragraph share one 50rem measure, so they
      read as a single block rather than a wide line over a narrow column.
@@ -907,7 +958,7 @@
 
   .fs-acc { margin-top: 34px; }
   .fs-btn { display: inline-flex; align-items: center; gap: 16px; min-height: 52px; padding: 12px 14px 12px 26px; border-radius: 999px; background: #fff;
-    font: 700 13px/1.3 Montserrat, sans-serif; letter-spacing: .12em; text-transform: uppercase; color: #1c1c1c; text-align: left;
+    font: 700 13px/1.3 Lato, sans-serif; letter-spacing: .14em; text-transform: uppercase; color: #1c1c1c; text-align: left;
     box-shadow: inset 0 0 0 1.5px rgba(232,32,143,.4), 0 16px 36px -22px rgba(232,32,143,.8); }
   .fs-btn:focus-visible { outline: 2px solid #e8208f; outline-offset: 4px; }
   .fs-chev { display: grid; place-items: center; flex: none; width: 36px; height: 36px; border-radius: 50%; background: #e8208f; color: #fff; transition: transform .5s cubic-bezier(.22,1,.36,1); }
@@ -924,14 +975,14 @@
   .fs-page { max-width: 54rem; margin: 28px auto 14px; padding: clamp(28px, 4vw, 52px) clamp(20px, 4vw, 56px); border-radius: 22px; background: #fff; text-align: left;
     box-shadow: 0 30px 70px -34px rgba(232,32,143,.35), 0 12px 30px -18px rgba(0,0,0,.14); }
   .fs-sub { text-align: center; font: 700 11px/1.4 Lato, sans-serif; letter-spacing: .3em; text-transform: uppercase; color: #6b6b6b; }
-  .fs-intro { margin-top: 16px; text-align: center; font: 400 clamp(17px, 1.5vw, 19px)/1.6 'Cormorant Garamond', Georgia, serif; color: #2b2b2b; }
+  .fs-intro { margin-top: 16px; text-align: center; font: 300 clamp(15.5px, 1.3vw, 17px)/1.7 Lato, sans-serif; color: #2b2b2b; }
   .fs-list { margin-top: 26px; column-gap: 44px; border-top: 1px solid rgba(28,28,28,.1); }
   @media (min-width: 760px) { .fs-list { columns: 2; } }
   .fs-list li { display: flex; gap: 16px; padding: 14px 0; border-bottom: 1px solid rgba(28,28,28,.08); break-inside: avoid;
-    font: 400 clamp(16px, 1.4vw, 18px)/1.45 'Cormorant Garamond', Georgia, serif;
+    font: 400 clamp(14.5px, 1.2vw, 16px)/1.6 Lato, sans-serif; color: #2b2b2b;
     opacity: 0; transform: translateY(12px); transition: opacity .55s ease, transform .55s cubic-bezier(.22,1,.36,1); transition-delay: calc(.3s + var(--i) * .07s); }
   .fs-acc[data-open] .fs-list li { opacity: 1; transform: none; }
-  .fs-n { flex: none; width: 2.1em; font: 600 1.15em/1.2 'Cormorant Garamond', Georgia, serif; color: #e8208f; }
+  .fs-n { flex: none; width: 2.2em; font: 900 1em/1.6 Lato, sans-serif; letter-spacing: .04em; color: #e8208f; }
 
   @media (prefers-reduced-motion: reduce) {
     .fs-sky img { animation: none; }
@@ -1028,3 +1079,11 @@
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }
+
+/* Header submenus (src/partials/nav-sub.mjs). Closed panels are hidden from
+   pointer and assistive tech via visibility, so the fade can still run. */
+.nav-sub-panel { visibility: hidden; opacity: 0; transform: translate(var(--tw-translate-x, 0), 6px); transition: opacity .18s ease, transform .22s cubic-bezier(.22,1,.36,1), visibility 0s linear .22s; }
+.nav-sub[data-open] .nav-sub-panel { visibility: visible; opacity: 1; transform: translate(var(--tw-translate-x, 0), 0); transition-delay: 0s; }
+.nav-sub[data-open] .nav-sub-caret,
+[aria-expanded="true"] > .nav-sub-caret { transform: rotate(180deg); }
+@media (prefers-reduced-motion: reduce) { .nav-sub-panel { transition: none; } }

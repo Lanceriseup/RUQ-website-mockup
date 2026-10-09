@@ -71,14 +71,22 @@ const PIN = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke=
 
 export const eventDates = (site) => {
   const [first, second] = site.nextEvent.upcoming;
+  // The two columns are always equal width, so the divider sits exactly under
+  // the centre of the Register button however long either date is. Sized to
+  // content, "Sept. 29 – Oct. 1, 2027" is far longer than "May 5–7, 2027" and
+  // pushed the divider, and the whole block, off centre.
+  //
+  // Below md the row fills the width and each column is half of it; balanced
+  // wrapping splits a long date evenly at the dash. From md the row shrinks to
+  // fit, and the 1fr tracks both take the wider column's width.
   const one = (e, label, tone) => `
-        <div>
+        <div class="min-w-0">
           <p class="font-display text-[10px] font-extrabold uppercase tracking-[0.18em] ${tone} sm:text-[11px]">${label}</p>
-          <p class="mt-1.5 font-display text-base font-bold leading-snug text-white sm:text-xl">${esc(e.dates)}</p>
+          <p class="mt-1.5 font-display text-base font-bold leading-snug text-white [text-wrap:balance] sm:text-xl">${esc(e.dates)}</p>
           <p class="mt-1 flex items-center justify-center gap-[5px] font-body text-[11px] font-bold uppercase tracking-[0.18em] text-white/70 sm:text-xs">${PIN}${esc(e.location)}</p>
         </div>`;
   return `
-      <div class="flex items-stretch gap-[18px] text-center sm:gap-10">${one(first, 'Next event', 'text-[#f0569f]')}
+      <div class="grid w-full grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] gap-x-[18px] text-center sm:gap-x-10 md:w-max">${one(first, 'Next event', 'text-[#f0569f]')}
         <div aria-hidden="true" class="w-px bg-white/25"></div>${one(second, 'Also coming', 'text-cyan')}
       </div>`;
 };

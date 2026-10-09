@@ -19,7 +19,9 @@ const dist = path.join(ROOT, 'dist');
 const about = fs.readFileSync(path.join(dist, 'about.html'), 'utf8')
   .replace(/<div class="al" data-al[\s\S]*?<\/div>/, '');
 const ARCH = about.indexOf('<div class="relative z-10 -mt-6 sm:-mt-16">');
-const handle = about.indexOf('<span aria-hidden="true" class="absolute left-1/2 top-4 z-20', ARCH);
+// Options go where the drag handle was; it was removed 2026-10-10 and left a
+// comment in its place, which marks the same spot.
+const handle = about.indexOf('<!-- The drag-handle pill was removed', ARCH);
 if (ARCH < 0 || handle < 0) throw new Error('build-about-bg: journey panel not found');
 
 // Deterministic scatter, so every build draws the same field.

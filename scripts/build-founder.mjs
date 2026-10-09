@@ -25,12 +25,13 @@ const main = about.indexOf('<main');
 const heroEnd = about.indexOf('</section>', main) + '</section>'.length;
 const panel = about.indexOf('<div class="relative z-10 -mt-6 sm:-mt-16">', heroEnd);
 if (panel < 0) throw new Error('build-founder: journey panel not found in dist/about.html');
-// The panel opens with an absolutely positioned ground (with nested orbs) and
-// the drag handle; its flowing content starts after the handle. Light options
-// go there, so they sit on the panel's ground at its top.
-const handle = about.indexOf('<span aria-hidden="true" class="absolute left-1/2 top-4 z-20', panel);
-if (handle < 0) throw new Error('build-founder: panel handle not found');
-const panelGroundEnd = about.indexOf('</span>', handle) + '</span>'.length;
+// The panel opens with an absolutely positioned ground (with nested orbs);
+// its flowing content starts after the comment that replaced the drag handle
+// (removed 2026-10-10). Light options go there, so they sit on the panel's
+// ground at its top.
+const handleNote = about.indexOf('<!-- The drag-handle pill was removed', panel);
+if (handleNote < 0) throw new Error('build-founder: panel opening not found');
+const panelGroundEnd = about.indexOf('-->', handleNote) + '-->'.length;
 
 const f = content.about.founder;
 const Q = (cls = '') => `<blockquote class="jf-q ${cls}"><span class="jf-qm" aria-hidden="true">“</span>${esc(f.quote)}</blockquote>`;

@@ -99,7 +99,8 @@ const arch = (inner) => `
        style="background:${GROUND}">
     ${orbs}
   </div>
-  <span aria-hidden="true" class="absolute left-1/2 top-4 z-20 h-1.5 w-16 -translate-x-1/2 rounded-full bg-ink/15"></span>
+  <!-- The drag-handle pill was removed 2026-10-10 at the client's request,
+       as on the homepage panel. -->
   <!--journey-opening-->
   <div class="relative">${inner}</div>
 </div>`;
