@@ -42,6 +42,8 @@ export const fill = (tpl, o) => String(tpl).replace(/\{(\w+)\}/g, (_, k) => o[k]
 
 // ------------------------------------------------------------------ forms
 
+const NOTE = 'Preview only — this form isn’t connected yet, so nothing is sent.';
+
 /**
  * A disabled form. Fields are real labelled inputs, so the design is honest
  * about what the live form asks for, but nothing can be typed or sent.
@@ -51,8 +53,9 @@ export const fill = (tpl, o) => String(tpl).replace(/\{(\w+)\}/g, (_, k) => o[k]
  *   id       unique prefix for this form on the page
  *   cls      { form, grid, field, label, input, req, button, note } class hooks
  *   cols     lay fields in two columns from sm up
+ *   note     the small print under the button (defaults to NOTE)
  */
-export const disabledForm = ({ fields, submit, id, cls = {}, cols = true, submitAttrs = '', submitHtml = null }) => `
+export const disabledForm = ({ fields, submit, id, cls = {}, cols = true, submitAttrs = '', submitHtml = null, note = NOTE }) => `
 <form class="xp-form ${cls.form || ''}" action="#" onsubmit="return false" aria-describedby="${esc(id)}-note" novalidate>
   <div class="xp-fgrid ${cols ? 'xp-fgrid-2' : ''} ${cls.grid || ''}">
     ${fields.map(f => `
@@ -63,7 +66,7 @@ export const disabledForm = ({ fields, submit, id, cls = {}, cols = true, submit
     </div>`).join('')}
   </div>
   <button type="submit" class="xp-submit ${cls.button || ''}" disabled ${submitAttrs}>${submitHtml ?? esc(submit)}</button>
-  <p id="${esc(id)}-note" class="xp-fnote ${cls.note || ''}">${ICON.lock}<span>Preview only — this form isn’t connected yet, so nothing is sent.</span></p>
+  <p id="${esc(id)}-note" class="xp-fnote ${cls.note || ''}">${ICON.lock}<span>${esc(note)}</span></p>
 </form>`;
 
 /**
@@ -74,7 +77,7 @@ export const disabledForm = ({ fields, submit, id, cls = {}, cols = true, submit
  *
  *   cls.picker / cls.chip  class hooks for the radio group
  */
-export const waitlistForm = (m, { id = 'wl', cls = {} } = {}) => {
+export const waitlistForm = (m, { id = 'wl', cls = {}, note } = {}) => {
   const items = m.items;
   const picker = `
   <fieldset class="xp-picker ${cls.picker || ''}">
@@ -90,7 +93,7 @@ export const waitlistForm = (m, { id = 'wl', cls = {} } = {}) => {
   return `
 <div class="xp-wl" data-xp-waitlist>
   ${picker}
-  ${disabledForm({ fields: m.form.fields, submit: fill(m.form.submit, items[0]), id, cls, cols: true,
+  ${disabledForm({ fields: m.form.fields, submit: fill(m.form.submit, items[0]), id, cls, cols: true, ...(note ? { note } : {}),
     submitHtml: `<span data-xp-wl-label>${esc(fill(m.form.submit, items[0]))}</span>` })}
 </div>`;
 };

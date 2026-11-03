@@ -60,7 +60,6 @@ const page = `<!doctype html>
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Meet the Team — layouts &amp; grounds — ${esc(site.brand.name)}</title>
-<meta name="robots" content="noindex,nofollow">
 <link rel="stylesheet" href="${FONTS}">
 <link rel="stylesheet" href="/styles.css">
 </head>

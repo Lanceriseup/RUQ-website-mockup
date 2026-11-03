@@ -19,6 +19,7 @@
 //   rich    wider white panel, thumbnail and one-line description per page
 //   inline  no card: a centred row of links revealed under the hairline
 //   glass   dark frosted panel with teal dots, matching the scrolled capsule
+//   mega    a wide row of photo cards under the hairline, one per page
 import { esc } from './layout.mjs';
 
 const caret = `<svg class="nav-sub-caret h-3 w-3 shrink-0 transition-transform duration-200" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg>`;
@@ -77,6 +78,24 @@ export const subMenu = (n, current, { style = 'card', triggerClass = '', activeC
         </ul>
       </div>`,
 
+    // A wide panel of photo cards, one per page, spanning the bar under the
+    // hairline. Positioned against #site-nav-panel like inline. Each child
+    // takes a `thumb` and a `blurb`.
+    mega: `
+      <div id="${id}" data-nav-sub-panel class="nav-sub-panel absolute inset-x-4 top-full z-50 -mt-2">
+        <ul class="mx-auto grid max-w-4xl grid-cols-4 gap-3 rounded-[28px] border border-ink-line bg-white p-3 shadow-[0_40px_80px_-36px_rgba(40,8,30,.55)]">
+          ${kids.map(c => `<li><a href="${esc(c.href)}" ${here(c)}
+            class="group relative block aspect-[4/5] overflow-hidden rounded-[20px] text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-magenta">
+            <img src="${esc(c.thumb)}" alt="" width="240" height="300" loading="lazy" class="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105">
+            <span aria-hidden="true" class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[rgba(40,8,30,.88)]"></span>
+            <span class="absolute inset-x-4 bottom-4 block text-left">
+              <span class="flex items-center justify-between gap-2 font-body text-[12px] font-bold uppercase tracking-[0.18em] [text-shadow:none]">${esc(c.label)}<span aria-hidden="true" class="transition group-hover:translate-x-1">→</span></span>
+              <span class="mt-1 block font-body text-[13px] normal-case leading-snug tracking-normal text-white/80">${esc(c.blurb || '')}</span>
+            </span>
+            <span aria-hidden="true" class="absolute inset-x-4 top-3 h-0.5 origin-left scale-x-0 rounded-full bg-gradient-to-r from-magenta to-cyan transition-transform duration-500 group-hover:scale-x-100 group-aria-[current=page]:scale-x-100"></span></a></li>`).join('')}
+        </ul>
+      </div>`,
+
     glass: `
       <div id="${id}" data-nav-sub-panel class="nav-sub-panel absolute left-1/2 top-full z-50 -translate-x-1/2 pt-2">
         <ul class="w-64 overflow-hidden rounded-2xl border border-white/20 p-2 shadow-[0_24px_50px_-20px_rgba(0,0,0,.65)] backdrop-blur-xl" style="background:rgba(22,22,22,.72)">
@@ -87,7 +106,8 @@ export const subMenu = (n, current, { style = 'card', triggerClass = '', activeC
       </div>`,
   };
 
-  return `<div data-nav-sub data-style="${style}" class="nav-sub ${style === 'inline' ? '' : 'relative'} flex">${trigger}${panels[style] || panels.card}</div>`;
+  const wide = style === 'inline' || style === 'mega';
+  return `<div data-nav-sub data-style="${style}" class="nav-sub ${wide ? '' : 'relative'} flex">${trigger}${panels[style] || panels.card}</div>`;
 };
 
 // Phone drawer: an accordion row. The children sit indented on a cyan rule

@@ -3,7 +3,7 @@ import { section, videoFacade, card, personCard, cta, faq } from '../partials/co
 import { hero } from '../partials/hero.mjs';
 import { spread } from '../partials/spread.mjs';
 import { freedomPhoto } from '../partials/freedom-photo.mjs';
-import { ctaSection } from '../partials/cta.mjs';
+import { stayOption } from '../partials/stay-options.mjs';
 import { faithSection } from '../partials/faith.mjs';
 import { testimonialsSection } from '../partials/testimonials.mjs';
 import { nlbSection } from '../partials/nlb.mjs';
@@ -13,10 +13,15 @@ import { renderJourney } from '../partials/about-journey.mjs';
 import { founderSection } from '../partials/founder.mjs';
 import { whoForSection } from '../partials/whofor.mjs';
 import { aboutLights } from '../partials/about-lights.mjs';
-import { aboutCta } from '../partials/about-cta.mjs';
+import { aboutStayOption } from '../partials/about-stay-options.mjs';
 import { renderFaqs } from '../partials/faq-variants.mjs';
-import { contactPhoto } from '../partials/contact-photo.mjs';
+import { contactFormOption } from '../partials/contact-mos-options.mjs';
 import { explorePage } from '../partials/explore/index.mjs';
+import { masterclassPage } from '../partials/masterclass-options.mjs';
+import { eventsOption } from '../partials/events-options.mjs';
+import { coachingOption } from '../partials/coaching-options.mjs';
+import { thankYouOption } from '../partials/thankyou-options.mjs';
+import { notFoundOption } from '../partials/notfound-options.mjs';
 import { register as registerPage } from '../partials/register/split.mjs';
 
 const grid = (cols, items) => `<div class="mt-10 grid gap-6 ${cols}">${items.join('')}</div>`;
@@ -28,6 +33,11 @@ export const pages = (site, c, vids) => ([
     desc: site.brand.tagline,
     hero: true,   // header renders in overHero mode and sits on top of this section
     body: `
+    <!-- The Stay Connected form (MultiplyOS) is on this page twice: pinned
+         to the Freedom wall and in the breakthrough panel. Both chosen
+         2026-11-03 from /stay-options-2.html (J and A); markup in
+         stay-options.mjs, styles and frame sizing in stay.css / stay.js. -->
+    <link rel="stylesheet" href="/stay.css">
     ${hero(site, c)}
 
 
@@ -43,12 +53,19 @@ export const pages = (site, c, vids) => ([
       <!-- Memory wall, chosen 2026-10-10 from /freedom-wall-options.html: the
            polaroids and note on W2's sky, with W1's torn paper edge. The
            earlier brush-stroke design is still in freedom.mjs. -->
-      ${freedomPhoto(site, c, 'memory')}
+      <!-- The note carries both event dates, moved here from under the
+           hero's Register button (2026-10-30, option A of
+           /freedom-dates-options.html). Under it, "Stay close" and the
+           Stay Connected form, taped to the wall (option J). -->
+      ${freedomPhoto(site, c, 'memory', { dates: 'note', after: stayOption(site, c, 'wall') })}
       <!-- The breakthrough CTA closes the spread on the spread's own ground.
            As a separate section after this panel it met it on a straight
            line: the panel is z-10, so it covered the top of the CTA's glow,
-           and the spread's corner glows stopped dead at its bottom edge. -->
-      ${spread(site, c, ctaSection(site, c))}
+           and the spread's corner glows stopped dead at its bottom edge.
+           Since 2026-11-03 it holds the Stay Connected form beside its
+           dates, in place of Register Now (option A); ctaSection in cta.mjs
+           is the previous panel, still used by the review pages. -->
+      ${spread(site, c, stayOption(site, c, 'panel'))}
     </div>
 
     <!-- The creed sits directly under the breakthrough CTA, matching the live
@@ -82,7 +99,8 @@ export const pages = (site, c, vids) => ([
 
     <!-- The closing "What if this is your turning point?" panel was removed
          2026-10-10 at the client's request; No Longer Bound now closes the
-         page at that panel's width. closing.mjs is kept for the review pages. -->`
+         page at that panel's width. closing.mjs is kept for the review pages. -->
+    <script src="/stay.js" defer></script>`
   },
 
   {
@@ -100,73 +118,72 @@ export const pages = (site, c, vids) => ([
          met as a straight line across the page.
 
          It sits directly under the third card, which ends on "take the next
-         step on your path" — so the ticket is that step. -->
-    ${renderJourney(site, c, 'overlap', 'stacked', aboutCta(site, c), aboutLights() + founderSection(c, 'paired') + whoForSection(c))}
+         step on your path" — so the ticket is that step.
 
-    <!-- The two pullquotes used to sit here and are removed. Their copy stays
-         in content.json as about.pullquotes. -->
-    ${section({ bg: 'bg-white', pad: '', body: renderFaqs(c, 'current') })}
+         The FAQs follow "Who is it for?" (moved up 2026-10-30 from their own
+         white section at the foot of the page): its questions — do I have to
+         be married, does my husband have to go first — are the ones that
+         statement raises, and the page now ends on the ticket rather than on
+         a list. They ride in the opening, on the journey's ground, so no white
+         band cuts across it; "relative" lifts them above the ground's
+         absolutely positioned backdrop, which would otherwise paint over them.
+
+         The two pullquotes that once closed the page are removed. Their copy
+         stays in content.json as about.pullquotes.
+
+         The closing "Join us at Freedom" panel holds the Stay Connected form
+         in place of its two buttons: K2, the form rising out of the slim
+         band, chosen 2026-11-03 from /about-stay-options.html. aboutCta in
+         about-cta.mjs is the previous panel, with the buttons. -->
+    <link rel="stylesheet" href="/stay.css">
+    ${renderJourney(site, c, 'overlap', 'stacked', aboutStayOption(site, c, 'rise'),
+      aboutLights() + founderSection(c, 'paired') + whoForSection(c) + `<div class="relative">${renderFaqs(c, 'current')}</div>`)}
+    <script src="/stay.js" defer></script>
 `
   },
 
   {
+    // Events — A1, "satin ribbon", chosen 2026-11-03 from
+    // /events-options-2.html (A, the plain trail, was live first): the live
+    // page's seven programs, word for word, along a satin ribbon that unrolls
+    // as you scroll with a crown riding its end, closing on the About page's
+    // band with the dates and the Stay Connected form
+    // (src/partials/events-options.mjs, events.css/js). The earlier tiers grid
+    // and "Inside the experiences" films are replaced; the films now sit with
+    // their programs. Copy is content.json eventsPage.
     file: 'events.html', href: '/events.html',
-    title: `Events — ${site.brand.name}`, desc: c.events.lead,
-    body: `
-    ${section({ bg: 'bg-white', heading: c.events.heading, lead: c.events.lead, body:
-      grid('sm:grid-cols-2 lg:grid-cols-3', c.events.tiers.map(t => `
-        <article class="flex flex-col rounded-xl bg-white p-6 shadow-sm ring-1 ring-ink/10">
-          <h3 class="font-display text-sm font-bold uppercase tracking-wider text-magenta-text">${esc(t.name)}</h3>
-          <p class="mt-3 flex-1 font-body text-sm leading-relaxed text-ink-soft">${esc(t.blurb)}</p>
-          ${t.cta ? `<a href="${esc(site.funnels[t.cta])}" rel="noopener" class="mt-5 font-body text-sm font-semibold text-ink underline underline-offset-4 hover:text-magenta-text">Learn more &rarr;</a>` : ''}
-        </article>`)) })}
-    ${section({ bg: 'bg-white', heading: 'Upcoming dates', body: `
-      <ul class="mt-8 divide-y divide-ink/10 border-y border-ink/10">
-        ${site.nextEvent.upcoming.map(e => `
-        <li class="flex flex-wrap items-baseline justify-between gap-4 py-5">
-          <div>
-            <p class="font-display text-xl font-semibold text-ink">${esc(e.dates)}</p>
-            <p class="font-body text-sm text-ink-soft">${esc(e.location)}</p>
-          </div>
-          ${e.note ? `<span class="rounded-full bg-magenta-tint px-3 py-1 font-body text-xs font-semibold uppercase tracking-wide text-magenta-text">${esc(e.note)}</span>` : ''}
-          <div>${cta('Register', site.nextEvent.ctaUrl)}</div>
-        </li>`).join('')}
-      </ul>` })}
-    ${section({ bg: 'bg-cyan-tint', eyebrow: 'Watch', heading: 'Inside the experiences',
-      lead: 'Short films from the events and programs.', body:
-      grid('sm:grid-cols-2', [
-        ...vids.vimeo.map(v => videoFacade(v, 'vimeo')),
-        ...vids.wistia.filter(v => v.page === 'events').map(v => videoFacade(v, 'wistia')),
-      ]) })}`
+    title: `Events — ${site.brand.name}`, desc: c.eventsPage.lead,
+    navClear: true,
+    body: eventsOption(site, c, 'ribbon')
   },
 
   {
+    // Masterclasses — F1 chosen 2026-11-02 from /masterclass-options-3.html:
+    // the deck on blush silk, closing on the live page's sign-off, waitlist in
+    // a dialog (src/partials/masterclass-options.mjs). No em dashes anywhere
+    // on this page, the title included (asked for 2026-11-02).
     file: 'masterclasses.html', href: '/masterclasses.html',
-    title: `Masterclasses — ${site.brand.name}`, desc: c.masterclasses.lead,
-    body: section({ bg: 'bg-white', heading: c.masterclasses.heading, lead: c.masterclasses.lead, body:
-      grid('sm:grid-cols-2 lg:grid-cols-3', c.masterclasses.items.map(m => `
-        <article class="flex flex-col rounded-xl bg-white p-6 shadow-sm ring-1 ring-ink/10">
-          <h3 class="font-display text-lg font-semibold text-ink">${esc(m.name)}</h3>
-          <p class="mt-1 font-body text-xs uppercase tracking-wider text-magenta-text">${esc(m.duration)}</p>
-          <p class="mt-3 flex-1 font-body text-sm leading-relaxed text-ink-soft">${esc(m.blurb)}</p>
-          <p class="mt-5 font-body text-sm font-semibold text-ink-soft">${esc(c.masterclasses.waitlistLabel)}
-            <span class="ml-1 rounded bg-ink/5 px-2 py-0.5 text-xs font-normal">form pending</span></p>
-        </article>`)) })
+    title: `Masterclasses | ${site.brand.name}`, desc: c.explore.masterclasses.lead,
+    navClear: true,
+    body: masterclassPage(site, c, 'deck-sign')
   },
 
   {
+    // 1-on-1 Coaching — D, "turn the card", chosen 2026-11-03 from
+    // /coaching-options.html, with each card opening a pop-up of the coach's
+    // own video and words, and the live page's two YouTube videos to close
+    // (src/partials/coaching-options.mjs, coaching.css/js). Copy is
+    // content.json coachingPage; each coach's button opens the MultiplyOS
+    // intro-call form with her pre-filled.
     file: 'coaching.html', href: '/coaching.html',
-    title: `1-on-1 Coaching — ${site.brand.name}`, desc: c.coaching.lead,
-    body: `
-    ${section({ bg: 'bg-white', heading: c.coaching.heading, lead: c.coaching.lead, body:
-      grid('sm:grid-cols-2', c.coaching.coaches.map(x => card(x.name, x.blurb, 'Coach'))) })}
-    ${section({ bg: 'bg-white', eyebrow: 'Watch', heading: 'From Jessica', body:
-      grid('sm:grid-cols-2', vids.youtube.slice(0, 2).map(v => videoFacade(v, 'youtube'))) })}`
+    title: `1-on-1 Coaching — ${site.brand.name}`, desc: c.coachingPage.lead,
+    navClear: true,
+    body: coachingOption(site, c, 'cards')
   },
 
   {
     file: 'team.html', href: '/team.html',
-    title: `Meet the Team — ${site.brand.name}`, desc: c.team.lead,
+    title: `Meet the Team — ${site.brand.name}`, desc: c.team.metaDesc,
     // The page is light now, so the header uses its ink type — but in
     // "clear" mode: no white bar, positioned over the page, so the sky the
     // page opens on runs up behind it to the very top. See team.mjs.
@@ -176,7 +193,9 @@ export const pages = (site, c, vids) => ([
 
   {
     file: 'free-resource.html', href: '/free-resource.html',
-    title: `Free Resource — ${site.brand.name}`, desc: c.freeResource.lead,
+    title: `Free Resource — ${site.brand.name}`, desc: c.freeResource.metaDesc,
+    // a placeholder nothing links to yet, so not in sitemap.xml
+    sitemap: false,
     body: section({ bg: 'bg-white', heading: c.freeResource.heading, lead: c.freeResource.lead, body: `
       <div class="mt-8 rounded-xl border-2 border-dashed border-ink/25 bg-white/60 p-8">
         <p class="font-body text-sm font-semibold uppercase tracking-wider text-magenta-text">Placeholder</p>
@@ -190,16 +209,14 @@ export const pages = (site, c, vids) => ([
     // The header is in "clear" mode — ink type, no bar — so the washed photo
     // runs up behind it.
     navClear: true,
-    // The form on this page is DISABLED, deliberately and not as an oversight.
-    // There is no endpoint — the live page posts to a Brizy handler, the
-    // Jotform routes were reported broken, and the plan of record was MOS into
-    // Ontraport. A form that looks live and posts nowhere swallows real
-    // enquiries in silence, so the fields stay disabled until one of those is
-    // wired. See contact-parts.mjs.
     // Photo-led G1 "Daylight" with the overlapping arc panel, chosen
     // 2026-10-10 from /contact-glass-options.html. The sky design (L1) stays
     // in contact-light.mjs.
-    body: contactPhoto(site, c, vids, 'gday')
+    // The form is the live MultiplyOS "Contact Us" form (content.json
+    // contact.mosForm), set where the old disabled form was: C1 of
+    // /contact-form-options.html, chosen 2026-11-03. The disabled form is
+    // still what contactPhoto renders for the review pages.
+    body: contactFormOption(site, c, vids, 'drop')
   },
 
   {
@@ -213,22 +230,38 @@ export const pages = (site, c, vids) => ([
 
   {
     // Freedom registration — NEW. Design R3 "split screen", chosen 2026-10-05
-    // from /register-options.html. Every Register button on the site points
-    // here (site.nextEvent.ctaUrl, site.funnels.threeDayEvent).
+    // from /register-options.html.
     // DESIGN ONLY: the form posts nowhere and the card fields are display
-    // boxes standing in for Ontraport's hosted card frame — it must be wired
-    // to Ontraport before launch, or the buttons pointed back at
-    // https://go.riseupqueens.com/3dayevent.
+    // boxes standing in for Ontraport's hosted card frame. So since
+    // 2026-11-04 (the client's ask) every Register button points back at
+    // https://go.riseupqueens.com/3dayevent (site.nextEvent.ctaUrl,
+    // site.funnels.threeDayEvent) and nothing links here.
     file: 'register.html', href: '/register.html',
+    sitemap: false,
     title: `Register for Freedom — ${site.brand.name}`, desc: `${c.register.title} · ${c.register.dates[0].label} · ${c.register.dates[0].city}`,
     navClear: true,
     body: registerPage(site, c)
   },
 
   {
+    // Where the Contact Us form sends the visitor after a submit
+    // (contact.mosForm.next). T1 "Daylight", chosen 2026-11-04 from
+    // /thank-you-options.html: the Contact page's washed photo behind the
+    // message (src/partials/thankyou-options.mjs, thankyou.css).
     file: 'thank-you.html', href: '/thank-you.html',
+    sitemap: false,
     title: `Thank You — ${site.brand.name}`, desc: c.thankYou.lead,
-    body: section({ bg: 'bg-white', pad: 'py-16 sm:py-28', heading: c.thankYou.heading, lead: c.thankYou.lead,
-      body: `<div class="mt-8">${cta('Back to home', '/index.html', 'ghost')}</div>` })
+    navClear: true,
+    body: thankYouOption(site, c, 'day')
+  },
+
+  {
+    // The 404 page: Vercel shows dist/404.html for any address with no page.
+    // Not in sitemap.xml, and no canonical (it has no address of its own).
+    // N2 "Big 404", chosen 2026-11-04 from /404-options.html.
+    file: '404.html', href: '/404.html',
+    title: `Page not found — ${site.brand.name}`, desc: c.notFound.desc,
+    navClear: true, sitemap: false, canonical: false,
+    body: notFoundOption(site, c, 'big')
   },
 ]);

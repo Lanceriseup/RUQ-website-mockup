@@ -111,7 +111,7 @@ const CSS = `
 
 for (const [key, o] of Object.entries(OPTIONS)) {
   fs.writeFileSync(path.join(dist, `c2-${key}.html`), about.replace(RE, o.html)
-    .replace('</head>', `<meta name="robots" content="noindex,nofollow"><style>${CSS}</style></head>`)
+    .replace('</head>', `<style>${CSS}</style></head>`)
     .replace('</body>', `<script>addEventListener('load',function(){var s=document.getElementById('closing-about');if(s)scrollTo(0,s.getBoundingClientRect().top+scrollY-160);});</script></body>`));
 }
 
@@ -131,7 +131,6 @@ const page = `<!doctype html>
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>About CTA — compact — ${esc(site.brand.name)}</title>
-<meta name="robots" content="noindex,nofollow">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Lato:wght@400;700&display=swap">
 <style>
 :root { --ink:#1c1c1c; --soft:#5b5b5b; --magenta:#e8208f; --cyan:#00b9c6; }

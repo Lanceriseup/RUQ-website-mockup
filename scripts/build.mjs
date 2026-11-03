@@ -14,6 +14,9 @@ const site = read('src/data/site.json');
 const content = read('src/data/content.json');
 const videos = read('src/data/videos.json');
 
+// A page's full address on the live domain; the homepage is the bare domain.
+const pageUrl = (page) => site.brand.url + (page.file === 'index.html' ? '/' : page.href);
+
 const shell = (page) => `<!doctype html>
 <html lang="en" class="scroll-smooth">
 <head>
@@ -21,10 +24,17 @@ const shell = (page) => `<!doctype html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${esc(page.title)}</title>
 <meta name="description" content="${esc(page.desc)}">
-<meta name="robots" content="noindex, nofollow">
+${page.canonical === false ? '' : `<link rel="canonical" href="${esc(pageUrl(page))}">
+`}<meta property="og:site_name" content="${esc(site.brand.name)}">
 <meta property="og:title" content="${esc(page.title)}">
 <meta property="og:description" content="${esc(page.desc)}">
 <meta property="og:type" content="website">
+${page.canonical === false ? '' : `<meta property="og:url" content="${esc(pageUrl(page))}">
+`}<meta property="og:image" content="${esc(site.brand.url + site.assets.shareImage)}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="${esc(`${site.brand.name}: ${site.brand.tagline}`)}">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" sizes="32x32" href="${esc(site.assets.faviconSizes['32'])}">
 <link rel="icon" sizes="192x192" href="${esc(site.assets.faviconSizes['192'])}">
 <link rel="apple-touch-icon" href="${esc(site.assets.faviconSizes['180'])}">
@@ -38,7 +48,7 @@ const shell = (page) => `<!doctype html>
 </head>
 <body class="bg-white font-body text-ink antialiased">
 <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-white focus:px-4 focus:py-2 focus:ring-2 focus:ring-magenta">Skip to content</a>
-${site.announceBar ? announce(site, site.announceBar) : ''}
+${site.announceBar ? announce(site, site.announceBar, { light: !(page.overHero ?? page.hero) }) : ''}
 ${header(site, page.href, { overHero: Boolean(page.overHero ?? page.hero), scrim: page.navScrim !== false, clear: Boolean(page.navClear) })}
 ${capsule(site, page.href)}
 <main id="main">
@@ -83,6 +93,16 @@ fs.copyFileSync(path.join(ROOT, 'src/styles/vsl.js'), path.join(dist, 'vsl.js'))
 fs.copyFileSync(path.join(ROOT, 'src/styles/countdown.js'), path.join(dist, 'countdown.js'));
 fs.copyFileSync(path.join(ROOT, 'src/styles/bio-modal.js'), path.join(dist, 'bio-modal.js'));
 fs.copyFileSync(path.join(ROOT, 'src/styles/explore.js'), path.join(dist, 'explore.js'));
+fs.copyFileSync(path.join(ROOT, 'src/styles/masterclass.css'), path.join(dist, 'masterclass.css'));
+fs.copyFileSync(path.join(ROOT, 'src/styles/masterclass.js'), path.join(dist, 'masterclass.js'));
+fs.copyFileSync(path.join(ROOT, 'src/styles/stay.css'), path.join(dist, 'stay.css'));
+fs.copyFileSync(path.join(ROOT, 'src/styles/stay.js'), path.join(dist, 'stay.js'));
+fs.copyFileSync(path.join(ROOT, 'src/styles/events.css'), path.join(dist, 'events.css'));
+fs.copyFileSync(path.join(ROOT, 'src/styles/events.js'), path.join(dist, 'events.js'));
+fs.copyFileSync(path.join(ROOT, 'src/styles/coaching.css'), path.join(dist, 'coaching.css'));
+fs.copyFileSync(path.join(ROOT, 'src/styles/coaching.js'), path.join(dist, 'coaching.js'));
+fs.copyFileSync(path.join(ROOT, 'src/styles/thankyou.css'), path.join(dist, 'thankyou.css'));
+fs.copyFileSync(path.join(ROOT, 'src/styles/notfound.css'), path.join(dist, 'notfound.css'));
 // One stylesheet per explore direction, linked by the page that uses it.
 for (const f of fs.readdirSync(path.join(ROOT, 'src/styles/explore'))) {
   if (f.endsWith('.css') && f !== 'base.css') fs.copyFileSync(path.join(ROOT, 'src/styles/explore', f), path.join(dist, 'xp-' + f));
@@ -93,6 +113,20 @@ const assetsSrc = path.join(ROOT, 'src/assets');
 if (fs.existsSync(assetsSrc)) {
   fs.cpSync(assetsSrc, path.join(dist, 'assets'), { recursive: true });
 }
+
+// sitemap.xml lists every page but those marked `sitemap: false` (the
+// thank-you page, and pages nothing links to); robots.txt lets everything be
+// crawled and points at it.
+fs.writeFileSync(path.join(dist, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${list.filter(p => p.sitemap !== false).map(p => `  <url><loc>${esc(pageUrl(p))}</loc></url>`).join('\n')}
+</urlset>
+`);
+fs.writeFileSync(path.join(dist, 'robots.txt'), `User-agent: *
+Allow: /
+
+Sitemap: ${site.brand.url}/sitemap.xml
+`);
 
 const report = {
   builtAt: new Date().toISOString(),

@@ -73,10 +73,11 @@ export const header = (site, current, opts = {}) => {
       : 'text-ink-soft hover:text-magenta-text focus-visible:outline-magenta';
   const linkActive = onHero ? 'text-cyan' : 'text-magenta-text';
 
-  // A nav item with children renders as a submenu (see nav-sub.mjs).
+  // A nav item with children renders as a submenu (see nav-sub.mjs), in its
+  // own `submenu` style if it names one.
   const submenu = opts.submenu || site.navSubmenu || 'card';
   const link = (n) => n.children ? subMenu(n, current, {
-      style: submenu, onHero,
+      style: n.submenu || submenu, onHero,
       triggerClass: `${linkBase} ${linkTone}`, activeClass: linkActive,
     }) : `<a href="${esc(n.href)}"
       class="${linkBase} ${linkTone} ${current === n.href ? linkActive : ''}"

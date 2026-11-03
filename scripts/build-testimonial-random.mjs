@@ -61,7 +61,7 @@ const OPTIONS = {
 for (const [k, o] of Object.entries(OPTIONS)) {
   fs.writeFileSync(path.join(dist, `tr-${k}.html`), home
     .replace('data-centre-stage', `data-centre-stage data-cs-mode="${o.mode}"`)
-    .replace('</head>', `<meta name="robots" content="noindex,nofollow"><style>${o.css}</style></head>`)
+    .replace('</head>', `<style>${o.css}</style></head>`)
     .replace('</body>', `${FOCUS}</body>`));
 }
 
@@ -81,7 +81,6 @@ fs.writeFileSync(path.join(dist, 'testimonial-random-options.html'), `<!doctype 
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Testimonials — random play — ${esc(site.brand.name)}</title>
-<meta name="robots" content="noindex,nofollow">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Lato:wght@400;700&display=swap">
 <style>
 :root { --ink:#1c1c1c; --soft:#5b5b5b; --magenta:#e8208f; --cyan:#00b9c6; }

@@ -67,6 +67,21 @@
         }
       ]
     },
+    "stay": {
+      "_source": "The form is the live MultiplyOS 'RUQ Website Stay Connected' form (First Name, Email), supplied by Lance 2026-11-03; it carries its own 'Stay Connected' title and logo. The script, heading and body here are ours, written for the options at /stay-options.html, so the section does not repeat the form's title.",
+      "script": "Stay close",
+      "heading": "Be the first to know",
+      "body": "Event dates, new masterclasses and a word of encouragement between events, sent straight to your inbox.",
+      "nudge": "Not ready to register yet?",
+      "form": {
+        "src": "https://app.multiplyos.com/forms/rise-up-kings/ruq-website-stay-connected?embed=1",
+        "origin": "https://app.multiplyos.com",
+        "title": "Stay Connected",
+        "_fixed": "Asked for by the client 2026-11-04: a fixed frame height (the form's own height, measured at 320 to 1440px wide), not resized from its 'mos-form-height' messages, and after a submit the whole page goes to `next` (stay.js).",
+        "height": 467,
+        "next": "https://go.riseupqueens.com/3dayevent"
+      }
+    },
     "cta": {
       "_source": "Verbatim from riseupqueens.com home page.",
       "heading": "It’s time for your breakthrough",
@@ -230,7 +245,7 @@
           "title": "Continue the Journey",
           "body": "Take the next step on your path of transformation at one of our events designed to help you go further.",
           "linkText": "the next step on your path",
-          "linkUrl": "/register.html",
+          "linkUrl": "https://go.riseupqueens.com/3dayevent",
           "photo": "/assets/photos/journey-cheer.jpg",
           "_photoSource": "RUQ-47.jpg (supplied 2026-10-02), cropped 3:4 from the 6532px original"
         }
@@ -311,6 +326,89 @@
       }
     ]
   },
+  "eventsPage": {
+    "_source": "Verbatim from riseupqueens.com/events (fetched 2026-11-03): heading, lead, each program's line and points, the closing line and the dates heading. Videos and links are the live page's own. The live page's dates (Oct 15–17, 2025; Apr 9–11, 2026) are out of date, so the options use site.nextEvent.upcoming. `tag` is ours, taken from each program's own line.",
+    "_links": "Elevate International's live button opens its own Vimeo film, not a registration page, so here the film is its only action. 1:1 Coaching's live 'Get In Touch' goes to the Coaches Academy page (go.riseupkings.com/RUKCoachesAcademy), which looks like a mistake, so here it goes to /contact.html. Both need confirming.",
+    "heading": "Your Path with Rise Up Queens",
+    "lead": "A transformational journey with intentional steps, designed for the woman who is ready for more.",
+    "programs": [
+      {
+        "key": "freedom", "name": "Freedom", "tag": "3-day event",
+        "line": "Become the passionate, connected & joyful woman that God has designed you to be.",
+        "points": [],
+        "video": { "provider": "vimeo", "id": "1086084555", "hash": "0e115aa7af", "poster": "/assets/posters/ev-freedom.jpg" },
+        "cta": "Register Now", "url": "site:register"
+      },
+      {
+        "key": "deeper", "name": "Deeper", "tag": "",
+        "line": "Improve relationships, increase confidence and break through to new levels.",
+        "points": [
+          ["True Connection", "Eliminate barriers to genuine relationships."],
+          ["Patterns and Growth", "Navigate recurring life patterns with newfound wisdom."],
+          ["Discover Yourself", "Engage in introspection to embrace deeper facets of your identity"]
+        ],
+        "video": { "provider": "vimeo", "id": "1061346133", "hash": "34076b029f", "poster": "/assets/posters/ev-deeper.jpg" },
+        "cta": "Register Now", "url": "https://go.riseupkings.com/deeper"
+      },
+      {
+        "key": "lbd", "name": "Life By Design", "tag": "5-day seminar",
+        "line": "Redesign your life with Life By Design: A 5-day seminar to reassess beliefs, emotions, and values for an intentional future.",
+        "points": [
+          ["Blueprint Creation", "Embark on a three-tier journey of Discovery, Vision, and Blueprint crafting."],
+          ["Belief Reassessment", "Challenge and reshape limiting beliefs."],
+          ["Emotional Mastery", "Elevate daily experiences by mastering emotional responses."],
+          ["Complete Integration", "Synchronize beliefs, values, emotions, and behaviors."]
+        ],
+        "video": { "provider": "wistia", "id": "yc0csspter", "poster": "/assets/posters/ev-lbd.jpg" },
+        "cta": "Register Now", "url": "https://go.riseupkings.com/lifebydesign"
+      },
+      {
+        "key": "elevate", "name": "Elevate", "tag": "4-day seminar · couples",
+        "line": "Amplify your marital bond with Elevate, a 4-day seminar for couples.",
+        "points": [
+          ["Next-Level Commitment", "Rediscover and deepen your commitment."],
+          ["Holistic Growth", "Elevate covers personal and partnership growth."],
+          ["In-depth Understanding", "Embrace mutual understanding and empathy."],
+          ["God-Centered Promise", "Envision a divine guided marital journey."],
+          ["Unique Tools & Community", "Acquire priceless marital strategies and be part of a supportive community."]
+        ],
+        "video": { "provider": "vimeo", "id": "1038654048", "hash": "66dbd24982", "poster": "/assets/posters/ev-elevate.jpg" },
+        "cta": "Register Now", "url": "https://go.riseupkings.com/elevate"
+      },
+      {
+        "key": "elevate-intl", "name": "Elevate International", "tag": "4-day retreat · couples",
+        "line": "Start your next adventure with Elevate International, a 4-day marriage retreat for couples.",
+        "points": [
+          ["Designed to deepen your connection.", ""],
+          ["Ignite your sense of adventure.", ""],
+          ["Increase passion in your marriage.", ""],
+          ["Unique Tools & Community", ""]
+        ],
+        "video": { "provider": "vimeo", "id": "928259217", "hash": "d17c7856ba", "poster": "/assets/posters/ev-elevate-intl.jpg" },
+        "cta": null, "url": null
+      },
+      {
+        "key": "academy", "name": "Coaches Academy", "tag": "90 days · 2 live events",
+        "line": "Pave your path as a transformation coach with the 90-day RUK Coaches Academy program. Includes 2 LIVE events.",
+        "points": [
+          ["Profound Skill Development", "Master the art of driving transformation in others."],
+          ["Self-awareness", "Break through limiting beliefs and mindsets utilizing the Forge 2.0 framework."],
+          ["Behavioral Analysis", "Identify and address progress-limiting behaviors."]
+        ],
+        "image": "/assets/photos/ev-coaches-academy.png",
+        "cta": "Register Now", "url": "https://go.riseupkings.com/RUKCoachesAcademy"
+      },
+      {
+        "key": "coaching", "name": "1:1 Coaching", "tag": "Looking for something now",
+        "line": "Work directly with a coach to support your personal journey",
+        "points": [],
+        "photo": "/assets/photos/close-talk.jpg",
+        "cta": "Get In Touch", "url": "/contact.html"
+      }
+    ],
+    "closing": "You don’t need to have it all figured out. You just need the courage to take the first step.",
+    "datesHeading": "Next 3-Day Transformational Event"
+  },
   "masterclasses": {
     "heading": "Available Masterclasses",
     "lead": "Each topic is designed to meet you where you're at — and walk with you into the next.",
@@ -332,6 +430,100 @@
       }
     ],
     "waitlistLabel": "Join the waitlist."
+  },
+  "coachingPage": {
+    "_source": "Coach copy verbatim from riseupqueens.com/1-on-1-coaching-2 (fetched 2026-11-03), with two fixes: a missing comma in Molly's first sentence ('stuck, emotionally exhausted') and Natasha's name, run together there ('NatashaSeguin-Congrove'). Roles from content.json team. Films are each coach's own Wistia video from that page. Every 'Schedule Your Introductory Call' there goes to one MultiplyOS form, which has a 'Preferred Coach' choice; here each coach's button opens it with her pre-filled. The lead, `match` lines and closing are ours, for /coaching-options.html: the live page has no lead or closing, and the match lines are condensed from each coach's own words.",
+    "heading": "1-on-1 Coaching",
+    "lead": "Personal coaching with a Rise Up Queens coach, matched to where you are right now.",
+    "cta": "Schedule Your Introductory Call",
+    "form": {
+      "src": "https://app.multiplyos.com/forms/rise-up-kings/1-on-1-coaching-intro-call?embed=1",
+      "origin": "https://app.multiplyos.com",
+      "title": "1-on-1 Coaching Intro Call",
+      "coachField": "field_8uu2f993"
+    },
+    "matchHeading": "Which sounds like you?",
+    "coaches": [
+      {
+        "key": "molly",
+        "name": "Molly Rhodes",
+        "first": "Molly",
+        "role": "Master Coach",
+        "photo": "/assets/team/molly-rhodes.jpg",
+        "video": {
+          "provider": "wistia",
+          "id": "sxnqz1xyvq",
+          "poster": "/assets/posters/co-molly.jpg"
+        },
+        "match": "Stuck, exhausted, weighed down by shame",
+        "quote": "Flip the script and reclaim the future God authored for you.",
+        "blurb": "Molly works with women who feel stuck, emotionally exhausted, weighed down by shame, or unsure of their purpose. She helps them expose the lies they believe, shift their identity, and step into the bold, free, joy-filled life God intended. If you’re tired of managing symptoms and ready to tear up the version of your life the enemy has written—full of fear, unworthiness, and silence—Molly will help you flip the script and reclaim the future God authored for you."
+      },
+      {
+        "key": "becky",
+        "name": "Becky Hilty",
+        "first": "Becky",
+        "role": "Coach",
+        "photo": "/assets/team/becky-hilty.jpg",
+        "video": {
+          "provider": "wistia",
+          "id": "74ubqso5ne",
+          "poster": "/assets/posters/co-becky.jpg"
+        },
+        "match": "Tired of striving, yet unsure how to stop",
+        "quote": "Ready to feel seen, supported, and empowered to reclaim who she truly is.",
+        "blurb": "My ideal client is a woman who feels tired of striving, yet unsure how to stop. She’s often seen as strong by others but feels unseen in her own heart. She’s navigating transition, wrestling with identity, or carrying quiet wounds—and she’s ready for something deeper. She wants to live with purpose, set healthy boundaries, and walk in freedom rooted in truth, not performance. She’s ready to feel seen, supported, and empowered to reclaim who she truly is."
+      },
+      {
+        "key": "christy",
+        "name": "Christy Tijerina",
+        "first": "Christy",
+        "role": "Coach",
+        "photo": "/assets/team/christy-tijerina.jpg",
+        "video": {
+          "provider": "wistia",
+          "id": "ae9sujr837",
+          "poster": "/assets/posters/co-christy.jpg"
+        },
+        "match": "Like I’ve lost myself caring for everyone else",
+        "quote": "Stop surviving and start rising.",
+        "blurb": "I love working with women who feel like they’ve lost themselves—especially those who’ve spent years caring for everyone else while silently battling their own storms. Many of the women I coach come from traditional or religious backgrounds where emotions were dismissed and struggles were labeled “a spiritual problem.” That was my story, too. I was raised to pray away my pain, but I never learned how to feel or process my emotions, or be present in my own body. For years, I felt stuck—like a victim of my circumstances—trying to control everything around me while living in chaos inside. I’ve personally walked through my husband’s infidelity, porn addiction, and mental health struggles (including suicidal ideation, PTSD, and BPD). My healing began when I stopped trying to fix everything around me and started doing the hard, honest work of self-reflection and ownership. I learned to care for myself as a whole person—mind, body, and spirit. I’m passionate about helping women stop surviving and start rising—taking back their lives with clarity, courage, and the belief that healing is possible."
+      },
+      {
+        "key": "natasha",
+        "name": "Natasha Seguin-Congrove",
+        "first": "Natasha",
+        "role": "Coach",
+        "photo": "/assets/team/natasha-seguin-congrove.jpg",
+        "video": {
+          "provider": "wistia",
+          "id": "447xbs9pij",
+          "poster": "/assets/posters/co-natasha.jpg"
+        },
+        "match": "Overwhelmed, carrying family alone",
+        "quote": "Freedom from fear and control, and true fulfillment in her family life.",
+        "blurb": "My ideal client is a high-achieving woman who feels overwhelmed by carrying the weight of family and responsibilities alone. She longs for more support and unity at home, but struggles with guilt and the sense that she’s never quite enough as a mother or wife. Asking for help feels difficult, and she often feels isolated in her efforts. She desires freedom from fear and control, and is ready to find greater balance, deeper relationships with her kids and husband, and true fulfillment in her family life."
+      }
+    ],
+    "closing": {
+      "heading": "Not sure who to choose?",
+      "body": "Book an introductory call and tell us where you’d like a breakthrough. We’ll help you find the right coach."
+    },
+    "videos": [
+      {
+        "name": "The Christian Marriage Advice NO ONE Wants to Hear!",
+        "provider": "youtube",
+        "id": "x7UWrpfR-8w",
+        "poster": "/assets/posters/yt-x7UWrpfR-8w.jpg"
+      },
+      {
+        "name": "Christian Marriage Tip to Let Go of Control: How to Stop the Dysfunction",
+        "provider": "youtube",
+        "id": "i3bB3FfIKY0",
+        "poster": "/assets/posters/yt-i3bB3FfIKY0.jpg"
+      }
+    ],
+    "_videos": "The two YouTube videos (Jessica Lewis) that close the live coaching page, in its order; titles from YouTube. They replace the 'Not sure who to choose?' closing on the live page (asked for 2026-11-03)."
   },
   "coaching": {
     "heading": "1-on-1 Coaching",
@@ -358,6 +550,7 @@
   "team": {
     "heading": "RUQ Coaches",
     "lead": "The people who guide the work.",
+    "metaDesc": "Meet the coaches and team behind Rise Up Queens: the women who walk with you at every event and every step of your journey of faith and freedom.",
     "members": [
       {
         "name": "Jessica Lewis",
@@ -570,6 +763,7 @@
   "freeResource": {
     "heading": "Free Resource",
     "lead": "A no-cost place to start.",
+    "metaDesc": "A free resource from Rise Up Queens: a no-cost place to start your journey of faith, freedom and transformation.",
     "note": "PENDING — the live page has no resource attached yet. Confirm the deliverable and delivery mechanism."
   },
   "contact": {
@@ -612,19 +806,49 @@
       "cta": "Learn About Rise Up Kings",
       "url": "https://riseupkings.com/"
     },
+    "mosForm": {
+      "_source": "MultiplyOS form 'RUQ Website Contact Us' (Name, Phone, Email, Message), supplied by Lance 2026-11-03. It carries its own 'Contact Us' title and logo.",
+      "src": "https://app.multiplyos.com/forms/rise-up-kings/ruq-website-contact-us?embed=1",
+      "origin": "https://app.multiplyos.com",
+      "title": "Contact Us",
+      "_fixed": "As home.stay.form: a fixed height (measured at 320 to 1440px wide), and after a submit the whole page goes to the thank-you page.",
+      "height": 781,
+      "next": "/thank-you.html"
+    },
     "_formNote": "The form is inert. The live one posts to a Brizy handler, the Jotform routes were reported broken, and the plan was MOS into Ontraport. Fields stay disabled until an endpoint exists — a disabled field cannot swallow a real enquiry."
   },
   "thankYou": {
     "heading": "Thank You, Queen!",
-    "lead": "Your message has been received — we're so glad you reached out."
+    "lead": "Your message has been received — we're so glad you reached out.",
+    "_redesign": "Where the Contact Us form sends the visitor after a submit (contact.mosForm.next). script, title, body, home, more and socialHeading are for the designs at /thank-you-options.html (asked for 2026-11-04); ours, not the live site's.",
+    "script": "Thank you, Queen",
+    "title": "Your message is on its way",
+    "body": "We’re so glad you reached out. Our team reads every message, and we’ll be in touch with you soon.",
+    "home": "Back to home",
+    "more": { "label": "See upcoming events", "href": "/events.html" },
+    "socialHeading": "Find Us On Socials"
+  },
+  "notFound": {
+    "_source": "The 404 page (dist/404.html, which Vercel shows for any address that has no page). Ours, written for the designs at /404-options.html (asked for 2026-11-04).",
+    "script": "Lost your way?",
+    "title": "We couldn’t find that page",
+    "body": "It may have moved, or the link may be old. Here are a few places to pick up your path again.",
+    "home": "Back to home",
+    "desc": "This page could not be found. Find your way back to Rise Up Queens.",
+    "links": [
+      { "label": "Events", "href": "/events.html", "photo": "/assets/photos/queens-waving.jpg" },
+      { "label": "Masterclasses", "href": "/masterclasses.html", "photo": "/assets/photos/mc-freedom.jpg" },
+      { "label": "1-on-1 Coaching", "href": "/coaching.html", "photo": "/assets/photos/close-talk.jpg" },
+      { "label": "Contact", "href": "/contact.html", "photo": "/assets/photos/close-group.jpg" }
+    ]
   },
   "explore": {
     "_source": "Copy supplied by Lance as page screenshots, 2026-10-04 (Courses, Masterclasses, Events, Coaching, Free resource). Descriptions, durations and coach blurbs that the screenshots left as placeholders are the client's own copy from the live site. The screenshots' internal caveats are kept, word for word where possible, in each page's `review` list, which the designs show as a small preview note rather than as page copy.",
     "courses": {
       "eyebrow": "Courses",
-      "heading": "Continue your journey.",
-      "lead": "A transformational journey with intentional steps. Improve relationships, increase confidence and break through to new levels.",
-      "_lead": "The screenshot's lead was a note about the catalog, not page copy. This is the client's own Events lead from the live site; replace when approved copy arrives.",
+      "heading": "Your transformation starts here.",
+      "lead": "You don’t have to wait to begin your journey. Explore courses designed to renew your mindset, strengthen your relationships, deepen your faith, and help you step into the woman God created you to be.",
+      "_lead": "Heading and lead supplied by Lance 2026-10-30, replacing \"Continue your journey.\" and a stand-in borrowed from the live site's Events lead.",
       "featured": {
         "label": "Course 01",
         "name": "No Longer Bound",
@@ -676,23 +900,29 @@
     },
     "masterclasses": {
       "heading": "Masterclasses",
-      "lead": "Each topic is designed to meet you where you’re at — and walk with you into the next.",
+      "lead": "Each topic is designed to meet you where you’re at and walk with you into the next.",
       "items": [
         {
           "key": "control",
           "name": "Control",
+          "coach": "Amber Bryant",
+          "photo": "/assets/photos/mc-control.jpg",
           "duration": "3 months (12 weeks)",
           "blurb": "A 12-week journey to identify and release patterns of inappropriate control, exploring what drives them and what freedom looks like instead."
         },
         {
           "key": "freedom",
           "name": "Walking in Freedom",
+          "coach": "Molly Rhodes",
+          "photo": "/assets/photos/mc-freedom.jpg",
           "duration": "3 months (12 weeks)",
           "blurb": "A 12-week journey to live fully in the grace and power of your identity in Christ through spiritual exploration and practice."
         },
         {
           "key": "body",
           "name": "Body Image",
+          "coach": "Amber Bryant",
+          "photo": "/assets/photos/mc-body.jpg",
           "duration": "2 months (8 weeks)",
           "blurb": "An 8-week journey to rewrite the story you’ve believed about your body and explore the roots of how you see yourself."
         }
@@ -719,7 +949,24 @@
             "autocomplete": "email"
           }
         ],
-        "submit": "Join the {name} waitlist"
+        "submit": "Join the {name} waitlist",
+        "embed": {
+          "_source": "MultiplyOS form 'RUQ Website Masterclass Waitlist'. classField is its 'Which masterclass would you like to join?' field; the form pre-fills a choice from ?<fieldKey>=<option label>.",
+          "src": "https://app.multiplyos.com/forms/rise-up-kings/ruq-website-masterclass-waitlist?embed=1",
+          "origin": "https://app.multiplyos.com",
+          "classField": "field_9gqqhaeg",
+          "title": "Join the Masterclass Waitlist"
+        }
+      },
+      "closing": {
+        "_source": "The closing line and three buttons at the foot of the live masterclasses page (riseupqueens.com/masterclasses), 2026-11-02. The live third button points back at the masterclasses page itself; here it goes to registration.",
+        "line": "Each topic is designed to meet you where you’re at and walk with you into the next layer of healing and growth.",
+        "emphasis": "healing and growth",
+        "links": [
+          { "label": "Explore Our Events", "href": "/events.html", "photo": "/assets/photos/queens-waving.jpg" },
+          { "label": "Get to know our coaches", "href": "/team.html", "photo": "/assets/photos/close-talk.jpg" },
+          { "label": "Start with Rise Up Queens", "href": "https://go.riseupqueens.com/3dayevent", "photo": "/assets/photos/journey-cheer.jpg" }
+        ]
       },
       "review": [
         "Proposed page — content approval pending.",
@@ -741,7 +988,7 @@
           "price": "$1,995",
           "priceNote": "single-payment option",
           "cta": "View registration",
-          "url": "/register.html"
+          "url": "https://go.riseupqueens.com/3dayevent"
         },
         {
           "name": "Freedom",
@@ -750,7 +997,7 @@
           "location": "Location to be announced",
           "startsAt": "2027-09-29T09:00:00-05:00",
           "cta": "View registration",
-          "url": "/register.html"
+          "url": "https://go.riseupqueens.com/3dayevent"
         }
       ],
       "beyond": {

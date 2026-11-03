@@ -1,5 +1,147 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "buildCommand": "npm run build",
-  "outputDirectory": "dist"
+  "outputDirectory": "dist",
+  "redirects": [
+    {
+      "source": "/zoom",
+      "destination": "https://us02web.zoom.us/j/82964673638",
+      "permanent": false
+    },
+    {
+      "source": "/zoom/",
+      "destination": "https://us02web.zoom.us/j/82964673638",
+      "permanent": false
+    },
+    {
+      "source": "/prayer",
+      "destination": "https://us02web.zoom.us/j/83564721899",
+      "permanent": false
+    },
+    {
+      "source": "/prayer/",
+      "destination": "https://us02web.zoom.us/j/83564721899",
+      "permanent": false
+    },
+    {
+      "source": "/registertoday",
+      "destination": "https://go.riseupqueens.com/3dayevent",
+      "permanent": false
+    },
+    {
+      "source": "/registertoday/",
+      "destination": "https://go.riseupqueens.com/3dayevent",
+      "permanent": false
+    },
+    {
+      "source": "/welcome",
+      "destination": "https://vimeo.com/892498611/b56543e1c9",
+      "permanent": false
+    },
+    {
+      "source": "/welcome/",
+      "destination": "https://vimeo.com/892498611/b56543e1c9",
+      "permanent": false
+    },
+    {
+      "source": "/adrianna",
+      "destination": "https://us02web.zoom.us/j/2687333190",
+      "permanent": false
+    },
+    {
+      "source": "/adrianna/",
+      "destination": "https://us02web.zoom.us/j/2687333190",
+      "permanent": false
+    },
+    {
+      "source": "/1on1-coaching-introductory-call",
+      "destination": "https://app.multiplyos.com/forms/rise-up-kings/1-on-1-coaching-intro-call",
+      "permanent": false
+    },
+    {
+      "source": "/1on1-coaching-introductory-call/",
+      "destination": "https://app.multiplyos.com/forms/rise-up-kings/1-on-1-coaching-intro-call",
+      "permanent": false
+    },
+    {
+      "source": "/coaching",
+      "destination": "https://app.multiplyos.com/forms/rise-up-kings/1-on-1-coaching-intro-call",
+      "permanent": false
+    },
+    {
+      "source": "/coaching/",
+      "destination": "https://app.multiplyos.com/forms/rise-up-kings/1-on-1-coaching-intro-call",
+      "permanent": false
+    },
+    {
+      "source": "/conference",
+      "destination": "https://opt.riseupqueens.com",
+      "permanent": false
+    },
+    {
+      "source": "/conference/",
+      "destination": "https://opt.riseupqueens.com",
+      "permanent": false
+    },
+    {
+      "source": "/podcast",
+      "destination": "https://linktr.ee/talkmarriagetome",
+      "permanent": false
+    },
+    {
+      "source": "/podcast/",
+      "destination": "https://linktr.ee/talkmarriagetome",
+      "permanent": false
+    },
+    {
+      "source": "/home",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/home/",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/home2",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/home2/",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/rsvp",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/rsvp/",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/prayers4jessica",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/prayers4jessica/",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/ruq-2025-event-cal",
+      "destination": "/events.html",
+      "permanent": false
+    },
+    {
+      "source": "/ruq-2025-event-cal/",
+      "destination": "/events.html",
+      "permanent": false
+    }
+  ]
 }

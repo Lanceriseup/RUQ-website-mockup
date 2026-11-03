@@ -297,6 +297,76 @@
     box-shadow: 0 8px 20px -10px rgba(0,0,0,.35);
   }
   .bio-modal-close:hover { background: #fdeaf3; }
+  .bio-modal-text { position: relative; min-width: 0; min-height: 0; display: flex; flex-direction: column; }
+  .bio-modal-body { flex: 1 1 auto; min-height: 0; }
+
+  /* Fixed size, with a way through a long bio (data-bio-scroll on the page;
+     bio-modal.js sets data-scroll on the modal). Every panel is the same
+     height whatever the bio's length, and the text column scrolls — or, in
+     `pages`, pages — inside it. */
+  .bio-modal[data-scroll] .bio-modal-panel { height: min(38rem, calc(100vh - 2rem)); max-height: none; overflow: hidden; }
+  @media (min-width: 48rem) {
+    .bio-modal[data-scroll] .bio-modal-panel { grid-template-rows: 100%; }
+  }
+  @media (max-width: 47.99rem) {
+    .bio-modal[data-scroll] .bio-modal-panel { display: flex; flex-direction: column; height: min(44rem, calc(100dvh - 2rem)); }
+    .bio-modal[data-scroll] .bio-modal-media img { height: min(30vh, 240px); }
+    .bio-modal[data-scroll] .bio-modal-text { flex: 1 1 auto; }
+  }
+  .bio-modal[data-scroll] .bio-modal-body { overflow-y: auto; overscroll-behavior: contain; outline: 0; }
+  .bio-sx-ctl { position: absolute; inset: auto 0 0 0; z-index: 3; pointer-events: none; }
+  .bio-sx-ctl > * { pointer-events: auto; }
+  .bio-modal:not(.sx-over) .bio-sx-ctl { display: none; }
+
+  /* fade: the last lines fade into the paper under a "Keep reading" pill.
+     The body's extra bottom padding lets the final line scroll clear of it. */
+  .bio-modal[data-scroll="fade"] .bio-modal-body { padding-bottom: 6rem; scrollbar-width: thin; scrollbar-color: rgba(232,32,143,.3) transparent; }
+  .bio-modal[data-scroll="fade"] .bio-sx-ctl { display: flex; justify-content: center; padding: 4.5rem 0 1.25rem;
+    background: linear-gradient(to bottom, rgba(255,253,249,0), #fffdf9 62%); transition: background .3s; }
+  .bio-modal[data-scroll="fade"].sx-end .bio-sx-ctl { background: linear-gradient(to bottom, rgba(255,253,249,0), rgba(255,253,249,0)); padding-top: 0; }
+  .bio-modal[data-scroll="fade"]:not(.sx-over) .bio-sx-ctl { display: none; }
+  .bio-sx-more {
+    display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 18px; border-radius: 9999px;
+    background: #1c1c1c; color: #fff; font: 700 11px/1 Lato, sans-serif; letter-spacing: .18em; text-transform: uppercase;
+    box-shadow: 0 12px 26px -12px rgba(28,28,28,.6); transition: background .2s;
+  }
+  .bio-sx-more:hover { background: #e8208f; }
+  .bio-sx-more svg { transition: transform .3s; }
+  .sx-end .bio-sx-more svg { transform: rotate(180deg); }
+  .bio-sx-more:focus-visible, .bio-sx-arrow:focus-visible, .bio-sx-pg:focus-visible { outline: 2px solid #e8208f; outline-offset: 3px; }
+
+  /* rail: a reading-progress rail down the right edge in the brand gradient,
+     replacing the scrollbar, with a round arrow under it. */
+  .bio-modal[data-scroll="rail"] .bio-modal-body { padding-right: 3.6rem; scrollbar-width: none; }
+  .bio-modal[data-scroll="rail"] .bio-modal-body::-webkit-scrollbar { display: none; }
+  .bio-modal[data-scroll="rail"] .bio-modal-text::after { content: ""; position: absolute; inset: auto 0 0 0; height: 4.5rem; z-index: 2; pointer-events: none;
+    background: linear-gradient(to bottom, rgba(255,253,249,0), #fffdf9); transition: opacity .3s; }
+  .bio-modal[data-scroll="rail"].sx-end .bio-modal-text::after, .bio-modal[data-scroll="rail"]:not(.sx-over) .bio-modal-text::after { opacity: 0; }
+  .bio-modal[data-scroll="rail"] .bio-sx-ctl { inset: 0; }
+  .bio-sx-rail { position: absolute; right: 1.55rem; top: 4.25rem; bottom: 5rem; width: 3px; border-radius: 3px; background: rgba(232,32,143,.13); overflow: hidden; pointer-events: none; }
+  .bio-sx-fill { position: absolute; inset: 0 0 auto 0; height: calc(var(--sx-p, 0) * 100%); min-height: 12%; border-radius: 3px;
+    background: linear-gradient(to bottom, #e8208f, #00b9c6); transition: height .12s linear; }
+  .bio-sx-arrow {
+    position: absolute; right: .9rem; bottom: 1rem; display: grid; place-items: center; width: 2.5rem; height: 2.5rem; border-radius: 9999px;
+    background: #e8208f; color: #fff; box-shadow: 0 12px 24px -10px rgba(232,32,143,.8); transition: background .2s, transform .3s;
+  }
+  .bio-sx-arrow:hover { background: #c8187a; }
+  .sx-end .bio-sx-arrow { transform: rotate(180deg); background: #1c1c1c; box-shadow: 0 12px 24px -10px rgba(28,28,28,.6); }
+
+  /* pages: the bio is set in columns exactly one text-column wide, and the
+     pager steps across them. The prose is the only part that moves; the role
+     and name stay put. */
+  .bio-modal[data-scroll="pages"] .bio-modal-body { overflow: hidden; display: flex; flex-direction: column; padding-bottom: 5rem; }
+  .bio-modal[data-scroll="pages"] .bio-modal-role { align-self: flex-start; }   /* a pill, not a full-width bar */
+  .bio-modal[data-scroll="pages"] .bio-modal-prose { flex: 1 1 auto; min-height: 0; overflow: hidden; column-fill: auto; }
+  .bio-modal[data-scroll="pages"] .bio-sx-ctl { padding: 0 2.6rem 1.4rem; }
+  @media (max-width: 47.99rem) { .bio-modal[data-scroll="pages"] .bio-sx-ctl { padding: 0 1.5rem 1rem; } }
+  .bio-sx-pager { display: flex; align-items: center; justify-content: flex-end; gap: 14px; padding-top: 14px; border-top: 1px solid rgba(28,28,28,.08); }
+  .bio-sx-count { font: 700 12px/1 Lato, sans-serif; letter-spacing: .2em; color: #6b6b6b; font-variant-numeric: tabular-nums; min-width: 3.4em; text-align: center; }
+  .bio-sx-pg { display: grid; place-items: center; width: 2.5rem; height: 2.5rem; border-radius: 9999px; color: #fff; background: #e8208f;
+    box-shadow: 0 10px 22px -10px rgba(232,32,143,.8); transition: background .2s, opacity .2s; }
+  .bio-sx-pg:hover { background: #c8187a; }
+  .bio-sx-pg:disabled { background: #f3dbe6; color: #c79bb0; box-shadow: none; cursor: default; }
 
   /* The flying card. Fixed, above the backdrop, below the panel. */
   .bio-modal-ghost { position: fixed; z-index: 131; display: none; overflow: hidden; border-radius: .25rem; background: #fff; padding: .4rem; box-shadow: 0 24px 50px -24px rgba(28,28,28,.45); }
@@ -673,7 +743,12 @@
   /* pt clears the clear-mode header: 73px on phones, 161px from sm */
   .tl-intro { position: relative; z-index: 1; max-width: 46rem; margin: 0 auto; padding: 112px 20px 8px; text-align: center; }
   @media (min-width: 640px) { .tl-intro { padding-top: 208px; } }
-  .tl-intro-script { font: 400 clamp(40px, 4.6vw, 64px)/1 'Julietta Messie', cursive; color: #e8208f; }
+  /* Julietta Messie leaves ~.4em of empty box under its ink, which opened a
+     37px gap above the heading at 1440 (25px at 390). The negative margin,
+     in the script's own em so it scales with the clamp, takes that to ~12px.
+     Safari sets the face .135em higher in its box, so there it stays ~8px
+     wider (asked for 2026-10-30). */
+  .tl-intro-script { font: 400 clamp(40px, 4.6vw, 64px)/1 'Julietta Messie', cursive; color: #e8208f; margin-bottom: -.38em; }
   .tl-intro-h { margin-top: 10px; font: 800 clamp(34px, 4.4vw, 60px)/1.05 Montserrat, sans-serif; text-transform: uppercase; letter-spacing: -.01em; }
   .tl-intro-lead { max-width: 38rem; margin: 18px auto 0; font: 400 clamp(16px, 1.35vw, 18.5px)/1.7 Lato, sans-serif; color: #3a3a3a; }
 
@@ -745,15 +820,10 @@
   .wh.is-in .wh-st-b { animation: wh-sweep 1.8s cubic-bezier(.45,0,.25,1) .4s both; }
   @keyframes wh-sweep { from { background-position: 100% 0, 0 0; } to { background-position: 0% 0, 0 0; } }
 
-  /* The fanned prints reach ~10% above the video, so the gap under the
-     headline is measured from them, not from the video. */
-  .wh-prints { position: relative; max-width: 56rem; margin: clamp(88px, 10vw, 136px) auto 0; aspect-ratio: 16 / 9; }
-  .wh-pr { position: absolute; width: 62%; aspect-ratio: 4 / 3; object-fit: cover; border: 8px solid #fff; border-radius: 6px;
-    box-shadow: 0 26px 50px -24px rgba(28,28,28,.5); transition: transform .9s cubic-bezier(.22,1,.36,1), opacity .6s; }
-  .wh-p1 { left: -4%; top: -10%; transform: rotate(-8deg); }
-  .wh-p2 { right: -4%; top: -6%; transform: rotate(7deg); }
-  .wh.is-watching .wh-p1 { transform: translate(12%, 12%) rotate(-2deg); opacity: 0; }
-  .wh.is-watching .wh-p2 { transform: translate(-12%, 12%) rotate(2deg); opacity: 0; }
+  /* The video and its note. The gap under the headline was clamp(88px, 10vw,
+     136px) while two photographs fanned out ~10% above the video; with them
+     gone (2026-10-30) it is measured from the video itself. */
+  .wh-prints { position: relative; max-width: 56rem; margin: clamp(48px, 5.5vw, 80px) auto 0; aspect-ratio: 16 / 9; }
 
   .wh-video { position: absolute; inset: 0; overflow: hidden; cursor: pointer; background: #1c1c1c; border: 8px solid #fff; border-radius: 8px; box-shadow: 0 40px 80px -36px rgba(28,28,28,.6); }
   .wh-video video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
@@ -782,7 +852,6 @@
 
   @media (max-width: 699px) {
     .wh-prints { aspect-ratio: auto; }
-    .wh-pr { display: none; }
     .wh-video { position: relative; aspect-ratio: 16 / 9; }
     .wh-note { position: relative; right: auto; bottom: auto; width: auto; margin: -18px 16px 0; transform: rotate(1.5deg); }
     .wh-prints { margin-top: 40px; }
@@ -791,7 +860,6 @@
   }
   @media (prefers-reduced-motion: reduce) {
     .wh-st-b { animation: none !important; }
-    .wh-pr { transition: none; }
     .wh.is-watching .wh-note { animation: none; opacity: 0; }
     .wh.is-back .wh-note { animation: none; }
   }
@@ -904,9 +972,15 @@
   .nl.is-in .m-ring { filter: drop-shadow(0 0 12px rgba(183,135,62,.55)); transition-delay: .5s; }
   /* The script's swashes overhang its box — the F's lead-in sits left of
      x=0 — so the reveal clip reaches past the box on every side, or the
-     first letter is trimmed even once fully written in. */
-  .nl .nl-script { clip-path: inset(-30% 100% -30% -12%); transition: clip-path 1.4s cubic-bezier(.45,0,.2,1) .8s; }
-  .nl.is-in .nl-script { clip-path: inset(-30% -8% -30% -12%); }
+     first letter is trimmed even once fully written in.
+     Vertically it reaches -80%, not the -30% it had: Julietta Messie flags
+     its typo metrics (ascent .6em) for use, and Windows browsers honour that,
+     but Safari places it by its hhea metrics (ascent .885em, descent .955em),
+     which sits the word about .135em higher in its line box. At -30% the
+     tops of the F and d were sliced off on iPhones and Macs only (reported
+     2026-10-30). */
+  .nl .nl-script { clip-path: inset(-80% 100% -80% -12%); transition: clip-path 1.4s cubic-bezier(.45,0,.2,1) .8s; }
+  .nl.is-in .nl-script { clip-path: inset(-80% -15% -80% -12%); }
 
   @media (max-width: 820px) {
     .nl-card { padding: 22px 20px 24px; }

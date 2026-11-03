@@ -200,7 +200,7 @@ for (const [k, o] of Object.entries(OPTIONS)) {
   const mainHtml = `<div class="t2 t2v-${k} ${effectClass('lift')}">${o.body()}</div>`;
   const html = page0.slice(0, hA) + lightHeader + page0.slice(hB, mA) + mainHtml + page0.slice(mB);
   fs.writeFileSync(path.join(dist, `t2-${k}.html`), html
-    .replace('</head>', `<meta name="robots" content="noindex,nofollow"><style>${CSS}</style></head>`));
+    .replace('</head>', `<style>${CSS}</style></head>`));
 }
 
 const card = (k, o) => `
@@ -219,7 +219,6 @@ const gallery = `<!doctype html>
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Meet the Team — light, round two — ${esc(site.brand.name)}</title>
-<meta name="robots" content="noindex,nofollow">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Lato:wght@400;700&display=swap">
 <style>
 :root { --ink:#1c1c1c; --soft:#5b5b5b; --magenta:#e8208f; --cyan:#00b9c6; }

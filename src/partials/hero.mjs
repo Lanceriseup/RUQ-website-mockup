@@ -157,11 +157,10 @@ export const hero = (site, c) => {
 
     ${vslPlayer(c.home.vsl.wistiaId)}
 
-    <!-- Divided: action first, then the two dates either side of a hairline.
-         The rule does the organising instead of boxes, which is what keeps
-         this to roughly 112px against the marquee's ~180px.
-         Note: this treatment has no room for the LIMITED SPOTS badge or the
-         eyebrow — both are still in site.json and one line away if wanted. -->
+    <!-- The Register button alone. The two dates that sat under it moved to
+         the Freedom note below (2026-10-30, option A of
+         /freedom-dates-options.html); eventDates still serves the about hero
+         and the breakthrough CTA. -->
     <div class="mt-8 sm:mt-12 flex flex-col items-center gap-5">
       <a href="${esc(site.nextEvent.ctaUrl)}"
          class="group inline-flex min-h-11 items-center gap-3 rounded-full bg-magenta px-9 py-4 font-body text-sm font-bold uppercase tracking-[0.2em] text-white shadow-[0_16px_36px_-16px_rgba(232,32,143,.9)] transition hover:bg-magenta-deep focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-magenta">
@@ -169,8 +168,6 @@ export const hero = (site, c) => {
          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"
               class="transition-transform group-hover:translate-x-1"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </a>
-
-      ${eventDates(site)}
     </div>
   </div>
 </section>`;

@@ -49,7 +49,7 @@ const page = (cls, body) => `
 </div>`;
 
 // The page name in the brush script with the hand-drawn swash, as on Contact.
-// `sub` joins the h1 as a sans line (Courses: "Continue your journey.").
+// `sub` joins the h1 as a sans line (Courses: "Your transformation starts here.").
 const hero = ({ title, sub = '', lead = '', id = '' }) => `
 <div class="xl-hero${sub ? "" : " xl-hero-solo"}" style="--n:${String(title).length}">
   <h1 class="xl-h1"${id ? ` id="${id}"` : ""}>
@@ -199,7 +199,11 @@ export const coursesWith = (site, c, layout = COURSE_NLB, grow = panelsGrow) => 
 ${grow(g)}`);
 };
 
-export const courses = (site, c) => coursesWith(site, c);
+// The live page has no "More ways to grow": removed on request 2026-10-30.
+// It linked on to Masterclasses, Events, Coaching and Free resource, which
+// the footer had dropped the same day. The options pages still pass their
+// own grow renderer, and the copy stays in content.json as explore.courses.grow.
+export const courses = (site, c) => coursesWith(site, c, undefined, () => '');
 
 // ------------------------------------------------------------------ masterclasses
 
