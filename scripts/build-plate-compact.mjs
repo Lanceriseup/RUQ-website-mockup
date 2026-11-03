@@ -28,7 +28,6 @@ const listTail = content.home.painPoints.items.slice(4).map((t, i) => `
 const frame = (key) => `<!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${esc(PLATE_MODES[key].label)}</title>
-<meta name="robots" content="noindex,nofollow">
 <link rel="stylesheet" href="${FONTS}">
 <link rel="stylesheet" href="/styles.css">
 <style>body{margin:0}</style></head>
@@ -81,7 +80,6 @@ const page = `<!doctype html>
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Renewal plate — ${esc(site.brand.name)}</title>
-<meta name="robots" content="noindex,nofollow">
 <link rel="stylesheet" href="${FONTS}">
 <link rel="stylesheet" href="/styles.css">
 </head>

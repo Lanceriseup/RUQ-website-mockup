@@ -110,7 +110,7 @@ var r=s.getBoundingClientRect();scrollTo(0,scrollY+r.bottom-innerHeight*.6);});
 for (const [k, w] of Object.entries(WAVES)) {
   fs.writeFileSync(path.join(dist, `wv-${k}.html`), home
     .replace(WAVE, w.html)
-    .replace('</head>', `<meta name="robots" content="noindex,nofollow"><style>${CSS}</style></head>`)
+    .replace('</head>', `<style>${CSS}</style></head>`)
     .replace('</body>', `${TO_WAVE}</body>`));
 }
 
@@ -130,7 +130,6 @@ const page = `<!doctype html>
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Wave options — ${esc(site.brand.name)}</title>
-<meta name="robots" content="noindex,nofollow">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Lato:wght@400;700&display=swap">
 <style>
 :root { --ink:#1c1c1c; --soft:#5b5b5b; --magenta:#e8208f; --cyan:#00b9c6; }

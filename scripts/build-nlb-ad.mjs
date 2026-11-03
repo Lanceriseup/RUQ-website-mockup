@@ -150,7 +150,7 @@ addEventListener('load',function(){if(location.hash==='#nlb')scrollTo(0,s.getBou
 for (const [k, o] of Object.entries(OPTIONS)) {
   fs.writeFileSync(path.join(dist, `na-${k}.html`),
     (home.slice(0, after) + o.html.replace('data-na>', 'data-na id="nlb">') + home.slice(after))
-      .replace('</head>', `<meta name="robots" content="noindex,nofollow"><style>${CSS}</style></head>`)
+      .replace('</head>', `<style>${CSS}</style></head>`)
       .replace('</body>', `${JS}</body>`));
 }
 
@@ -170,7 +170,6 @@ const page = `<!doctype html>
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>No Longer Bound ad — ${esc(site.brand.name)}</title>
-<meta name="robots" content="noindex,nofollow">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Lato:wght@400;700&display=swap">
 <style>
 :root { --ink:#1c1c1c; --soft:#5b5b5b; --gold:#8F6A2E; }

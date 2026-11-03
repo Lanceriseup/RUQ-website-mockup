@@ -156,7 +156,9 @@ const photo = (src, cls = '') => `<img class="cx-photo ${cls}" src="${esc(src)}"
 // lifts over the photo — the same overlapping panel as the homepage and the
 // about page.
 // `reachStyle` swaps the email card and socials for one of the reach() styles.
-const glassLayout = (site, c, vids, P, mod, { dark = true, layers = '', below = 'white', card = '', arc = false, reachStyle = '' } = {}) => {
+// `formHtml` replaces the card and its built-in form outright (the
+// MultiplyOS Contact Us options, contact-mos-options.mjs).
+const glassLayout = (site, c, vids, P, mod, { dark = true, layers = '', below = 'white', card = '', arc = false, reachStyle = '', formHtml = '' } = {}) => {
   const solid = card === 'solid' || !dark;
   const intro = `
       <div class="cx-intro">
@@ -164,7 +166,7 @@ const glassLayout = (site, c, vids, P, mod, { dark = true, layers = '', below = 
         ${reachStyle ? reach(site, c, reachStyle) : `${email(c)}
         <div class="cx-soc">${socials(site, { tone: dark ? 'dark' : 'light', style: 'tile' })}</div>`}
       </div>
-      <div class="cx-card ${solid ? 'cx-card-solid' : 'cx-card-glass'}">${theForm(c, !solid)}</div>`;
+      ${formHtml || `<div class="cx-card ${solid ? 'cx-card-solid' : 'cx-card-glass'}">${theForm(c, !solid)}</div>`}`;
   const inner = `<div class="cx-wrap cx-after">${ruk(site, c)}${videos(c, vids)}</div>`;
   const after = arc ? `<div class="cx-arc">${inner}</div>` : inner;
   return `
@@ -286,3 +288,8 @@ export const contactPhoto = (site, c, vids, key = 'glass') => {
 // The live layout (G1 with the arc) with a given email-and-socials style.
 export const contactReach = (site, c, vids, style) =>
   glassLayout(site, c, vids, CONTACT_PHOTO.gday, 'cx-gday', { dark: false, arc: true, reachStyle: style });
+
+// The live layout (G1 daylight, arc, B pills) with `formHtml` in place of the
+// card, and `mod` added to its classes.
+export const contactWithForm = (site, c, vids, formHtml, mod = '') =>
+  glassLayout(site, c, vids, CONTACT_PHOTO.gday, `cx-gday ${mod}`.trim(), { dark: false, arc: true, reachStyle: 'pills', formHtml });

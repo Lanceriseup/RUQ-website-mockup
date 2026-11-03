@@ -30,7 +30,6 @@ const FONTS = 'https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;
 const fullPage = (social) => `<!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${esc(SOCIAL_STYLES[social].label)}</title>
-<meta name="robots" content="noindex,nofollow">
 <link rel="stylesheet" href="${FONTS}">
 <link rel="stylesheet" href="/styles.css"><style>body{margin:0}</style></head>
 <body class="bg-[#0b0b0b]">
@@ -54,7 +53,6 @@ const page = `<!doctype html>
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Contact — social row — ${esc(site.brand.name)}</title>
-<meta name="robots" content="noindex,nofollow">
 <link rel="stylesheet" href="${FONTS}">
 <link rel="stylesheet" href="/styles.css">
 </head>

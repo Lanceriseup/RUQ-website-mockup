@@ -34,7 +34,7 @@ const fromQuery = `<script>
 
 const frame = home.slice(0, open) + renderFreedomTune(content) + home.slice(open);
 fs.writeFileSync(path.join(dist, 'ft.html'), frame
-  .replace('</head>', `<meta name="robots" content="noindex,nofollow"><style>${FREEDOM_TUNE_CSS}</style></head>`)
+  .replace('</head>', `<style>${FREEDOM_TUNE_CSS}</style></head>`)
   .replace('</body>', `${fromQuery}${FREEDOM_TUNE_JS}</body>`));
 
 const group = (axis, g) => `
@@ -54,7 +54,6 @@ const page = `<!doctype html>
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Freedom section — tuning — ${esc(site.brand.name)}</title>
-<meta name="robots" content="noindex,nofollow">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Lato:wght@400;700&display=swap">
 <style>
 :root { --ink:#1c1c1c; --soft:#5b5b5b; --magenta:#e8208f; --cyan:#00b9c6; }

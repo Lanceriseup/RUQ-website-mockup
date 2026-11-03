@@ -57,14 +57,21 @@ const STROKES = `
 // Crown: five points with a gem on the three tall ones; the band is a rect.
 const CROWN = 'M52 430 L64 150 L182 300 L300 66 L418 300 L536 150 L548 430 Z';
 
-// Memory wall: real event photos, each with a one-word caption in script.
+// Memory wall: real event photos as polaroids. Their one-word script captions
+// (Sisterhood, Held, Crowned, Breakthrough, Joy, Freedom, in this order) were
+// removed on request 2026-10-30; the polaroids keep their deep
+// bottom margin, which is what makes them read as polaroids.
+// deeper-embrace and queens-waving-booth were swapped out 2026-10-30: the
+// struggles and renewal plates just below already show them. The blurry
+// presenter (gallery-2-1) became the in-focus NLB speaker the same day.
+// Paths are relative to /assets/.
 const WALL = [
-  { src: 'gallery-1-2.jpg', cap: 'Sisterhood', r: -6 },
-  { src: 'deeper-embrace.jpg', cap: 'Held', r: 4 },
-  { src: 'queens-waving-booth.jpg', cap: 'Crowned', r: -3 },
-  { src: 'journey-embrace.jpg', cap: 'Breakthrough', r: 5 },
-  { src: 'gallery-3-2.jpg', cap: 'Joy', r: -4 },
-  { src: 'gallery-2-1.jpg', cap: 'Freedom', r: 3 },
+  { src: 'photos/gallery-1-2.jpg', r: -6 },
+  { src: 'photos/journey-cheer.jpg', r: 4 },
+  { src: 'photos/gallery-1-1.jpg', r: -3 },
+  { src: 'photos/journey-embrace.jpg', r: 5 },
+  { src: 'photos/gallery-3-2.jpg', r: -4 },
+  { src: 'nlb/nlb-photo-speaker.jpg', r: 3 },
 ];
 
 // Manifesto: every word its own span so it can light up in turn; words in
@@ -146,9 +153,26 @@ const FOLLOW = `<script>(function (s) {
     r.addEventListener('pointerleave', function () { r.classList.remove('is-follow'); });
   })(document.currentScript);</script>`;
 
-export const freedomPhoto = (site, c, style) => {
+// Both event dates, moved here from under the homepage hero's Register button
+// (asked for 2026-10-30; options at /freedom-dates-options.html). `dates`
+// picks how the memory wall shows them; left out, the note keeps its single
+// "3-day intensive · <date>" line.
+//
+//   note     the hero's two labelled columns, inside the note, in ink
+//   tickets  two admission tickets taped to the wall under the note
+//   script   "Save the dates" in script, the next date circled by hand
+//   band     a wide "Save the dates" band on the wall below the note
+const PIN = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M12 21s-7-6.1-7-11.5a7 7 0 0 1 14 0C19 14.9 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>';
+const DATE_LABELS = [['Next event', 'm'], ['Also coming', 't']];
+
+// `after` is markup set on the wall below the board and above the section's
+// divider: the homepage pins the Stay Connected form there (option J of
+// /stay-options-2.html).
+export const freedomPhoto = (site, c, style, { dates, after = '' } = {}) => {
   const f = c.home.freedom;
   const ev = site.nextEvent.upcoming[0];
+  const events = site.nextEvent.upcoming.slice(0, 2);
+  const oneCity = events.every(e => e.location === ev.location);
   const at = f.eyebrow.lastIndexOf(' ');
   const presenter = at > 0 ? f.eyebrow.slice(0, at) : f.eyebrow;
   const verb = at > 0 ? f.eyebrow.slice(at + 1) : '';
@@ -166,11 +190,75 @@ export const freedomPhoto = (site, c, style) => {
       <p class="fx-tag fx-r" style="--d:${d}">${f.tagline.map(w => `<span>${esc(w.replace(/\.$/, ''))}<b>.</b></span>`).join(' ')}</p>`;
   const para = (d = 3) => `
       <p class="fx-body fx-r" style="--d:${d}">${body(f.body)}</p>`;
-  const meta = (d = 4) => `
+  const button = `<a class="fx-cta" href="${esc(site.nextEvent.ctaUrl)}">Reserve your seat ${ARROW}</a>`;
+  const plain = (d) => `
+      <p class="fx-meta fx-r" style="--d:${d}">
+        <span class="fx-when">3-day intensive</span>
+        ${button}
+      </p>`;
+
+  // One labelled date: "Next event" / "May 5–7, 2027" / pin "Dallas, TX".
+  const dateCol = (e, i, cls) => `
+          <div class="${cls}">
+            <p class="${cls}-l fx-tone-${DATE_LABELS[i][1]}">${DATE_LABELS[i][0]}</p>
+            <p class="${cls}-d">${esc(e.dates)}</p>
+            <p class="${cls}-p">${PIN}${esc(e.location)}</p>
+          </div>`;
+  const dateRow = (cls) => events.map((e, i) => dateCol(e, i, cls))
+    .join(`\n          <span class="${cls}-sep" aria-hidden="true"></span>`);
+
+  // A loose hand-drawn ring and a wavy underline, stretched to the date.
+  const RING = '<svg class="fx-std-ring" viewBox="0 0 200 60" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M112 6 C 60 2, 10 12, 8 31 C 6 52, 70 58, 120 55 C 170 52, 196 42, 193 26 C 190 10, 140 3, 96 7"/></svg>';
+  const WAVY = '<svg class="fx-std-wave" viewBox="0 0 200 12" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M2 7 C 20 2, 34 11, 52 6 S 86 2, 104 7 S 138 11, 156 6 S 186 3, 198 6"/></svg>';
+
+  const metas = {
+    note: (d) => `
+      <div class="fx-dts fx-r" style="--d:${d}">
+        <p class="fx-dts-k">3-day intensive</p>
+        <div class="fx-dts-row">${dateRow('fx-dts-c')}
+        </div>
+      </div>
+      <p class="fx-meta fx-r" style="--d:${d + 1}">${button}</p>`,
+    tickets: plain,
+    band: plain,
+    script: (d) => `
+      <div class="fx-std fx-r" style="--d:${d}">
+        <p class="fx-std-h">Save the dates</p>
+        <ul class="fx-std-list">${events.map((e, i) => `
+          <li><span class="fx-std-l fx-tone-${DATE_LABELS[i][1]}">${DATE_LABELS[i][0]}</span><b>${esc(e.dates)}${i === 0 ? RING : WAVY}</b>${oneCity ? '' : `<span class="fx-std-p">${PIN}${esc(e.location)}</span>`}</li>`).join('')}
+        </ul>
+        ${oneCity ? `<p class="fx-std-p">${PIN}${events.length > 1 ? 'Both in ' : ''}${esc(ev.location)} <i aria-hidden="true">·</i> 3-day intensive</p>` : ''}
+      </div>
+      <p class="fx-meta fx-r" style="--d:${d + 1}">${button}</p>`,
+  };
+  const meta = (d = 4) => metas[dates] ? metas[dates](d) : `
       <p class="fx-meta fx-r" style="--d:${d}">
         <span class="fx-when">3-day intensive <i aria-hidden="true">·</i> ${esc(ev.dates)}</span>
-        <a class="fx-cta" href="${esc(site.nextEvent.ctaUrl)}">Reserve your seat ${ARROW}</a>
+        ${button}
       </p>`;
+
+  // Wall pieces for the dates, outside the note. A ticket's notches are cut
+  // with a mask, which would clip its shadow too, so the outer element
+  // carries the shadow, tilt and tape and the inner one is masked.
+  const tickets = `
+      <div class="fx-tix">${events.map((e, i) => `
+        <div class="fx-tk fx-tk-${DATE_LABELS[i][1]} fx-r" style="--d:${5 + i}">
+          <div class="fx-tk-in">
+            <span class="fx-tk-stub" aria-hidden="true">Admit one</span>
+            <span class="fx-tk-body">
+              <span class="fx-tk-l fx-tone-${DATE_LABELS[i][1]}">${DATE_LABELS[i][0]}</span>
+              <b>${esc(e.dates)}</b>
+              <span class="fx-tk-p">${PIN}${esc(e.location)}</span>
+            </span>
+          </div>
+        </div>`).join('')}
+      </div>`;
+  const band = `
+  <div class="fx-inner fx-bd fx-r" style="--d:6">
+    <p class="fx-bd-k"><span>Save the dates</span></p>
+    <div class="fx-bd-row">${dateRow('fx-bd-c')}
+    </div>
+  </div>`;
 
   // The shared copy block. `light` is white type for a dark ground.
   const copy = (light, align = 'center') => `
@@ -195,9 +283,11 @@ export const freedomPhoto = (site, c, style) => {
   <div class="fx-wl-board fx-inner">
     ${WALL.map((p, i) => `
     <figure class="fx-pol fx-pol-${i + 1}" style="--r:${p.r}deg;--f:${(i * 1.3).toFixed(1)}s" aria-hidden="true">
-      <span class="fx-tape"></span><img src="/assets/photos/${p.src}" alt="" loading="lazy" decoding="async"><figcaption>${esc(p.cap)}</figcaption>
+      <span class="fx-tape"></span><img src="/assets/${p.src}" alt="" loading="lazy" decoding="async">
     </figure>`).join('')}
-    <div class="fx-note">${copy(false)}</div>
+    ${dates === 'tickets'
+      ? `<div class="fx-note-col"><div class="fx-note">${copy(false)}</div>${tickets}</div>`
+      : `<div class="fx-note">${copy(false)}</div>`}
   </div>`;
 
   const photo = (cls) => `<img class="fx-photo ${cls}" src="${esc(site.assets.heroPoster)}" alt="" aria-hidden="true" loading="lazy" decoding="async">`;
@@ -343,7 +433,7 @@ export const freedomPhoto = (site, c, style) => {
     // and bokeh, ending in W1's torn paper edge.
     memory: `
   <div class="fx-bokeh" aria-hidden="true"></div>
-  ${board}`,
+  ${board}${dates === 'band' ? band : ''}`,
 
     // Paper with fibres, and the next section torn from the same sheet.
     wtorn: `
@@ -444,7 +534,7 @@ export const freedomPhoto = (site, c, style) => {
 
   return `
 <section id="freedom" class="fx fx-${style}${dark ? ' fx-dark' : ''}${(/^w[a-z]/.test(style) && style !== 'wall') || style === 'memory' ? ' fx-wall fx-wv' : ''}" data-fr>
-  ${bodies[style]}
+  ${bodies[style]}${after}
   ${DIVIDERS[style] || WAVE}
 </section>`;
 };

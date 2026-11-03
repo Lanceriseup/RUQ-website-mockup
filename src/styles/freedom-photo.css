@@ -663,3 +663,112 @@ div:has(> .fx-dark)::before { background: rgba(255,255,255,.4); }
 /* ── LIVE · Memory wall (chosen 2026-10-10) ───────────────────────────────
    W2's pink-to-lilac sky and bokeh, W1's torn paper hand-over. */
 .fx-memory { background: linear-gradient(180deg, #fbe7f0 0%, #f2e8f8 52%, #fbf4f1 100%); }
+
+/* ════════════════════════════════════════════════════════════════════════
+   Event dates on the memory wall (/freedom-dates-options.html). Both dates
+   moved here from under the homepage hero's Register button. Labels use a
+   step deeper than the brand hues: magenta and cyan themselves are too
+   light for 10px type on white.
+   ════════════════════════════════════════════════════════════════════════ */
+.fx-tone-m { color: #c8187a; }
+.fx-tone-t { color: #078591; }
+
+/* ── A · In the note: the hero's two columns, in ink ──────────────────── */
+.fx-dts { margin: 28px 0 0; width: 100%; }
+.fx-dts-k { margin: 0; display: flex; align-items: center; gap: 14px;
+  font-weight: 700; font-size: 11px; letter-spacing: .3em; text-transform: uppercase; color: #8a7f7a; }
+.fx-dts-k::before, .fx-dts-k::after { content: ""; flex: 1; height: 1px; background: #ecdcd3; }
+.fx-dts-row { margin-top: 18px; display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 0 26px; }
+.fx-dts-c-l { margin: 0; font-weight: 900; font-size: 10px; letter-spacing: .24em; text-transform: uppercase; }
+.fx-dts-c-d { margin: 6px 0 0; font-weight: 900; font-size: 19px; line-height: 1.25; color: var(--ink); text-wrap: balance; }
+.fx-dts-c-p, .fx-tk-p, .fx-bd-c-p { margin: 5px 0 0; display: flex; align-items: center; justify-content: center; gap: 5px;
+  font-weight: 700; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: #7a706b; }
+.fx-dts-c-sep, .fx-bd-c-sep { width: 1px; background: #ecdcd3; }
+.fx-dts + .fx-meta { margin-top: 26px; }
+
+/* ── B · Tickets: two admission tickets taped under the note ─────────── */
+.fx-note-col { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; }
+.fx-tix { position: relative; z-index: 3; display: flex; gap: 26px; margin-top: -24px; }
+.fx-tk { position: relative; filter: drop-shadow(0 14px 16px rgba(60,20,30,.28)); }
+.fx-tk.fx-r { transform: translateY(18px) rotate(var(--tr)); }
+.fx.is-in .fx-tk.fx-r { transform: rotate(var(--tr)); }
+.fx-tk-m { --tr: -4deg; }
+.fx-tk-t { --tr: 3deg; margin-top: 14px; }
+.fx-tk::before { content: ""; position: absolute; z-index: 2; top: -10px; left: 50%; width: 64px; height: 20px;
+  transform: translateX(-50%) rotate(-3deg); background: rgba(240,86,159,.32); }
+.fx-tk-t::before { background: rgba(0,185,198,.28); transform: translateX(-50%) rotate(4deg); }
+.fx-tk-in { display: flex; align-items: stretch; background: #fff; border-radius: 6px;
+  -webkit-mask: radial-gradient(circle 8px at 0 50%, transparent 97%, #000) left / 51% 100% no-repeat,
+                radial-gradient(circle 8px at 100% 50%, transparent 97%, #000) right / 51% 100% no-repeat;
+          mask: radial-gradient(circle 8px at 0 50%, transparent 97%, #000) left / 51% 100% no-repeat,
+                radial-gradient(circle 8px at 100% 50%, transparent 97%, #000) right / 51% 100% no-repeat; }
+.fx-tk-stub { writing-mode: vertical-rl; transform: rotate(180deg); padding: 12px 9px 12px 7px; text-align: center;
+  font-weight: 900; font-size: 9px; letter-spacing: .3em; text-transform: uppercase; color: #fff; background: var(--m); }
+.fx-tk-t .fx-tk-stub { background: #0a98a4; }
+.fx-tk-body { flex: 1; display: flex; flex-direction: column; gap: 3px; padding: 16px 26px 15px 18px; text-align: left; }
+.fx-tk-l { font-weight: 900; font-size: 10px; letter-spacing: .24em; text-transform: uppercase; }
+.fx-tk-body b { font-weight: 900; font-size: 18px; color: var(--ink); white-space: nowrap; }
+.fx-tk-p { justify-content: flex-start; margin: 2px 0 0; font-size: 10px; }
+
+/* ── C · Save the dates: script heading, the next date ringed by hand ── */
+.fx-std { margin: 28px 0 0; }
+.fx-std-h { margin: 0; font: 400 46px/1 'Julietta Messie', cursive; color: var(--m); }
+.fx-std-list { list-style: none; margin: 16px 0 0; padding: 0; display: flex; flex-direction: column; align-items: center; gap: 16px; }
+.fx-std-list li { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.fx-std-l { font-weight: 900; font-size: 10px; letter-spacing: .24em; text-transform: uppercase; }
+.fx-std-list b { position: relative; padding: 4px 16px; font-weight: 900; font-size: 22px; color: var(--ink); }
+.fx-std-ring, .fx-std-wave { position: absolute; fill: none; stroke-linecap: round; overflow: visible; pointer-events: none; }
+.fx-std-ring { left: -6px; top: -6px; width: calc(100% + 12px); height: calc(100% + 12px); stroke: var(--m); stroke-width: 2.4; }
+.fx-std-wave { left: 12px; bottom: -5px; width: calc(100% - 24px); height: 10px; stroke: var(--c); stroke-width: 2.6; }
+.fx-std-ring path, .fx-std-wave path { vector-effect: non-scaling-stroke; stroke-dasharray: 1; stroke-dashoffset: 1;
+  transition: stroke-dashoffset 1.1s cubic-bezier(.6,0,.3,1) 1.1s; }
+.fx-std-wave path { transition-delay: 1.7s; }
+.fx.is-in .fx-std-ring path, .fx.is-in .fx-std-wave path { stroke-dashoffset: 0; }
+.fx-std-p { margin: 18px 0 0; display: flex; align-items: center; justify-content: center; gap: 6px;
+  font-weight: 700; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: #7a706b; }
+.fx-std-p i { font-style: normal; color: var(--m); }
+.fx-std + .fx-meta { margin-top: 26px; }
+
+/* ── D · Band: "Save the dates" across the wall below the note ───────── */
+.fx-bd { margin-top: 70px; text-align: center; }
+.fx-bd-k { margin: 0; display: flex; align-items: center; justify-content: center; gap: 22px; }
+.fx-bd-k::before, .fx-bd-k::after { content: ""; flex: 1; max-width: 240px; height: 1px; }
+.fx-bd-k::before { background: linear-gradient(90deg, transparent, rgba(232,32,143,.55)); }
+.fx-bd-k::after { background: linear-gradient(90deg, rgba(0,185,198,.6), transparent); }
+.fx-bd-k span { font: 400 48px/1 'Julietta Messie', cursive; color: var(--m); }
+.fx-bd-row { margin: 22px auto 0; max-width: 780px; display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 0 48px; }
+.fx-bd-c-sep { background: #dfc9bf; }
+.fx-bd-c-l { margin: 0; font-weight: 900; font-size: 11px; letter-spacing: .26em; text-transform: uppercase; }
+.fx-bd-c-d { margin: 8px 0 0; font-weight: 900; font-size: 34px; line-height: 1.15; letter-spacing: -.01em; color: var(--ink); text-wrap: balance; }
+.fx-bd-c-p { margin-top: 8px; font-size: 12px; }
+
+@media (max-width: 1099px) {
+  .fx-note-col { grid-column: 1 / -1; margin-top: 30px; }
+  .fx-note-col .fx-note { margin-top: 0; }
+}
+@media (max-width: 639px) {
+  .fx-dts-row { gap: 0 14px; }
+  .fx-dts-c-d { font-size: 16px; }
+  .fx-dts-c-p { font-size: 10px; letter-spacing: .14em; }
+  .fx-tix { gap: 10px; margin-top: -18px; width: 100%; justify-content: center; }
+  .fx-tk { min-width: 0; flex: 1 1 0; max-width: 190px; }
+  .fx-tk-m { --tr: -3deg; } .fx-tk-t { --tr: 2deg; margin-top: 10px; }
+  .fx-tk-in { height: 100%; }
+  .fx-tk-stub { padding: 8px 6px 8px 4px; font-size: 7px; letter-spacing: .24em; }
+  .fx-tk-body { padding: 12px 12px 11px 10px; min-width: 0; }
+  .fx-tk-body b { font-size: 14px; white-space: normal; text-wrap: balance; line-height: 1.25; }
+  .fx-tk-l { font-size: 9px; letter-spacing: .18em; }
+  .fx-tk-p { font-size: 9px; letter-spacing: .12em; }
+  .fx-std-h { font-size: 40px; }
+  .fx-std-list b { font-size: 19px; }
+  .fx-bd { margin-top: 44px; }
+  .fx-bd-k span { font-size: 38px; }
+  .fx-bd-row { gap: 0 16px; }
+  .fx-bd-c-d { font-size: 19px; }
+  .fx-bd-c-l { font-size: 10px; letter-spacing: .2em; }
+  .fx-bd-c-p { font-size: 10px; letter-spacing: .14em; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fx-std-ring path, .fx-std-wave path { stroke-dashoffset: 0; transition: none; }
+  .fx-tk.fx-r { transform: rotate(var(--tr)); }
+}

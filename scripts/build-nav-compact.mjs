@@ -24,7 +24,6 @@ const FONTS = 'https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;
 const frame = (key) => `<!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${esc(COMPACT_MODES[key].label)}</title>
-<meta name="robots" content="noindex,nofollow">
 <link rel="stylesheet" href="${FONTS}">
 <link rel="stylesheet" href="/styles.css">
 <style>body{margin:0}</style></head>
@@ -96,7 +95,6 @@ const page = `<!doctype html>
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Compact mobile header — ${esc(site.brand.name)}</title>
-<meta name="robots" content="noindex,nofollow">
 <link rel="stylesheet" href="${FONTS}">
 <link rel="stylesheet" href="/styles.css">
 </head>

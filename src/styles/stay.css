@@ -1,0 +1,321 @@
+/* "Stay connected" options for the homepage (/stay-options.html).
+   Markup src/partials/stay-options.mjs; behaviour stay.js. Plain CSS, .sc-*,
+   so the options need no Tailwind rebuild. The form itself is the MultiplyOS
+   embed: it draws its own card, so these rules only frame it. */
+
+/* ---- shared */
+/* text-transform and letter-spacing are reset because the hero's column
+   sets both, and G and H sit inside the hero */
+.sc{position:relative;scroll-margin-top:96px;font-family:Lato,system-ui,sans-serif;text-transform:none;letter-spacing:normal}
+.sc *,.sc *::before,.sc *::after{box-sizing:border-box}
+/* The form draws its card 8px inside its frame (24px corners) with its own
+   shadow, which the frame's edges cut off square. So the frame is pulled out
+   8px on every side and clipped to the card's own rounded edge, and the
+   shadow is drawn here, outside the frame, where nothing cuts it. (8px is the
+   form's padding below 640px wide; every frame here is narrower.) */
+.sc-form{width:100%;max-width:480px;margin-inline:auto;overflow:hidden;border-radius:24px;isolation:isolate;
+  box-shadow:0 1px 2px rgba(0,0,0,.05),0 26px 56px -22px rgba(80,20,50,.34),0 10px 24px -14px rgba(80,20,50,.18)}
+.sc-frame{display:block;width:calc(100% + 16px);height:400px;margin:-8px;border:0;background:transparent;color-scheme:light}
+
+.sc-copy{position:relative}
+.sc-script{position:relative;z-index:1;margin:0 0 -.3em;font:400 clamp(46px,5vw,66px)/1 'Julietta Messie',cursive;color:#e8208f}
+.sc-h{position:relative;z-index:2;margin:0;font:800 clamp(22px,2.4vw,32px)/1.2 Montserrat,sans-serif;letter-spacing:.07em;text-transform:uppercase;color:#1c1c1c}
+.sc-body{margin:16px 0 0;max-width:31rem;font-size:16px;line-height:1.7;color:#4a4a4a}
+.sc-copy-centre{text-align:center}
+.sc-copy-centre .sc-body{margin-inline:auto}
+.sc-copy-dark .sc-script{color:#f472b6}
+.sc-copy-dark .sc-h{color:#fff}
+.sc-copy-dark .sc-body{color:rgba(255,255,255,.72)}
+
+.sc-btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:48px;padding:14px 32px;border:0;border-radius:999px;cursor:pointer;
+  font:700 13px/1 Lato,sans-serif;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;transition:background .3s,transform .3s}
+.sc-btn svg{transition:transform .3s}
+.sc-btn:hover svg{transform:translateX(4px)}
+.sc-btn-pink{background:#e8208f;color:#fff;box-shadow:0 16px 36px -16px rgba(232,32,143,.9)}
+.sc-btn-pink:hover{background:#c41677}
+.sc-btn:focus-visible{outline:3px solid #00b9c6;outline-offset:4px}
+
+/* the client's crown, filled with the brand gradient */
+.sc-crown{display:block;width:64px;aspect-ratio:400/312;margin:0 auto 16px;
+  background:linear-gradient(120deg,#e8208f 20%,#f06aa8 55%,#00b9c6 100%);
+  -webkit-mask:url(/assets/brand/crown-ruq.png) center/contain no-repeat;mask:url(/assets/brand/crown-ruq.png) center/contain no-repeat}
+.sc-crown-light{background:linear-gradient(120deg,#f472b6 15%,#fff 55%,#5ee6ee 100%)}
+
+/* both dates as one line, on the light grounds */
+.sc-dates{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:10px 20px;margin:32px 0 0;font-size:15px;color:#2a2a2a}
+.sc-dates > span{font-weight:700}
+.sc-dates b{margin-right:6px;font:800 10px Montserrat,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#d0187f}
+.sc-dates > span:last-child b{color:#00838d}
+.sc-dates i{display:inline-flex;align-items:center;gap:4px;margin-left:8px;font-style:normal;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#7a7a7a}
+.sc-dot{width:5px;height:5px;border-radius:50%;background:linear-gradient(120deg,#e8208f,#00b9c6)}
+.sc-dates-left{flex-direction:column;align-items:flex-start;gap:6px}
+.sc-dates-left .sc-dot{display:none}
+
+/* ---- A: the breakthrough panel, with the form */
+.sc-a{padding:24px 12px 80px}
+.sc-a-panel{position:relative;max-width:84rem;margin:0 auto;overflow:hidden;border-radius:2rem;background:#1c1c1c;padding:44px 16px 36px}
+.sc-a-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.3}
+.sc-a-shade{position:absolute;inset:0;background:radial-gradient(80% 100% at 30% 50%,rgba(28,28,28,.3),rgba(28,28,28,.94))}
+.sc-a-grid{position:relative;display:grid;gap:32px;align-items:center;max-width:70rem;margin:0 auto}
+.sc-a-copy{display:flex;flex-direction:column;align-items:center;text-align:center}
+.sc-a-h{margin:0;font:700 clamp(28px,3.6vw,48px)/1.1 Montserrat,sans-serif;color:#fff}
+.sc-a-body{margin:16px 0 0;max-width:30rem;font-size:16px;line-height:1.7;color:rgba(255,255,255,.72)}
+.sc-a-dates{width:100%;margin:30px 0}
+.sc-a-dates > div{margin-inline:auto}
+@media(min-width:640px){.sc-a{padding:40px 16px 80px}.sc-a-panel{padding:64px 48px}}
+@media(min-width:1024px){
+  .sc-a-grid{grid-template-columns:minmax(0,1fr) minmax(0,440px);gap:72px}
+  .sc-a-copy{align-items:flex-start;text-align:left}
+  .sc-a-dates > div{margin-inline:0}
+  .sc-a .sc-form{margin:-24px 0}
+}
+
+/* ---- B: the note, pinned between two polaroids */
+.sc-b{overflow:hidden;padding:88px 16px 96px;
+  background:radial-gradient(45% 40% at 12% 40%,rgba(232,32,143,.09),transparent 70%),radial-gradient(40% 40% at 90% 70%,rgba(0,185,198,.09),transparent 70%),linear-gradient(#fff,#fdf0f6 22%,#fdf0f6 78%,#fff)}
+.sc-b-row{display:grid;grid-template-columns:1fr 1fr;grid-template-areas:"l r" "f f";justify-items:center;align-items:center;gap:28px 16px;max-width:1120px;margin:40px auto 0}
+.sc-pol{position:relative;width:100%;max-width:170px;margin:0;padding:9px 9px 34px;background:#fff;
+  box-shadow:0 2px 4px rgba(0,0,0,.06),0 24px 48px -20px rgba(80,20,50,.38)}
+.sc-pol img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover}
+.sc-pol-l{grid-area:l;transform:rotate(-6deg)}
+.sc-pol-r{grid-area:r;transform:rotate(5deg) translateY(14px)}
+.sc-tape{position:absolute;top:-13px;left:50%;z-index:3;width:96px;height:26px;transform:translateX(-50%) rotate(-3deg)}
+.sc-tape-pink{background:rgba(240,120,180,.55)}
+.sc-tape-teal{background:rgba(80,200,210,.5)}
+.sc-b-pin{grid-area:f;position:relative;width:100%;max-width:470px}
+.sc-b-pin .sc-tape-top{top:-4px;width:130px;transform:translateX(-50%) rotate(2deg)}
+@media(min-width:1024px){
+  .sc-b{padding:110px 16px 120px}
+  .sc-b-row{grid-template-columns:1fr minmax(0,470px) 1fr;grid-template-areas:"l f r";gap:56px;margin-top:52px}
+  .sc-pol{max-width:270px;padding:13px 13px 52px}
+  .sc-pol-l{transform:rotate(-7deg) translateY(-20px)}
+  .sc-pol-r{transform:rotate(6deg) translateY(40px)}
+  .sc-tape{width:120px;height:30px}
+}
+
+/* ---- C: sky sign-off before the footer */
+.sc-c{overflow:hidden;padding:100px 16px 110px;text-align:center}
+.sc-c-sky{position:absolute;inset:0;background:url(/assets/photos/sky-wide.jpg) center 40%/cover}
+.sc-c-sky::after{content:"";position:absolute;inset:0;background:linear-gradient(#fff 0%,rgba(255,255,255,.25) 26%,rgba(255,255,255,.1) 70%,rgba(255,255,255,.5) 100%)}
+.sc-c-in{position:relative;max-width:660px;margin:0 auto}
+.sc-c .sc-body{color:#333}
+.sc-c-glass{max-width:504px;margin:36px auto 0;padding:12px;border:1px solid rgba(255,255,255,.8);border-radius:34px;
+  background:rgba(255,255,255,.32);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);box-shadow:0 30px 70px -30px rgba(90,40,90,.5)}
+.sc-c .sc-dates{padding:12px 22px;border-radius:999px;background:rgba(255,255,255,.6);display:inline-flex}
+@media(min-width:1024px){.sc-c{padding:130px 16px 140px}}
+
+/* ---- D: the top of the footer */
+.sc-d{overflow:hidden;padding:64px 16px 60px;border-bottom:1px solid rgba(255,255,255,.12);color:#fff}
+.sc-d::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#e8208f,#00b9c6)}
+.sc-d-glow{position:absolute;inset:0;background:radial-gradient(40% 70% at 18% 30%,rgba(232,32,143,.22),transparent 70%),radial-gradient(40% 70% at 88% 80%,rgba(0,185,198,.16),transparent 70%)}
+.sc-d-grid{position:relative;display:grid;gap:36px;align-items:center;max-width:72rem;margin:0 auto;text-align:center}
+.sc-d .sc-copy{text-align:center}
+.sc-d .sc-body{margin-inline:auto}
+.sc-d-dates{margin-top:30px}
+.sc-d-dates > div{margin-inline:auto}
+@media(min-width:1024px){
+  .sc-d{padding:88px 16px 84px}
+  .sc-d-grid{grid-template-columns:minmax(0,1fr) minmax(0,440px);gap:88px;text-align:left}
+  .sc-d .sc-crown{margin:0 0 16px}
+  .sc-d .sc-copy{text-align:left}
+  .sc-d .sc-body{margin-inline:0}
+  .sc-d-dates > div{margin-inline:0}
+}
+
+/* ---- E: photograph beside the form */
+.sc-e{display:grid;background:#fdf7f3}
+.sc-e-photo{position:relative;min-height:300px;overflow:hidden}
+.sc-e-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 35%}
+.sc-e-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(70,8,44,.65))}
+.sc-e-mark{position:absolute;left:24px;bottom:12px;z-index:1;margin:0;font-size:clamp(64px,8vw,120px);line-height:1;color:#fff;text-shadow:0 4px 30px rgba(0,0,0,.35)}
+.sc-e-side{display:flex;align-items:center;padding:48px 16px 60px}
+.sc-e-in{width:100%;max-width:520px;margin:0 auto}
+.sc-e .sc-script{display:none}
+.sc-e .sc-form{max-width:none;margin:24px 0 0}
+.sc-e .sc-dates{margin-top:20px}
+@media(min-width:1024px){
+  .sc-e{grid-template-columns:1fr 1fr;min-height:780px}
+  .sc-e-mark{left:48px;bottom:36px}
+  .sc-e-side{padding:80px 64px}
+  .sc-e .sc-form{margin-left:-10px;margin-right:-10px;width:calc(100% + 20px)}
+}
+
+/* ---- F: slide-in card */
+.sc-f{position:fixed;left:12px;right:12px;bottom:12px;z-index:60;padding:20px 18px 18px;border-radius:24px;
+  background:linear-gradient(150deg,#fff,#fff4f9);box-shadow:0 30px 70px -20px rgba(80,10,50,.5),0 0 0 1px rgba(232,32,143,.14);
+  opacity:0;transform:translateY(28px);transition:opacity .4s,transform .55s cubic-bezier(.2,.7,.2,1)}
+.sc-f[hidden]{display:none}
+.sc-f.is-in{opacity:1;transform:none}
+.sc-f.is-open{max-height:calc(100dvh - 24px);overflow:auto}
+.sc-f-x{position:absolute;top:10px;right:10px;display:grid;place-items:center;width:40px;height:40px;border:0;border-radius:50%;cursor:pointer;background:rgba(232,32,143,.08);color:#7a1048;transition:background .3s,color .3s}
+.sc-f-x:hover{background:#e8208f;color:#fff}
+.sc-f-head{display:flex;align-items:center;gap:14px;padding-right:36px}
+.sc-f .sc-crown{flex:none;width:54px;margin:0}
+.sc-f .sc-script{margin-bottom:-.02em;font-size:36px}
+.sc-f-h{position:relative;z-index:2;margin:0;font:800 14px/1.25 Montserrat,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#1c1c1c}
+.sc-f-body{margin:12px 0 16px;font-size:14px;line-height:1.6;color:#555}
+.sc-f-open{width:100%}
+.sc-f.is-open .sc-f-body,.sc-f.is-open .sc-f-open{display:none}
+.sc-f-form{margin:10px -12px -10px}
+.sc-f .sc-form{max-width:none}
+/* on a phone it stays a short strip until opened: no line of copy */
+@media(max-width:639px){
+  .sc-f-body{display:none}
+  .sc-f-open{margin-top:14px}
+  .sc-f .sc-crown{width:44px}
+  .sc-f .sc-script{font-size:30px}
+}
+@media(min-width:640px){.sc-f{left:auto;right:24px;bottom:24px;width:380px;padding:24px 24px 22px}}
+
+@media(prefers-reduced-motion:reduce){.sc-f{transition:none}.sc-btn,.sc-btn svg{transition:none}}
+
+/* ════ Round two (2026-11-03): the form in the first or second section ════ */
+
+/* ---- G: in the hero, beside the video. build-stay-options.mjs widens the
+   hero's column (.sc-g-wide) and wraps the video and this card in .sc-g-row */
+.sc-g-wide{max-width:1240px!important}
+.sc-g-row{display:grid;gap:28px;align-items:center;margin-top:40px}
+.sc-g-row [data-vsl-id]{width:100%;max-width:none!important;margin-top:0!important}
+.sc-g{width:100%;max-width:460px;margin:0 auto;padding:22px 12px 6px;border:1px solid rgba(255,255,255,.18);border-radius:30px;
+  background:linear-gradient(160deg,rgba(255,255,255,.13),rgba(255,255,255,.04));-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+  box-shadow:0 30px 80px -30px rgba(0,0,0,.75)}
+.sc-g .sc-script{color:#f472b6;font-size:44px;margin-bottom:-.28em}
+.sc-g-h{position:relative;z-index:2;margin:0 0 8px;font:800 14px/1.2 Montserrat,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#fff}
+@media(min-width:1024px){.sc-g-row{grid-template-columns:minmax(0,1fr) 390px;gap:40px;margin-top:60px}}
+
+/* ---- H: the foot of the hero, a frosted band on its dark ground */
+.sc-hf{z-index:1;margin-top:-40px;padding:0 16px 96px}
+.sc-hf-panel{display:grid;gap:24px;align-items:center;max-width:1100px;margin:0 auto;padding:36px 14px 14px;border:1px solid rgba(255,255,255,.16);border-radius:32px;
+  background:linear-gradient(160deg,rgba(255,255,255,.11),rgba(255,255,255,.03));-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);text-align:center;
+  box-shadow:0 40px 90px -40px rgba(0,0,0,.8)}
+.sc-hf .sc-copy{text-align:center}
+.sc-hf .sc-body{margin-inline:auto}
+.sc-hf-nudge{margin:0 0 18px;font:700 12px Lato,sans-serif;letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.6)}
+@media(min-width:1024px){
+  .sc-hf{margin-top:-64px}
+  .sc-hf-panel{grid-template-columns:minmax(0,1fr) 440px;gap:64px;padding:48px 48px 48px 64px;text-align:left}
+  .sc-hf .sc-crown{margin:0 0 16px}
+  .sc-hf .sc-copy{text-align:left}
+  .sc-hf .sc-body{margin-inline:0}
+}
+
+/* ---- I: A's dark panel opening the second section, on the wall's pink */
+.sc-i{padding:48px 12px 0;background:#fbe7f0}
+.sc-i-crown{margin:0 auto 14px}
+.sc-i .sc-script{color:#f472b6;margin-bottom:-.32em}
+.sc-i-h{position:relative;z-index:2;text-transform:uppercase;letter-spacing:.06em;font-size:clamp(24px,2.8vw,38px)}
+@media(min-width:1024px){.sc-i{padding-top:64px}.sc-i-crown{margin:0 0 14px}}
+
+/* ---- J: a second note on the Freedom wall, under the Freedom note */
+.sc-j{z-index:2;max-width:520px;margin:48px auto 0;padding:0 16px;text-align:center}
+.sc-j-nudge{margin:0;font:700 12px Lato,sans-serif;letter-spacing:.26em;text-transform:uppercase;color:#8a7f7a}
+.sc-j-script{margin:4px 0 0;font:400 clamp(54px,6vw,74px)/1 'Julietta Messie',cursive;color:#e8208f}
+.sc-j-arrow{display:none;position:absolute;right:-96px;top:56px;width:110px;fill:none;stroke:#e8208f;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.sc-j-pin{position:relative;margin-top:18px}
+.sc-j-pin .sc-tape-top{top:-6px}
+.sc-j .sc-form{max-width:none}
+@media(min-width:1024px){.sc-j{margin-top:64px}.sc-j-arrow{display:block}}
+/* the wall keeps 210px under its board for the torn edge; with the form
+   pinned below the board that reads as a gap, so it gives some back */
+.fx-wall:has(> .sc-j){padding-bottom:150px}
+
+/* ════ About: the closing "Join us at Freedom" panel with the form
+   (about-stay-options.mjs, /about-stay-options.html) ════ */
+.ak .jc-script{margin:0}
+.ak .jc-h{margin:2px 0 0}
+.ak .ak-p{margin:16px 0 0;max-width:30rem}
+.ak .sc-form{max-width:440px}
+.ak-in{position:relative;z-index:1;display:grid;gap:30px;align-items:center;padding:40px 16px 32px;text-align:center}
+.ak-copy{display:flex;flex-direction:column;align-items:center}
+.ak-dates{width:100%;margin-top:28px}
+.ak-dates > div{margin-inline:auto}
+@media(min-width:1024px){
+  .ak .ak-p{padding-left:0;border-left:0}
+  .ak-split .ak-in{grid-template-columns:minmax(0,1fr) 420px;gap:72px;padding:56px 64px;text-align:left}
+  .ak-split .ak-copy{align-items:flex-start}
+  .ak-split .ak-dates > div{margin-inline:0}
+  .ak-split .jc-script{font-size:46px}
+  .ak-split .jc-h{font-size:40px}
+}
+
+/* K2: the band sits behind the row, shorter than the form, which stands
+   out of it above and below */
+.ak-rise-in{position:relative;display:grid;gap:28px;max-width:80rem;margin:0 auto;padding:40px 16px 0;text-align:center}
+.ak-band{position:absolute!important;inset:0 0 auto 0;height:62%;margin:0}
+.ak-rise .ak-copy,.ak-rise .sc-form{position:relative;z-index:1}
+@media(min-width:1024px){
+  .ak-rise-in{grid-template-columns:auto minmax(0,1fr) 400px;align-items:center;gap:40px;padding:0 48px 0 44px;text-align:left}
+  .ak-band{inset:56px 0 56px 0;height:auto}
+  .ak-rise .ak-copy{display:contents}
+  .ak-rise .ak-words{grid-column:1;grid-row:1}
+  .ak-rise .ak-p{grid-column:2;grid-row:1;margin:0;padding-left:40px;border-left:1px solid rgba(255,255,255,.18)}
+  .ak-rise .sc-form{grid-column:3;grid-row:1}
+}
+
+/* K3: centred, a fine rule between the words and the form */
+.ak-centre .ak-in{max-width:620px;margin:0 auto}
+.ak-centre .ak-p{margin-inline:auto}
+.ak-rule{display:block;width:120px;height:2px;margin:28px auto 0;border-radius:2px;background:linear-gradient(90deg,#e8208f,#00b9c6)}
+@media(min-width:1024px){
+  .ak-centre .ak-in{padding:56px 0 52px}
+  .ak-centre .jc-script{font-size:46px}
+  .ak-centre .jc-h{font-size:36px}
+}
+
+/* K4: light — blush glass with a taped polaroid */
+.ak-light-panel{position:relative;display:grid;gap:28px;align-items:center;justify-items:center;max-width:80rem;margin:0 auto;padding:40px 16px 24px;text-align:center;
+  border-radius:2rem;border:1px solid rgba(255,255,255,.9);
+  background:radial-gradient(60% 80% at 10% 20%,rgba(232,32,143,.12),transparent 70%),radial-gradient(50% 70% at 95% 90%,rgba(0,185,198,.12),transparent 70%),linear-gradient(150deg,#fff5f9,#fdeef5 55%,#f3f0fb);
+  box-shadow:0 0 60px -12px rgba(232,32,143,.35),0 40px 80px -40px rgba(80,20,50,.35)}
+.ak-light .jc-script{color:#e8208f}
+.ak-light .jc-h{color:#1c1c1c}
+.ak-p-ink{font:400 16px/1.7 Lato,sans-serif;color:#4a4a4a}
+.ak-pol{max-width:200px;transform:rotate(-5deg)}
+@media(max-width:1023px){.ak-pol{display:none}}
+@media(min-width:1024px){
+  .ak-light-panel{grid-template-columns:240px minmax(0,1fr) 420px;gap:48px;padding:48px 56px;text-align:left}
+  .ak-light .ak-copy{align-items:flex-start}
+  .ak-pol{max-width:none;width:100%}
+}
+/* K2: the band is positioned, so the words must be too to paint above it */
+.ak-rise .ak-words,.ak-rise .ak-p{position:relative;z-index:1}
+/* K4: on the light ground the sheen's white sweep and its pale teal end lose
+   the word, so it takes a deeper pink-to-teal and no sweep */
+@supports ((-webkit-background-clip:text) or (background-clip:text)){
+  .ak-light .sheen{background-image:linear-gradient(92deg,#e8208f 0%,#c41677 45%,#078591 100%);background-size:100% 100%;background-position:0 0;animation:none}
+}
+
+/* ════ Contact: the MultiplyOS Contact Us form (contact-mos-options.mjs,
+   /contact-form-options.html). Kept under 560px so the form's card sits 8px
+   inside its frame, which .sc-form's -8px margin assumes. ════ */
+.cf-slot{position:relative;width:100%;max-width:520px;justify-self:end}
+.cf-slot .sc-form{max-width:none}
+@media(max-width:1023px){.cf-slot{justify-self:center}}
+
+/* C2: frosted glass mat with a gradient rim */
+.cf-glass{padding:14px;border-radius:38px;background:rgba(255,255,255,.35);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);
+  box-shadow:0 40px 90px -40px rgba(90,30,70,.55)}
+.cf-rim{position:absolute;inset:0;border-radius:inherit;padding:1.5px;pointer-events:none;
+  background:linear-gradient(140deg,rgba(232,32,143,.7),rgba(255,255,255,.6) 45%,rgba(0,185,198,.7));
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0)}
+.cf-glass .sc-form{box-shadow:0 1px 2px rgba(0,0,0,.05),0 18px 40px -24px rgba(80,20,50,.35)}
+
+/* C3: taped on at a tilt, with a hand-written hello */
+.cf-note{transform:rotate(1.4deg);padding-top:6px}
+.cf-tape{top:-8px;width:130px;height:30px;z-index:3;transform:translateX(-50%) rotate(-2deg)}
+.cf-hello{position:absolute;left:-210px;top:60px;margin:0;font-size:52px;line-height:1;color:#e8208f;transform:rotate(-8deg);white-space:nowrap}
+.cf-arrow{position:absolute;left:-108px;top:116px;width:96px;fill:none;stroke:#e8208f;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+@media(max-width:1199px){.cf-hello,.cf-arrow{display:none}.cf-note{transform:none}}
+
+/* C4: out of the photograph and over the arc's edge */
+/* the photo band's column (.cx-wrap, z-index 2) lifts above the arc panel
+   (z-index 3) so the form can stand over its edge */
+.cf-risen .cx-band{overflow:visible}
+.cf-risen .cx-band > .cx-wrap{z-index:4}
+.cf-risen .cx-2col{align-items:start}
+.cf-risen .cx-intro{padding-top:24px}
+.cf-rise{z-index:5;margin-bottom:-240px}
+.cf-rise .sc-form{box-shadow:0 0 0 1px rgba(232,32,143,.1),0 60px 120px -40px rgba(80,20,50,.55),0 20px 40px -24px rgba(80,20,50,.3)}
+.cf-risen .cx-arc .cx-after{padding-top:72px}
+@media(min-width:1024px){.cf-risen .cx-ruk{margin-right:calc(520px + 64px)}}
+@media(max-width:1023px){.cf-rise{margin-bottom:-60px}}

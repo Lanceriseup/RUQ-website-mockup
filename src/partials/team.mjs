@@ -194,6 +194,10 @@ export { coach as coachCard, leader as leaderCard };
 // caption colours (dark type on a light ground, in tailwind.css under
 // .team-light) are new.
 //
+// The dialog is one fixed size for every bio, and a bio too long for it
+// fades out under a "Keep reading" pill (data-bio-scroll="fade"; chosen
+// 2026-10-30 from /bio-scroll-options.html, option A).
+//
 //   intro         the client's "The women behind it" / MEET THE TEAM / lead
 //   Coaches       3-up
 //   Community     3-up, the same size as the coaches
@@ -225,7 +229,7 @@ export const teamPage = (site, c, headingKey = 'script', effect = 'lift') => {
   const community = group('community');
 
   return `
-<div class="team-light ${effectClass(effect)}">
+<div class="team-light ${effectClass(effect)}" data-bio-scroll="fade">
   <div class="tl-sky" aria-hidden="true"><img src="/assets/photos/sky-wide.jpg" alt="" decoding="async"></div>
 
   <div class="tl-intro">

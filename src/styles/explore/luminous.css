@@ -69,7 +69,7 @@
 .xp-luminous .xl-script{display:block;color:var(--xl-mag);line-height:.9;white-space:nowrap;font-size:var(--fs)}
 .xp-luminous .xl-h1-sub{display:block;margin-top:30px;font:800 clamp(1.35rem,4.6vw,2.5rem)/1.1 Montserrat,sans-serif;
   letter-spacing:.05em;text-transform:uppercase;color:var(--xl-ink)}
-.xp-luminous .xl-lead{margin:22px auto 0;max-width:36rem;font:400 16px/1.7 Lato,sans-serif;color:var(--xl-body)}
+.xp-luminous .xl-lead{margin:22px auto 0;max-width:36rem;font:400 16px/1.7 Lato,sans-serif;color:var(--xl-body);text-wrap:balance}
 @media(min-width:640px){.xp-luminous .xl-lead{font-size:18px;margin-top:26px}}
 /* script-only headings: clear the descenders (the g of Upcoming, Coaching) */
 .xp-luminous .xl-hero-solo .xl-lead{margin-top:max(26px,calc(var(--fs) * .46))}

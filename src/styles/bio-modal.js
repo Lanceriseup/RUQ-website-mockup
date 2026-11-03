@@ -35,6 +35,27 @@
   // --------------------------------------------------------------- modal
   var dlg = null;
 
+  // A fixed-size panel with a way through a long bio, chosen by the page's
+  // data-bio-scroll (options at /bio-scroll-options.html). Without it the
+  // panel grows to fit the bio, as it always has.
+  //   fade   the text fades out under a "Keep reading" pill that scrolls it
+  //   rail   a reading-progress rail and a round arrow that scrolls it
+  //   pages  no scrolling: the bio is laid out in pages with ‹ 1 / 3 › controls
+  var mode = page && page.getAttribute('data-bio-scroll');
+  var CHEVRON = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>';
+  var CONTROLS = {
+    fade: '<button type="button" data-bio-more class="bio-sx-more"><span data-bio-more-label>Keep reading</span>' + CHEVRON + '</button>',
+    rail: '<div class="bio-sx-rail" aria-hidden="true"><span class="bio-sx-fill"></span></div>' +
+          '<button type="button" data-bio-more class="bio-sx-arrow" aria-label="Keep reading">' + CHEVRON + '</button>',
+    pages: '<div class="bio-sx-pager">' +
+           '<button type="button" data-bio-prev class="bio-sx-pg" aria-label="Previous page"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>' +
+           '<span data-bio-count class="bio-sx-count" aria-live="polite"></span>' +
+           '<button type="button" data-bio-next class="bio-sx-pg" aria-label="Next page"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>' +
+           '</div>',
+  };
+  if (!CONTROLS[mode]) mode = null;
+  var GAP = 40;   // between pages, in the pages mode
+
   function build() {
     var root = document.createElement('div');
     root.className = 'bio-modal';
@@ -46,13 +67,17 @@
       '    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>' +
       '  </button>' +
       '  <div class="bio-modal-media"><img data-bio-img alt=""></div>' +
-      '  <div class="bio-modal-body">' +
-      '    <p data-bio-role class="bio-modal-role"></p>' +
-      '    <h2 id="bio-modal-name" data-bio-name class="bio-modal-name"></h2>' +
-      '    <div data-bio-prose class="bio-modal-prose"></div>' +
+      '  <div class="bio-modal-text">' +
+      '    <div data-bio-body class="bio-modal-body">' +
+      '      <p data-bio-role class="bio-modal-role"></p>' +
+      '      <h2 id="bio-modal-name" data-bio-name class="bio-modal-name"></h2>' +
+      '      <div data-bio-prose class="bio-modal-prose"></div>' +
+      '    </div>' +
+      (mode ? '    <div class="bio-sx-ctl">' + CONTROLS[mode] + '</div>' : '') +
       '  </div>' +
       '</div>' +
       '<div data-bio-ghost class="bio-modal-ghost" aria-hidden="true"></div>';
+    if (mode) root.setAttribute('data-scroll', mode);
     document.body.appendChild(root);
 
     dlg = {
@@ -64,11 +89,13 @@
       prose: root.querySelector('[data-bio-prose]'),
       close: root.querySelector('[data-bio-close]'),
       ghost: root.querySelector('[data-bio-ghost]'),
+      body: root.querySelector('[data-bio-body]'),
       opener: null,
     };
 
     root.querySelector('[data-bio-backdrop]').addEventListener('click', close);
     dlg.close.addEventListener('click', close);
+    if (mode) wireScroll(dlg);
 
     document.addEventListener('keydown', function (e) {
       if (root.style.display === 'none') return;
@@ -135,7 +162,89 @@
     }
 
     requestAnimationFrame(function () { d.root.classList.add('is-open'); });
+    if (mode) {
+      d.body.scrollTop = 0;
+      d.prose.scrollLeft = 0;
+      requestAnimationFrame(function () { syncScroll(d); });
+    }
     d.close.focus();
+  }
+
+  // ------------------------------------------------------- scroll / pages
+  var smooth = reduced ? 'auto' : 'smooth';
+
+  function pageGeom(d) {
+    var w = d.prose.clientWidth;
+    // column-width is a minimum, so with the gap this gives exactly one
+    // column per visible width; the rest of the bio flows to the right.
+    d.prose.style.columnWidth = w + 'px';
+    d.prose.style.columnGap = GAP + 'px';
+    var step = w + GAP;
+    var total = Math.max(1, Math.round((d.prose.scrollWidth + GAP) / step));
+    var cur = Math.min(total - 1, Math.round(d.prose.scrollLeft / step));
+    return { step: step, total: total, cur: cur };
+  }
+
+  function syncScroll(d) {
+    var r = d.root;
+    if (mode === 'pages') {
+      var g = pageGeom(d);
+      r.classList.toggle('sx-over', g.total > 1);
+      r.querySelector('[data-bio-count]').textContent = (g.cur + 1) + ' / ' + g.total;
+      r.querySelector('[data-bio-prev]').disabled = g.cur === 0;
+      r.querySelector('[data-bio-next]').disabled = g.cur === g.total - 1;
+      return;
+    }
+    var b = d.body, max = b.scrollHeight - b.clientHeight;
+    var over = max > 4, end = !over || b.scrollTop >= max - 4;
+    r.classList.toggle('sx-over', over);
+    r.classList.toggle('sx-end', end);
+    r.style.setProperty('--sx-p', over ? (b.scrollTop / max).toFixed(3) : '1');
+    var more = r.querySelector('[data-bio-more]');
+    var label = end ? 'Back to top' : 'Keep reading';
+    var span = more.querySelector('[data-bio-more-label]');
+    if (span) span.textContent = label; else more.setAttribute('aria-label', label);
+  }
+
+  function wireScroll(d) {
+    var r = d.root;
+    if (mode === 'pages') {
+      var go = function (by) {
+        var g = pageGeom(d);
+        var to = Math.max(0, Math.min(g.total - 1, g.cur + by));
+        d.prose.scrollTo({ left: to * g.step, behavior: smooth });
+      };
+      r.querySelector('[data-bio-prev]').addEventListener('click', function () { go(-1); });
+      r.querySelector('[data-bio-next]').addEventListener('click', function () { go(1); });
+      d.prose.addEventListener('scroll', function () { syncScroll(d); });
+      // Arrow keys turn pages; a horizontal swipe does too on touch.
+      document.addEventListener('keydown', function (e) {
+        if (r.style.display === 'none') return;
+        if (e.key === 'ArrowRight') { e.preventDefault(); go(1); }
+        else if (e.key === 'ArrowLeft') { e.preventDefault(); go(-1); }
+      });
+      var x0 = null, y0 = null;
+      d.prose.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; }, { passive: true });
+      d.prose.addEventListener('touchend', function (e) {
+        if (x0 === null) return;
+        var dx = e.changedTouches[0].clientX - x0, dy = e.changedTouches[0].clientY - y0;
+        if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) go(dx < 0 ? 1 : -1);
+        x0 = null;
+      }, { passive: true });
+    } else {
+      d.body.setAttribute('tabindex', '0');   // arrow keys and page down scroll it
+      d.body.addEventListener('scroll', function () { syncScroll(d); }, { passive: true });
+      r.querySelector('[data-bio-more]').addEventListener('click', function () {
+        var b = d.body;
+        if (r.classList.contains('sx-end')) b.scrollTo({ top: 0, behavior: smooth });
+        else b.scrollBy({ top: Math.round(b.clientHeight * 0.7), behavior: smooth });
+      });
+    }
+    window.addEventListener('resize', function () {
+      if (r.style.display === 'none') return;
+      if (mode === 'pages') d.prose.scrollLeft = 0;
+      syncScroll(d);
+    });
   }
 
   function close() {

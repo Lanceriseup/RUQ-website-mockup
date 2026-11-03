@@ -16,7 +16,6 @@ const GROUND = 'linear-gradient(180deg,#0b0b0b 0%,#130c11 45%,#220d19 100%)';
 
 const shell = (key, inner, id) => `<!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="robots" content="noindex,nofollow">
 <link rel="stylesheet" href="${FONTS}"><link rel="stylesheet" href="/styles.css">
 <style>body{margin:0}</style></head>
 <body style="background:${GROUND}">
@@ -49,7 +48,6 @@ const page = `<!doctype html>
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Contact tuning — ${esc(site.brand.name)}</title>
-<meta name="robots" content="noindex,nofollow">
 <link rel="stylesheet" href="${FONTS}"><link rel="stylesheet" href="/styles.css">
 </head>
 <body class="bg-white font-body text-ink">

@@ -192,7 +192,7 @@ addEventListener('load',function(){if(location.hash==='#whofor')scrollTo(0,s.get
 for (const [k, o] of Object.entries(OPTIONS)) {
   fs.writeFileSync(path.join(dist, `w3-${k}.html`),
     (about.slice(0, after) + o.html + about.slice(after))
-      .replace('</head>', `<meta name="robots" content="noindex,nofollow"><style>${CSS}</style></head>`)
+      .replace('</head>', `<style>${CSS}</style></head>`)
       .replace('</body>', `${JS}</body>`));
 }
 
@@ -212,7 +212,6 @@ const page = `<!doctype html>
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Who is it for? — round three — ${esc(site.brand.name)}</title>
-<meta name="robots" content="noindex,nofollow">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Lato:wght@400;700&display=swap">
 <style>
 :root { --ink:#1c1c1c; --soft:#5b5b5b; --magenta:#e8208f; --cyan:#00b9c6; }
