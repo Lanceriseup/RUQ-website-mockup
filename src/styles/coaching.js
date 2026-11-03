@@ -37,7 +37,12 @@
         dlg.querySelector('[data-co-side-role]').textContent = b.dataset.coRole || '';
       }
       var src = frame.dataset.scSrc + (name ? '&' + frame.dataset.coField + '=' + encodeURIComponent(name) : '');
-      if (frame.getAttribute('src') !== src) frame.setAttribute('src', src);
+      if (frame.getAttribute('src') !== src) {
+        frame.setAttribute('src', src);
+        // a fresh form: drop the thank-you size stay.js set after a submit
+        delete frame.dataset.scDone;
+        frame.style.height = '';
+      }
       dlg.showModal();
       return;
     }

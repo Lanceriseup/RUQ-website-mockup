@@ -13,19 +13,23 @@
   // less than the frame itself, and it can keep growing. So a frame with
   // data-sc-fixed keeps the height it was given and ignores it (the client's
   // ask, 2026-11-04). One without (the coaching form) starts shorter than the
-  // form (stay.css) and grows to fit, and after a submit, when the thank-you
-  // is shorter than the form, it is cut back so it can shrink to fit again.
-  // After a submit, a frame with data-sc-next sends the whole page there.
+  // form (stay.css) and grows to fit.
+  // After a submit, a frame with data-sc-next sends the whole page there. One
+  // without stays and shows the form's own thank-you, a short card at the top
+  // of a frame still the form's height; so the frame is cut to the card
+  // (THANKS) and stops taking heights, which arrive stale and would stretch
+  // it again. Setting a new src (coaching.js, another coach) undoes that.
+  var THANKS = 252;
   var frames = [].slice.call(document.querySelectorAll('iframe[data-sc-form]'));
   if (frames.length) {
     window.addEventListener('message', function (e) {
       var d = e.data || {};
       frames.forEach(function (f) {
         if (e.source !== f.contentWindow || e.origin !== f.dataset.scOrigin) return;
-        if (d.type === 'mos-form-height' && d.height > 0 && !f.hasAttribute('data-sc-fixed')) f.style.height = Math.ceil(d.height) + 'px';
+        if (d.type === 'mos-form-height' && d.height > 0 && !f.hasAttribute('data-sc-fixed') && !f.dataset.scDone) f.style.height = Math.ceil(d.height) + 'px';
         if (d.type === 'mos-form-submitted') {
           if (f.dataset.scNext) window.location.href = f.dataset.scNext;
-          else if (!f.hasAttribute('data-sc-fixed')) f.style.height = '160px';
+          else { f.dataset.scDone = '1'; f.style.height = THANKS + 'px'; }
         }
       });
     });
