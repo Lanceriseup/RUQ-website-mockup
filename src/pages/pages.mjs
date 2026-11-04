@@ -272,7 +272,9 @@ export const pages = (site, c, vids) => ([
     sitemap: false,
     title: `Register for Freedom — ${site.brand.name}`, desc: `${c.register.title} · ${c.register.dates[0].label} · ${c.register.dates[0].city}`,
     navClear: true,
-    body: registerPage(site, c)
+    // "What you'll experience" moved up under Location (the client's ask):
+    // X1 of /register-exp-options.html, chosen 2026-11-05.
+    body: registerPage(site, c, { exp: 'up' })
   },
 
   {
@@ -290,7 +292,8 @@ export const pages = (site, c, vids) => ([
   {
     // Privacy Policy and Terms and Conditions (2026-11-05): Rise Up Kings'
     // copy, word for word, with the RUQ support email (content.json legal,
-    // src/data/legal/*.html), without RUK's phone number or address. Linked
+    // src/data/legal/*.html), without RUK's phone number or address, and
+    // naming Rise Up Queens and riseupqueens.com throughout. Linked
     // from the footer's copyright bar. Design: LEGAL_DESIGN.
     file: 'privacy-policy.html', href: '/privacy-policy.html',
     title: `${c.legal.privacy.title} — ${site.brand.name}`, desc: c.legal.privacy.desc,
