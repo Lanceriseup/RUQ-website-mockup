@@ -686,6 +686,11 @@ div:has(> .fx-dark)::before { background: rgba(255,255,255,.4); }
 .fx-dts-c-sep, .fx-bd-c-sep { width: 1px; background: #ecdcd3; }
 .fx-dts + .fx-meta { margin-top: 26px; }
 
+/* The Stay Connected form in the note, in place of its button (2026-11-05,
+   the client's ask). The form draws its own card; .sc-form is stay.css. */
+.fx-form { margin: 26px 0 0; width: 100%; }
+.fx-form .sc-form { max-width: none; box-shadow: 0 0 0 1px #f1e4dc, 0 18px 36px -24px rgba(80,20,50,.35); }
+
 /* ── B · Tickets: two admission tickets taped under the note ─────────── */
 .fx-note-col { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; }
 .fx-tix { position: relative; z-index: 3; display: flex; gap: 26px; margin-top: -24px; }
@@ -772,3 +777,126 @@ div:has(> .fx-dark)::before { background: rgba(255,255,255,.4); }
   .fx-std-ring path, .fx-std-wave path { stroke-dashoffset: 0; transition: none; }
   .fx-tk.fx-r { transform: rotate(var(--tr)); }
 }
+
+/* ── Sizes for the memory wall, now that the note holds the form ─────────
+   Options at /freedom-stay-options.html (2026-11-05): fx-sz-trim, -compact
+   and -small on the section (freedomPhoto's `size`). Without one, the
+   section keeps the sizes above. Each step takes out more air first, then
+   type and photographs. ─────────────────────────────────────────────────── */
+/* trim: the same note with less air around and inside it */
+.fx.fx-sz-trim { padding-top: 72px; padding-bottom: 180px; }
+.fx-sz-trim .fx-wl-board { min-height: 760px; }
+.fx-sz-trim .fx-note { padding: 52px 48px 44px; }
+.fx-sz-trim .fx-logo img { width: min(320px, 70vw); }
+.fx-sz-trim .fx-tag { margin-top: 22px; }
+.fx-sz-trim .fx-body { margin-top: 14px; }
+.fx-sz-trim .fx-dts { margin-top: 22px; }
+.fx-sz-trim .fx-form { margin-top: 20px; }
+
+/* compact: a narrower note, smaller logo and type, smaller photographs */
+.fx.fx-sz-compact { padding-top: 60px; padding-bottom: 160px; }
+.fx-sz-compact .fx-wl-board { min-height: 700px; }
+.fx-sz-compact .fx-note { max-width: 500px; padding: 46px 40px 38px; }
+.fx-sz-compact .fx-credit img { height: 44px; }
+.fx-sz-compact .fx-logo { margin-top: 12px; }
+.fx-sz-compact .fx-logo img { width: min(280px, 66vw); }
+.fx-sz-compact .fx-tag { margin-top: 18px; font-size: 14px; }
+.fx-sz-compact .fx-body { margin-top: 12px; font-size: 16px; line-height: 1.65; }
+.fx-sz-compact .fx-dts { margin-top: 18px; }
+.fx-sz-compact .fx-dts-row { margin-top: 14px; }
+.fx-sz-compact .fx-form { margin-top: 18px; }
+.fx-sz-compact .sc-n-script { font-size: clamp(40px, 4.4vw, 50px); }
+
+/* small: the smallest that keeps everything — tighter still, type a step down */
+.fx.fx-sz-small { padding-top: 48px; padding-bottom: 140px; }
+.fx-sz-small .fx-wl-board { min-height: 640px; }
+.fx-sz-small .fx-note { max-width: 460px; padding: 40px 34px 32px; }
+.fx-sz-small .fx-credit img { height: 38px; }
+.fx-sz-small .fx-logo { margin-top: 10px; }
+.fx-sz-small .fx-logo img { width: min(240px, 60vw); }
+.fx-sz-small .fx-tag { margin-top: 16px; font-size: 13px; letter-spacing: .3em; }
+.fx-sz-small .fx-body { margin-top: 10px; font-size: 15px; line-height: 1.6; }
+.fx-sz-small .fx-dts { margin-top: 14px; }
+.fx-sz-small .fx-dts-row { margin-top: 12px; }
+.fx-sz-small .fx-dts-c-d { font-size: 17px; }
+.fx-sz-small .fx-form { margin-top: 14px; }
+.fx-sz-small .sc-n-script { font-size: clamp(36px, 4vw, 44px); }
+
+@media (min-width: 1100px) {
+  .fx-sz-compact .fx-pol { width: 200px; }
+  .fx-sz-compact .fx-pol-3, .fx-sz-compact .fx-pol-5, .fx-sz-compact .fx-pol-6 { width: 180px; }
+  .fx-sz-small .fx-pol { width: 180px; }
+  .fx-sz-small .fx-pol-3, .fx-sz-small .fx-pol-5, .fx-sz-small .fx-pol-6 { width: 160px; }
+}
+@media (max-width: 639px) {
+  .fx.fx-sz-trim { padding-top: 64px; padding-bottom: 120px; }
+  .fx-sz-trim .fx-note { padding: 38px 18px 28px; }
+  .fx.fx-sz-compact { padding-top: 56px; padding-bottom: 110px; }
+  .fx-sz-compact .fx-note { padding: 34px 16px 24px; }
+  .fx-sz-compact .fx-logo img { width: 240px; }
+  .fx-sz-compact .fx-tag { font-size: 12px; }
+  .fx-sz-compact .fx-body { font-size: 15px; }
+  .fx.fx-sz-small { padding-top: 48px; padding-bottom: 100px; }
+  .fx-sz-small .fx-note { padding: 30px 14px 22px; }
+  .fx-sz-small .fx-logo img { width: 210px; }
+  .fx-sz-small .fx-tag { font-size: 11px; letter-spacing: .24em; }
+  .fx-sz-small .fx-body { font-size: 14.5px; }
+}
+
+/* ── Balance: the wall round the taller note (2026-11-05) ────────────────
+   Options at /freedom-balance-options.html. The note grew by the form, so
+   the polaroids, placed for an 860px board, bunched at its top and read
+   small. fx-bal-* on the section rebalances them; desktop only (from
+   1100px), where they hang beside the note — below that they are already a
+   grid over it. Tops are percentages of the board, which is the note's
+   height, so they spread over whatever height the note has. ─────────────── */
+@media (min-width: 1100px) {
+  /* big: larger polaroids, spread down the whole note */
+  .fx-bal-big .fx-pol { width: clamp(200px, 19.5vw, 280px); }
+  .fx-bal-big .fx-pol-3, .fx-bal-big .fx-pol-5, .fx-bal-big .fx-pol-6 { width: clamp(190px, 18vw, 260px); }
+  .fx-bal-big .fx-pol-1 { left: -1%; top: 1%; }
+  .fx-bal-big .fx-pol-2 { left: 3%; top: 36%; }
+  .fx-bal-big .fx-pol-3 { left: 0; top: 70%; }
+  .fx-bal-big .fx-pol-4 { right: -1%; top: 3%; }
+  .fx-bal-big .fx-pol-5 { right: 4%; top: 38%; }
+  .fx-bal-big .fx-pol-6 { right: 0; top: 71%; }
+
+  /* eight: four a side, filling the height */
+  .fx-bal-eight .fx-pol { width: clamp(180px, 17vw, 240px); right: auto; left: auto; }
+  .fx-bal-eight .fx-pol-1 { left: 0; top: 0; }
+  .fx-bal-eight .fx-pol-2 { left: 5%; top: 25%; }
+  .fx-bal-eight .fx-pol-3 { left: 0; top: 50%; }
+  .fx-bal-eight .fx-pol-4 { left: 4%; top: 75%; }
+  .fx-bal-eight .fx-pol-5 { right: 3%; top: 1%; }
+  .fx-bal-eight .fx-pol-6 { right: 0; top: 26%; }
+  .fx-bal-eight .fx-pol-7 { right: 5%; top: 51%; }
+  .fx-bal-eight .fx-pol-8 { right: 0; top: 76%; }
+
+  /* side: a wider note in two columns; the board widens to hold it */
+  .fx-bal-side .fx-wl-board { max-width: 86rem; }
+  .fx-bal-side .fx-note { max-width: min(760px, 60vw); padding: 56px 48px 46px; }
+  .fx-bal-side .fx-pol { width: clamp(170px, 16vw, 240px); }
+  .fx-bal-side .fx-pol-1 { left: 0; top: 2%; }
+  .fx-bal-side .fx-pol-2 { left: 3%; top: 36%; }
+  .fx-bal-side .fx-pol-3 { left: 0; top: 68%; }
+  .fx-bal-side .fx-pol-4 { right: 0; top: 4%; }
+  .fx-bal-side .fx-pol-5 { right: 3%; top: 38%; }
+  .fx-bal-side .fx-pol-6 { right: 0; top: 70%; }
+}
+/* the two columns of the side note: desktop only; below 1100px it stacks as now */
+.fx-n2 { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0 44px; align-items: center; }
+.fx-n2-l, .fx-n2-r { display: flex; flex-direction: column; align-items: center; min-width: 0; }
+.fx-n2-r { position: relative; }
+.fx-n2-r::before { content: ""; position: absolute; left: -22px; top: 8%; bottom: 8%; width: 1px; background: #ecdcd3; }
+.fx-n2-r .fx-dts { margin-top: 0; }
+.fx-n2 .fx-logo img { width: min(300px, 70vw); }
+.fx-n2 .fx-body { font-size: 16px; line-height: 1.7; }
+.fx-n2 .fx-dts-c-d { font-size: 17px; }
+@media (max-width: 1099px) {
+  .fx-n2 { grid-template-columns: 1fr; }
+  .fx-n2-r::before { display: none; }
+  .fx-n2-r .fx-dts { margin-top: 28px; }
+}
+/* eight photos are too many for the grid on smaller screens */
+@media (max-width: 1099px) { .fx-bal-eight .fx-pol-4, .fx-bal-eight .fx-pol-8 { display: none; } }
+@media (max-width: 639px) { .fx-bal-eight .fx-pol-7 { display: none; } .fx-bal-eight .fx-pol-4 { display: none; } }

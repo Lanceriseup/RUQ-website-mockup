@@ -233,6 +233,68 @@ export const stayOption = (site, c, key) =>
 // (about-stay-options.mjs).
 export const stayForm = (c) => form(c.home.stay);
 
+// "Stay close" over the form inside the Freedom note, where the form replaced
+// the note's Reserve button (2026-11-05). Four looks for
+// /freedom-stay-options.html (scripts/build-freedom-stay-options.mjs):
+//
+//   arrow   the script with the hand-drawn arrow to the form, as option J had
+//           it on the wall below the note. LIVE (2026-11-05) until one is picked
+//   rule    the script between two hairlines, like "3-day intensive" above
+//           it, with "Be the first to know" under it
+//   tape    the script on a strip of washi tape stuck across the form's top
+//   line    the script, then the reason to sign up (home.stay.body)
+//
+// The form carries no title of its own since Lance shortened it in MultiplyOS
+// (2026-11-05), so the words here are its only heading. Styles .sc-n-* in
+// stay.css.
+//
+// Arrow was chosen (2026-11-05). Round two, /freedom-stay-options-2.html,
+// sizes it: `form` is narrow (380px wide), s90 or s80 (the whole form scaled
+// to 90% or 80%); `script` is s, l or xl ("Stay close" at 44, 68 or 80px on
+// desktop). Left out, each keeps today's size (the full width of the note;
+// the script at 56px).
+// Arrow chosen and sized 2026-11-05: the form at 90% (s90), the script as
+// it was, a little more room between them. Round three,
+// /freedom-stay-options-3.html, is five livelier takes on the script and
+// arrow (the WOW looks below). Each plays once when the form comes into view:
+// stay.js adds .is-on to [data-sc-anim] (and starts the plane's flight);
+// with reduced motion they show their finished state.
+//
+//   write    the script writes itself in, then the arrow draws and nudges
+//   loop     a heart draws in, and a looping flourish runs to the form
+//   shimmer  a light sweeps the script; the arrow's dashes march; the form glows
+//   spark    a teal swoosh underlines it, sparkles twinkle, the arrow draws
+//   plane    a paper plane flies a dotted trail from the script to the form
+const ARROW_D = 'M20 8 C 70 6, 104 30, 88 74';
+const HEAD_D = 'M76 62 L 88 76 L 100 62';
+const NOTE_ARROW = `<svg class="sc-n-arrow" viewBox="0 0 120 90" aria-hidden="true"><path d="${ARROW_D} ${HEAD_D}"/></svg>`;
+const DRAWN_ARROW = (cls = '') => `<svg class="sc-n-arrow sc-n-draw ${cls}" viewBox="0 0 120 90" aria-hidden="true"><path pathLength="1" d="${ARROW_D}"/><path pathLength="1" class="sc-n-head" d="${HEAD_D}"/></svg>`;
+const STAR = '<svg viewBox="0 0 24 24"><path d="M12 0C13 8 16 11 24 12 16 13 13 16 12 24 11 16 8 13 0 12 8 11 11 8 12 0Z"/></svg>';
+const PLANE_D = 'M8 70 C 40 18, 112 0, 142 30 C 166 56, 142 96, 100 110';
+export const NOTE_STAY = ['arrow', 'rule', 'tape', 'line'];
+export const NOTE_WOW = ['write', 'loop', 'shimmer', 'spark', 'plane'];
+export const noteStay = (c, look = 'arrow', { form: fs = '', script: ss = '' } = {}) => {
+  const s = c.home.stay;
+  const script = `<p class="sc-n-script" aria-hidden="true">${esc(s.script)}</p>`;
+  const sr = `<h2 class="sr-only">${esc(s.script)}: ${esc(s.heading)}</h2>`;
+  const head = {
+    arrow: `${script}${NOTE_ARROW}`,
+    rule: `<div class="sc-n-rule">${script}</div><p class="sc-n-k" aria-hidden="true">${esc(s.heading)}</p>`,
+    tape: '',
+    line: `${script}<p class="sc-n-body">${esc(s.body)}</p>`,
+    write: `${script}${DRAWN_ARROW()}`,
+    loop: `<svg class="sc-n-heart sc-n-draw" viewBox="0 0 40 36" aria-hidden="true"><path pathLength="1" d="M20 32 C 6 22, 2 14, 6 8 C 10 2, 18 4, 20 11 C 22 4, 30 2, 34 8 C 38 14, 34 22, 20 32 Z"/></svg>${script}<svg class="sc-n-loop sc-n-draw" viewBox="0 0 160 130" aria-hidden="true"><path pathLength="1" d="M6 40 C 40 30, 80 18, 108 24 C 140 30, 142 66, 116 68 C 92 70, 96 36, 124 44 C 150 52, 150 92, 128 118"/><path pathLength="1" class="sc-n-head" d="M116 108 L 128 120 L 140 108"/></svg>`,
+    shimmer: `<p class="sc-n-script sc-n-shine" aria-hidden="true">${esc(s.script)}</p><svg class="sc-n-arrow sc-n-march" viewBox="0 0 120 90" aria-hidden="true"><path class="sc-n-dash" d="${ARROW_D}"/><path d="${HEAD_D}"/></svg>`,
+    spark: `${script}<svg class="sc-n-swoosh sc-n-draw" viewBox="0 0 240 20" aria-hidden="true"><path pathLength="1" d="M8 13 C 60 4, 150 3, 232 9"/></svg>${DRAWN_ARROW()}${['s1', 's2', 's3', 's4', 's5'].map(k => `<i class="sc-n-star sc-n-${k}" aria-hidden="true">${STAR}</i>`).join('')}`,
+    plane: `${script}<svg class="sc-n-plane" viewBox="0 0 170 120" aria-hidden="true"><defs><mask id="sc-pl-m" maskUnits="userSpaceOnUse" x="-20" y="-20" width="210" height="160"><path class="sc-n-reveal" pathLength="1" d="${PLANE_D}"/></mask></defs><path id="sc-pl-path" class="sc-n-trail" d="${PLANE_D}" mask="url(#sc-pl-m)"/><g class="sc-n-pl"><path d="M-16 -12 L 17 0 L -16 12 L -8 0 Z"/><path class="sc-n-fold" d="M-8 0 L 17 0"/><animateMotion dur="1.6s" begin="indefinite" fill="freeze" rotate="auto" calcMode="spline" keyPoints="0;1" keyTimes="0;1" keySplines=".45 0 .25 1"><mpath href="#sc-pl-path"/></animateMotion></g></svg>`,
+  }[look] ?? '';
+  const body = look === 'tape'
+    ? `<div class="sc-n-pin"><span class="sc-n-tape" aria-hidden="true">${esc(s.script)}</span>${form(s)}</div>`
+    : form(s);
+  const wow = NOTE_WOW.includes(look);
+  return `<div id="stay" class="sc-n sc-n--${look}${wow ? ' sc-n-wow' : ''}${fs ? ` sc-nf-${fs}` : ''}${ss ? ` sc-ns-${ss}` : ''}"${wow ? ' data-sc-anim' : ''}>${sr}${head}${body}</div>`;
+};
+
 // Any MultiplyOS form, framed the same way ({ src, origin, title }): the
 // Contact page's Contact Us form (contact-mos-options.mjs) and the coaching
 // intro-call form (coaching-options.mjs). `cls` is extra classes on the

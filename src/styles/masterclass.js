@@ -35,7 +35,10 @@
       // the form pre-fills a choice from ?<fieldKey>=<option label>; a new
       // class reloads it, the same class keeps whatever was typed
       var src = frame.dataset.mcForm + '&' + frame.dataset.mcField + '=' + encodeURIComponent(a.dataset.mcClass || '');
-      if (frame.getAttribute('src') !== src) frame.setAttribute('src', src);
+      if (frame.getAttribute('src') !== src) {
+        frame.setAttribute('src', src);
+        frame.style.height = ''; // back to the form's height, from a thank-you
+      }
     }
     if (dlg && dlg.showModal) {
       e.preventDefault();
@@ -51,7 +54,14 @@
   // The frame has a fixed height (masterclass.css) and is not resized from
   // the form's 'mos-form-height' messages, which can keep growing; after a
   // submit the visitor stays here and sees the form's own thank-you (the
-  // client's ask, 2026-11-04).
+  // client's ask, 2026-11-04). That card is short and sits at the top of the
+  // frame, so the frame is cut to it and the dialog centres it.
+  if (frame) {
+    window.addEventListener('message', function (e) {
+      if (e.origin !== frame.dataset.mcOrigin || e.source !== frame.contentWindow) return;
+      if ((e.data || {}).type === 'mos-form-submitted') frame.style.height = '252px';
+    });
+  }
 
   // ---- A: doors
   document.querySelectorAll('[data-mc-doors]').forEach(function (row) {

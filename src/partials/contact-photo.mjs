@@ -145,7 +145,8 @@ const videos = (c, vids) => `
   <div class="cx-vidgrid">${c.contact.videos.map(id => video(id, vids)).join('')}</div>
 </section>`;
 
-const photo = (src, cls = '') => `<img class="cx-photo ${cls}" src="${esc(src)}" alt="" aria-hidden="true" decoding="async" fetchpriority="high">`;
+// `srcset` (optional) is "url width, url width": a smaller file for phones.
+const photo = (src, cls = '', srcset = '') => `<img class="cx-photo ${cls}" src="${esc(src)}"${srcset ? ` srcset="${esc(srcset)}" sizes="100vw"` : ''} alt="" aria-hidden="true" decoding="async" fetchpriority="high">`;
 
 // P1's layout, shared by glass and its variants. `mod` is the variant's
 // class; `dark` picks white type, glass email card and the dark form skin;
@@ -158,7 +159,9 @@ const photo = (src, cls = '') => `<img class="cx-photo ${cls}" src="${esc(src)}"
 // `reachStyle` swaps the email card and socials for one of the reach() styles.
 // `formHtml` replaces the card and its built-in form outright (the
 // MultiplyOS Contact Us options, contact-mos-options.mjs).
-const glassLayout = (site, c, vids, P, mod, { dark = true, layers = '', below = 'white', card = '', arc = false, reachStyle = '', formHtml = '' } = {}) => {
+// `afterHtml` replaces what follows the photo (Rise Up Kings and the videos)
+// for the designs at /contact-after-options.html (contact-after-options.mjs).
+const glassLayout = (site, c, vids, P, mod, { dark = true, layers = '', below = 'white', card = '', arc = false, reachStyle = '', formHtml = '', afterHtml = '' } = {}) => {
   const solid = card === 'solid' || !dark;
   const intro = `
       <div class="cx-intro">
@@ -167,12 +170,12 @@ const glassLayout = (site, c, vids, P, mod, { dark = true, layers = '', below = 
         <div class="cx-soc">${socials(site, { tone: dark ? 'dark' : 'light', style: 'tile' })}</div>`}
       </div>
       ${formHtml || `<div class="cx-card ${solid ? 'cx-card-solid' : 'cx-card-glass'}">${theForm(c, !solid)}</div>`}`;
-  const inner = `<div class="cx-wrap cx-after">${ruk(site, c)}${videos(c, vids)}</div>`;
+  const inner = afterHtml || `<div class="cx-wrap cx-after">${ruk(site, c)}${videos(c, vids)}</div>`;
   const after = arc ? `<div class="cx-arc">${inner}</div>` : inner;
   return `
 <div class="cx cx-glass ${mod}">
   <div class="cx-band">
-    ${photo(P.photo, 'cx-kb')}
+    ${photo(P.photo, 'cx-kb', P.srcset)}
     ${layers}
     <div class="cx-shade" aria-hidden="true"></div>
     <div class="cx-wrap cx-2col">${intro}</div>
@@ -290,6 +293,12 @@ export const contactReach = (site, c, vids, style) =>
   glassLayout(site, c, vids, CONTACT_PHOTO.gday, 'cx-gday', { dark: false, arc: true, reachStyle: style });
 
 // The live layout (G1 daylight, arc, B pills) with `formHtml` in place of the
-// card, and `mod` added to its classes.
-export const contactWithForm = (site, c, vids, formHtml, mod = '') =>
-  glassLayout(site, c, vids, CONTACT_PHOTO.gday, `cx-gday ${mod}`.trim(), { dark: false, arc: true, reachStyle: 'pills', formHtml });
+// card, and `mod` added to its classes. `bg` swaps the photograph and its
+// treatment ({ photo, srcset, dark, layers, day }), for the background
+// options (contact-bg-options.mjs); `day` false drops the daylight (cx-gday)
+// styling for a design of its own.
+export const contactWithForm = (site, c, vids, formHtml, mod = '', bg = {}) => {
+  const P = bg.photo ? { photo: bg.photo, srcset: bg.srcset } : CONTACT_PHOTO.gday;
+  const base = bg.day === false ? 'cx-gbg' : 'cx-gday';
+  return glassLayout(site, c, vids, P, `${base} ${mod}`.trim(), { dark: !!bg.dark, arc: true, reachStyle: 'pills', formHtml, layers: bg.layers || '', afterHtml: bg.after || '' });
+};
