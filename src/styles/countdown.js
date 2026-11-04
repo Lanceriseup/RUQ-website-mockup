@@ -1,48 +1,58 @@
-// Live countdown to the next event.
+// Live countdowns to the next events.
 //
-// Ticks once a second, writes only text, and stops itself once the date has
-// passed rather than counting up into negatives — an event page showing
-// "-42 days" is worse than showing nothing.
+// Every [data-countdown] on the page counts to its own date (the checkout
+// has one per date since 2026-11-05, each shown with its date; until then
+// only the first on a page ran). Ticks once a second, writes only text, and
+// stops a counter once its date has passed rather than counting up into
+// negatives — an event page showing "-42 days" is worse than showing nothing.
 (function () {
   'use strict';
 
-  var root = document.querySelector('[data-countdown]');
-  if (!root) return;
+  function pad(n) { return n < 10 ? '0' + n : String(n); }
 
-  var target = Date.parse(root.dataset.countdown);
-  if (isNaN(target)) return;
-
-  var out = {
-    days: root.querySelector('.cd-days'),
-    hours: root.querySelector('.cd-hours'),
-    minutes: root.querySelector('.cd-minutes'),
-    seconds: root.querySelector('.cd-seconds'),
-  };
+  var counters = [].slice.call(document.querySelectorAll('[data-countdown]')).map(function (root) {
+    var target = Date.parse(root.dataset.countdown);
+    if (isNaN(target)) return null;
+    return {
+      root: root,
+      target: target,
+      done: false,
+      out: {
+        days: root.querySelector('.cd-days'),
+        hours: root.querySelector('.cd-hours'),
+        minutes: root.querySelector('.cd-minutes'),
+        seconds: root.querySelector('.cd-seconds'),
+      },
+    };
+  }).filter(Boolean);
+  if (!counters.length) return;
 
   var timer = null;
 
-  function pad(n) { return n < 10 ? '0' + n : String(n); }
-
-  function tick() {
-    var left = target - Date.now();
-
+  function tickOne(c) {
+    if (c.done) return;
+    var left = c.target - Date.now();
     if (left <= 0) {
       // Past the start: hide the counter rather than run negative.
-      root.querySelectorAll('[data-countdown-box], .cd-days, .cd-hours, .cd-minutes, .cd-seconds')
+      c.root.querySelectorAll('[data-countdown-box], .cd-days, .cd-hours, .cd-minutes, .cd-seconds')
         .forEach(function (el) { el.textContent = '00'; });
-      var wrap = root.querySelector('.cd-days');
+      var wrap = c.root.querySelector('.cd-days');
       if (wrap && wrap.closest('div').parentElement) {
         wrap.closest('div').parentElement.style.display = 'none';
       }
-      if (timer) { clearInterval(timer); timer = null; }
+      c.done = true;
       return;
     }
-
     var s = Math.floor(left / 1000);
-    if (out.days) out.days.textContent = String(Math.floor(s / 86400));
-    if (out.hours) out.hours.textContent = pad(Math.floor(s / 3600) % 24);
-    if (out.minutes) out.minutes.textContent = pad(Math.floor(s / 60) % 60);
-    if (out.seconds) out.seconds.textContent = pad(s % 60);
+    if (c.out.days) c.out.days.textContent = String(Math.floor(s / 86400));
+    if (c.out.hours) c.out.hours.textContent = pad(Math.floor(s / 3600) % 24);
+    if (c.out.minutes) c.out.minutes.textContent = pad(Math.floor(s / 60) % 60);
+    if (c.out.seconds) c.out.seconds.textContent = pad(s % 60);
+  }
+
+  function tick() {
+    counters.forEach(tickOne);
+    if (counters.every(function (c) { return c.done; }) && timer) { clearInterval(timer); timer = null; }
   }
 
   tick();
@@ -52,7 +62,7 @@
   document.addEventListener('visibilitychange', function () {
     if (document.hidden) {
       if (timer) { clearInterval(timer); timer = null; }
-    } else if (!timer) {
+    } else if (!timer && !counters.every(function (c) { return c.done; })) {
       tick();
       timer = setInterval(tick, 1000);
     }

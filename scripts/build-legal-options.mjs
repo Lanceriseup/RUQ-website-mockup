@@ -94,8 +94,8 @@ figure { margin:0; } figcaption { margin-top:8px; font:700 11px Montserrat, sans
 <div class="wrap">
   <h1>Privacy Policy and Terms and Conditions — designs</h1>
   <p class="lead">Two new pages, linked from the footer (beside the copyright line). The words are Rise Up Kings’
-     Privacy Policy and Terms and Conditions exactly as they are on riseupkings.com, with only the email changed to
-     support@riseupqueens.com (and without the Rise Up Kings phone number and address). Four designs, each kept simple and easy to read, in the site’s own type and colours.
+     Privacy Policy and Terms and Conditions from riseupkings.com, with Rise Up Queens, riseupqueens.com and
+     support@riseupqueens.com in place of Rise Up Kings’ name, site and email (and without its phone number and address). Four designs, each kept simple and easy to read, in the site’s own type and colours.
      The previews show the Privacy Policy; the switch at the top of each page (and the link above each preview)
      goes to the Terms and Conditions in the same design. Scroll inside the previews.</p>
   ${Object.entries(OPTIONS).map(([k, o]) => card(k, o)).join('')}

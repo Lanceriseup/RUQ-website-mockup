@@ -74,8 +74,12 @@ export const pages = (site, c, vids) => ([
            Balanced round the taller note with B3 of
            /freedom-balance-options.html (2026-11-05): the note compact
            (size 'compact') and the polaroids larger, spread down its height
-           (balance 'big'). -->
-      ${freedomPhoto(site, c, 'memory', { dates: 'note', form: noteStay(c, 'arrow', { form: 's90' }), size: 'compact', balance: 'big' })}
+           (balance 'big'). Over the form since 2026-11-05, at the client's ask,
+           "REGISTER NOW" in bold in place of "Stay close": R2 of
+           /freedom-register-options.html (bold capitals over a brush stroke
+           that draws itself in) in K2, ink over pink, from
+           /freedom-register-colors.html. -->
+      ${freedomPhoto(site, c, 'memory', { dates: 'note', form: noteStay(c, 'regline', { form: 's90', cta: site.nextEvent.ctaText, tone: 'ink' }), size: 'compact', balance: 'big' })}
       <!-- The breakthrough CTA closes the spread on the spread's own ground.
            As a separate section after this panel it met it on a straight
            line: the panel is z-10, so it covered the top of the CTA's glow,
@@ -268,7 +272,9 @@ export const pages = (site, c, vids) => ([
     sitemap: false,
     title: `Register for Freedom — ${site.brand.name}`, desc: `${c.register.title} · ${c.register.dates[0].label} · ${c.register.dates[0].city}`,
     navClear: true,
-    body: registerPage(site, c)
+    // "What you'll experience" moved up under Location (the client's ask):
+    // X1 of /register-exp-options.html, chosen 2026-11-05.
+    body: registerPage(site, c, { exp: 'up' })
   },
 
   {
@@ -286,7 +292,8 @@ export const pages = (site, c, vids) => ([
   {
     // Privacy Policy and Terms and Conditions (2026-11-05): Rise Up Kings'
     // copy, word for word, with the RUQ support email (content.json legal,
-    // src/data/legal/*.html), without RUK's phone number or address. Linked
+    // src/data/legal/*.html), without RUK's phone number or address, and
+    // naming Rise Up Queens and riseupqueens.com throughout. Linked
     // from the footer's copyright bar. Design: LEGAL_DESIGN.
     file: 'privacy-policy.html', href: '/privacy-policy.html',
     title: `${c.legal.privacy.title} — ${site.brand.name}`, desc: c.legal.privacy.desc,

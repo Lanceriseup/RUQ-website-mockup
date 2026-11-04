@@ -17,6 +17,9 @@ const DETAIL_IC = {
   attendance: ICON.cal,
 };
 
+// The practical blurbs, in the order they sit: two side by side, then Hotel.
+const PRAC = ['included', 'attendance', 'travel'];
+
 const field = (f, id) => {
   const fid = `rgs-${id}-${f.name}`;
   const req = !['street2'].includes(f.name) && f.type !== 'select';
@@ -45,7 +48,18 @@ const step = (n, title, body, extra = '') => `
         </div>
       </li>`;
 
-export const register = (site, c) => {
+// `exp` places "What you'll experience" (2026-11-05, the client asked for it
+// above the What's included, Attendance and Hotel blurbs; options at
+// /register-exp-options.html):
+//   last     where it was: after every detail card
+//   up       the same card, moved up under Location
+//   open     moved up and out of its card: on the photograph itself
+//   pillars  moved up as three tiles side by side
+//   know     moved up, and the three blurbs gathered into one "Good to
+//            know" card under it
+// The page is set in Lato throughout (rgs-t-all, T4 of
+// /register-type-options.html, chosen 2026-11-05).
+export const register = (site, c, { exp = 'last' } = {}) => {
   const r = c.register;
   const f = r.form;
   const [first] = r.dates;
@@ -72,8 +86,47 @@ export const register = (site, c) => {
           </div>`;
   };
 
+  const ROMAN = ['i', 'ii', 'iii'];
+  const items = r.experience.items;
+  const expCard = () => `
+        <div class="rgs-glass rgs-exp" ${rv(60)}>
+          <h2 class="rgs-exph">${esc(r.experience.heading)}</h2>
+          <ol class="rgs-explist">
+            ${items.map((it, i) => `
+            <li><span class="rgs-expn" aria-hidden="true">${ROMAN[i]}</span><div><h3 class="rgs-h3">${esc(it.title)}</h3><p>${esc(it.body)}</p></div></li>`).join('')}
+          </ol>
+        </div>`;
+  // open: no card, on the photograph
+  const expOpen = () => `
+        <div class="rgs-exp-open" ${rv(60)}>
+          <h2 class="rgs-exph">${esc(r.experience.heading)}</h2>
+          <ol class="rgs-explist">
+            ${items.map((it, i) => `
+            <li><span class="rgs-expn" aria-hidden="true">${String(i + 1).padStart(2, '0')}</span><div><h3 class="rgs-h3">${esc(it.title)}</h3><p>${esc(it.body)}</p></div></li>`).join('')}
+          </ol>
+        </div>`;
+  // pillars: three tiles side by side
+  const expPillars = () => `
+        <div class="rgs-exp-pil" ${rv(60)}>
+          <h2 class="rgs-exph">${esc(r.experience.heading)}</h2>
+          <ol class="rgs-pils">
+            ${items.map((it, i) => `
+            <li class="rgs-glass rgs-pil"><span class="rgs-piln" aria-hidden="true">${i + 1}</span><h3 class="rgs-h3">${esc(it.title)}</h3><p>${esc(it.body)}</p></li>`).join('')}
+          </ol>
+        </div>`;
+  // know: the three practical blurbs as rows of one card
+  const knowCard = () => `
+        <div class="rgs-glass rgs-know" ${rv(60)}>
+          <p class="rgs-knowk">Good to know</p>
+          ${PRAC.map(k => byKey[k]).filter(Boolean).map(d => `
+          <div class="rgs-knowrow">
+            <span class="rgs-dic">${DETAIL_IC[d.key] || ''}</span>
+            <div><h3 class="rgs-h3">${esc(d.label)}</h3><p>${esc(d.body)}</p>${d.note ? `<p class="rgs-note">${esc(d.note)}</p>` : ''}</div>
+          </div>`).join('')}
+        </div>`;
+
   return `<link rel="stylesheet" href="/xp-reg-split.css">
-<section class="rg-spl" aria-labelledby="rgs-title">
+<section class="rg-spl rgs-t-all${exp === 'last' ? '' : ` rgs-e-${exp}`}" aria-labelledby="rgs-title">
   <div class="rgs-grid">
 
     <!-- LEFT · the event, on glass over a still photograph -->
@@ -104,24 +157,29 @@ export const register = (site, c) => {
               <p class="rgs-script">${esc(d.label)}</p>
               <p class="rgs-meta"><span class="rgs-mi">${ICON.pin}<span>${esc(d.city)}</span></span>${d.days ? `<span class="rgs-mi">${ICON.clock}<span>${esc(d.days)}</span></span>` : ''}</p>
             </div>`).join('')}
-            <div class="rgs-cd" data-rgs-for="${esc(first.key)}" data-countdown="${esc(first.startsAt)}" aria-label="Time until the event begins">
+            <!-- One countdown per date, each shown with its date (since
+                 2026-11-05: the second date had none). countdown.js runs them all. -->
+            ${r.dates.filter(d => d.startsAt).map((d) => `
+            <div class="rgs-cd" data-rgs-for="${esc(d.key)}"${d.key === first.key ? '' : ' hidden'} data-countdown="${esc(d.startsAt)}" aria-label="Time until the event begins">
               ${['days', 'hours', 'minutes', 'seconds'].map(u => `
               <div class="rgs-cdbox"><span class="rgs-cdn cd-${u}">00</span><span class="rgs-cdu">${u === 'minutes' ? 'mins' : u === 'seconds' ? 'secs' : u}</span></div>`).join('')}
-            </div>
+            </div>`).join('')}
           </div>
         </header>
 
+        ${exp === 'last' ? `
         <div class="rgs-details">
           ${r.details.map(detailCard).join('')}
         </div>
-
-        <div class="rgs-glass rgs-exp" ${rv(60)}>
-          <h2 class="rgs-exph">${esc(r.experience.heading)}</h2>
-          <ol class="rgs-explist">
-            ${r.experience.items.map((it, i) => `
-            <li><span class="rgs-expn" aria-hidden="true">${['i', 'ii', 'iii'][i]}</span><div><h3 class="rgs-h3">${esc(it.title)}</h3><p>${esc(it.body)}</p></div></li>`).join('')}
-          </ol>
+${expCard()}` : `
+        <div class="rgs-details rgs-details-loc">
+          ${r.details.filter(d => d.key === 'location').map(detailCard).join('')}
         </div>
+${exp === 'open' ? expOpen() : exp === 'pillars' ? expPillars() : expCard()}
+${exp === 'know' ? knowCard() : `
+        <div class="rgs-details rgs-details-prac">
+          ${PRAC.map(k => byKey[k]).filter(Boolean).map(detailCard).join('')}
+        </div>`}`}
       </div>
     </div>
 
