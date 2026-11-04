@@ -135,12 +135,27 @@
     },
     {
       "source": "/ruq-2025-event-cal",
-      "destination": "/events.html",
+      "destination": "/",
       "permanent": false
     },
     {
       "source": "/ruq-2025-event-cal/",
-      "destination": "/events.html",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/events.html",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/masterclasses.html",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/coaching.html",
+      "destination": "/",
       "permanent": false
     }
   ]

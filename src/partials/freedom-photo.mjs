@@ -73,6 +73,12 @@ const WALL = [
   { src: 'photos/gallery-3-2.jpg', r: -4 },
   { src: 'nlb/nlb-photo-speaker.jpg', r: 3 },
 ];
+// Two more for the eight-photo balance (B2 of /freedom-balance-options.html):
+// the fourth on each side.
+const WALL_MORE = [
+  { src: 'photos/close-laugh.jpg', r: 4 },
+  { src: 'photos/queens-waving-booth.jpg', r: -5 },
+];
 
 // Manifesto: every word its own span so it can light up in turn; words in
 // the two emphasised phrases carry .k. Punctuation that follows a phrase is
@@ -166,9 +172,19 @@ const PIN = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke=
 const DATE_LABELS = [['Next event', 'm'], ['Also coming', 't']];
 
 // `after` is markup set on the wall below the board and above the section's
-// divider: the homepage pins the Stay Connected form there (option J of
-// /stay-options-2.html).
-export const freedomPhoto = (site, c, style, { dates, after = '' } = {}) => {
+// divider: the homepage pinned the Stay Connected form there (option J of
+// /stay-options-2.html) until 2026-11-05.
+// `form` is markup set in the note in place of its "Reserve your seat"
+// button: since 2026-11-05 (the client's ask) the homepage puts the Stay
+// Connected form there, under the dates.
+// `size` adds fx-sz-<size> to the section, one of the sizings at
+// /freedom-stay-options.html (trim, compact, small; freedom-photo.css). Left
+// out, the section keeps its own sizes.
+// `balance` adds fx-bal-<balance>: the wall rebalanced round the taller note
+// (/freedom-balance-options.html, 2026-11-05). big: larger polaroids spread
+// down the note's height; eight: four a side (WALL_MORE); side: a wider note
+// in two columns, the event left and the dates and form right.
+export const freedomPhoto = (site, c, style, { dates, after = '', form = '', size = '', balance = '' } = {}) => {
   const f = c.home.freedom;
   const ev = site.nextEvent.upcoming[0];
   const events = site.nextEvent.upcoming.slice(0, 2);
@@ -191,6 +207,10 @@ export const freedomPhoto = (site, c, style, { dates, after = '' } = {}) => {
   const para = (d = 3) => `
       <p class="fx-body fx-r" style="--d:${d}">${body(f.body)}</p>`;
   const button = `<a class="fx-cta" href="${esc(site.nextEvent.ctaUrl)}">Reserve your seat ${ARROW}</a>`;
+  // The note's action: the button, or the form given in its place.
+  const action = (d) => form
+    ? `<div class="fx-form fx-r" style="--d:${d}">${form}</div>`
+    : `<p class="fx-meta fx-r" style="--d:${d}">${button}</p>`;
   const plain = (d) => `
       <p class="fx-meta fx-r" style="--d:${d}">
         <span class="fx-when">3-day intensive</span>
@@ -218,7 +238,7 @@ export const freedomPhoto = (site, c, style, { dates, after = '' } = {}) => {
         <div class="fx-dts-row">${dateRow('fx-dts-c')}
         </div>
       </div>
-      <p class="fx-meta fx-r" style="--d:${d + 1}">${button}</p>`,
+      ${action(d + 1)}`,
     tickets: plain,
     band: plain,
     script: (d) => `
@@ -229,7 +249,7 @@ export const freedomPhoto = (site, c, style, { dates, after = '' } = {}) => {
         </ul>
         ${oneCity ? `<p class="fx-std-p">${PIN}${events.length > 1 ? 'Both in ' : ''}${esc(ev.location)} <i aria-hidden="true">·</i> 3-day intensive</p>` : ''}
       </div>
-      <p class="fx-meta fx-r" style="--d:${d + 1}">${button}</p>`,
+      ${action(d + 1)}`,
   };
   const meta = (d = 4) => metas[dates] ? metas[dates](d) : `
       <p class="fx-meta fx-r" style="--d:${d}">
@@ -279,15 +299,22 @@ export const freedomPhoto = (site, c, style, { dates, after = '' } = {}) => {
       ${lines.map(l => `<text x="${w / 2}" y="${l.y}" text-anchor="middle" font-size="${l.size}" textLength="${l.len}" lengthAdjust="spacingAndGlyphs" class="fx-ko-t fx-ko-rim">${l.t}</text>`).join('')}
     </svg>`;
 
+  // The note's copy in two columns, for balance 'side'.
+  const sideCopy = () => `
+    <div class="fx-copy fx-center fx-n2">
+      <div class="fx-n2-l">${credit(false)}${logo(false)}${tag()}${para()}</div>
+      <div class="fx-n2-r">${meta()}</div>
+    </div>`;
+  const wall = balance === 'eight' ? [...WALL.slice(0, 3), WALL_MORE[0], ...WALL.slice(3), WALL_MORE[1]] : WALL;
   const board = `
   <div class="fx-wl-board fx-inner">
-    ${WALL.map((p, i) => `
+    ${wall.map((p, i) => `
     <figure class="fx-pol fx-pol-${i + 1}" style="--r:${p.r}deg;--f:${(i * 1.3).toFixed(1)}s" aria-hidden="true">
       <span class="fx-tape"></span><img src="/assets/${p.src}" alt="" loading="lazy" decoding="async">
     </figure>`).join('')}
     ${dates === 'tickets'
       ? `<div class="fx-note-col"><div class="fx-note">${copy(false)}</div>${tickets}</div>`
-      : `<div class="fx-note">${copy(false)}</div>`}
+      : `<div class="fx-note">${balance === 'side' ? sideCopy() : copy(false)}</div>`}
   </div>`;
 
   const photo = (cls) => `<img class="fx-photo ${cls}" src="${esc(site.assets.heroPoster)}" alt="" aria-hidden="true" loading="lazy" decoding="async">`;
@@ -533,7 +560,7 @@ export const freedomPhoto = (site, c, style, { dates, after = '' } = {}) => {
   };
 
   return `
-<section id="freedom" class="fx fx-${style}${dark ? ' fx-dark' : ''}${(/^w[a-z]/.test(style) && style !== 'wall') || style === 'memory' ? ' fx-wall fx-wv' : ''}" data-fr>
+<section id="freedom" class="fx fx-${style}${dark ? ' fx-dark' : ''}${(/^w[a-z]/.test(style) && style !== 'wall') || style === 'memory' ? ' fx-wall fx-wv' : ''}${size ? ` fx-sz-${size}` : ''}${balance ? ` fx-bal-${balance}` : ''}" data-fr>
   ${bodies[style]}${after}
   ${DIVIDERS[style] || WAVE}
 </section>`;

@@ -35,6 +35,26 @@
     });
   }
 
+  // The animated "Stay close" looks in the Freedom note (noteStay's WOW
+  // looks): play once, when the form is well in view. The plane's flight is
+  // SMIL, so it is started here too. With reduced motion the CSS shows each
+  // look finished and the plane stays put.
+  var anims = [].slice.call(document.querySelectorAll('[data-sc-anim]'));
+  if (anims.length) {
+    var still = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var play = function (el) {
+      el.classList.add('is-on');
+      if (still) return;
+      [].forEach.call(el.querySelectorAll('animateMotion'), function (a) { try { a.beginElement(); } catch (e) {} });
+    };
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (es) {
+        es.forEach(function (e) { if (e.isIntersecting) { play(e.target); io.unobserve(e.target); } });
+      }, { threshold: 0.45 });
+      anims.forEach(function (el) { io.observe(el); });
+    } else anims.forEach(play);
+  }
+
   var pop = document.querySelector('[data-sc-pop]');
   if (!pop) return;
   var KEY = 'sc-dismissed';

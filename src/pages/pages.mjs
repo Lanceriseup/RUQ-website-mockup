@@ -3,7 +3,7 @@ import { section, videoFacade, card, personCard, cta, faq } from '../partials/co
 import { hero } from '../partials/hero.mjs';
 import { spread } from '../partials/spread.mjs';
 import { freedomPhoto } from '../partials/freedom-photo.mjs';
-import { stayOption } from '../partials/stay-options.mjs';
+import { stayOption, noteStay } from '../partials/stay-options.mjs';
 import { faithSection } from '../partials/faith.mjs';
 import { testimonialsSection } from '../partials/testimonials.mjs';
 import { nlbSection } from '../partials/nlb.mjs';
@@ -16,6 +16,8 @@ import { aboutLights } from '../partials/about-lights.mjs';
 import { aboutStayOption } from '../partials/about-stay-options.mjs';
 import { renderFaqs } from '../partials/faq-variants.mjs';
 import { contactFormOption } from '../partials/contact-mos-options.mjs';
+import { contactBg } from '../partials/contact-bg-options.mjs';
+import { contactAfter } from '../partials/contact-after-options.mjs';
 import { explorePage } from '../partials/explore/index.mjs';
 import { masterclassPage } from '../partials/masterclass-options.mjs';
 import { eventsOption } from '../partials/events-options.mjs';
@@ -23,6 +25,11 @@ import { coachingOption } from '../partials/coaching-options.mjs';
 import { thankYouOption } from '../partials/thankyou-options.mjs';
 import { notFoundOption } from '../partials/notfound-options.mjs';
 import { register as registerPage } from '../partials/register/split.mjs';
+import { legalPage } from '../partials/legal-options.mjs';
+
+// The policy pages' design (legal-options.mjs): L1 'paper', chosen
+// 2026-11-05 from /legal-options.html.
+const LEGAL_DESIGN = 'paper';
 
 const grid = (cols, items) => `<div class="mt-10 grid gap-6 ${cols}">${items.join('')}</div>`;
 
@@ -55,9 +62,20 @@ export const pages = (site, c, vids) => ([
            earlier brush-stroke design is still in freedom.mjs. -->
       <!-- The note carries both event dates, moved here from under the
            hero's Register button (2026-10-30, option A of
-           /freedom-dates-options.html). Under it, "Stay close" and the
-           Stay Connected form, taped to the wall (option J). -->
-      ${freedomPhoto(site, c, 'memory', { dates: 'note', after: stayOption(site, c, 'wall') })}
+           /freedom-dates-options.html). Under them, since 2026-11-05 (the
+           client's ask), the Stay Connected form in place of the note's
+           "Reserve your seat" button; before that the form was taped to the
+           wall under the note, with "Stay close" (option J,
+           stayOption(site, c, 'wall')). "Stay close" sits over it with J's
+           arrow (noteStay 'arrow', from /freedom-stay-options.html), the
+           form at 90% (F2 of /freedom-stay-options-2.html) and the script
+           at its own size with a little more room under it, chosen
+           2026-11-05. Livelier takes: /freedom-stay-options-3.html.
+           Balanced round the taller note with B3 of
+           /freedom-balance-options.html (2026-11-05): the note compact
+           (size 'compact') and the polaroids larger, spread down its height
+           (balance 'big'). -->
+      ${freedomPhoto(site, c, 'memory', { dates: 'note', form: noteStay(c, 'arrow', { form: 's90' }), size: 'compact', balance: 'big' })}
       <!-- The breakthrough CTA closes the spread on the spread's own ground.
            As a separate section after this panel it met it on a straight
            line: the panel is z-10, so it covered the top of the CTA's glow,
@@ -143,6 +161,11 @@ export const pages = (site, c, vids) => ([
   },
 
   {
+    // HIDDEN for now (2026-11-05, Lance's ask), as are Masterclasses and
+    // 1-on-1 Coaching below: linked from nowhere, out of sitemap.xml, and
+    // redirected to / on Vercel (vercel.json). Still built, so they can be
+    // previewed locally and the options pages that read them keep working.
+    //
     // Events — A1, "satin ribbon", chosen 2026-11-03 from
     // /events-options-2.html (A, the plain trail, was live first): the live
     // page's seven programs, word for word, along a satin ribbon that unrolls
@@ -151,7 +174,7 @@ export const pages = (site, c, vids) => ([
     // (src/partials/events-options.mjs, events.css/js). The earlier tiers grid
     // and "Inside the experiences" films are replaced; the films now sit with
     // their programs. Copy is content.json eventsPage.
-    file: 'events.html', href: '/events.html',
+    file: 'events.html', href: '/events.html', sitemap: false,
     title: `Events — ${site.brand.name}`, desc: c.eventsPage.lead,
     navClear: true,
     body: eventsOption(site, c, 'ribbon')
@@ -162,7 +185,7 @@ export const pages = (site, c, vids) => ([
     // the deck on blush silk, closing on the live page's sign-off, waitlist in
     // a dialog (src/partials/masterclass-options.mjs). No em dashes anywhere
     // on this page, the title included (asked for 2026-11-02).
-    file: 'masterclasses.html', href: '/masterclasses.html',
+    file: 'masterclasses.html', href: '/masterclasses.html', sitemap: false,
     title: `Masterclasses | ${site.brand.name}`, desc: c.explore.masterclasses.lead,
     navClear: true,
     body: masterclassPage(site, c, 'deck-sign')
@@ -175,7 +198,7 @@ export const pages = (site, c, vids) => ([
     // (src/partials/coaching-options.mjs, coaching.css/js). Copy is
     // content.json coachingPage; each coach's button opens the MultiplyOS
     // intro-call form with her pre-filled.
-    file: 'coaching.html', href: '/coaching.html',
+    file: 'coaching.html', href: '/coaching.html', sitemap: false,
     title: `1-on-1 Coaching — ${site.brand.name}`, desc: c.coachingPage.lead,
     navClear: true,
     body: coachingOption(site, c, 'cards')
@@ -216,7 +239,12 @@ export const pages = (site, c, vids) => ([
     // contact.mosForm), set where the old disabled form was: C1 of
     // /contact-form-options.html, chosen 2026-11-03. The disabled form is
     // still what contactPhoto renders for the review pages.
-    body: contactFormOption(site, c, vids, 'drop')
+    // Since 2026-11-05 on the client's new photograph, the queens in their
+    // crowns (contact-queens.jpg), in the same daylight treatment: A of
+    // /contact-bg-options.html (contact-bg-options.mjs).
+    // Under it, Rise Up Kings and the two videos as P1 "ivory and gold",
+    // chosen 2026-11-05 from /contact-after-options.html.
+    body: contactBg(site, c, vids, 'day', { after: contactAfter(site, c, vids, 'gold') })
   },
 
   {
@@ -253,6 +281,24 @@ export const pages = (site, c, vids) => ([
     title: `Thank You — ${site.brand.name}`, desc: c.thankYou.lead,
     navClear: true,
     body: thankYouOption(site, c, 'day')
+  },
+
+  {
+    // Privacy Policy and Terms and Conditions (2026-11-05): Rise Up Kings'
+    // copy, word for word, with the RUQ support email (content.json legal,
+    // src/data/legal/*.html), without RUK's phone number or address. Linked
+    // from the footer's copyright bar. Design: LEGAL_DESIGN.
+    file: 'privacy-policy.html', href: '/privacy-policy.html',
+    title: `${c.legal.privacy.title} — ${site.brand.name}`, desc: c.legal.privacy.desc,
+    navClear: true,
+    body: legalPage(site, c, 'privacy', LEGAL_DESIGN)
+  },
+
+  {
+    file: 'terms.html', href: '/terms.html',
+    title: `${c.legal.terms.title} — ${site.brand.name}`, desc: c.legal.terms.desc,
+    navClear: true,
+    body: legalPage(site, c, 'terms', LEGAL_DESIGN)
   },
 
   {

@@ -51,5 +51,6 @@ export const footer = (site) => `
       </ul>
     </div>
   </div>
-  <div class="border-t border-white/15 px-4 py-6 text-center font-body text-xs text-white/50">${esc(site.brand.copyright)}</div>
+  <!-- The policies, since 2026-11-05 -->
+  <div class="border-t border-white/15 px-4 py-6 text-center font-body text-xs text-white/50">${esc(site.brand.copyright)}<span class="mx-2" aria-hidden="true">·</span><a href="/privacy-policy.html" class="hover:text-white">Privacy Policy</a><span class="mx-2" aria-hidden="true">·</span><a href="/terms.html" class="hover:text-white">Terms and Conditions</a></div>
 </footer>`;

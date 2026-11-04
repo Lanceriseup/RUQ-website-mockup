@@ -86,6 +86,8 @@ for (const page of list) {
 fs.copyFileSync(path.join(ROOT, 'src/styles/app.js'), path.join(dist, 'app.js'));
 fs.copyFileSync(path.join(ROOT, 'src/styles/freedom-photo.css'), path.join(dist, 'freedom-photo.css'));
 fs.copyFileSync(path.join(ROOT, 'src/styles/contact-photo.css'), path.join(dist, 'contact-photo.css'));
+fs.copyFileSync(path.join(ROOT, 'src/styles/contact-bg.css'), path.join(dist, 'contact-bg.css'));
+fs.copyFileSync(path.join(ROOT, 'src/styles/contact-after.css'), path.join(dist, 'contact-after.css'));
 fs.copyFileSync(path.join(ROOT, 'src/styles/announce.js'), path.join(dist, 'announce.js'));
 fs.copyFileSync(path.join(ROOT, 'src/styles/announce.css'), path.join(dist, 'announce.css'));
 fs.copyFileSync(path.join(ROOT, 'src/styles/hero-rotate.js'), path.join(dist, 'hero-rotate.js'));
@@ -103,6 +105,8 @@ fs.copyFileSync(path.join(ROOT, 'src/styles/coaching.css'), path.join(dist, 'coa
 fs.copyFileSync(path.join(ROOT, 'src/styles/coaching.js'), path.join(dist, 'coaching.js'));
 fs.copyFileSync(path.join(ROOT, 'src/styles/thankyou.css'), path.join(dist, 'thankyou.css'));
 fs.copyFileSync(path.join(ROOT, 'src/styles/notfound.css'), path.join(dist, 'notfound.css'));
+fs.copyFileSync(path.join(ROOT, 'src/styles/legal.css'), path.join(dist, 'legal.css'));
+fs.copyFileSync(path.join(ROOT, 'src/styles/legal.js'), path.join(dist, 'legal.js'));
 // One stylesheet per explore direction, linked by the page that uses it.
 for (const f of fs.readdirSync(path.join(ROOT, 'src/styles/explore'))) {
   if (f.endsWith('.css') && f !== 'base.css') fs.copyFileSync(path.join(ROOT, 'src/styles/explore', f), path.join(dist, 'xp-' + f));

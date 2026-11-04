@@ -17,7 +17,7 @@
     "dates": "May 5–7, 2027",
     "location": "Dallas, TX",
     "ctaText": "Register Now",
-    "ctaUrl": "https://go.riseupqueens.com/3dayevent",
+    "ctaUrl": "/register.html",
     "upcoming": [
       {
         "dates": "May 5–7, 2027",
@@ -33,7 +33,7 @@
       }
     ],
     "_startsAt_note": "ISO start times, needed for the countdown treatment. 9am CST matches the welcome-email times observed on the live site. CONFIRM with Jayden along with the dates themselves.",
-    "_ctaUrl": "Every Register button on the site reads this. The live Ontraport registration page, asked for by the client 2026-11-04 (from 2026-10-05 it pointed at the redesigned /register.html, which is DESIGN ONLY and is now linked from nowhere)."
+    "_ctaUrl": "Every Register button on the site reads this. Since 2026-11-05 (Lance's ask) the redesigned /register.html checkout, as it was from 2026-10-05 to 2026-11-04, when the client had asked for the live Ontraport page (https://go.riseupqueens.com/3dayevent) instead. /register.html is DESIGN ONLY until its form is wired to Ontraport: it posts nowhere and takes no payment."
   },
   "nav": [
     {
@@ -54,25 +54,8 @@
       ]
     },
     {
-      "label": "Explore",
-      "children": [
-        {
-          "label": "Events",
-          "href": "/events.html"
-        },
-        {
-          "label": "Masterclasses",
-          "href": "/masterclasses.html"
-        },
-        {
-          "label": "1-on-1 Coaching",
-          "href": "/coaching.html"
-        },
-        {
-          "label": "Courses",
-          "href": "/courses.html"
-        }
-      ]
+      "label": "Courses",
+      "href": "/courses.html"
     },
     {
       "label": "Contact",
@@ -161,12 +144,12 @@
     "_note": "The contact page links all three. The YouTube channel is Talk Marriage To Me, which is Jessica's channel rather than a Rise Up Queens one — worth confirming that is intended before it goes in the footer too."
   },
   "funnels": {
-    "threeDayEvent": "https://go.riseupqueens.com/3dayevent",
+    "threeDayEvent": "/register.html",
     "deeper": "https://go.riseupkings.com/deeper",
     "elevate": "https://go.riseupkings.com/elevate",
     "lifeByDesign": "https://go.riseupkings.com/lifebydesign",
     "coachesAcademy": "https://go.riseupkings.com/RUKCoachesAcademy",
-    "_threeDayEvent": "The Ontraport registration page, as nextEvent.ctaUrl (back from /register.html 2026-11-04)."
+    "_threeDayEvent": "The registration page, as nextEvent.ctaUrl: the redesigned /register.html since 2026-11-05 (the Ontraport page, https://go.riseupqueens.com/3dayevent, 2026-11-04 to 2026-11-05)."
   },
   "jotform": {
     "_warning": "Jayden reported these stopped working (Aug 12 meeting); migration to MOS forms → Ontraport was planned. VERIFY before wiring.",
@@ -192,26 +175,14 @@
       "href": "/team.html"
     },
     {
-      "label": "Masterclasses",
-      "href": "/masterclasses.html"
-    },
-    {
-      "label": "Events",
-      "href": "/events.html"
-    },
-    {
-      "label": "1-on-1 Coaching",
-      "href": "/coaching.html"
-    },
-    {
       "label": "Contact",
       "href": "/contact.html"
     },
     {
       "label": "Register now",
-      "href": "https://go.riseupqueens.com/3dayevent"
+      "href": "/register.html"
     }
   ],
-  "_nav_note": "nav = header: two items either side of the wordmark. An item with children renders as a submenu (src/partials/nav-sub.mjs) in the style named by navSubmenu; About holds About Rise Up Queens and Meet the Team, and Courses joined the header to keep it two-and-two (chosen 2026-10-09 from /about-menu-options.html, option A 'card'). On 2026-11-04 Courses became Explore, a menu holding Events, Masterclasses, 1-on-1 Coaching and Courses in the same card style (option A of /nav-pages-options.html), so the header stays two-and-two. footerNav = the footer's Explore list, set 2026-10-30 to Home, About Rise Up Queens, Meet the team, Contact, Register now. Events, Masterclasses, 1-on-1 Coaching, Free resource and Courses were dropped from it; Courses is still in the header. Masterclasses came back on 2026-11-03, after Meet the team, once its page was redesigned. Events joined it the same day, after Masterclasses, once the Events page was redesigned. 1-on-1 Coaching followed, after Events, once its page was redesigned. Register now points at the same page as nextEvent.ctaUrl.",
+  "_nav_note": "nav = header: two items either side of the wordmark. An item with children renders as a submenu (src/partials/nav-sub.mjs) in the style named by navSubmenu; About holds About Rise Up Queens and Meet the Team, and Courses joined the header to keep it two-and-two (chosen 2026-10-09 from /about-menu-options.html, option A 'card'). On 2026-11-04 Courses became Explore, a menu holding Events, Masterclasses, 1-on-1 Coaching and Courses in the same card style (option A of /nav-pages-options.html), so the header stays two-and-two. footerNav = the footer's Explore list, set 2026-10-30 to Home, About Rise Up Queens, Meet the team, Contact, Register now. Events, Masterclasses, 1-on-1 Coaching, Free resource and Courses were dropped from it; Courses is still in the header. Masterclasses came back on 2026-11-03, after Meet the team, once its page was redesigned. Events joined it the same day, after Masterclasses, once the Events page was redesigned. 1-on-1 Coaching followed, after Events, once its page was redesigned. Register now points at the same page as nextEvent.ctaUrl. On 2026-11-05 Events, Masterclasses and 1-on-1 Coaching were hidden for now (Lance's ask): out of the header and footer, and redirected to the homepage on Vercel (vercel.json), though still built so they can be previewed locally. With Courses alone left, Explore went back to a plain Courses link. To bring them back, restore the Explore menu (git history, 2026-11-04) and drop the redirects.",
   "_navVariant_note": "Live header is design G (editorial hairline), implemented in src/partials/nav.mjs. It has two modes: overHero (white type on the video, homepage) and standard (ink on white, interior pages). The A-D and E-I exploration sets remain for reference and are shown only on /nav-options.html and /nav-hero.html."
 }
