@@ -273,10 +273,25 @@ const STAR = '<svg viewBox="0 0 24 24"><path d="M12 0C13 8 16 11 24 12 16 13 13 
 const PLANE_D = 'M8 70 C 40 18, 112 0, 142 30 C 166 56, 142 96, 100 110';
 export const NOTE_STAY = ['arrow', 'rule', 'tape', 'line'];
 export const NOTE_WOW = ['write', 'loop', 'shimmer', 'spark', 'plane'];
-export const noteStay = (c, look = 'arrow', { form: fs = '', script: ss = '' } = {}) => {
+// "REGISTER NOW" in bold in place of "Stay close" (the client's ask,
+// 2026-11-05), four looks for /freedom-register-options.html. `cta` is the
+// words, the site's Register button text (site.nextEvent.ctaText).
+//   reg      bold capitals in pink, with the hand-drawn arrow to the form
+//   regline  bold capitals in a pink-to-teal gradient over a teal brush
+//            stroke that draws itself in
+//   ribbon   white capitals on a pink ribbon across the top of the form
+//   tab      a pink pill sitting on the form's top edge, gently glowing,
+//            with an arrow down into the form
+export const NOTE_REGISTER = ['reg', 'regline', 'ribbon', 'tab'];
+const DOWN = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg>';
+// `tone` colours regline (sc-nt-<tone>, /freedom-register-colors.html):
+// pink, ink, teal, plum, rose; left out, pink to teal over teal.
+export const noteStay = (c, look = 'arrow', { form: fs = '', script: ss = '', cta = 'Register Now', tone = '' } = {}) => {
   const s = c.home.stay;
   const script = `<p class="sc-n-script" aria-hidden="true">${esc(s.script)}</p>`;
-  const sr = `<h2 class="sr-only">${esc(s.script)}: ${esc(s.heading)}</h2>`;
+  const isReg = NOTE_REGISTER.includes(look);
+  const sr = isReg ? `<h2 class="sr-only">${esc(cta)}</h2>` : `<h2 class="sr-only">${esc(s.script)}: ${esc(s.heading)}</h2>`;
+  const bold = (cls = '') => `<p class="sc-n-reg ${cls}" aria-hidden="true">${esc(cta)}</p>`;
   const head = {
     arrow: `${script}${NOTE_ARROW}`,
     rule: `<div class="sc-n-rule">${script}</div><p class="sc-n-k" aria-hidden="true">${esc(s.heading)}</p>`,
@@ -287,12 +302,16 @@ export const noteStay = (c, look = 'arrow', { form: fs = '', script: ss = '' } =
     shimmer: `<p class="sc-n-script sc-n-shine" aria-hidden="true">${esc(s.script)}</p><svg class="sc-n-arrow sc-n-march" viewBox="0 0 120 90" aria-hidden="true"><path class="sc-n-dash" d="${ARROW_D}"/><path d="${HEAD_D}"/></svg>`,
     spark: `${script}<svg class="sc-n-swoosh sc-n-draw" viewBox="0 0 240 20" aria-hidden="true"><path pathLength="1" d="M8 13 C 60 4, 150 3, 232 9"/></svg>${DRAWN_ARROW()}${['s1', 's2', 's3', 's4', 's5'].map(k => `<i class="sc-n-star sc-n-${k}" aria-hidden="true">${STAR}</i>`).join('')}`,
     plane: `${script}<svg class="sc-n-plane" viewBox="0 0 170 120" aria-hidden="true"><defs><mask id="sc-pl-m" maskUnits="userSpaceOnUse" x="-20" y="-20" width="210" height="160"><path class="sc-n-reveal" pathLength="1" d="${PLANE_D}"/></mask></defs><path id="sc-pl-path" class="sc-n-trail" d="${PLANE_D}" mask="url(#sc-pl-m)"/><g class="sc-n-pl"><path d="M-16 -12 L 17 0 L -16 12 L -8 0 Z"/><path class="sc-n-fold" d="M-8 0 L 17 0"/><animateMotion dur="1.6s" begin="indefinite" fill="freeze" rotate="auto" calcMode="spline" keyPoints="0;1" keyTimes="0;1" keySplines=".45 0 .25 1"><mpath href="#sc-pl-path"/></animateMotion></g></svg>`,
+    reg: `${bold()}${NOTE_ARROW}`,
+    regline: `${bold('sc-n-reg-grad')}<svg class="sc-n-regsw sc-n-draw" viewBox="0 0 300 22" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M6 14 C 80 5, 200 4, 294 10"/></svg>`,
+    ribbon: `<div class="sc-n-ribbon" aria-hidden="true"><span>${esc(cta)}</span></div>`,
+    tab: `<div class="sc-n-tabrow" aria-hidden="true"><span class="sc-n-tab">${esc(cta)}${DOWN}</span></div>`,
   }[look] ?? '';
   const body = look === 'tape'
     ? `<div class="sc-n-pin"><span class="sc-n-tape" aria-hidden="true">${esc(s.script)}</span>${form(s)}</div>`
     : form(s);
-  const wow = NOTE_WOW.includes(look);
-  return `<div id="stay" class="sc-n sc-n--${look}${wow ? ' sc-n-wow' : ''}${fs ? ` sc-nf-${fs}` : ''}${ss ? ` sc-ns-${ss}` : ''}"${wow ? ' data-sc-anim' : ''}>${sr}${head}${body}</div>`;
+  const wow = NOTE_WOW.includes(look) || look === 'regline';
+  return `<div id="stay" class="sc-n sc-n--${look}${wow ? ' sc-n-wow' : ''}${fs ? ` sc-nf-${fs}` : ''}${ss ? ` sc-ns-${ss}` : ''}${tone ? ` sc-nt-${tone}` : ''}"${wow ? ' data-sc-anim' : ''}>${sr}${head}${body}</div>`;
 };
 
 // Any MultiplyOS form, framed the same way ({ src, origin, title }): the

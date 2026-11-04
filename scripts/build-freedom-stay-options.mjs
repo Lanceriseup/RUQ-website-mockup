@@ -301,3 +301,58 @@ fs.writeFileSync(path.join(dist, 'freedom-balance-options.html'), page1
 </div>
 <script>`));
 console.log('built dist/freedom-balance-options.html + frames fbal-*.html');
+
+// ── REGISTER NOW (2026-11-05): the client asked for "REGISTER NOW" in bold in
+// place of "Stay close" over the form. Four looks, with the live note round
+// them (form at 90%, compact note, larger photos). Frames /freg-<k>.html.
+const REG = {
+  now: { label: 'As it is now', note: '“Stay close” in the pink script with the hand-drawn arrow, for comparison.' },
+  reg: { label: 'R1 — Bold, with the arrow', note: '“REGISTER NOW” in heavy pink capitals where “Stay close” was, keeping the hand-drawn arrow curling down to the form. The closest to today.' },
+  regline: { label: 'R2 — Bold, with a brush stroke', note: '“REGISTER NOW” in heavy capitals that run from pink to teal, over a teal brush stroke that draws itself in as the form comes into view.' },
+  ribbon: { label: 'R3 — Ribbon', note: '“REGISTER NOW” in white bold capitals on a pink ribbon with folded ends, laid across the top edge of the form, like a banner on the note.' },
+  tab: { label: 'R4 — Glowing tab', note: '“REGISTER NOW” on a bold pink pill sitting on the form’s top edge, with an arrow pointing down into the form; it glows softly and the arrow bobs, so the eye goes straight to it. The most button-like.' },
+};
+for (const [k, o] of Object.entries(REG)) fs.writeFileSync(path.join(dist, `freg-${k}.html`), base
+  .replace(sectionRe, () => freedomPhoto(site, c, 'memory', { dates: 'note', size: 'compact', balance: 'big',
+    form: noteStay(c, k === 'now' ? 'arrow' : k, { form: 's90', cta: site.nextEvent.ctaText }) }))
+  .replace(/<title>[\s\S]*?<\/title>/, `<title>${esc(`Register now — ${o.label}`)} — ${esc(site.brand.name)}</title>`));
+
+fs.writeFileSync(path.join(dist, 'freedom-register-options.html'), page1
+  .replace(/<title>[\s\S]*?<\/title>/, `<title>REGISTER NOW on the Freedom note — options — ${esc(site.brand.name)}</title>`)
+  .replace(/<div class="wrap">[\s\S]*?\n<\/div>\n<script>/, () => `<div class="wrap">
+  <h1>Freedom note — “REGISTER NOW” over the form</h1>
+  <p class="lead">“REGISTER NOW” in bold in place of “Stay close”, in four looks, with today’s for comparison. The
+     rest of the note is as it is now. The words are the site’s own Register button text, so they change with it.
+     Every preview is the real homepage opened at the form; scroll inside it.</p>
+  ${Object.entries(REG).map(([k, o]) => card2(`freg-${k}.html`, o, k === 'now')).join('')}
+</div>
+<script>`));
+console.log('built dist/freedom-register-options.html + frames freg-*.html');
+
+// ── R2's colours (2026-11-05): the client liked R2 and asked for colour
+// options. Frames /fregc-<k>.html.
+const TONES = {
+  '': { label: 'As shown', note: 'Pink running into teal, over a teal brush stroke: the R2 you liked.' },
+  pink: { label: 'K1 — All pink', note: 'Solid brand pink capitals over a soft light-pink stroke. One colour, the warmest and most on-brand for Rise Up Queens.' },
+  ink: { label: 'K2 — Ink and pink', note: 'Near-black capitals over a bright pink stroke. The strongest contrast; the words read first and the pink does the decorating.' },
+  teal: { label: 'K3 — Teal and pink', note: 'Teal capitals over a pink stroke: the reverse of the Next event and Also coming colours above it, so the note’s two colours trade places.' },
+  plum: { label: 'K4 — Plum to pink', note: 'Deep plum running into bright pink, over a teal stroke. Richer and more grown-up than all-pink.' },
+  rose: { label: 'K5 — Rose gold', note: 'Pink running into a soft gold, over a champagne stroke, echoing the gold of the Rise Up Kings card on the Contact page. The most premium.' },
+};
+for (const [k, o] of Object.entries(TONES)) fs.writeFileSync(path.join(dist, `fregc-${k || 'now'}.html`), base
+  .replace(sectionRe, () => freedomPhoto(site, c, 'memory', { dates: 'note', size: 'compact', balance: 'big',
+    form: noteStay(c, 'regline', { form: 's90', cta: site.nextEvent.ctaText, tone: k }) }))
+  .replace(/<title>[\s\S]*?<\/title>/, `<title>${esc(`Register now colours — ${o.label}`)} — ${esc(site.brand.name)}</title>`));
+
+fs.writeFileSync(path.join(dist, 'freedom-register-colors.html'), page1
+  .replace(/<title>[\s\S]*?<\/title>/, `<title>REGISTER NOW colours — options — ${esc(site.brand.name)}</title>`)
+  .replace(/<div class="wrap">[\s\S]*?\n<\/div>\n<script>/, () => `<div class="wrap">
+  <h1>“REGISTER NOW” (R2) — colours</h1>
+  <p class="lead">R2, the bold capitals over a brush stroke that draws itself in, in five colourings, with the one you
+     saw first for comparison. Only the colours change. Every preview is the real homepage opened at the form; scroll
+     inside it, or reload to see the stroke draw again.
+     <a href="/freedom-register-options.html" style="color:var(--magenta);font-weight:700">← The four looks</a></p>
+  ${Object.entries(TONES).map(([k, o]) => card2(`fregc-${k || 'now'}.html`, o, false).replace('>Option<', k ? '>Option<' : '>R2<')).join('')}
+</div>
+<script>`));
+console.log('built dist/freedom-register-colors.html + frames fregc-*.html');

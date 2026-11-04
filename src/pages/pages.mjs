@@ -74,8 +74,12 @@ export const pages = (site, c, vids) => ([
            Balanced round the taller note with B3 of
            /freedom-balance-options.html (2026-11-05): the note compact
            (size 'compact') and the polaroids larger, spread down its height
-           (balance 'big'). -->
-      ${freedomPhoto(site, c, 'memory', { dates: 'note', form: noteStay(c, 'arrow', { form: 's90' }), size: 'compact', balance: 'big' })}
+           (balance 'big'). Over the form since 2026-11-05, at the client's ask,
+           "REGISTER NOW" in bold in place of "Stay close": R2 of
+           /freedom-register-options.html (bold capitals over a brush stroke
+           that draws itself in) in K2, ink over pink, from
+           /freedom-register-colors.html. -->
+      ${freedomPhoto(site, c, 'memory', { dates: 'note', form: noteStay(c, 'regline', { form: 's90', cta: site.nextEvent.ctaText, tone: 'ink' }), size: 'compact', balance: 'big' })}
       <!-- The breakthrough CTA closes the spread on the spread's own ground.
            As a separate section after this panel it met it on a straight
            line: the panel is z-10, so it covered the top of the CTA's glow,

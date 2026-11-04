@@ -426,3 +426,45 @@
   .sc-n--write .sc-n-script{-webkit-mask:none;mask:none}
   .sc-n-star{opacity:1;transform:none}
   .sc-n-pl{display:none}}
+
+/* ════ "REGISTER NOW" in place of "Stay close" (the client's ask,
+   2026-11-05; looks at /freedom-register-options.html) ════ */
+.sc-n-reg{margin:0;font:900 clamp(24px,2.5vw,32px)/1.1 Lato,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#e8208f}
+/* reg: with the hand-drawn arrow */
+.sc-n--reg .sc-n-arrow{right:-10px;top:8px;width:46px}
+.sc-n--reg .sc-form{margin-top:22px}
+@media(max-width:639px){.sc-n-reg{font-size:23px;letter-spacing:.1em}.sc-n--reg .sc-n-arrow{width:32px;right:-14px;top:8px}}
+/* regline: a gradient, over a teal brush stroke that draws itself in */
+.sc-n-reg-grad{display:table;margin-inline:auto;background:linear-gradient(90deg,#e8208f,#c4127a 45%,#00a3b0);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sc-n-regsw{display:block;width:min(280px,80%);height:16px;margin:2px auto 0;overflow:visible}
+.sc-n-regsw path{stroke:#00b9c6;stroke-width:4;--du:.9s;--dl:.15s}
+/* ribbon: white capitals on a pink ribbon with folded ends, over the form's top */
+.sc-n-ribbon{position:relative;z-index:3;display:flex;justify-content:center;margin-bottom:-24px}
+.sc-n-ribbon span{position:relative;display:inline-block;padding:13px 34px 12px;background:linear-gradient(180deg,#f2479f,#d4157f);color:#fff;
+  font:900 clamp(16px,1.6vw,19px)/1 Lato,sans-serif;letter-spacing:.2em;text-transform:uppercase;box-shadow:0 14px 24px -14px rgba(160,10,90,.8)}
+.sc-n-ribbon span::before,.sc-n-ribbon span::after{content:"";position:absolute;top:9px;z-index:-1;border:20px solid #b0106a;border-top-width:21px;border-bottom-width:21px}
+.sc-n-ribbon span::before{left:-26px;border-left-color:transparent}
+.sc-n-ribbon span::after{right:-26px;border-right-color:transparent}
+.sc-n--ribbon .sc-form{margin-top:0}
+@media(max-width:639px){.sc-n-ribbon span{padding:12px 22px 11px;letter-spacing:.14em}}
+/* tab: a glowing pill on the form's top edge, its arrow pointing in */
+.sc-n-tabrow{position:relative;z-index:3;display:flex;justify-content:center;margin-bottom:-23px}
+.sc-n-tab{display:inline-flex;align-items:center;gap:10px;padding:13px 26px;border-radius:999px;background:#e8208f;color:#fff;
+  font:900 clamp(15px,1.5vw,18px)/1 Lato,sans-serif;letter-spacing:.18em;text-transform:uppercase;
+  box-shadow:0 0 0 5px #fffdfb,0 14px 28px -10px rgba(232,32,143,.75);animation:sc-tabglow 2.8s ease-in-out infinite}
+.sc-n-tab svg{animation:sc-tabbob 1.4s ease-in-out infinite}
+@keyframes sc-tabglow{50%{box-shadow:0 0 0 5px #fffdfb,0 0 0 11px rgba(232,32,143,.14),0 18px 36px -10px rgba(232,32,143,.85)}}
+@keyframes sc-tabbob{50%{transform:translateY(3px)}}
+.sc-n--tab .sc-form{margin-top:0}
+@media(prefers-reduced-motion:reduce){.sc-n-tab,.sc-n-tab svg{animation:none}}
+/* R2's colours (/freedom-register-colors.html): the capitals, then the stroke */
+.sc-nt-pink .sc-n-reg-grad{background:linear-gradient(90deg,#e8208f,#e8208f);-webkit-background-clip:text;background-clip:text}
+.sc-nt-pink .sc-n-regsw path{stroke:#f59ac8}
+.sc-nt-ink .sc-n-reg-grad{background:linear-gradient(90deg,#1c1c1c,#1c1c1c);-webkit-background-clip:text;background-clip:text}
+.sc-nt-ink .sc-n-regsw path{stroke:#e8208f}
+.sc-nt-teal .sc-n-reg-grad{background:linear-gradient(90deg,#008f99,#00b9c6);-webkit-background-clip:text;background-clip:text}
+.sc-nt-teal .sc-n-regsw path{stroke:#e8208f}
+.sc-nt-plum .sc-n-reg-grad{background:linear-gradient(90deg,#5b1648,#c4127a 55%,#e8208f);-webkit-background-clip:text;background-clip:text}
+.sc-nt-plum .sc-n-regsw path{stroke:#00b9c6}
+.sc-nt-rose .sc-n-reg-grad{background:linear-gradient(90deg,#e8208f,#f0569f 50%,#d8a24a);-webkit-background-clip:text;background-clip:text}
+.sc-nt-rose .sc-n-regsw path{stroke:#e2bf7c}
