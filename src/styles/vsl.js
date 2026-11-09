@@ -18,6 +18,37 @@
   var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var saveData = navigator.connection && navigator.connection.saveData;
 
+  function soundBadgesOn() {
+    document.querySelectorAll('.vsl-sound').forEach(function (b) {
+      b.querySelector('.vsl-icon-muted').classList.add('hidden');
+      b.querySelector('.vsl-icon-on').classList.remove('hidden');
+      b.querySelector('.vsl-label').textContent = 'Sound on';
+      b.classList.add('opacity-0', 'pointer-events-none');
+    });
+  }
+
+  // A local MP4 in the same frame (the about hero's promo). No autoplay
+  // (2026-11-10): it waits on its poster, and the play button, or the
+  // picture, starts it with sound. Then the native controls own the clicks.
+  var native = mount.querySelector('[data-vsl-video]');
+  if (native) {
+    var on = false;
+    var stageEl = mount.querySelector('[data-vsl-stage]');
+    var playBtn = mount.querySelector('[data-vsl-play]');
+    var vig = mount.querySelector('.vsl-vig');
+    function nativePlay() {
+      if (on) return;
+      on = true;
+      if (stageEl) stageEl.classList.add('is-playing');
+      if (playBtn) playBtn.hidden = true;
+      if (vig) vig.hidden = true;
+      native.muted = false; native.controls = true;
+      var p = native.play(); if (p && p.catch) p.catch(function () {});
+    }
+    mount.addEventListener('click', nativePlay);
+    return;
+  }
+
   window._wq = window._wq || [];
   window._wq.push({
     id: ID,
@@ -56,12 +87,7 @@
           video.play();
         } catch (e) { /* API shape changed — the player still works muted */ }
 
-        document.querySelectorAll('.vsl-sound').forEach(function (b) {
-          b.querySelector('.vsl-icon-muted').classList.add('hidden');
-          b.querySelector('.vsl-icon-on').classList.remove('hidden');
-          b.querySelector('.vsl-label').textContent = 'Sound on';
-          b.classList.add('opacity-0', 'pointer-events-none');
-        });
+        soundBadgesOn();
       }
 
       // Either the badge or the video surface itself starts sound.

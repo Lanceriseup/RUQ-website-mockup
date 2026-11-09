@@ -25,7 +25,7 @@
       "body": "Freedom isn’t a conference to attend; it’s a turning point to walk through. In three days, you’ll identify what’s really kept you stuck, experience breakthrough alongside women who get it, and leave with clarity, freedom, and a faith that feels alive again."
     },
     "painPoints": {
-      "heading": "Common struggles women in marriage have:",
+      "heading": "Common struggles women who attend have:",
       "_source": "Verbatim from riseupqueens.com. An earlier pass paraphrased items 5 and 6 and used a different heading.",
       "items": [
         "You keep your guard up, even with those closest to you.",
@@ -166,7 +166,7 @@
       },
       {
         "q": "What are the days like?",
-        "a": "Each of the 3 days has a spiritual, mental & physical component to it. This is an experiential event with over 10 experiences that are designed to transform a woman."
+        "a": "Each of the 3 days has a spiritual, mental & physical component to it. This is an experiential event with over 10 experiences that are designed to transform a woman. Sessions are from 8am – 6pm."
       },
       {
         "q": "What is included in the ticket price?",
@@ -174,7 +174,7 @@
       },
       {
         "q": "Where is the event?",
-        "a": "Dallas, TX"
+        "a": "Embassy Suites Denton – 3100 Town Center Tr, Denton, TX 76201"
       },
       {
         "q": "Do you offer payment plans?",
@@ -1189,13 +1189,17 @@
         "key": "may",
         "label": "May 5–7, 2027",
         "city": "Denton, TX",
+        "venue": "Embassy Suites Denton",
+        "address": "3100 Town Center Tr, Denton, TX 76201",
         "startsAt": "2027-05-05T09:00:00-05:00",
         "_details": "Venue, daily times and arrival details for May were not supplied."
       },
       {
         "key": "sep",
         "label": "Sept. 29 – Oct. 1, 2027",
-        "city": "Location TBA",
+        "city": "Denton, TX",
+        "venue": "Embassy Suites Denton",
+        "address": "3100 Town Center Tr, Denton, TX 76201",
         "startsAt": "2027-09-29T09:00:00-05:00",
         "_details": "Dates set 2026-10-09. City, venue, daily times and arrival details not supplied yet."
       }
@@ -1209,17 +1213,25 @@
       {
         "key": "included",
         "label": "What’s included",
-        "body": "Your event ticket includes the training, materials, and lunches while in the sessions."
+        "body": "Your event ticket includes the training, materials, and lunches while in the sessions.",
+        "items": [
+          { "label": "Training" },
+          { "label": "Materials" },
+          { "label": "Lunches", "sub": "While in the sessions" }
+        ]
       },
       {
         "key": "travel",
         "label": "Hotel & travel",
         "body": "Once registered, we’ll send you a link to book a discounted hotel rate. As we get closer to the event, we’ll follow up with more on what to expect and what to pack.",
-        "note": "Airfare and hotel are not included in your ticket price. The closest airports are DFW and Dallas Love Field."
+        "note": "Airfare and hotel are not included in your ticket price. The closest airports are DFW and Dallas Love Field.",
+        "fine": "Airfare and hotel are not included in your ticket price.",
+        "airports": ["DFW", "Dallas Love Field"]
       },
       {
         "key": "attendance",
         "label": "Attendance",
+        "lead": "Sessions are from 8am – 6pm.",
         "body": "If for some reason you can’t attend all sessions, we’d ask that you wait and join us at a future event — each day builds on the ones before it."
       }
     ],

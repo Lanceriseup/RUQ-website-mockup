@@ -63,7 +63,9 @@ const CROWN = 'M52 430 L64 150 L182 300 L300 66 L418 300 L536 150 L548 430 Z';
 // bottom margin, which is what makes them read as polaroids.
 // deeper-embrace and queens-waving-booth were swapped out 2026-10-30: the
 // struggles and renewal plates just below already show them. The blurry
-// presenter (gallery-2-1) became the in-focus NLB speaker the same day.
+// presenter (gallery-2-1) became the in-focus NLB speaker the same day, and
+// that speaker became the volunteer with a guest (freedom-volunteer, client
+// supplied) on 2026-11-10.
 // Paths are relative to /assets/.
 const WALL = [
   { src: 'photos/gallery-1-2.jpg', r: -6 },
@@ -71,7 +73,7 @@ const WALL = [
   { src: 'photos/gallery-1-1.jpg', r: -3 },
   { src: 'photos/journey-embrace.jpg', r: 5 },
   { src: 'photos/gallery-3-2.jpg', r: -4 },
-  { src: 'nlb/nlb-photo-speaker.jpg', r: 3 },
+  { src: 'photos/freedom-volunteer.jpg', r: 3 },
 ];
 // Two more for the eight-photo balance (B2 of /freedom-balance-options.html):
 // the fourth on each side.

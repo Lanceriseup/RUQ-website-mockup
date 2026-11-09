@@ -289,7 +289,9 @@ const DOWN = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke
 export const noteStay = (c, look = 'arrow', { form: fs = '', script: ss = '', cta = 'Register Now', tone = '' } = {}) => {
   const s = c.home.stay;
   const script = `<p class="sc-n-script" aria-hidden="true">${esc(s.script)}</p>`;
-  const isReg = NOTE_REGISTER.includes(look);
+  // bare: the form alone, nothing over it (the Freedom card since
+  // 2026-11-10); the Register heading stays for screen readers.
+  const isReg = NOTE_REGISTER.includes(look) || look === 'bare';
   const sr = isReg ? `<h2 class="sr-only">${esc(cta)}</h2>` : `<h2 class="sr-only">${esc(s.script)}: ${esc(s.heading)}</h2>`;
   const bold = (cls = '') => `<p class="sc-n-reg ${cls}" aria-hidden="true">${esc(cta)}</p>`;
   const head = {

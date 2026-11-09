@@ -57,9 +57,10 @@ const step = (n, title, body, extra = '') => `
 //   pillars  moved up as three tiles side by side
 //   know     moved up, and the three blurbs gathered into one "Good to
 //            know" card under it
+//   none     left out (the live page since 2026-11-10, Lance's ask)
 // The page is set in Lato throughout (rgs-t-all, T4 of
 // /register-type-options.html, chosen 2026-11-05).
-export const register = (site, c, { exp = 'last' } = {}) => {
+export const register = (site, c, { exp = 'last', prac = 'cards' } = {}) => {
   const r = c.register;
   const f = r.form;
   const [first] = r.dates;
@@ -75,7 +76,7 @@ export const register = (site, c, { exp = 'last' } = {}) => {
   const detailCard = (d) => {
     const body = d.key === 'location'
       ? r.dates.map((dt, i) => `<div data-rgs-for="${esc(dt.key)}"${i ? ' hidden' : ''}>${locBody(dt)}</div>`).join('')
-      : `<p>${esc(d.body)}</p>${d.note ? `<p class="rgs-note">${esc(d.note)}</p>` : ''}`;
+      : `${d.lead ? `<p class="rgs-strong">${esc(d.lead)}</p>` : ''}<p>${esc(d.body)}</p>${d.note ? `<p class="rgs-note">${esc(d.note)}</p>` : ''}`;
     return `
           <div class="rgs-glass rgs-detail" ${rv(60)}>
             <span class="rgs-dic">${DETAIL_IC[d.key] || ''}</span>
@@ -125,8 +126,201 @@ export const register = (site, c, { exp = 'last' } = {}) => {
           </div>`).join('')}
         </div>`;
 
+  // ── `prac`: how Location, What's included, Attendance and Hotel & travel
+  // are laid out (2026-11-10, options at /register-prac-options.html):
+  //   cards    the four glass cards as they were
+  //   glance   one itinerary card (venue, the three days, hours), the
+  //            inclusions as three tiles, travel with airport chips
+  //   bento    a fitted grid: venue over a drawn map, the hours as large
+  //            numerals, the inclusions as a checklist, travel across
+  //   ticket   a cream admission ticket with a tear-off stub, the fine
+  //            print on glass under it
+  //   path     one card, the details as stops on a glowing line
+  const loc = byKey.location, inc = byKey.included, att = byKey.attendance, tr = byKey.travel;
+  const hrsM = ((att && att.lead) || '').match(/(\d{1,2}\s?[ap]m)\s*[–-]\s*(\d{1,2}\s?[ap]m)/i);
+  const hrs = hrsM ? { from: hrsM[1], to: hrsM[2] } : null;
+  const TZ = 'America/Chicago';
+  const days = (d) => {
+    const s = new Date(d.startsAt);
+    return [0, 1, 2].map(i => {
+      const t = new Date(s.getTime() + i * 864e5);
+      return {
+        wd: t.toLocaleDateString('en-US', { weekday: 'short', timeZone: TZ }),
+        mo: t.toLocaleDateString('en-US', { month: 'short', timeZone: TZ }),
+        dn: t.toLocaleDateString('en-US', { day: 'numeric', timeZone: TZ }),
+      };
+    });
+  };
+  const span = (d) => { const x = days(d); return `${x[0].wd} – ${x[2].wd}`; };
+  const perDate = (fn, cls = '') => r.dates.map((dt, i) =>
+    `<div${cls ? ` class="${cls}"` : ''} data-rgs-for="${esc(dt.key)}"${i ? ' hidden' : ''}>${fn(dt)}</div>`).join('');
+  const maps = (d) => `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${d.venue}, ${d.address}`)}`;
+  const dirLink = (d, cls = 'rgs-dir') => d.venue
+    ? `<a class="${cls}" href="${esc(maps(d))}" target="_blank" rel="noopener">Directions${ICON.out}</a>` : '';
+  const venue = (d) => d.venue
+    ? `<p class="rgs-pv">${esc(d.venue)}</p><p class="rgs-pa">${esc(d.address)}</p>`
+    : `<p class="rgs-pv">${esc(d.city)}</p>`;
+  const INC_IC = [
+    '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3z"/><path d="M19 11a7 7 0 0 1-14 0M12 18v3"/></svg>',
+    '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5V5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2 2 2 0 0 0 2 2h13"/><path d="M9 7h6"/></svg>',
+    '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3v8a2 2 0 0 1-2 2M3 3v8a2 2 0 0 0 2 2v8M5 3v8M17 21V3c-2.2 0-4 2.7-4 7s1.8 4 4 4"/></svg>',
+  ];
+  const PLANE = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>';
+  const TICK = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>';
+  const INFO = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M12 11v6M12 7.5v.01"/></svg>';
+  const hrsTxt = hrs ? `${hrs.from} – ${hrs.to}` : '';
+  const airports = (cls = 'rgs-air') => tr && tr.airports ? `
+            <div class="${cls}"><span class="rgs-airk">Closest airports</span>${tr.airports.map(a => `<span class="rgs-chip">${PLANE}${esc(a)}</span>`).join('')}</div>` : '';
+  const incItems = (inc && inc.items) || [];
+
+  const pracGlance = () => `
+        <div class="rgs-glass rgs-gl" ${rv(60)}>
+          <div class="rgs-gl-loc">
+            <span class="rgs-dic">${DETAIL_IC.location}</span>
+            <div class="rgs-gl-v"><h3 class="rgs-k">${esc(loc.label)}</h3>${perDate(venue)}</div>
+            ${perDate((d) => dirLink(d), 'rgs-gl-dirw')}
+          </div>
+          <div class="rgs-gl-sched">
+            <h3 class="rgs-k">${esc(att.label)}</h3>
+            ${perDate((d) => days(d).map((x, i) => `
+              <div class="rgs-day"><span class="rgs-dayn">Day ${i + 1}</span><span class="rgs-daywd">${esc(x.wd)}</span><span class="rgs-daydn">${esc(x.mo)} ${esc(x.dn)}</span><span class="rgs-dayt">${esc(hrsTxt)}</span></div>`).join(''), 'rgs-gl-days')}
+            <p class="rgs-gl-att">${INFO}<span>${esc(att.body)}</span></p>
+          </div>
+        </div>
+        <div class="rgs-glass rgs-gl-inc" ${rv(60)}>
+          <h3 class="rgs-k">${esc(inc.label)}</h3>
+          <ul class="rgs-incs">
+            ${incItems.map((x, i) => `<li><span class="rgs-incic">${INC_IC[i] || ''}</span><span class="rgs-incl">${esc(x.label)}</span>${x.sub ? `<span class="rgs-incs-sub">${esc(x.sub)}</span>` : ''}</li>`).join('')}
+          </ul>
+          <p class="rgs-gl-incp">${esc(inc.body)}</p>
+        </div>
+        <div class="rgs-glass rgs-detail rgs-gl-tr" ${rv(60)}>
+          <span class="rgs-dic">${DETAIL_IC.travel}</span>
+          <div>
+            <h3 class="rgs-h3">${esc(tr.label)}</h3>
+            <p>${esc(tr.body)}</p>
+            ${airports()}
+            <p class="rgs-fine">${esc(tr.fine)}</p>
+          </div>
+        </div>`;
+
+  const MAP = `<svg class="rgs-map" viewBox="0 0 400 220" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <g fill="none" stroke-linecap="round">
+              <path d="M-10 150 C 80 140, 160 170, 250 120 S 380 60, 420 70" stroke-width="10" class="rgs-map-hw"/>
+              <path d="M300 -10 C 290 60, 310 140, 280 240" stroke-width="7" class="rgs-map-hw"/>
+              <path d="M-10 60 L 420 40 M-10 105 L 420 95 M-10 200 L 420 185 M60 -10 L 80 240 M140 -10 L 150 240 M210 -10 L 215 240 M360 -10 L 350 240" stroke-width="1.4" class="rgs-map-st"/>
+              <path d="M210 95 L 300 92" stroke-width="3" class="rgs-map-rt"/>
+            </g></svg>`;
+  const pracBento = () => `
+        <div class="rgs-bn" ${rv(60)}>
+          <div class="rgs-glass rgs-bn-loc">
+            ${MAP}
+            <span class="rgs-pin" aria-hidden="true"><span class="rgs-pin-dot">${DETAIL_IC.location}</span></span>
+            <div class="rgs-bn-locin">
+              <h3 class="rgs-k">${esc(loc.label)}</h3>
+              ${perDate((d) => `${venue(d)}${dirLink(d)}`)}
+            </div>
+          </div>
+          <div class="rgs-glass rgs-bn-time">
+            <h3 class="rgs-k">${esc(att.label)}</h3>
+            ${hrs ? `<p class="rgs-bn-hrs"><span>${esc(hrs.from)}</span><i aria-hidden="true"></i><span>${esc(hrs.to)}</span></p>` : ''}
+            ${perDate((d) => `<p class="rgs-bn-days">Daily · ${esc(span(d))} · ${esc(d.label)}</p>`)}
+            <p class="rgs-bn-att">${esc(att.body)}</p>
+          </div>
+          <div class="rgs-glass rgs-bn-inc">
+            <h3 class="rgs-k">${esc(inc.label)}</h3>
+            <ul class="rgs-checks">
+              ${incItems.map((x, i) => `<li><span class="rgs-incic">${INC_IC[i] || ''}</span><span><span class="rgs-incl">${esc(x.label)}</span>${x.sub ? `<span class="rgs-incs-sub">${esc(x.sub)}</span>` : ''}</span><span class="rgs-ok">${TICK}</span></li>`).join('')}
+            </ul>
+            <p class="rgs-bn-incp">With your event ticket</p>
+          </div>
+          <div class="rgs-glass rgs-bn-tr">
+            <div>
+              <h3 class="rgs-k">${esc(tr.label)}</h3>
+              <p class="rgs-bn-trp">${esc(tr.body)}</p>
+            </div>
+            <div class="rgs-bn-fly">
+              ${airports('rgs-air rgs-air-col')}
+              <p class="rgs-fine">${esc(tr.fine)}</p>
+            </div>
+          </div>
+        </div>`;
+
+  const pracTicket = () => `
+        <div class="rgs-tk" ${rv(60)}>
+          <div class="rgs-tk-main">
+            <p class="rgs-tk-admit"><span>Admit one</span><span class="rgs-tk-dot"></span><span>Freedom</span></p>
+            <p class="rgs-tk-k">${esc(loc.label)}</p>
+            ${perDate((d) => `${venue(d)}`)}
+            <dl class="rgs-tk-grid">
+              <div><dt>Dates</dt><dd>${perDate((d) => esc(d.label))}</dd></div>
+              <div><dt>Days</dt><dd>${perDate((d) => esc(span(d)))}</dd></div>
+              <div><dt>Sessions</dt><dd>${esc(hrsTxt)}</dd></div>
+            </dl>
+            ${perDate((d) => dirLink(d, 'rgs-tk-dir'))}
+            <span class="rgs-tk-sheen" aria-hidden="true"></span>
+          </div>
+          <div class="rgs-tk-stub">
+            <p class="rgs-tk-k">${esc(inc.label)}</p>
+            <ul class="rgs-tk-inc">${incItems.map(x => `<li><span class="rgs-ok">${TICK}</span>${esc(x.label)}</li>`).join('')}</ul>
+            <span class="rgs-tk-crown" aria-hidden="true">${CROWN}</span>
+          </div>
+        </div>
+        <div class="rgs-glass rgs-tk-fine" ${rv(60)}>
+          <div class="rgs-detail">
+            <span class="rgs-dic">${DETAIL_IC.attendance}</span>
+            <div><h3 class="rgs-h3">${esc(att.label)}</h3><p>${esc(att.body)}</p></div>
+          </div>
+          <div class="rgs-detail">
+            <span class="rgs-dic">${DETAIL_IC.travel}</span>
+            <div><h3 class="rgs-h3">${esc(tr.label)}</h3><p>${esc(tr.body)}</p>${airports()}<p class="rgs-fine">${esc(tr.fine)}</p></div>
+          </div>
+        </div>`;
+
+  const pracPath = () => `
+        <div class="rgs-glass rgs-pt" ${rv(60)}>
+          <h2 class="rgs-exph rgs-pt-h">Know before you go</h2>
+          <ol class="rgs-pt-list">
+            <li>
+              <span class="rgs-pt-node">${DETAIL_IC.location}</span>
+              <div>
+                <h3 class="rgs-k">Where</h3>
+                ${perDate((d) => `${venue(d)}${dirLink(d)}`)}
+              </div>
+            </li>
+            <li>
+              <span class="rgs-pt-node">${DETAIL_IC.attendance}</span>
+              <div>
+                <h3 class="rgs-k">When</h3>
+                ${perDate((d) => days(d).map((x, i) => `<span class="rgs-pt-day"><b>${esc(x.wd)}</b> ${esc(x.mo)} ${esc(x.dn)}</span>`).join(''), 'rgs-pt-days')}
+                <p class="rgs-pt-hrs">Sessions <strong>${esc(hrsTxt)}</strong> each day</p>
+                <p class="rgs-pt-p">${esc(att.body)}</p>
+              </div>
+            </li>
+            <li>
+              <span class="rgs-pt-node">${DETAIL_IC.included}</span>
+              <div>
+                <h3 class="rgs-k">${esc(inc.label)}</h3>
+                <div class="rgs-pt-chips">${incItems.map((x, i) => `<span class="rgs-chip">${INC_IC[i] || ''}${esc(x.label)}</span>`).join('')}</div>
+                <p class="rgs-pt-p">${esc(inc.body)}</p>
+              </div>
+            </li>
+            <li>
+              <span class="rgs-pt-node">${DETAIL_IC.travel}</span>
+              <div>
+                <h3 class="rgs-k">Getting there</h3>
+                <p class="rgs-pt-p">${esc(tr.body)}</p>
+                ${airports()}
+                <p class="rgs-fine">${esc(tr.fine)}</p>
+              </div>
+            </li>
+          </ol>
+        </div>`;
+
+  const pracAlt = { glance: pracGlance, bento: pracBento, ticket: pracTicket, path: pracPath }[prac];
+
   return `<link rel="stylesheet" href="/xp-reg-split.css">
-<section class="rg-spl rgs-t-all${exp === 'last' ? '' : ` rgs-e-${exp}`}" aria-labelledby="rgs-title">
+<section class="rg-spl rgs-t-all${exp === 'last' ? '' : ` rgs-e-${exp}`}${pracAlt ? ` rgs-p-${prac}` : ''}" aria-labelledby="rgs-title">
   <div class="rgs-grid">
 
     <!-- LEFT · the event, on glass over a still photograph -->
@@ -171,11 +365,13 @@ export const register = (site, c, { exp = 'last' } = {}) => {
         <div class="rgs-details">
           ${r.details.map(detailCard).join('')}
         </div>
-${expCard()}` : `
+${expCard()}` : pracAlt ? `
+${exp === 'none' ? '' : exp === 'open' ? expOpen() : exp === 'pillars' ? expPillars() : expCard()}
+${pracAlt()}` : `
         <div class="rgs-details rgs-details-loc">
           ${r.details.filter(d => d.key === 'location').map(detailCard).join('')}
         </div>
-${exp === 'open' ? expOpen() : exp === 'pillars' ? expPillars() : expCard()}
+${exp === 'none' ? '' : exp === 'open' ? expOpen() : exp === 'pillars' ? expPillars() : expCard()}
 ${exp === 'know' ? knowCard() : `
         <div class="rgs-details rgs-details-prac">
           ${PRAC.map(k => byKey[k]).filter(Boolean).map(detailCard).join('')}

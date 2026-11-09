@@ -456,6 +456,7 @@
 @keyframes sc-tabglow{50%{box-shadow:0 0 0 5px #fffdfb,0 0 0 11px rgba(232,32,143,.14),0 18px 36px -10px rgba(232,32,143,.85)}}
 @keyframes sc-tabbob{50%{transform:translateY(3px)}}
 .sc-n--tab .sc-form{margin-top:0}
+.sc-n--bare .sc-form{margin-top:0}
 @media(prefers-reduced-motion:reduce){.sc-n-tab,.sc-n-tab svg{animation:none}}
 /* R2's colours (/freedom-register-colors.html): the capitals, then the stroke */
 .sc-nt-pink .sc-n-reg-grad{background:linear-gradient(90deg,#e8208f,#e8208f);-webkit-background-clip:text;background-clip:text}

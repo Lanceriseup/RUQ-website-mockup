@@ -163,7 +163,7 @@ export const spread = (site, c, tail = '', o = {}) => {
     <div class="st-grid grid gap-y-6 sm:gap-y-10 ${L.stCols} lg:grid-rows-[auto_1fr] lg:gap-x-14 lg:gap-y-0">
       <div class="order-1 lg:order-none lg:col-start-1 lg:row-start-1">
         <div class="border-b border-ink/10 pb-4 text-center sm:text-left">
-          ${dualHeading('Common struggles', 'women in marriage have', MAGENTA, 'text-ink', true, '4.5rem', { fluid: true, eyebrow: true, min: '2.25rem', vw: '14.5vw' })}
+          ${dualHeading('Common struggles', 'women who attend have', MAGENTA, 'text-ink', true, '4.5rem', { fluid: true, eyebrow: true, min: '2.25rem', vw: '14.5vw' })}
         </div>
       </div>
 

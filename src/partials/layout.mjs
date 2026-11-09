@@ -47,6 +47,7 @@ export const footer = (site) => `
       <ul class="mt-4 space-y-2 font-body text-sm text-white/70">
         <li><a href="${esc(site.social.instagram)}" class="hover:text-white" rel="noopener">Instagram</a></li>
         <li><a href="${esc(site.social.facebook)}" class="hover:text-white" rel="noopener">Facebook</a></li>
+        <li><a href="${esc(site.social.youtube)}" class="hover:text-white" rel="noopener">YouTube</a></li>
         <li class="pt-2"><a href="${esc(site.brand.parent.url)}" class="hover:text-white" rel="noopener">Explore the movement for men &rarr;</a></li>
       </ul>
     </div>

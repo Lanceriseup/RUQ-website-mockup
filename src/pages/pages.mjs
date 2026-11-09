@@ -78,8 +78,9 @@ export const pages = (site, c, vids) => ([
            "REGISTER NOW" in bold in place of "Stay close": R2 of
            /freedom-register-options.html (bold capitals over a brush stroke
            that draws itself in) in K2, ink over pink, from
-           /freedom-register-colors.html. -->
-      ${freedomPhoto(site, c, 'memory', { dates: 'note', form: noteStay(c, 'regline', { form: 's90', cta: site.nextEvent.ctaText, tone: 'ink' }), size: 'compact', balance: 'big' })}
+           /freedom-register-colors.html. Removed 2026-11-10 (Lance's ask):
+           the form now stands alone, look 'bare'. -->
+      ${freedomPhoto(site, c, 'memory', { dates: 'note', form: noteStay(c, 'bare', { form: 's90', cta: site.nextEvent.ctaText, tone: 'ink' }), size: 'compact', balance: 'big' })}
       <!-- The breakthrough CTA closes the spread on the spread's own ground.
            As a separate section after this panel it met it on a straight
            line: the panel is z-10, so it covered the top of the CTA's glow,
@@ -273,8 +274,9 @@ export const pages = (site, c, vids) => ([
     title: `Register for Freedom — ${site.brand.name}`, desc: `${c.register.title} · ${c.register.dates[0].label} · ${c.register.dates[0].city}`,
     navClear: true,
     // "What you'll experience" moved up under Location (the client's ask):
-    // X1 of /register-exp-options.html, chosen 2026-11-05.
-    body: registerPage(site, c, { exp: 'up' })
+    // X1 of /register-exp-options.html, chosen 2026-11-05. Removed from the
+    // page 2026-11-10 (Lance's ask): exp 'none'.
+    body: registerPage(site, c, { exp: 'none' })
   },
 
   {
