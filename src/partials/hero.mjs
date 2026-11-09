@@ -23,11 +23,16 @@ const SANS_LINE =
 // "Tap for sound" badge. vsl.js mounts the Wistia player into the one
 // [data-vsl-id] on the page, and build.mjs loads it whenever that attribute is
 // present. `gap` is the space above it, which each hero tunes for phones.
-export const vslPlayer = (id, gap = 'mt-10 sm:mt-16') => `
+//
+// `file` ({ src, poster, title }) plays a local MP4 in the same frame instead
+// of a Wistia video — the about hero runs the RUQ promo this way (swapped with
+// the interview 2026-11-10). Unlike the Wistia mode it does not autoplay: it
+// shows the poster and a play button, which starts it with sound (vsl.js).
+export const vslPlayer = (id, gap = 'mt-10 sm:mt-16', file = null) => `
     <!-- VSL: full 16:9 frame with a cyan spotlight.
          Plays muted and looping on load; clicking unmutes and restarts. See
          vsl.js — the Wistia player is mounted into the div below. -->
-    <div class="relative mx-auto ${gap} max-w-4xl" data-vsl-id="${esc(id)}">
+    <div class="relative mx-auto ${gap} max-w-4xl" data-vsl-id="${esc(file ? 'mp4' : id)}">
 
       <!-- Cyan bloom. Deliberately restrained: wider and more diffuse than a
            tight halo, at low alpha, so it reads as the frame sitting in light
@@ -44,20 +49,29 @@ export const vslPlayer = (id, gap = 'mt-10 sm:mt-16') => `
       <div data-vsl-stage class="vsl-stage relative overflow-hidden ring-1 ring-cyan/40 shadow-[0_0_100px_-20px_rgba(0,185,198,.48),0_40px_90px_-45px_rgba(0,0,0,.85)]">
         <div class="vsl-frame relative h-0 w-full overflow-hidden" style="padding-bottom:56.25%">
         <div class="absolute inset-0 [&>div]:h-full [&>div]:w-full">
-          <div class="wistia_embed wistia_async_${esc(id)} videoFoam=true h-full w-full">&nbsp;</div>
+          ${file ? `<video data-vsl-video class="absolute inset-0 h-full w-full object-cover" playsinline preload="metadata"
+                 poster="${esc(file.poster)}" aria-label="${esc(file.title)}"><source src="${esc(file.src)}" type="video/mp4"></video>`
+          : `<div class="wistia_embed wistia_async_${esc(id)} videoFoam=true h-full w-full">&nbsp;</div>`}
         </div>
 
         <!-- Vignette, over the player but not catching clicks. -->
-        <div aria-hidden="true" class="pointer-events-none absolute inset-0 z-10"
+        <div aria-hidden="true" class="vsl-vig pointer-events-none absolute inset-0 z-10"
              style="box-shadow:inset 0 0 140px 40px rgba(0,0,0,.72)"></div>
 
         </div>
 
-        <button type="button" class="vsl-sound absolute bottom-4 right-4 z-20 flex min-h-11 items-center gap-2 rounded-full bg-ink/70 px-4 font-body text-[11px] font-bold uppercase tracking-[0.15em] text-white backdrop-blur transition hover:bg-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan">
+        ${file ? `<!-- MP4 mode does not autoplay (the about page, 2026-11-10): the
+             poster with a play button, and a tap starts it with sound. -->
+        <button type="button" data-vsl-play aria-label="Play ${esc(file.title)}"
+                class="group absolute inset-0 z-20 grid place-items-center focus-visible:outline-none">
+          <span class="grid h-20 w-20 place-items-center rounded-full bg-magenta text-white shadow-[0_0_0_10px_rgba(232,32,143,.25),0_20px_40px_-12px_rgba(232,32,143,.9)] transition group-hover:scale-105 group-focus-visible:outline group-focus-visible:outline-2 group-focus-visible:outline-offset-4 group-focus-visible:outline-white sm:h-24 sm:w-24">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" class="ml-1" style="width:50px;height:50px"><path d="M8 5.5v13l10.5-6.5z"/></svg>
+          </span>
+        </button>` : `<button type="button" class="vsl-sound absolute bottom-4 right-4 z-20 flex min-h-11 items-center gap-2 rounded-full bg-ink/70 px-4 font-body text-[11px] font-bold uppercase tracking-[0.15em] text-white backdrop-blur transition hover:bg-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan">
           <svg class="vsl-icon-muted" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5zM22 9l-6 6M16 9l6 6"/></svg>
           <svg class="vsl-icon-on hidden" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5zM15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>
           <span class="vsl-label">Tap for sound</span>
-        </button>
+        </button>`}
       </div>
     </div>`;
 

@@ -273,20 +273,18 @@
   })();
 
   // "Who is it for?" (about page). See whofor.mjs.
-  //   - the promo plays muted only while on screen (it is preload="none", so
-  //     nothing loads until then); reduced motion / Save-Data never autoplay
-  //   - "Tap for sound" unmutes and restarts it with controls
-  //   - .is-watching while it plays with sound; on pause or at the end,
-  //     .is-back for the length of the return animation
+  //   - the interview (Wistia) does not autoplay (2026-11-10): it waits on
+  //     its thumbnail, and the Play button, or the picture, starts it with
+  //     sound; after that Wistia's own controls own the clicks
+  //   - .is-watching while it plays; on pause or at the end, .is-back for
+  //     the length of the return animation
   (function whoFor() {
     var s = document.querySelector('[data-wh]');
     if (!s) return;
     var box = s.querySelector('[data-wh-video]');
-    var v = box && box.querySelector('video');
+    var id = box && box.getAttribute('data-wh-wistia');
     var btn = box && box.querySelector('.wh-snd');
-    if (!v || !btn) return;
-    var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var saveData = navigator.connection && navigator.connection.saveData;
+    if (!id || !btn) return;
     var back = null;
 
     function watching(on) {
@@ -302,32 +300,49 @@
       new IntersectionObserver(function (entries) {
         if (entries[0].isIntersecting) s.classList.add('is-in');
       }, { threshold: 0.25 }).observe(s);
-      if (!reduced && !saveData) {
-        new IntersectionObserver(function (entries) {
-          if (!v.muted) return;   // once she is watching with sound, leave it to her
-          if (entries[0].isIntersecting) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
-          else v.pause();
-        }, { threshold: 0.2 }).observe(box);
-      }
     } else {
       s.classList.add('is-in');
     }
 
-    // The button, or a click anywhere on the video, starts it with sound.
-    // After that the native controls own the clicks (play / pause).
-    function withSound() {
-      if (box.classList.contains('is-on')) return;
-      v.muted = false; v.loop = false; v.controls = true;
-      try { v.currentTime = 0; } catch (e) {}
+    var video = null;    // the Wistia handle, once ready
+    var started = false; // she has pressed play
+    var pending = false; // pressed before the player was ready
+
+    function start() {
+      if (started) return;
+      started = true;
       box.classList.add('is-on');
-      var p = v.play(); if (p && p.catch) p.catch(function () {});
       watching(true);
+      if (!video) { pending = true; return; }
+      try { video.play(); } catch (e) {}
     }
-    btn.addEventListener('click', function (e) { e.stopPropagation(); withSound(); });
-    box.addEventListener('click', withSound);
-    v.addEventListener('play', function () { if (!v.muted) watching(true); });
-    v.addEventListener('pause', function () { if (!v.muted) watching(false); });
-    v.addEventListener('ended', function () { watching(false); });
+    btn.addEventListener('click', function (e) { e.stopPropagation(); start(); });
+    box.addEventListener('click', start);
+
+    window._wq = window._wq || [];
+    window._wq.push({
+      id: id,
+      options: {
+        autoPlay: false,
+        silentAutoPlay: false,
+        muted: false,
+        playbar: true,
+        controlsVisibleOnLoad: false,
+        settingsControl: false,
+        qualityControl: false,
+        smallPlayButton: false,
+        fullscreenButton: true,
+        playButton: false,
+        videoFoam: false,
+      },
+      onReady: function (v) {
+        video = v;
+        if (pending) { pending = false; try { v.play(); } catch (e) {} }
+        v.bind('play', function () { started = true; box.classList.add('is-on'); watching(true); });
+        v.bind('pause', function () { watching(false); });
+        v.bind('end', function () { watching(false); });
+      },
+    });
   })();
 
   // Founder feature (about page): the signature writes itself in on arrival.

@@ -63,10 +63,11 @@ ${footer(site)}
 <script src="/bio-modal.js" defer></script>` : ''}${page.body.includes('data-countdown') ? `
 <!-- Keyed off the attribute that drives it rather than a flag, so a page that
      renders a countdown cannot ship without the script that fills it in. -->
-<script src="/countdown.js" defer></script>` : ''}${page.body.includes('data-vsl-id') ? `
-<!-- Keyed off the VSL mount, so any page with the shared player (homepage,
-     about) gets Wistia and vsl.js, and no other page pays for them. -->
-<script src="https://fast.wistia.com/assets/external/E-v1.js" async></script>
+<script src="/countdown.js" defer></script>` : ''}${page.body.includes('wistia_async_') ? `
+<!-- Keyed off a Wistia embed, so any page with one (the homepage VSL, the
+     about page's "Who is it for?") gets Wistia, and no other page pays for it. -->
+<script src="https://fast.wistia.com/assets/external/E-v1.js" async></script>` : ''}${page.body.includes('data-vsl-id') ? `
+<!-- Keyed off the VSL mount, which can hold a Wistia video or a local MP4. -->
 <script src="/vsl.js" defer></script>` : ''}${page.body.includes('data-xp') ? `
 <!-- Keyed off the explore markup (the data-xp wrapper or any data-xp-rv
      reveal): reveal-on-scroll, drawn paths and the masterclass picker. -->

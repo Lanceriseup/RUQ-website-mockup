@@ -602,12 +602,18 @@
 
      Geometry: the band is 40–60% of a 250%-wide layer, so 100% parks it just
      off the left edge and 0% just off the right, with no dead travel either
-     side. Chosen from /word-sweep-options.html (option A). */
+     side. Chosen from /word-sweep-options.html (option A).
+
+     Colour: teal, the brushed-metal teal of the announcement banner
+     (.ann-t-metal), at the client's ask 2026-11-10; it was pink to teal.
+     The banner's darkest stops (#055c66) would sink into the dark hero, so
+     the word runs on its brighter ones, with its pale highlight in the
+     middle like the light on the metal. */
   @supports ((-webkit-background-clip: text) or (background-clip: text)) {
     .hero-rotator > .hero-word.sheen {
       background-image:
         linear-gradient(100deg, transparent 40%, rgba(255,255,255,.85) 50%, transparent 60%),
-        linear-gradient(92deg, #e8208f 0%, #f0569f 35%, #00b9c6 100%);
+        linear-gradient(92deg, #0aa5b1 0%, #00b9c6 30%, #86eff5 55%, #00b9c6 78%, #0a9aa6 100%);
       background-size: 250% 100%, 100% 100%;
       background-position: 100% 0, 0 0;
       animation: none;
@@ -826,7 +832,7 @@
   .wh-prints { position: relative; max-width: 56rem; margin: clamp(48px, 5.5vw, 80px) auto 0; aspect-ratio: 16 / 9; }
 
   .wh-video { position: absolute; inset: 0; overflow: hidden; cursor: pointer; background: #1c1c1c; border: 8px solid #fff; border-radius: 8px; box-shadow: 0 40px 80px -36px rgba(28,28,28,.6); }
-  .wh-video video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .wh-video video, .wh-wistia { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
   /* bottom-left: the note sits over the bottom-right corner */
   .wh-snd { position: absolute; left: 14px; bottom: 14px; z-index: 4; display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 16px; border-radius: 999px;
     background: rgba(28,28,28,.72); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);

@@ -17,9 +17,9 @@
 // 3:1 at any single-layer opacity — it only recovers as the ground approaches
 // solid ink. Layered as above it lands at 3.21:1 against a 245-grey worst case.
 //
-// The video is the What-is-RUQ interview the live about page embeds. It used
-// to sit in the "Who is it for?" section below; it is in the hero now, so that
-// section is copy only until its content is decided.
+// The video is the RUQ promo (about.whoFor.video). It and the What-is-RUQ
+// interview swapped places 2026-11-10: the interview is now the print in
+// "Who is it for?" below.
 //
 // The photograph is Queens-Waving-Photo-2, which is the background the live
 // about page sets on its hero section. Already local.
@@ -84,12 +84,12 @@ export const aboutHero = (site, c) => {
          announced once, statically. -->
     <p class="sr-only">${esc(h.sub)}</p>
 
-    <!-- The interview, in the homepage VSL player itself rather than a copy of
-         it: same 16:9 frame, muted autoplay loop and "Tap for sound" badge.
-         It was click-to-load before, on the grounds that a 30-minute
-         conversation should not start on arrival; it now plays silently like
-         the homepage promo, and sound still waits for the visitor. -->
-    ${vslPlayer(c.about.whoForVideo, 'mt-6 sm:mt-16')}
+    <!-- The RUQ promo (local MP4), in the homepage VSL player's frame. Swapped
+         2026-11-10 with the What-is-RUQ interview, which now plays in "Who is
+         it for?" below. No autoplay (2026-11-10): the poster with a play
+         button, which starts it with sound. -->
+    ${vslPlayer(null, 'mt-6 sm:mt-16',
+      { src: c.about.whoFor.video, poster: c.about.whoFor.poster, title: c.about.whoFor.videoTitle })}
 
     <!-- Divided: action first, then the two dates either side of a hairline.
          Same block as the homepage. -->
